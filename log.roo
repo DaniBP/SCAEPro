@@ -1,0 +1,6 @@
+// Spring Roo 1.3.2.RELEASE [rev 8387857] log opened at 2016-02-10 12:16:23
+project --topLevelPackage com.greenpear.scaepro --projectName SCAEPro
+jpa setup --provider HIBERNATE --database MYSQL --databaseName scaeprobd
+database properties set --key database.username --value root
+database properties set --key database.password --value ""
+database properties set --key database.password --value null
