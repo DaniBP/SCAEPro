@@ -57,7 +57,7 @@ public class PrincipalView extends JFrame {
 	public PrincipalView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PrincipalView.class.getResource("/img/LogoGreenPearfin.png")));
 		setTitle("Administraci\u00F3n SCAE Pro");
-		setBounds(100, 100, 980, 620);
+		setBounds(100, 100, 1280, 720);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -113,7 +113,7 @@ public class PrincipalView extends JFrame {
 		contentPane.add(desktopPane);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(100, 140, 800, 277);
+		lblNewLabel.setBounds(230, 180, 800, 277);
 		desktopPane.add(lblNewLabel);
 		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(), Image.SCALE_DEFAULT));
 		lblNewLabel.setIcon(icono);
