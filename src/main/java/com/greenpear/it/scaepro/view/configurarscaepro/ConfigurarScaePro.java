@@ -1,331 +1,483 @@
 package com.greenpear.it.scaepro.view.configurarscaepro;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Frame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
-import java.awt.SystemColor;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JToggleButton;
-import javax.swing.border.TitledBorder;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import com.toedter.calendar.JDateChooser;
-import java.awt.Rectangle;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
+import javax.swing.JTabbedPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class ConfigurarScaePro extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField txtNombreEmpleado;
-	private JTextField txtApePat;
-	private JTextField txtApeMat;
-	private JTextField txtTelPer;
-	private JTextField txtTelCasa;
-	private JTextField txtCalle;
-	private JTextField txtNoInt;
+	private JTextField txtMinutosRetardo;
+	private JTextField txtMinutosFalta;
+	private JTextField txtHoraEntradG;
+	private JTextField txtHoraSalidaG;
+	private JTextField txtHoraSalidaComidaG;
+	private JTextField txtHoraEntradaComidaG;
 	private JTextField textField;
-	private JTextField txtColonia;
-	private JTextField txtCp;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConfigurarScaePro frame = new ConfigurarScaePro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	private JTextField txtHEntradaLunes;
+	private JTextField txtHSalidaLunes;
+	private JTextField txtHSalidaComidaLunes;
+	private JTextField txtHEntradaComidaLunes;
+	private JTextField txtHEntradaMartes;
+	private JTextField txtHSalidaMartes;
+	private JTextField txtHSalidaComidaMartes;
+	private JTextField txtHEntradaComidaMartes;
+	private JTextField txtHEntradaMiercoles;
+	private JTextField txtHSalidaMiercoles;
+	private JTextField txtHSalidaComidaMiercoles;
+	private JTextField txtHEntradaComidaMiercoles;
+	private JTextField txtHEntradaJueves;
+	private JTextField txtHSalidaJueves;
+	private JTextField txtHSalidaComidaJueves;
+	private JTextField txtHEntradaComidaJueves;
+	private JTextField txtHEntradaViernes;
+	private JTextField txtHSalidaViernes;
+	private JTextField txtHSalidaComidaViernes;
+	private JTextField txtHEntradaComidaViernes;
+	private JTextField txtHEntradaSabado;
+	private JTextField txtHSalidaSabado;
+	private JTextField txtHSalidaComidaSabado;
+	private JTextField txtHEntradaComidaSabado;
+	private JTextField txtHEntradaDomingo;
+	private JTextField txtHSalidaDomingo;
+	private JTextField txtHSalidaComidaDomingo;
+	private JTextField txtHEntradaComidaDomingo;
 	public ConfigurarScaePro() {
-		setTitle("Administraci\u00F3n SCAE Pro");
-		setBounds(100, 100, 980, 620);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu mnEstatusDeConexin = new JMenu("Archivo");
-		menuBar.add(mnEstatusDeConexin);
-		
-		JMenu mnUsuarios = new JMenu("Usuarios");
-		menuBar.add(mnUsuarios);
-		
-		JMenu mnreas = new JMenu("\u00C1reas");
-		menuBar.add(mnreas);
-		
-		JMenu mnHorarios = new JMenu("Horarios");
-		menuBar.add(mnHorarios);
-		
-		JMenu mnEmpleados = new JMenu("Empleados");
-		menuBar.add(mnEmpleados);
-		
-		JMenu mnJustificacin = new JMenu("Justificaci\u00F3n");
-		menuBar.add(mnJustificacin);
-		
-		JMenu mnReportes = new JMenu("Reportes");
-		menuBar.add(mnReportes);
-		
-		JMenu mnAdministracinMvil = new JMenu("Administraci\u00F3n m\u00F3vil");
-		menuBar.add(mnAdministracinMvil);
-		
-		JMenu mnEstatusDeConexion = new JMenu("Estatus de conexi\u00F3n");
-		menuBar.add(mnEstatusDeConexion);
-		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.activeCaption);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
+		getContentPane().setLayout(null);
+		getContentPane().setSize(980, 570);
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Datos Personales", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
-		panel.setBounds(6, 6, 428, 301);
-		contentPane.add(panel);
+		panel.setBorder(new TitledBorder(null, "Configuracion del area", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 10, 953, 130);
+		getContentPane().add(panel);
+		panel.setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
+		JLabel lblArea = new JLabel("Area de la empresa:");
+		lblArea.setBounds(15, 40, 190, 16);
+		panel.add(lblArea);
 		
-		txtNombreEmpleado = new JTextField();
-		txtNombreEmpleado.setColumns(10);
+		JLabel lblMinRetardos = new JLabel("Minutos tolerancia (Retardo):");
+		lblMinRetardos.setEnabled(false);
+		lblMinRetardos.setBounds(15, 70, 190, 16);
+		panel.add(lblMinRetardos);
 		
-		JLabel lblApellidoPaterno = new JLabel("Apellido Paterno:");
+		JLabel lblMinutosFaltas = new JLabel("Minutos tolerancia (Falta):");
+		lblMinutosFaltas.setEnabled(false);
+		lblMinutosFaltas.setBounds(15, 100, 190, 16);
+		panel.add(lblMinutosFaltas);
 		
-		JLabel lblApellidoMaterno = new JLabel("Apellido Materno:");
+		txtMinutosRetardo = new JTextField();
+		txtMinutosRetardo.setEnabled(false);
+		txtMinutosRetardo.setBounds(213, 65, 130, 26);
+		panel.add(txtMinutosRetardo);
+		txtMinutosRetardo.setColumns(10);
 		
-		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
+		txtMinutosFalta = new JTextField();
+		txtMinutosFalta.setEnabled(false);
+		txtMinutosFalta.setColumns(10);
+		txtMinutosFalta.setBounds(213, 95, 130, 26);
+		panel.add(txtMinutosFalta);
 		
-		JLabel lblTelefonoPersonal = new JLabel("Telefono personal:");
+		JLabel lblHoraEntradaG = new JLabel("Hora de entrada:");
+		lblHoraEntradaG.setEnabled(false);
+		lblHoraEntradaG.setBounds(355, 70, 147, 16);
+		panel.add(lblHoraEntradaG);
 		
-		JLabel lblTelefonoCasa = new JLabel("Telefono casa:");
+		JLabel lblHoraDeSalidaG = new JLabel("Hora de salida");
+		lblHoraDeSalidaG.setEnabled(false);
+		lblHoraDeSalidaG.setBounds(355, 100, 147, 16);
+		panel.add(lblHoraDeSalidaG);
 		
-		JDateChooser dtFechaNacimiento = new JDateChooser();
+		txtHoraEntradG = new JTextField();
+		txtHoraEntradG.setEnabled(false);
+		txtHoraEntradG.setColumns(10);
+		txtHoraEntradG.setBounds(476, 65, 130, 26);
+		panel.add(txtHoraEntradG);
 		
-		txtApePat = new JTextField();
-		txtApePat.setColumns(10);
+		txtHoraSalidaG = new JTextField();
+		txtHoraSalidaG.setEnabled(false);
+		txtHoraSalidaG.setColumns(10);
+		txtHoraSalidaG.setBounds(476, 95, 130, 26);
+		panel.add(txtHoraSalidaG);
 		
-		txtApeMat = new JTextField();
-		txtApeMat.setColumns(10);
+		JLabel lblHoraSalidaComidaG = new JLabel("Hora de salida (Comida):");
+		lblHoraSalidaComidaG.setEnabled(false);
+		lblHoraSalidaComidaG.setBounds(618, 70, 165, 16);
+		panel.add(lblHoraSalidaComidaG);
 		
-		txtTelPer = new JTextField();
-		txtTelPer.setColumns(10);
+		JLabel lblHoraDeEntradaComidaG = new JLabel("Hora de entrada (Comida):");
+		lblHoraDeEntradaComidaG.setEnabled(false);
+		lblHoraDeEntradaComidaG.setBounds(618, 100, 165, 16);
+		panel.add(lblHoraDeEntradaComidaG);
 		
-		txtTelCasa = new JTextField();
-		txtTelCasa.setColumns(10);
-		panel.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("14px"),
-				ColumnSpec.decode("126px"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("3px"),
-				FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("266px"),},
-			new RowSpec[] {
-				RowSpec.decode("42px"),
-				RowSpec.decode("28px"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("30px"),
-				FormSpecs.LABEL_COMPONENT_GAP_ROWSPEC,
-				RowSpec.decode("28px"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("33px"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("29px"),
-				FormSpecs.PARAGRAPH_GAP_ROWSPEC,
-				RowSpec.decode("34px"),}));
-		panel.add(lblNombre, "2, 2, left, fill");
-		panel.add(txtNombreEmpleado, "4, 2, 3, 3, fill, top");
-		panel.add(lblApellidoPaterno, "2, 4, fill, fill");
-		panel.add(txtApePat, "4, 4, 3, 1, fill, top");
-		panel.add(lblApellidoMaterno, "2, 6, fill, fill");
-		panel.add(txtApeMat, "4, 6, 3, 1, fill, fill");
-		panel.add(lblFechaDeNacimiento, "2, 8, 3, 1, left, fill");
-		panel.add(dtFechaNacimiento, "6, 8, fill, top");
-		panel.add(lblTelefonoPersonal, "2, 10, 3, 1, fill, fill");
-		panel.add(txtTelPer, "6, 10, fill, fill");
-		panel.add(lblTelefonoCasa, "2, 12, 3, 1, fill, fill");
-		panel.add(txtTelCasa, "6, 12, fill, top");
+		txtHoraSalidaComidaG = new JTextField();
+		txtHoraSalidaComidaG.setEnabled(false);
+		txtHoraSalidaComidaG.setColumns(10);
+		txtHoraSalidaComidaG.setBounds(795, 65, 130, 26);
+		panel.add(txtHoraSalidaComidaG);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "Direcci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
-		panel_1.setBounds(427, 6, 306, 300);
-		contentPane.add(panel_1);
-		panel_1.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("14px"),
-				ColumnSpec.decode("71px"),
-				FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("71px"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("61px"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("71px"),},
-			new RowSpec[] {
-				RowSpec.decode("72px"),
-				RowSpec.decode("27px"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("27px"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("26px"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("27px"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("26px"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("26px"),}));
+		txtHoraEntradaComidaG = new JTextField();
+		txtHoraEntradaComidaG.setEnabled(false);
+		txtHoraEntradaComidaG.setColumns(10);
+		txtHoraEntradaComidaG.setBounds(795, 95, 130, 26);
+		panel.add(txtHoraEntradaComidaG);
 		
-		JLabel lblEstado = new JLabel("Estado:");
-		panel_1.add(lblEstado, "2, 2, fill, center");
+		JComboBox cmbArea = new JComboBox();
+		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"---------------Seleccione un area---------------"}));
+		cmbArea.setBounds(199, 35, 422, 27);
+		panel.add(cmbArea);
 		
-		JLabel lblMunicipio = new JLabel("Municipio:");
-		panel_1.add(lblMunicipio, "2, 4, fill, center");
+		JCheckBox chkHorarioGeneral = new JCheckBox("Aplicar un horario para el area en general");
+		chkHorarioGeneral.setBounds(636, 35, 300, 23);
+		panel.add(chkHorarioGeneral);
 		
-		JLabel lblCalle = new JLabel("Calle:");
-		panel_1.add(lblCalle, "2, 6, fill, center");
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBorder(new TitledBorder(null, "Configuracion de horarios:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		tabbedPane.setBounds(10, 141, 788, 401);
+		getContentPane().add(tabbedPane);
 		
-		JLabel lblNoInt = new JLabel("No. Int:");
-		panel_1.add(lblNoInt, "2, 8, fill, center");
+		JPanel tjpnlHorarios = new JPanel();
+		tabbedPane.addTab("Turno 1", null, tjpnlHorarios, null);
+		tjpnlHorarios.setLayout(null);
 		
-		JLabel lblColonia = new JLabel("Colonia:");
-		panel_1.add(lblColonia, "2, 10, left, center");
-		
-		JLabel lblCp = new JLabel("CP:");
-		panel_1.add(lblCp, "2, 12, fill, center");
-		
-		JLabel lblNoExt = new JLabel("No. Ext:");
-		panel_1.add(lblNoExt, "6, 8, fill, center");
-		
-		JComboBox cmbEstado = new JComboBox();
-		cmbEstado.setModel(new DefaultComboBoxModel(new String[] {"-Seleccione un estado-"}));
-		panel_1.add(cmbEstado, "4, 2, 5, 1, fill, top");
-		
-		JComboBox cmbMunicipio = new JComboBox();
-		cmbMunicipio.setModel(new DefaultComboBoxModel(new String[] {"-Selecciona un municipio-"}));
-		panel_1.add(cmbMunicipio, "4, 4, 5, 1, fill, top");
-		
-		txtCalle = new JTextField();
-		panel_1.add(txtCalle, "4, 6, 5, 1, fill, top");
-		txtCalle.setColumns(10);
-		
-		txtNoInt = new JTextField();
-		panel_1.add(txtNoInt, "4, 8, fill, top");
-		txtNoInt.setColumns(10);
+		JLabel lblNombreTurno = new JLabel("Nombre del turno:");
+		lblNombreTurno.setBounds(17, 21, 120, 16);
+		tjpnlHorarios.add(lblNombreTurno);
 		
 		textField = new JTextField();
+		textField.setBounds(146, 16, 286, 26);
+		tjpnlHorarios.add(textField);
 		textField.setColumns(10);
-		panel_1.add(textField, "8, 8, fill, bottom");
 		
-		txtColonia = new JTextField();
-		panel_1.add(txtColonia, "4, 10, 5, 1, fill, top");
-		txtColonia.setColumns(10);
+		JCheckBox chckbxLunes = new JCheckBox("Lunes");
+		chckbxLunes.setBounds(20, 60, 80, 23);
+		tjpnlHorarios.add(chckbxLunes);
 		
-		txtCp = new JTextField();
-		txtCp.setColumns(10);
-		panel_1.add(txtCp, "4, 12, 5, 1, fill, top");
+		JLabel lblHEntradaLunes = new JLabel("H.Entrada:");
+		lblHEntradaLunes.setBounds(20, 90, 80, 16);
+		tjpnlHorarios.add(lblHEntradaLunes);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Nip y fotograf\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(738, 6, 224, 544);
-		contentPane.add(panel_2);
-		panel_2.setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("20px"),
-				ColumnSpec.decode("174px"),},
-			new RowSpec[] {
-				RowSpec.decode("38px"),
-				RowSpec.decode("186px"),
-				FormSpecs.PARAGRAPH_GAP_ROWSPEC,
-				RowSpec.decode("39px"),
-				FormSpecs.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("186px"),
-				FormSpecs.LABEL_COMPONENT_GAP_ROWSPEC,
-				RowSpec.decode("39px"),}));
+		txtHEntradaLunes = new JTextField();
+		txtHEntradaLunes.setBounds(20, 110, 80, 26);
+		tjpnlHorarios.add(txtHEntradaLunes);
+		txtHEntradaLunes.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("");
-		panel_2.add(lblNewLabel, "2, 2, fill, fill");
+		JLabel lblHSalidaLunes = new JLabel("H.Salida:");
+		lblHSalidaLunes.setBounds(20, 140, 80, 16);
+		tjpnlHorarios.add(lblHSalidaLunes);
 		
-		JButton btnFoto = new JButton("Tomar fotografia");
-		panel_2.add(btnFoto, "2, 4, fill, fill");
+		txtHSalidaLunes = new JTextField();
+		txtHSalidaLunes.setColumns(10);
+		txtHSalidaLunes.setBounds(20, 160, 80, 26);
+		tjpnlHorarios.add(txtHSalidaLunes);
 		
-		JLabel label = new JLabel("");
-		panel_2.add(label, "2, 6, fill, fill");
+		JCheckBox chkComidaLunes = new JCheckBox("Comida");
+		chkComidaLunes.setBounds(20, 190, 80, 23);
+		tjpnlHorarios.add(chkComidaLunes);
 		
-		JButton btnDispHuella = new JButton("Escanear Disp/Huella");
-		panel_2.add(btnDispHuella, "2, 8, fill, fill");
+		JLabel lblHoraSalidaComerLunes = new JLabel("H.Salida:");
+		lblHoraSalidaComerLunes.setBounds(20, 220, 80, 16);
+		tjpnlHorarios.add(lblHoraSalidaComerLunes);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Asignaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_3.setBounds(8, 310, 424, 234);
-		contentPane.add(panel_3);
-		panel_3.setLayout(null);
+		txtHSalidaComidaLunes = new JTextField();
+		txtHSalidaComidaLunes.setColumns(10);
+		txtHSalidaComidaLunes.setBounds(20, 240, 80, 26);
+		tjpnlHorarios.add(txtHSalidaComidaLunes);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Selecciona área"}));
-		comboBox_2.setBounds(69, 50, 258, 27);
-		panel_3.add(comboBox_2);
+		JLabel lblHEntradaComidaLunes = new JLabel("H.Entrada:");
+		lblHEntradaComidaLunes.setBounds(20, 270, 80, 16);
+		tjpnlHorarios.add(lblHEntradaComidaLunes);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"Selecciona puesto"}));
-		comboBox_3.setEnabled(false);
-		comboBox_3.setBounds(69, 115, 258, 27);
-		panel_3.add(comboBox_3);
+		txtHEntradaComidaLunes = new JTextField();
+		txtHEntradaComidaLunes.setColumns(10);
+		txtHEntradaComidaLunes.setBounds(20, 290, 80, 26);
+		tjpnlHorarios.add(txtHEntradaComidaLunes);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Selecciona turno"}));
-		comboBox_4.setEnabled(false);
-		comboBox_4.setBounds(69, 172, 258, 27);
-		panel_3.add(comboBox_4);
+		JCheckBox chkMartes = new JCheckBox("Martes");
+		chkMartes.setBounds(122, 60, 80, 23);
+		tjpnlHorarios.add(chkMartes);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new TitledBorder(null, "Nomina", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_4.setBounds(437, 312, 295, 234);
-		contentPane.add(panel_4);
-		panel_4.setLayout(null);
+		JLabel lblHEntradaMartes = new JLabel("H.Entrada:");
+		lblHEntradaMartes.setBounds(122, 90, 80, 16);
+		tjpnlHorarios.add(lblHEntradaMartes);
 		
-		JLabel lblNewLabel_1 = new JLabel("Periodo nominal: ");
-		lblNewLabel_1.setBounds(17, 40, 120, 16);
-		panel_4.add(lblNewLabel_1);
+		txtHEntradaMartes = new JTextField();
+		txtHEntradaMartes.setColumns(10);
+		txtHEntradaMartes.setBounds(122, 110, 80, 26);
+		tjpnlHorarios.add(txtHEntradaMartes);
 		
-		JLabel lblDiaDeInicio = new JLabel("Dia de inicio:");
-		lblDiaDeInicio.setBounds(17, 116, 120, 16);
-		panel_4.add(lblDiaDeInicio);
+		JLabel lblHSalidaMartes = new JLabel("H.Salida:");
+		lblHSalidaMartes.setBounds(122, 140, 80, 16);
+		tjpnlHorarios.add(lblHSalidaMartes);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecciona un periodo nominal"}));
-		comboBox.setBounds(17, 68, 258, 27);
-		panel_4.add(comboBox);
+		txtHSalidaMartes = new JTextField();
+		txtHSalidaMartes.setColumns(10);
+		txtHSalidaMartes.setBounds(122, 160, 80, 26);
+		tjpnlHorarios.add(txtHSalidaMartes);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setEnabled(false);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Selecciona dia de inicio"}));
-		comboBox_1.setBounds(17, 162, 258, 27);
-		panel_4.add(comboBox_1);
+		JCheckBox chkComidaMartes = new JCheckBox("Comida");
+		chkComidaMartes.setBounds(122, 190, 80, 23);
+		tjpnlHorarios.add(chkComidaMartes);
+		
+		JLabel lblHoraSalidaComerMartes = new JLabel("H.Salida:");
+		lblHoraSalidaComerMartes.setBounds(122, 220, 80, 16);
+		tjpnlHorarios.add(lblHoraSalidaComerMartes);
+		
+		txtHSalidaComidaMartes = new JTextField();
+		txtHSalidaComidaMartes.setColumns(10);
+		txtHSalidaComidaMartes.setBounds(122, 240, 80, 26);
+		tjpnlHorarios.add(txtHSalidaComidaMartes);
+		
+		JLabel lblHEntradaComidaMartes = new JLabel("H.Entrada:");
+		lblHEntradaComidaMartes.setBounds(122, 270, 80, 16);
+		tjpnlHorarios.add(lblHEntradaComidaMartes);
+		
+		txtHEntradaComidaMartes = new JTextField();
+		txtHEntradaComidaMartes.setColumns(10);
+		txtHEntradaComidaMartes.setBounds(122, 290, 80, 26);
+		tjpnlHorarios.add(txtHEntradaComidaMartes);
+		
+		JCheckBox chkMiercoles = new JCheckBox("Miercoles");
+		chkMiercoles.setBounds(225, 60, 100, 23);
+		tjpnlHorarios.add(chkMiercoles);
+		
+		JLabel lblHEntradaMiercoles = new JLabel("H.Entrada:");
+		lblHEntradaMiercoles.setBounds(225, 90, 80, 16);
+		tjpnlHorarios.add(lblHEntradaMiercoles);
+		
+		txtHEntradaMiercoles = new JTextField();
+		txtHEntradaMiercoles.setColumns(10);
+		txtHEntradaMiercoles.setBounds(225, 110, 80, 26);
+		tjpnlHorarios.add(txtHEntradaMiercoles);
+		
+		JLabel lblHSalidaMiercoles = new JLabel("H.Salida:");
+		lblHSalidaMiercoles.setBounds(225, 140, 80, 16);
+		tjpnlHorarios.add(lblHSalidaMiercoles);
+		
+		txtHSalidaMiercoles = new JTextField();
+		txtHSalidaMiercoles.setColumns(10);
+		txtHSalidaMiercoles.setBounds(225, 160, 80, 26);
+		tjpnlHorarios.add(txtHSalidaMiercoles);
+		
+		JCheckBox chkComidaMiercoles = new JCheckBox("Comida");
+		chkComidaMiercoles.setBounds(225, 190, 80, 23);
+		tjpnlHorarios.add(chkComidaMiercoles);
+		
+		JLabel lblHoraSalidaComerMiercoles = new JLabel("H.Salida:");
+		lblHoraSalidaComerMiercoles.setBounds(225, 220, 80, 16);
+		tjpnlHorarios.add(lblHoraSalidaComerMiercoles);
+		
+		txtHSalidaComidaMiercoles = new JTextField();
+		txtHSalidaComidaMiercoles.setColumns(10);
+		txtHSalidaComidaMiercoles.setBounds(225, 240, 80, 26);
+		tjpnlHorarios.add(txtHSalidaComidaMiercoles);
+		
+		JLabel lblHEntradaComidaMiercoles = new JLabel("H.Entrada:");
+		lblHEntradaComidaMiercoles.setBounds(225, 270, 80, 16);
+		tjpnlHorarios.add(lblHEntradaComidaMiercoles);
+		
+		txtHEntradaComidaMiercoles = new JTextField();
+		txtHEntradaComidaMiercoles.setColumns(10);
+		txtHEntradaComidaMiercoles.setBounds(225, 290, 80, 26);
+		tjpnlHorarios.add(txtHEntradaComidaMiercoles);
+		
+		JCheckBox chkJueves = new JCheckBox("Jueves");
+		chkJueves.setBounds(330, 60, 80, 23);
+		tjpnlHorarios.add(chkJueves);
+		
+		JLabel lblHEntradaJueves = new JLabel("H.Entrada:");
+		lblHEntradaJueves.setBounds(330, 90, 80, 16);
+		tjpnlHorarios.add(lblHEntradaJueves);
+		
+		txtHEntradaJueves = new JTextField();
+		txtHEntradaJueves.setColumns(10);
+		txtHEntradaJueves.setBounds(330, 110, 80, 26);
+		tjpnlHorarios.add(txtHEntradaJueves);
+		
+		JLabel lblHSalidaJueves = new JLabel("H.Salida:");
+		lblHSalidaJueves.setBounds(330, 140, 80, 16);
+		tjpnlHorarios.add(lblHSalidaJueves);
+		
+		txtHSalidaJueves = new JTextField();
+		txtHSalidaJueves.setColumns(10);
+		txtHSalidaJueves.setBounds(330, 160, 80, 26);
+		tjpnlHorarios.add(txtHSalidaJueves);
+		
+		JCheckBox chkComidaJueves = new JCheckBox("Comida");
+		chkComidaJueves.setBounds(330, 190, 80, 23);
+		tjpnlHorarios.add(chkComidaJueves);
+		
+		JLabel lblHoraSalidaComerJueves = new JLabel("H.Salida:");
+		lblHoraSalidaComerJueves.setBounds(330, 220, 80, 16);
+		tjpnlHorarios.add(lblHoraSalidaComerJueves);
+		
+		txtHSalidaComidaJueves = new JTextField();
+		txtHSalidaComidaJueves.setColumns(10);
+		txtHSalidaComidaJueves.setBounds(330, 240, 80, 26);
+		tjpnlHorarios.add(txtHSalidaComidaJueves);
+		
+		JLabel lblHEntradaComidaJueves = new JLabel("H.Entrada:");
+		lblHEntradaComidaJueves.setBounds(330, 270, 80, 16);
+		tjpnlHorarios.add(lblHEntradaComidaJueves);
+		
+		txtHEntradaComidaJueves = new JTextField();
+		txtHEntradaComidaJueves.setColumns(10);
+		txtHEntradaComidaJueves.setBounds(330, 290, 80, 26);
+		tjpnlHorarios.add(txtHEntradaComidaJueves);
+		
+		JCheckBox chkViernes = new JCheckBox("Viernes");
+		chkViernes.setBounds(438, 60, 80, 23);
+		tjpnlHorarios.add(chkViernes);
+		
+		JLabel lblHEntradaViernes = new JLabel("H.Entrada:");
+		lblHEntradaViernes.setBounds(438, 90, 80, 16);
+		tjpnlHorarios.add(lblHEntradaViernes);
+		
+		txtHEntradaViernes = new JTextField();
+		txtHEntradaViernes.setColumns(10);
+		txtHEntradaViernes.setBounds(438, 110, 80, 26);
+		tjpnlHorarios.add(txtHEntradaViernes);
+		
+		JLabel lblHSalidaViernes = new JLabel("H.Salida:");
+		lblHSalidaViernes.setBounds(438, 140, 80, 16);
+		tjpnlHorarios.add(lblHSalidaViernes);
+		
+		txtHSalidaViernes = new JTextField();
+		txtHSalidaViernes.setColumns(10);
+		txtHSalidaViernes.setBounds(438, 160, 80, 26);
+		tjpnlHorarios.add(txtHSalidaViernes);
+		
+		JCheckBox chkComidaViernes = new JCheckBox("Comida");
+		chkComidaViernes.setBounds(438, 190, 80, 23);
+		tjpnlHorarios.add(chkComidaViernes);
+		
+		JLabel lblHoraSalidaComerViernes = new JLabel("H.Salida:");
+		lblHoraSalidaComerViernes.setBounds(438, 220, 80, 16);
+		tjpnlHorarios.add(lblHoraSalidaComerViernes);
+		
+		txtHSalidaComidaViernes = new JTextField();
+		txtHSalidaComidaViernes.setColumns(10);
+		txtHSalidaComidaViernes.setBounds(438, 240, 80, 26);
+		tjpnlHorarios.add(txtHSalidaComidaViernes);
+		
+		JLabel lblHEntradaComidaViernes = new JLabel("H.Entrada:");
+		lblHEntradaComidaViernes.setBounds(438, 270, 80, 16);
+		tjpnlHorarios.add(lblHEntradaComidaViernes);
+		
+		txtHEntradaComidaViernes = new JTextField();
+		txtHEntradaComidaViernes.setColumns(10);
+		txtHEntradaComidaViernes.setBounds(438, 290, 80, 26);
+		tjpnlHorarios.add(txtHEntradaComidaViernes);
+		
+		JCheckBox chkSabado = new JCheckBox("Sabado");
+		chkSabado.setBounds(542, 60, 80, 23);
+		tjpnlHorarios.add(chkSabado);
+		
+		JLabel lblHEntradaSabado = new JLabel("H.Entrada:");
+		lblHEntradaSabado.setBounds(542, 90, 80, 16);
+		tjpnlHorarios.add(lblHEntradaSabado);
+		
+		txtHEntradaSabado = new JTextField();
+		txtHEntradaSabado.setColumns(10);
+		txtHEntradaSabado.setBounds(542, 110, 80, 26);
+		tjpnlHorarios.add(txtHEntradaSabado);
+		
+		JLabel lblHSalidaSabado = new JLabel("H.Salida:");
+		lblHSalidaSabado.setBounds(542, 140, 80, 16);
+		tjpnlHorarios.add(lblHSalidaSabado);
+		
+		txtHSalidaSabado = new JTextField();
+		txtHSalidaSabado.setColumns(10);
+		txtHSalidaSabado.setBounds(542, 160, 80, 26);
+		tjpnlHorarios.add(txtHSalidaSabado);
+		
+		JCheckBox chkComidaSabado = new JCheckBox("Comida");
+		chkComidaSabado.setBounds(542, 190, 80, 23);
+		tjpnlHorarios.add(chkComidaSabado);
+		
+		JLabel lblHoraSalidaComerSabado = new JLabel("H.Salida:");
+		lblHoraSalidaComerSabado.setBounds(542, 220, 80, 16);
+		tjpnlHorarios.add(lblHoraSalidaComerSabado);
+		
+		txtHSalidaComidaSabado = new JTextField();
+		txtHSalidaComidaSabado.setColumns(10);
+		txtHSalidaComidaSabado.setBounds(542, 240, 80, 26);
+		tjpnlHorarios.add(txtHSalidaComidaSabado);
+		
+		JLabel lblHEntradaComidaSabado = new JLabel("H.Entrada:");
+		lblHEntradaComidaSabado.setBounds(542, 270, 80, 16);
+		tjpnlHorarios.add(lblHEntradaComidaSabado);
+		
+		txtHEntradaComidaSabado = new JTextField();
+		txtHEntradaComidaSabado.setColumns(10);
+		txtHEntradaComidaSabado.setBounds(542, 290, 80, 26);
+		tjpnlHorarios.add(txtHEntradaComidaSabado);
+		
+		JCheckBox chkDomingo = new JCheckBox("Domingo");
+		chkDomingo.setBounds(645, 60, 90, 23);
+		tjpnlHorarios.add(chkDomingo);
+		
+		JLabel lblHEntradaDomingo = new JLabel("H.Entrada:");
+		lblHEntradaDomingo.setBounds(645, 90, 80, 16);
+		tjpnlHorarios.add(lblHEntradaDomingo);
+		
+		txtHEntradaDomingo = new JTextField();
+		txtHEntradaDomingo.setColumns(10);
+		txtHEntradaDomingo.setBounds(645, 110, 80, 26);
+		tjpnlHorarios.add(txtHEntradaDomingo);
+		
+		JLabel lblHSalidaDomingo = new JLabel("H.Salida:");
+		lblHSalidaDomingo.setBounds(645, 140, 80, 16);
+		tjpnlHorarios.add(lblHSalidaDomingo);
+		
+		txtHSalidaDomingo = new JTextField();
+		txtHSalidaDomingo.setColumns(10);
+		txtHSalidaDomingo.setBounds(645, 160, 80, 26);
+		tjpnlHorarios.add(txtHSalidaDomingo);
+		
+		JCheckBox chkComidaDomingo = new JCheckBox("Comida");
+		chkComidaDomingo.setBounds(645, 190, 80, 23);
+		tjpnlHorarios.add(chkComidaDomingo);
+		
+		JLabel lblHoraSalidaComerDomingo = new JLabel("H.Salida:");
+		lblHoraSalidaComerDomingo.setBounds(645, 220, 80, 16);
+		tjpnlHorarios.add(lblHoraSalidaComerDomingo);
+		
+		txtHSalidaComidaDomingo = new JTextField();
+		txtHSalidaComidaDomingo.setColumns(10);
+		txtHSalidaComidaDomingo.setBounds(645, 240, 80, 26);
+		tjpnlHorarios.add(txtHSalidaComidaDomingo);
+		
+		JLabel lblHEntradaComidaDomingo = new JLabel("H.Entrada:");
+		lblHEntradaComidaDomingo.setBounds(645, 270, 80, 16);
+		tjpnlHorarios.add(lblHEntradaComidaDomingo);
+		
+		txtHEntradaComidaDomingo = new JTextField();
+		txtHEntradaComidaDomingo.setColumns(10);
+		txtHEntradaComidaDomingo.setBounds(645, 290, 80, 26);
+		tjpnlHorarios.add(txtHEntradaComidaDomingo);
+		
+		JButton btnEditar = new JButton("");
+		btnEditar.setIcon(new ImageIcon(ConfigurarScaePro.class.getResource("/img/Text-Edit-icon.png")));
+		btnEditar.setBounds(850, 423, 70, 70);
+		getContentPane().add(btnEditar);
+		
+		JButton btnGuardarTurno = new JButton("");
+		btnGuardarTurno.setIcon(new ImageIcon(ConfigurarScaePro.class.getResource("/img/save.png")));
+		btnGuardarTurno.setBounds(850, 177, 70, 70);
+		getContentPane().add(btnGuardarTurno);
+		
+		JButton btnAñadir = new JButton("");
+		btnAñadir.setIcon(new ImageIcon(ConfigurarScaePro.class.getResource("/img/math-add-icon.png")));
+		btnAñadir.setBounds(850, 304, 70, 70);
+		getContentPane().add(btnAñadir);
+		super.setSize(980,570);
+		super.setTitle("Configurar Scae Pro");
+		super.setResizable(false);
 	}
 }
