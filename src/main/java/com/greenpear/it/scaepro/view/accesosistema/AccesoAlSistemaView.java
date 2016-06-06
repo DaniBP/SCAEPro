@@ -23,7 +23,7 @@ public class AccesoAlSistemaView extends JFrame {
 	public JButton btnAcceder;
 	public JPasswordField txtContrase;
 	private JLabel label;
-	private JButton btnSalir;
+	public JButton btnRegresar;
 
 	/**
 	 * Launch the application.
@@ -85,8 +85,8 @@ public class AccesoAlSistemaView extends JFrame {
 		label.setIcon(icono);
 		contentPane.add(label);
 		
-		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(154, 313, 90, 40);
-		contentPane.add(btnSalir);
+		btnRegresar = new JButton("Regresar");
+		btnRegresar.setBounds(154, 313, 90, 40);
+		contentPane.add(btnRegresar);
 	}
 }

@@ -20,6 +20,6 @@ public class ScaeProMain {
 		log.debug("Configurando el aplicativo SMART...");
 	    ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("META-INF/spring/applicationContext.xml");
 	    log.info("Configurando el aplicativo SMART... OK");
-	    ((Government) ctx.getBean("government")).doShowLogin();
+	    ((Government) ctx.getBean("government")).mostrarInicio();
 	}
 }

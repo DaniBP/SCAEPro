@@ -24,9 +24,7 @@ public class AccesoAlSistemaDao extends DataSourceService implements LoginServic
 		String sql="SELECT nombreUsuario,passwordUsuario "
 				+ "FROM c_usuario "
 				+ "WHERE nombreUsuario='"+usuario.getUsuario()+"' AND "
-						+ "passwordUsuario='"+usuario.getPassword()+"'";
-		
-		System.out.println(sql);
+				+ "passwordUsuario='"+usuario.getPassword()+"'";
 		
 		try{
 			usuario=getJdbcTemplate().query(sql, new ResultSetExtractor<AccesoAlSistemaModel>(){
@@ -36,8 +34,9 @@ public class AccesoAlSistemaDao extends DataSourceService implements LoginServic
 						resultValue.setUsuario(rs.getString("nombreUsuario"));
 						resultValue.setPassword(rs.getString("passwordUsuario"));
 						return resultValue;
+					}else{
+						return null;
 					}
-					return null;
 				}
 			});
 			

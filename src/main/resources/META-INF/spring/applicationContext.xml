@@ -74,10 +74,14 @@
     
     
 <!--     Aquí comienza la declaracion de vistas -->
+	<bean id="inicioView" class="com.greenpear.it.scaepro.view.accesosistema.InicioView" />
 	<bean id="loginView" class="com.greenpear.it.scaepro.view.accesosistema.AccesoAlSistemaView" />
+	<bean id="principalView" class="com.greenpear.it.scaepro.view.accesosistema.PrincipalView" />	
 	
 <!-- 	Aquí comienza la declaracion de controladores -->
+	<bean id="inicioController" class="com.greenpear.it.scaepro.controller.accesosistema.InicioController" />
 	<bean id="loginController" class="com.greenpear.it.scaepro.controller.accesosistema.AccesoAlSistemaController" />
+	<bean id="principalController" class="com.greenpear.it.scaepro.controller.accesosistema.PrincipalController" />
 
 <!-- 	Aquí comienza la declaracion de modelos -->
     <bean id="loginModel" class="com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel" />

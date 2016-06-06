@@ -8,8 +8,7 @@ package com.greenpear.it.scaepro.controller.government;
  *
  */
 public interface Government {
-
-	public void doShowLogin();
-	
-	public void doShowVentanaPrincipal();
+	public void mostrarInicio();
+	public void mostrarLogin();
+	public void mostrarVentanaPrincipal();
 }

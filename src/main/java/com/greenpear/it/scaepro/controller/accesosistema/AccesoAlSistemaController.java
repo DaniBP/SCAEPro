@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import com.greenpear.it.scaepro.bo.accesosistema.AccesoAlSistemaBo;
+import com.greenpear.it.scaepro.controller.government.GovernmentService;
 import com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel;
 import com.greenpear.it.scaepro.view.accesosistema.AccesoAlSistemaView;
 
@@ -24,7 +25,9 @@ import com.greenpear.it.scaepro.view.accesosistema.AccesoAlSistemaView;
 @Controller
 public class AccesoAlSistemaController implements ActionListener{
 
-//**********************DECLARACIï¿½N DE ESTANCIAS****************************
+//**********************ESTANCIAS****************************
+	@Autowired 
+	private GovernmentService government;
 	
 	@Autowired
 	private AccesoAlSistemaView loginView;
@@ -37,6 +40,10 @@ public class AccesoAlSistemaController implements ActionListener{
 	private AccesoAlSistemaBo loginBO;
 	
 	
+	public GovernmentService getGovernment() {
+		return government;
+	}
+
 	private AccesoAlSistemaView getLoginView() {
 		return loginView;
 	}
@@ -48,24 +55,29 @@ public class AccesoAlSistemaController implements ActionListener{
 	private AccesoAlSistemaBo getLoginBoService(){
 		return loginBO;
 	}
-//**********************FIN DE ESTANCIAS****************************
+//**********************FIN DE ESTANCIAS***********************
 	
-	public void mostrarVista(){
-		getLoginView().setVisible(true);
-		getLoginView().btnAcceder.addActionListener(this);
+	/**
+	 * Método para mostrar la ventana de acceso al sistema
+	 */
+	public void mostrarVistaLogin(){		
 		
+		if(getLoginView().btnAcceder.getActionListeners().length == 0){
+			getLoginView().btnAcceder.addActionListener(this);
+			getLoginView().btnRegresar.addActionListener(this);
+		}
+		
+		getLoginView().setVisible(true);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == getLoginView().btnAcceder) {
-			System.out.println("Bonton Prensado");
 			if(getLoginView().txtUsuario.getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Ingrese el nombre de usuario","Acceso",JOptionPane.WARNING_MESSAGE);
 				return;
 			}else if(getLoginView().txtContrase.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese la contraseï¿½a","Acceso",JOptionPane.WARNING_MESSAGE);
-				JOptionPane.showMessageDialog(null, "Hola");
+				JOptionPane.showMessageDialog(null, "Ingrese la contraseña","Acceso",JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			
@@ -80,10 +92,14 @@ public class AccesoAlSistemaController implements ActionListener{
 			}
 			
 			if(acceso.equals("Acceso concedido!")){
-				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);	
+				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+				getGovernment().mostrarVentanaPrincipal();
 			}else{
 				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.WARNING_MESSAGE);
-			}		
+			}
+		} else if(e.getSource() == getLoginView().btnRegresar){
+			getLoginView().setVisible(false);
+			getGovernment().mostrarInicio();
 		}
 	}
 }

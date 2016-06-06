@@ -17,6 +17,10 @@ import java.awt.Toolkit;
 public class InicioView extends JFrame {
 
 	private JPanel contentPane;
+	public JButton btnAdministracion;
+	public JButton btnControlDeAcceso;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -50,11 +54,11 @@ public class InicioView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnAdministracin = new JButton("Administraci\u00F3n");
-		btnAdministracin.setBounds(67, 172, 140, 40);
-		contentPane.add(btnAdministracin);
+		btnAdministracion = new JButton("Administraci\u00F3n");
+		btnAdministracion.setBounds(67, 172, 140, 40);
+		contentPane.add(btnAdministracion);
 		
-		JButton btnControlDeAcceso = new JButton("Control de \r\nA\r\ncceso");
+		btnControlDeAcceso = new JButton("Control de \r\nA\r\ncceso");
 		btnControlDeAcceso.setBounds(243, 172, 140, 40);
 		contentPane.add(btnControlDeAcceso);
 		

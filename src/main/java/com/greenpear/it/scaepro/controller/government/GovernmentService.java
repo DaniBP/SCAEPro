@@ -18,25 +18,47 @@ public class GovernmentService implements Government {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
-	@Autowired
-	private AccesoAlSistemaController loginController;
-	
+	/**
+	 * Constructor
+	 */
 	public GovernmentService() {
 		super();
 	}
 	
-	@Override
-	public void doShowLogin() {
-		getLoginController().mostrarVista();
+	//****************ESTANCIAS*****************
+	@Autowired private InicioController inicioController;
+	@Autowired private AccesoAlSistemaController loginController;
+	@Autowired private PrincipalController principalController;
+
+	public InicioController getInicioController() {
+		return inicioController;
 	}
 
 	public AccesoAlSistemaController getLoginController() {
 		return loginController;
 	}
+	
+	public PrincipalController getPrincipalController() {
+		return principalController;
+	}
+	
+	//*************FIN DE ESTANCIAS***************
+	
+	
+	//*************CONTROL DE VENTANAS**************
+	
+	@Override
+	public void mostrarInicio() {
+		getInicioController().mostrarVistaInicio();
+	}
+	
+	@Override
+	public void mostrarLogin() {
+		getLoginController().mostrarVistaLogin();
+	}
 
 	@Override
-	public void doShowVentanaPrincipal() {
-		// TODO Auto-generated method stub
-		
+	public void mostrarVentanaPrincipal() {
+		getPrincipalController().mostrarVistaPrincipal();
 	}
 }
