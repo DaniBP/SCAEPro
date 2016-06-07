@@ -11,4 +11,5 @@ public interface Government {
 	public void mostrarInicio();
 	public void mostrarLogin();
 	public void mostrarVentanaPrincipal();
+	public void mostrarControlAcceso();
 }

@@ -99,74 +99,74 @@ public class RegistrarEmpleado extends JFrame {
 		txtTelCasa.setBounds(196, 264, 145, 26);
 		pnlDatosPersonales.add(txtTelCasa);
 		
-		JPanel pnlDirección = new JPanel();
-		pnlDirección.setBorder(new TitledBorder(null, "Direcci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnlDirección.setBounds(381, 10, 360, 307);
-		contentPane.add(pnlDirección);
-		pnlDirección.setLayout(null);
+		JPanel pnlDireccion = new JPanel();
+		pnlDireccion.setBorder(new TitledBorder(null, "Direcci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnlDireccion.setBounds(381, 10, 360, 307);
+		contentPane.add(pnlDireccion);
+		pnlDireccion.setLayout(null);
 		
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setBounds(17, 24, 80, 16);
-		pnlDirección.add(lblEstado);
+		pnlDireccion.add(lblEstado);
 		
 		JLabel lblMunicipio = new JLabel("Municipio:");
 		lblMunicipio.setBounds(17, 69, 80, 16);
-		pnlDirección.add(lblMunicipio);
+		pnlDireccion.add(lblMunicipio);
 		
 		JLabel lblCalle = new JLabel("Calle:");
 		lblCalle.setBounds(17, 119, 80, 16);
-		pnlDirección.add(lblCalle);
+		pnlDireccion.add(lblCalle);
 		
 		JLabel lblNumeroExt = new JLabel("Numero Ext:");
 		lblNumeroExt.setBounds(17, 169, 87, 16);
-		pnlDirección.add(lblNumeroExt);
+		pnlDireccion.add(lblNumeroExt);
 		
 		JLabel lblColonia = new JLabel("Colonia:");
 		lblColonia.setBounds(17, 219, 80, 16);
-		pnlDirección.add(lblColonia);
+		pnlDireccion.add(lblColonia);
 		
 		JLabel lblCp = new JLabel("C.P:");
 		lblCp.setBounds(17, 269, 80, 16);
-		pnlDirección.add(lblCp);
+		pnlDireccion.add(lblCp);
 		
 		JLabel lblNumeroInt = new JLabel("Numero Int:");
 		lblNumeroInt.setBounds(185, 169, 87, 16);
-		pnlDirección.add(lblNumeroInt);
+		pnlDireccion.add(lblNumeroInt);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		textField_2.setBounds(93, 114, 243, 26);
-		pnlDirección.add(textField_2);
+		pnlDireccion.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
 		textField_3.setBounds(93, 214, 243, 26);
-		pnlDirección.add(textField_3);
+		pnlDireccion.add(textField_3);
 		
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
 		textField_4.setBounds(93, 264, 243, 26);
-		pnlDirección.add(textField_4);
+		pnlDireccion.add(textField_4);
 		
 		textField_5 = new JTextField();
 		textField_5.setBounds(101, 164, 72, 26);
-		pnlDirección.add(textField_5);
+		pnlDireccion.add(textField_5);
 		textField_5.setColumns(10);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
 		textField_6.setBounds(264, 164, 72, 26);
-		pnlDirección.add(textField_6);
+		pnlDireccion.add(textField_6);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"---Seleccione un estado---"}));
 		comboBox.setBounds(95, 20, 241, 27);
-		pnlDirección.add(comboBox);
+		pnlDireccion.add(comboBox);
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"--Selecciona un municipio--"}));
 		comboBox_1.setBounds(95, 65, 241, 27);
-		pnlDirección.add(comboBox_1);
+		pnlDireccion.add(comboBox_1);
 		
 		JPanel pnlNipFotografia = new JPanel();
 		pnlNipFotografia.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Nip y fotograf\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -192,26 +192,26 @@ public class RegistrarEmpleado extends JFrame {
 		btnCapturarFoto.setBounds(51, 199, 120, 30);
 		pnlNipFotografia.add(btnCapturarFoto);
 		
-		JPanel pnlAsignación = new JPanel();
-		pnlAsignación.setBorder(new TitledBorder(null, "Asignaci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnlAsignación.setBounds(10, 334, 360, 201);
-		contentPane.add(pnlAsignación);
-		pnlAsignación.setLayout(null);
+		JPanel pnlAsignacion = new JPanel();
+		pnlAsignacion.setBorder(new TitledBorder(null, "Asignaci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnlAsignacion.setBounds(10, 334, 360, 201);
+		contentPane.add(pnlAsignacion);
+		pnlAsignacion.setLayout(null);
 		
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"--------Seleccione un área--------"}));
 		comboBox_2.setBounds(20, 46, 311, 27);
-		pnlAsignación.add(comboBox_2);
+		pnlAsignacion.add(comboBox_2);
 		
 		JComboBox comboBox_3 = new JComboBox();
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"-------Seleccione un puesto-------"}));
 		comboBox_3.setBounds(20, 101, 311, 27);
-		pnlAsignación.add(comboBox_3);
+		pnlAsignacion.add(comboBox_3);
 		
 		JComboBox comboBox_4 = new JComboBox();
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"--------Seleccione un turno--------"}));
 		comboBox_4.setBounds(20, 154, 311, 27);
-		pnlAsignación.add(comboBox_4);
+		pnlAsignacion.add(comboBox_4);
 		
 		JPanel pnlNomina = new JPanel();
 		pnlNomina.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Nomina:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));

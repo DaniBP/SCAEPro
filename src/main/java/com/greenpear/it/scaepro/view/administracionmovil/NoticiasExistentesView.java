@@ -69,11 +69,9 @@ public class NoticiasExistentesView extends JFrame {
 				return columnEditables[column];
 			}
 		});
-		
-				
-				table.getColumnModel().getColumn(0).setResizable(false);
-				table.getColumnModel().getColumn(1).setResizable(false);
-				table.getColumnModel().getColumn(2).setResizable(false);
-		
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(0).setPreferredWidth(255);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(2).setResizable(false);
 	}
 }

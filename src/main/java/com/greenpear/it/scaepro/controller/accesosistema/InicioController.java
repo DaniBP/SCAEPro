@@ -16,7 +16,7 @@ import com.greenpear.it.scaepro.view.accesosistema.InicioView;
 public class InicioController implements ActionListener{
 
 	/**
-	 * Contructor
+	 * Constructor
 	 */
 	public InicioController() {
 		super();
@@ -51,8 +51,8 @@ public class InicioController implements ActionListener{
 			getVistaInicio().setVisible(false);
 			getGovernmet().mostrarLogin();
 		}else if(ae.getSource() == getVistaInicio().btnControlDeAcceso){
-			getGovernmet().mostrarVentanaPrincipal();
+			getVistaInicio().setVisible(false);
+			getGovernmet().mostrarControlAcceso();
 		}
 	}
-	
 }

@@ -472,10 +472,10 @@ public class ConfigurarScaePro extends JFrame {
 		btnGuardarTurno.setBounds(850, 177, 70, 70);
 		getContentPane().add(btnGuardarTurno);
 		
-		JButton btnAñadir = new JButton("");
-		btnAñadir.setIcon(new ImageIcon(ConfigurarScaePro.class.getResource("/img/math-add-icon.png")));
-		btnAñadir.setBounds(850, 304, 70, 70);
-		getContentPane().add(btnAñadir);
+		JButton btnAnadir = new JButton("");
+		btnAnadir.setIcon(new ImageIcon(ConfigurarScaePro.class.getResource("/img/math-add-icon.png")));
+		btnAnadir.setBounds(850, 304, 70, 70);
+		getContentPane().add(btnAnadir);
 		super.setSize(980,570);
 		super.setTitle("Configurar Scae Pro");
 		super.setResizable(false);

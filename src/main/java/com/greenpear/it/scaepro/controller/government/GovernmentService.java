@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.greenpear.it.scaepro.controller.accesosistema.*;;
+import com.greenpear.it.scaepro.controller.accesosistema.*;
+import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;;
 
 
 /**
@@ -29,6 +30,7 @@ public class GovernmentService implements Government {
 	@Autowired private InicioController inicioController;
 	@Autowired private AccesoAlSistemaController loginController;
 	@Autowired private PrincipalController principalController;
+	@Autowired private ControlAccesoController controlAccesoController;
 
 	public InicioController getInicioController() {
 		return inicioController;
@@ -42,11 +44,16 @@ public class GovernmentService implements Government {
 		return principalController;
 	}
 	
+	public ControlAccesoController getControlAccesoController() {
+		return controlAccesoController;
+	}
+	
 	//*************FIN DE ESTANCIAS***************
 	
 	
 	//*************CONTROL DE VENTANAS**************
-	
+
+
 	@Override
 	public void mostrarInicio() {
 		getInicioController().mostrarVistaInicio();
@@ -60,5 +67,10 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarVentanaPrincipal() {
 		getPrincipalController().mostrarVistaPrincipal();
+	}
+	
+	@Override
+	public void mostrarControlAcceso(){
+		getControlAccesoController().mostrarVistaControlAcceso();
 	}
 }
