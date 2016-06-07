@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
+import java.util.Calendar;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -18,10 +19,20 @@ import java.awt.Label;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
 
 public class ControlAccesoView extends JFrame {
 
 	private JPanel contentPane;
+	public JButton btnChecar;
+	public JButton btnSalir;
+	
+	public String hora,minutos,segundos,ampm;
+	public String anio,mes,dia;
+	public Calendar calendario;
+	public Thread h1;
+	public JLabel lblHora;
+	public JLabel lblFecha;
 
 	/**
 	 * Launch the application.
@@ -46,15 +57,17 @@ public class ControlAccesoView extends JFrame {
 		setTitle("Registro de Control de Acceso");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 521, 370);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Fecha Actual:");
-		lblNewLabel.setBounds(178, 11, 94, 14);
-		contentPane.add(lblNewLabel);
+		lblFecha = new JLabel("Fecha Actual:  ");
+		lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFecha.setBounds(362, 11, 133, 14);
+		contentPane.add(lblFecha);
 		
 		JPanel panel = new JPanel();
 		
@@ -108,19 +121,26 @@ public class ControlAccesoView extends JFrame {
 		contentPane.add(panel_3);
 		
 		JLabel lblFotografia = new JLabel("Fotografia");
-		lblFotografia.setBounds(431, 130, 64, 14);
+		lblFotografia.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFotografia.setBounds(408, 131, 87, 14);
 		contentPane.add(lblFotografia);
 		
 		JLabel lblEstado = new JLabel("Estado");
-		lblEstado.setBounds(436, 252, 46, 14);
+		lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEstado.setBounds(408, 254, 87, 14);
 		contentPane.add(lblEstado);
 		
-		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setBounds(362, 304, 46, 14);
+		lblHora = new JLabel("Hora:");
+		lblHora.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblHora.setBounds(362, 304, 133, 14);
 		contentPane.add(lblHora);
 		
-		JButton btnSalir = new JButton("Salir");
+		btnSalir = new JButton("Salir");
 		btnSalir.setBounds(71, 300, 74, 23);
 		contentPane.add(btnSalir);
+		
+		btnChecar = new JButton("Checar");
+		btnChecar.setBounds(218, 300, 89, 23);
+		contentPane.add(btnChecar);
 	}
 }

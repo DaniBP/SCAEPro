@@ -73,39 +73,36 @@
     
     
     
-<!--     Aquí comienza la declaracion de vistas -->
+<!--     Aquí comienza la declaración de vistas -->
 
-	<!-- Vistas del módulo Acceso al sistema -->
 	<bean id="inicioView" class="com.greenpear.it.scaepro.view.accesosistema.InicioView" />
 	<bean id="loginView" class="com.greenpear.it.scaepro.view.accesosistema.AccesoAlSistemaView" />
 	<bean id="principalView" class="com.greenpear.it.scaepro.view.accesosistema.PrincipalView" />
 	
-	<!-- Vistas del módulo Control de acceso -->
 	<bean id="controlAccesoView" class="com.greenpear.it.scaepro.view.controlacceso.ControlAccesoView" />
 	
-<!-- 	Aquí comienza la declaracion de controladores -->
+<!-- 	Aquí comienza la declaración de controladores -->
 	
-	<!-- Controladores del módulo Acceso al sistema -->
 	<bean id="inicioController" class="com.greenpear.it.scaepro.controller.accesosistema.InicioController" />
 	<bean id="loginController" class="com.greenpear.it.scaepro.controller.accesosistema.AccesoAlSistemaController" />
 	<bean id="principalController" class="com.greenpear.it.scaepro.controller.accesosistema.PrincipalController" />
 	
-	<!-- Controladores del módulo Control de aceso -->
 	<bean id="controlAccesoController" class="com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController" />
 
-<!-- 	Aquí comienza la declaracion de modelos -->
+<!-- 	Aquí comienza la declaración de modelos -->
 
-	<!-- Modelos del módulo Acceso al sistema -->
     <bean id="loginModel" class="com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel" />
+    <bean id="empleadoModel" class="com.greenpear.it.scaepro.model.empleado.EmpleadoModel" />
     
-<!-- 	Aquí comienza la declaracion de BO -->
+<!-- 	Aquí comienza la declaración de BO -->
 
-	<!-- BOs del módulo Acceso al sistema -->
 	<bean id="loginBoService" class="com.greenpear.it.scaepro.bo.accesosistema.AccesoAlSistemaBo" />
 	
-<!-- 	Aquí comienza la declaracion de DAO -->
+	<bean id="accesoBoService" class="com.greenpear.it.scaepro.bo.controlacceso.ControlAccesoBo" />
+	
+<!-- 	Aquí comienza la declaración de DAO -->
 
-	<!-- DAOs del módulo Acceso al sistema -->
 	<bean id="loginDaoService" class="com.greenpear.it.scaepro.dao.accesosistema.AccesoAlSistemaDao" />
 
+	<bean id="accesoDaoService" class="com.greenpear.it.scaepro.dao.controlacceso.ControlAccesoDao" />
 </beans>
