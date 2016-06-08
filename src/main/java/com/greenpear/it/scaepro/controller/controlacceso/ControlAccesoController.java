@@ -1,5 +1,6 @@
 package com.greenpear.it.scaepro.controller.controlacceso;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -7,7 +8,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +19,9 @@ import org.springframework.stereotype.Controller;
 
 import com.greenpear.it.scaepro.bo.controlacceso.ControlAccesoBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
+import com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
+import com.greenpear.it.scaepro.view.accesosistema.PrincipalView;
 import com.greenpear.it.scaepro.view.controlacceso.ControlAccesoView;
 
 /**
@@ -38,10 +44,13 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	private GovernmentService government;
 	
 	@Autowired
-	private ControlAccesoView vistaControlAcceso;
+	private ControlAccesoView controlAccesoView;
 	
 	@Autowired
 	private EmpleadoModel empleadoModel;
+	
+	@Autowired
+	private ControlAccesoModel controlAccesoModel;
 	
 	@Autowired
 	@Qualifier("accesoBoService")
@@ -51,8 +60,8 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		return government;
 	}
 
-	public ControlAccesoView getVistaControlAcceso() {
-		return vistaControlAcceso;
+	public ControlAccesoView getControlAccesoView() {
+		return controlAccesoView;
 	}
 	
 	public ControlAccesoBo getAccesoBoService() {
@@ -62,6 +71,10 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	public EmpleadoModel getEmpleadoModel(){
 		return empleadoModel;
 	}
+
+	public ControlAccesoModel getControlAccesoModel() {
+		return controlAccesoModel;
+	}
 	
 //**********************FIN DE ESTANCIAS***********************
 
@@ -69,15 +82,15 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	 * Método para iniciar la vista de control de acceso
 	 */
 	public void mostrarVistaControlAcceso(){
-		if(getVistaControlAcceso().btnSalir.getActionListeners().length == 0){
-			getVistaControlAcceso().btnChecar.addActionListener(this);
-			getVistaControlAcceso().btnSalir.addActionListener(this);
+		if(getControlAccesoView().btnSalir.getActionListeners().length == 0){
+			getControlAccesoView().btnChecar.addActionListener(this);
+			getControlAccesoView().btnSalir.addActionListener(this);
 		}
 		
-		getVistaControlAcceso().h1 = new Thread(this);
-		getVistaControlAcceso().h1.start();
+		getControlAccesoView().h1 = new Thread(this);
+		getControlAccesoView().h1.start();
 		
-		getVistaControlAcceso().setVisible(true);
+		getControlAccesoView().setVisible(true);
 	}
 	
 	/**
@@ -89,23 +102,23 @@ public class ControlAccesoController implements ActionListener, Runnable{
 
 		calendario.setTime(fechaHoraActual);
 
-		getVistaControlAcceso().ampm = calendario.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
+		getControlAccesoView().ampm = calendario.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
 
-		if(getVistaControlAcceso().ampm.equals("PM")){
+		if(getControlAccesoView().ampm.equals("PM")){
 		 int h = calendario.get(Calendar.HOUR_OF_DAY)-12;
 
-		 getVistaControlAcceso().hora = h>9?""+h:"0"+h;
+		 getControlAccesoView().hora = h>9?""+h:"0"+h;
 
 		}else{
-			getVistaControlAcceso().hora = calendario.get(Calendar.HOUR_OF_DAY)>9?""+calendario.get(Calendar.HOUR_OF_DAY):"0"+calendario.get(Calendar.HOUR_OF_DAY);            
+			getControlAccesoView().hora = calendario.get(Calendar.HOUR_OF_DAY)>9?""+calendario.get(Calendar.HOUR_OF_DAY):"0"+calendario.get(Calendar.HOUR_OF_DAY);            
 		}
 		
-		getVistaControlAcceso().minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
-		getVistaControlAcceso().segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND);
+		getControlAccesoView().minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
+		getControlAccesoView().segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND);
 		
-		getVistaControlAcceso().dia = calendario.get(Calendar.DAY_OF_MONTH)>9?""+calendario.get(Calendar.DAY_OF_MONTH):"0"+calendario.get(Calendar.DAY_OF_MONTH);
-		getVistaControlAcceso().mes = calendario.get(Calendar.MONTH)>9?""+calendario.get(Calendar.MONTH):"0"+calendario.get(Calendar.MONTH);
-		getVistaControlAcceso().anio = String.valueOf(calendario.get(Calendar.YEAR));
+		getControlAccesoView().dia = calendario.get(Calendar.DAY_OF_MONTH)>9?""+calendario.get(Calendar.DAY_OF_MONTH):"0"+calendario.get(Calendar.DAY_OF_MONTH);
+		getControlAccesoView().mes = calendario.get(Calendar.MONTH)>9?""+calendario.get(Calendar.MONTH):"0"+calendario.get(Calendar.MONTH);
+		getControlAccesoView().anio = String.valueOf(calendario.get(Calendar.YEAR));
 	}
 
 	/**
@@ -114,19 +127,19 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	@Override
 	public void run() {
 		Thread ct = Thread.currentThread();
-		while(ct == getVistaControlAcceso().h1) {   
+		while(ct == getControlAccesoView().h1) {   
 			calculaFechaHora();
 	
-			getVistaControlAcceso().lblHora.setText("Hora:  "+
-			getVistaControlAcceso().hora + 
-				":" + getVistaControlAcceso().minutos + 
-				":" + getVistaControlAcceso().segundos + 
-				" "+getVistaControlAcceso().ampm);
+			getControlAccesoView().lblHora.setText("Hora:  "+
+			getControlAccesoView().hora + 
+				":" + getControlAccesoView().minutos + 
+				":" + getControlAccesoView().segundos + 
+				" "+getControlAccesoView().ampm);
 			
-			getVistaControlAcceso().lblFecha.setText("Fecha:  "+
-					getVistaControlAcceso().dia + 
-						"-" + getVistaControlAcceso().mes + 
-						"-" + getVistaControlAcceso().anio);
+			getControlAccesoView().lblFecha.setText("Fecha:  "+
+					getControlAccesoView().dia + 
+						"-" + getControlAccesoView().mes + 
+						"-" + getControlAccesoView().anio);
 			
 			try {	
 				Thread.sleep(1000);
@@ -138,7 +151,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == vistaControlAcceso.btnChecar){
+		if(e.getSource() == getControlAccesoView().btnChecar){
 			
 			int nip = 252409999;
 			
@@ -153,8 +166,59 @@ public class ControlAccesoController implements ActionListener, Runnable{
 			if(getEmpleadoModel().getIdEmpleado() == 0){
 				JOptionPane.showMessageDialog(null, "Empleado no registrado", "Atención",JOptionPane.WARNING_MESSAGE);
 			}else{
-				JOptionPane.showMessageDialog(null, getEmpleadoModel().getIdEmpleado());
+				
+				String horaActual;
+				if(getControlAccesoView().ampm.equals("PM")){
+					horaActual = (Integer.parseInt(controlAccesoView.hora)+12)+":"+controlAccesoView.minutos+":"+controlAccesoView.segundos;	
+				}else{
+					horaActual = controlAccesoView.hora+":"+controlAccesoView.minutos+":"+controlAccesoView.segundos;
+				}
+				String fechaActual = controlAccesoView.anio+"-"+controlAccesoView.mes+"-"+controlAccesoView.dia;
+				
+				try {
+					controlAccesoModel = getAccesoBoService().consultarControlAcceso(getEmpleadoModel().getIdEmpleado(), fechaActual);
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				getControlAccesoModel().setIdEmpleado(getEmpleadoModel().getIdEmpleado());
+				getControlAccesoModel().setFecha(fechaActual);
+				getControlAccesoModel().setHoraRegistrada(horaActual);
+				
+				try {
+					getAccesoBoService().insertar(getControlAccesoModel());
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				mostrarDatosEmpleado();
+				
+				getEmpleadoModel().limpiarModelo();
+				getControlAccesoModel().limpiarModelo();
 			}
+		}else if(e.getSource()==getControlAccesoView().btnSalir){
+			System.exit(0);
 		}
+	}
+	
+	public void mostrarDatosEmpleado(){
+		getControlAccesoView().lblEmpleado.setText("Empleado: "+getEmpleadoModel().getNombreEmpleado()+" "+getEmpleadoModel().getApePatEmpleado()+" "+getEmpleadoModel().getApePatEmpleado());
+		getControlAccesoView().lblArea.setText("Área:     "+getEmpleadoModel().getArea());
+		getControlAccesoView().lblEntrada.setText("Hora de entrada             "+getControlAccesoModel().getHoraRegistrada());
+		
+		ImageIcon fot = new ImageIcon(PrincipalView.class.getResource("/img/fotosempleados/"+getEmpleadoModel().getFotografia()));
+		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(
+				getControlAccesoView().imgFoto.getWidth(), getControlAccesoView().imgFoto.getHeight(), Image.SCALE_DEFAULT));
+		
+		getControlAccesoView().imgFoto.setIcon(icono);
+		
+			try {
+				
+				Thread.sleep (5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		
+		getControlAccesoView().limpiarVentana();
 	}
 }

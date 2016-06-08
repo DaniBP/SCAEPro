@@ -93,6 +93,7 @@
 
     <bean id="loginModel" class="com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel" />
     <bean id="empleadoModel" class="com.greenpear.it.scaepro.model.empleado.EmpleadoModel" />
+    <bean id="controlAccesoModel" class="com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel" />
     
 <!-- 	Aquí comienza la declaración de BO -->
 

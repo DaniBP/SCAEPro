@@ -33,6 +33,14 @@ public class ControlAccesoView extends JFrame {
 	public Thread h1;
 	public JLabel lblHora;
 	public JLabel lblFecha;
+	public JLabel lblEmpleado;
+	public JLabel lblArea;
+	public JLabel lblEntrada;
+	public JLabel lblSalidaComer;
+	public JLabel lblEntradaComer;
+	public JLabel lblSalida;
+	public JLabel imgEstado;
+	public JLabel imgFoto;
 
 	/**
 	 * Launch the application.
@@ -77,13 +85,13 @@ public class ControlAccesoView extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNombreCompleto = new JLabel("Nombre Completo:");
-		lblNombreCompleto.setBounds(10, 28, 105, 14);
-		panel.add(lblNombreCompleto);
+		lblEmpleado = new JLabel("Empleado:");
+		lblEmpleado.setBounds(10, 28, 311, 14);
+		panel.add(lblEmpleado);
 		
-		JLabel lblrea = new JLabel("\u00C1rea:");
-		lblrea.setBounds(10, 53, 46, 14);
-		panel.add(lblrea);
+		lblArea = new JLabel("\u00C1rea:");
+		lblArea.setBounds(10, 53, 311, 14);
+		panel.add(lblArea);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.activeCaption);
@@ -92,42 +100,30 @@ public class ControlAccesoView extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblHoraDeEntrada_1 = new JLabel("Hora de Entrada:");
-		lblHoraDeEntrada_1.setBounds(10, 34, 116, 14);
-		panel_1.add(lblHoraDeEntrada_1);
+		lblEntrada = new JLabel("Hora de Entrada:");
+		lblEntrada.setBounds(10, 34, 311, 14);
+		panel_1.add(lblEntrada);
 		
-		JLabel lblHoraDeSalida = new JLabel("Hora de Salida a Comer:");
-		lblHoraDeSalida.setBounds(10, 60, 142, 14);
-		panel_1.add(lblHoraDeSalida);
+		lblSalidaComer = new JLabel("Hora de Salida a Comer:");
+		lblSalidaComer.setBounds(10, 60, 311, 14);
+		panel_1.add(lblSalidaComer);
 		
-		JLabel lblHoraDeEntrada = new JLabel("Hora de Entrada a Comer:");
-		lblHoraDeEntrada.setBounds(9, 85, 151, 14);
-		panel_1.add(lblHoraDeEntrada);
+		lblEntradaComer = new JLabel("Hora de Entrada de Comer:");
+		lblEntradaComer.setBounds(10, 85, 311, 14);
+		panel_1.add(lblEntradaComer);
 		
-		JLabel lblHoraDeSalida_1 = new JLabel("Hora de Salida:");
-		lblHoraDeSalida_1.setBounds(10, 109, 87, 14);
-		panel_1.add(lblHoraDeSalida_1);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_2.setBackground(SystemColor.activeCaption);
-		panel_2.setBounds(408, 42, 87, 90);
-		contentPane.add(panel_2);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel_3.setBackground(SystemColor.activeCaption);
-		panel_3.setBounds(408, 164, 87, 90);
-		contentPane.add(panel_3);
+		lblSalida = new JLabel("Hora de Salida:");
+		lblSalida.setBounds(10, 109, 311, 14);
+		panel_1.add(lblSalida);
 		
 		JLabel lblFotografia = new JLabel("Fotografia");
 		lblFotografia.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFotografia.setBounds(408, 131, 87, 14);
+		lblFotografia.setBounds(396, 138, 87, 14);
 		contentPane.add(lblFotografia);
 		
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEstado.setBounds(408, 254, 87, 14);
+		lblEstado.setBounds(396, 275, 87, 14);
 		contentPane.add(lblEstado);
 		
 		lblHora = new JLabel("Hora:");
@@ -142,5 +138,26 @@ public class ControlAccesoView extends JFrame {
 		btnChecar = new JButton("Checar");
 		btnChecar.setBounds(218, 300, 89, 23);
 		contentPane.add(btnChecar);
+		
+		imgFoto = new JLabel("");
+		imgFoto.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		imgFoto.setBounds(396, 42, 87, 96);
+		contentPane.add(imgFoto);
+		
+		imgEstado = new JLabel("");
+		imgEstado.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		imgEstado.setBounds(396, 177, 87, 96);
+		contentPane.add(imgEstado);
+	}
+	
+	public void limpiarVentana(){
+		lblEmpleado.setText("Empleado:");
+		lblArea.setText("Área:");
+		lblEntrada.setText("Hora de Entrada:");
+		lblSalidaComer.setText("Hora de Salida a Comer:");
+		lblEntradaComer.setText("Hora de Entrada de Comer:");
+		lblSalida.setText("Hora de Salida:");
+		imgEstado.setIcon(null);
+		imgFoto.setIcon(null);
 	}
 }

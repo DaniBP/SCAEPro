@@ -20,6 +20,7 @@ public class EmpleadoModel {
 	private int diaDePago;
 	private String nipEmpleado;
 	
+	private String area;
 	
 	/**
 	 * @return the idEmpleado
@@ -176,5 +177,37 @@ public class EmpleadoModel {
 	 */
 	public void setNipEmpleado(String nipEmpleado) {
 		this.nipEmpleado = nipEmpleado;
+	}
+	/**
+	 * @return the area
+	 */
+	public String getArea() {
+		return area;
+	}
+	/**
+	 * @param area the area to set
+	 */
+	public void setArea(String area) {
+		this.area = area;
+	}
+	
+	/**
+	 * Método para limpiar el modelo
+	 */
+	public void limpiarModelo(){
+		idEmpleado=0;
+		nombreEmpleado=null;
+		apePatEmpleado=null;
+		apeMatEmpleado=null;
+		fechaNacimiento=null;
+		telCel=null;
+		telCasa=null;
+		idDireccionEmpleado=0;
+		idTurno=0;
+		fotografia=null;
+		periodoNominal=null;
+		diaDePago=0;
+		nipEmpleado=null;
+		area=null;
 	}
 }
