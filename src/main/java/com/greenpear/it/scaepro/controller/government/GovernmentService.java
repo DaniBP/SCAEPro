@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.greenpear.it.scaepro.controller.accesosistema.*;
-import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;;
+import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
+import com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController;
+import com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController;;
 
 
 /**
@@ -31,6 +33,8 @@ public class GovernmentService implements Government {
 	@Autowired private AccesoAlSistemaController loginController;
 	@Autowired private PrincipalController principalController;
 	@Autowired private ControlAccesoController controlAccesoController;
+	@Autowired private AltaAreasController altaAreasController; 
+	@Autowired private ConsultaAreasController consultaAreasController;
 
 	public InicioController getInicioController() {
 		return inicioController;
@@ -48,6 +52,13 @@ public class GovernmentService implements Government {
 		return controlAccesoController;
 	}
 	
+	public AltaAreasController getAltaAreasController() {
+		return altaAreasController;
+	}
+	
+	public ConsultaAreasController getConsultaAreasController() {
+		return consultaAreasController;
+	}
 	//*************FIN DE ESTANCIAS***************
 	
 	
@@ -72,5 +83,15 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarControlAcceso(){
 		getControlAccesoController().mostrarVistaControlAcceso();
+	}
+
+	@Override
+	public void mostrarVistaRegistrarAreas(){
+		getAltaAreasController().mostrarVistaRegistrarAreas();
+	}
+	
+	@Override
+	public void mostrarVistaConsultarAreas(){
+		getConsultaAreasController().mostrarVistaConsultarAreas();
 	}
 }

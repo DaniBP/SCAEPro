@@ -80,6 +80,8 @@
 	<bean id="principalView" class="com.greenpear.it.scaepro.view.accesosistema.PrincipalView" />
 	
 	<bean id="controlAccesoView" class="com.greenpear.it.scaepro.view.controlacceso.ControlAccesoView" />
+	<bean id="altaAreasView" class="com.greenpear.it.scaepro.view.gestionareas.AltaAreasView" />
+	<bean id="consultaAreasView" class="com.greenpear.it.scaepro.view.gestionareas.ConsultaAreasView" />
 	
 <!-- 	Aquí comienza la declaración de controladores -->
 	
@@ -88,22 +90,30 @@
 	<bean id="principalController" class="com.greenpear.it.scaepro.controller.accesosistema.PrincipalController" />
 	
 	<bean id="controlAccesoController" class="com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController" />
+	<bean id="altaAreasController" class="com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController" />
+	<bean id="consultaAreasController" class="com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController" />
 
 <!-- 	Aquí comienza la declaración de modelos -->
 
     <bean id="loginModel" class="com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel" />
     <bean id="empleadoModel" class="com.greenpear.it.scaepro.model.empleado.EmpleadoModel" />
     <bean id="controlAccesoModel" class="com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel" />
+    <bean id="altaAreasModel" class="com.greenpear.it.scaepro.model.gestionareas.AltaAreasModel"/>
+   	<bean id="consultaAreasModel" class="com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel" />
     
 <!-- 	Aquí comienza la declaración de BO -->
 
 	<bean id="loginBoService" class="com.greenpear.it.scaepro.bo.accesosistema.AccesoAlSistemaBo" />
 	
 	<bean id="accesoBoService" class="com.greenpear.it.scaepro.bo.controlacceso.ControlAccesoBo" />
+	<bean id="altaAreasBo" class="com.greenpear.it.scaepro.bo.gestionareas.AltaAreasBo" />
+	<bean id="consultaAreasBo" class="com.greenpear.it.scaepro.bo.gestionareas.ConsultaAreasBo" />
 	
 <!-- 	Aquí comienza la declaración de DAO -->
 
 	<bean id="loginDaoService" class="com.greenpear.it.scaepro.dao.accesosistema.AccesoAlSistemaDao" />
 
 	<bean id="accesoDaoService" class="com.greenpear.it.scaepro.dao.controlacceso.ControlAccesoDao" />
+	<bean id="altaAreasDao" class="com.greenpear.it.scaepro.dao.gestionareas.AltaAreasDao" />
+	<bean id="consultaAreasDao" class="com.greenpear.it.scaepro.dao.gestionareas.ConsultaAreasDao" />
 </beans>
