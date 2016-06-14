@@ -1,6 +1,8 @@
 package com.greenpear.it.scaepro.bo.controlacceso;
 
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.greenpear.it.scaepro.dao.controlacceso.ControlAccesoDao;
 import com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
+import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.services.InsertService;
 import com.greenpear.it.scaepro.services.SelectOneService;
 
@@ -36,7 +39,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	 */
 	@Override
 	public EmpleadoModel consultaIndividual(int id) throws SQLException {
-		EmpleadoModel empleado = new EmpleadoModel();
+		EmpleadoModel empleado;
 	
 		try {
 			empleado = getAccesoDaoService().consultaIndividual(id);
@@ -55,7 +58,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	 * @throws SQLException excepcion SQL
 	 */
 	public ControlAccesoModel consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
-		ControlAccesoModel controlAcceso=new ControlAccesoModel();
+		ControlAccesoModel controlAcceso;
 		try {
 			controlAcceso = getAccesoDaoService().consultarControlAcceso(idEmpleado, fecha);
 		} catch (Exception e){
@@ -73,15 +76,57 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	 */
 	@Override
 	public String insertar(ControlAccesoModel t) throws SQLException {
-		String horaControl="Hora de entrada";
+		String horaControl=null;
+		if(t.getIdControlAcceso()==0){
+			horaControl="Hora de entrada";
+		}else {
+			horaControl="Hora de entrada"; //Cambiar
+		}
 		t.setHoraControl(horaControl);
-		
 		String resultado=null;
+		
+		if(horaControl.equals("Hora de entrada")){
+			resultado = validarHoraEntrada(t);
+			System.out.println(resultado);
+		}
+		
 		try{
-			resultado=accesoDaoService.insertar(t);
+			accesoDaoService.insertar(t);
 		}catch(Exception e){
 			throw new SQLException(e.getMessage());
 		}
 		return resultado;
+	}
+
+	/**
+	 * Método para validar el registro de la hora de entrada
+	 * @param t Modelo de control de acceso
+	 * @return Resultado de la validación
+	 */
+	private String validarHoraEntrada(ControlAccesoModel t) {
+		String[] dia = new String[]{
+				"Domingo",
+				"Lunes",
+				"Martes",
+				"Miercoles",
+				"Jueves",
+				"Viernes",
+				"Sabado"};
+		
+		Calendar now = Calendar.getInstance();
+		
+		TurnoModel turnoModel= new TurnoModel();
+		try {
+			turnoModel = accesoDaoService.getHorario(t, dia[now.get(Calendar.DAY_OF_WEEK)-1]);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		if (turnoModel.getIdEstatus()==2){
+			return "Día no laboral";
+		}else{
+			
+		}
+		return "correcto";
 	}
 }

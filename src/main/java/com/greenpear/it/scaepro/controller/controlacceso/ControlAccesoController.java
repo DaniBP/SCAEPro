@@ -185,7 +185,10 @@ public class ControlAccesoController implements ActionListener, Runnable{
 				getControlAccesoModel().setHoraRegistrada(horaActual);
 				
 				try {
-					getAccesoBoService().insertar(getControlAccesoModel());
+					String resultado=getAccesoBoService().insertar(getControlAccesoModel());
+					if(!resultado.equals("correcto")){
+						JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
+					}
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -200,6 +203,9 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		}
 	}
 	
+	/**
+	 * Método para mostrar los datos del empleado en pantalla
+	 */
 	public void mostrarDatosEmpleado(){
 		getControlAccesoView().lblEmpleado.setText("Empleado: "+getEmpleadoModel().getNombreEmpleado()+" "+getEmpleadoModel().getApePatEmpleado()+" "+getEmpleadoModel().getApePatEmpleado());
 		getControlAccesoView().lblArea.setText("Área:     "+getEmpleadoModel().getArea());

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
+import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.services.DataSourceService;
 import com.greenpear.it.scaepro.services.InsertService;
 import com.greenpear.it.scaepro.services.SelectOneService;
@@ -30,7 +31,7 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 	@Override
 	public EmpleadoModel consultaIndividual(int id) throws SQLException {
 		
-		EmpleadoModel empleado=new EmpleadoModel();
+		EmpleadoModel empleado;
 		String sql="SELECT idEmpleado,nombreEmpleado,apePatEmpleado,apeMatEmpleado,nombreArea,fotografia "
 				+ "FROM t_empleado "
 				+ "INNER JOIN c_turno ON c_turno.idTurno=t_empleado.idTurno "
@@ -61,7 +62,7 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 	}
 	
 	public ControlAccesoModel consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
-		ControlAccesoModel controlAcceso=new ControlAccesoModel();
+		ControlAccesoModel controlAcceso;
 		String sql="SELECT idControlAcceso "
 				+ "FROM t_control_acceso "
 				+ "WHERE idEmpleado="+idEmpleado+" "
@@ -119,4 +120,35 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 		return null;
 	}
 	
+	public TurnoModel getHorario(ControlAccesoModel acceso, String dia) throws SQLException{
+		TurnoModel turnoModel;
+		String sql = "SELECT * FROM t_horario_turno "
+				+ "INNER JOIN c_turno ON c_turno.idTurno=t_horario_turno.idTurno "
+				+ "INNER JOIN t_empleado ON t_empleado.idTurno=t_horario_turno.idTurno "
+				+ "WHERE idEmpleado = "+acceso.getIdEmpleado()+" AND "
+				+ "dia='"+dia+"'";
+		try{
+			turnoModel=getJdbcTemplate().query(sql, new ResultSetExtractor<TurnoModel>(){
+				public TurnoModel extractData(ResultSet rs) throws SQLException{
+					TurnoModel resultValue=new TurnoModel();
+					if(rs.next()){
+						resultValue.setTiempoRetardo(rs.getInt("tiempoRetardo"));
+						resultValue.setTiempoFalta(rs.getInt("tiempoFalta"));
+						resultValue.setHoraEntrada(rs.getString("horaEntrada"));
+						resultValue.setHoraSalidaComer(rs.getString("horaSalidaComer"));
+						resultValue.setHoraEntradaComer(rs.getString("horaEntradaComer"));
+						resultValue.setHoraSalida(rs.getString("horaSalida"));
+						resultValue.setIdEstatus(rs.getInt("idEstatus"));
+						resultValue.setIdEstatusComida(rs.getInt("idestatusComida"));
+					}
+					return resultValue;
+				}
+			});
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la consulta!");
+		}
+		return turnoModel;
+	}
 }
