@@ -16,8 +16,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.prism.paint.Color;
-
 public class ConsultaUsuarios extends JFrame {
 	private JTextField textField;
 	private JTable table;
