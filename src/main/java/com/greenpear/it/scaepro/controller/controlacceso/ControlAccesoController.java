@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -212,13 +211,20 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		
 		getControlAccesoView().imgFoto.setIcon(icono);
 		
-			try {
-				
-				Thread.sleep (5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		Runnable r2 = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					
+					Thread.sleep (5000);
+					getControlAccesoView().limpiarVentana();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+		};
 		
-		getControlAccesoView().limpiarVentana();
+		Thread h2 = new Thread(r2);
+		h2.start();
 	}
 }
