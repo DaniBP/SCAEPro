@@ -101,18 +101,22 @@ public class ControlAccesoView extends JFrame {
 		panel_1.setLayout(null);
 		
 		lblEntrada = new JLabel("Hora de Entrada:");
+		lblEntrada.setVisible(false);
 		lblEntrada.setBounds(10, 34, 311, 14);
 		panel_1.add(lblEntrada);
 		
 		lblSalidaComer = new JLabel("Hora de Salida a Comer:");
+		lblSalidaComer.setVisible(false);
 		lblSalidaComer.setBounds(10, 60, 311, 14);
 		panel_1.add(lblSalidaComer);
 		
 		lblEntradaComer = new JLabel("Hora de Entrada de Comer:");
+		lblEntradaComer.setVisible(false);
 		lblEntradaComer.setBounds(10, 85, 311, 14);
 		panel_1.add(lblEntradaComer);
 		
 		lblSalida = new JLabel("Hora de Salida:");
+		lblSalida.setVisible(false);
 		lblSalida.setBounds(10, 109, 311, 14);
 		panel_1.add(lblSalida);
 		
@@ -157,6 +161,12 @@ public class ControlAccesoView extends JFrame {
 		lblSalidaComer.setText("Hora de Salida a Comer:");
 		lblEntradaComer.setText("Hora de Entrada de Comer:");
 		lblSalida.setText("Hora de Salida:");
+		lblEntrada.setVisible(false);
+		lblSalidaComer.setVisible(false);
+		lblSalidaComer.setEnabled(true);
+		lblEntradaComer.setVisible(false);
+		lblEntradaComer.setEnabled(true);
+		lblSalida.setVisible(false);
 		imgEstado.setIcon(null);
 		imgFoto.setIcon(null);
 	}

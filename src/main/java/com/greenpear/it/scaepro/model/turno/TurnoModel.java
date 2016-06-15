@@ -177,4 +177,20 @@ public class TurnoModel {
 	public void setIdEstatusComida(int idEstatusComida) {
 		this.idEstatusComida = idEstatusComida;
 	}
+	
+	public void limpiarModelo(){
+		idTurno=0;
+		idArea=0;
+		nombreTurno=null;
+		tiempoRetardo=0;
+		tiempoFalta=0;
+		idHorarioTurno=0;
+		dia=null;
+		horaEntrada=null;
+		horaSalidaComer=null;
+		horaEntradaComer=null;
+		horaSalida=null;
+		idEstatus=0;
+		idEstatusComida=0;
+	}
 }

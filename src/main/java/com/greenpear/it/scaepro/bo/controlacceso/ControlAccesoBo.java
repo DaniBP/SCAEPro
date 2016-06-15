@@ -1,13 +1,16 @@
 package com.greenpear.it.scaepro.bo.controlacceso;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
 import com.greenpear.it.scaepro.dao.controlacceso.ControlAccesoDao;
 import com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
@@ -26,9 +29,16 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	@Autowired
 	@Qualifier("accesoDaoService")
 	private ControlAccesoDao accesoDaoService;
+	
+	@Autowired
+	private ControlAccesoController accesoController;
 
 	public ControlAccesoDao getAccesoDaoService() {
 		return accesoDaoService;
+	}
+
+	public ControlAccesoController getAccesoController() {
+		return accesoController;
 	}
 
 	/**
@@ -57,15 +67,15 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	 * @return modelo del control de acceso
 	 * @throws SQLException excepcion SQL
 	 */
-	public ControlAccesoModel consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
-		ControlAccesoModel controlAcceso;
+	public List<ControlAccesoModel> consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
+		List<ControlAccesoModel> listaControlAcceso = new ArrayList<ControlAccesoModel>();
 		try {
-			controlAcceso = getAccesoDaoService().consultarControlAcceso(idEmpleado, fecha);
+			listaControlAcceso = getAccesoDaoService().consultarControlAcceso(idEmpleado, fecha);
 		} catch (Exception e){
 			throw new SQLException(e.getMessage());
 		}
 		
-		return controlAcceso;
+		return listaControlAcceso;
 	}
 
 	/**
@@ -77,24 +87,41 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	@Override
 	public String insertar(ControlAccesoModel t) throws SQLException {
 		String horaControl=null;
-		if(t.getIdControlAcceso()==0){
-			horaControl="Hora de entrada";
-		}else {
-			horaControl="Hora de entrada"; //Cambiar
-		}
-		t.setHoraControl(horaControl);
-		String resultado=null;
 		
-		if(horaControl.equals("Hora de entrada")){
-			resultado = validarHoraEntrada(t);
-			System.out.println(resultado);
+		switch (getAccesoController().getListaControlAcceso().size()-1) {
+		case 0:
+			horaControl="Hora de entrada";
+			break;
+
+		case 1:
+			t.setIdControlAcceso(getAccesoController().getListaControlAcceso().get(0).getIdControlAcceso());
+			horaControl="Hora de salida a comer";
+			break;
+			
+		case 2:
+			t.setIdControlAcceso(getAccesoController().getListaControlAcceso().get(0).getIdControlAcceso());
+			horaControl="Hora de entrada de comer";
+			break;
+		case 3: 
+			t.setIdControlAcceso(getAccesoController().getListaControlAcceso().get(0).getIdControlAcceso());
+			horaControl="Hora de salida";
+			break;
 		}
+		
+		String resultado = validarHora(t);
+		
+		if(horaControl.equals("Hora de salida a comer") && resultado.equals("Día no laboral")){
+			horaControl="Hora de salida";
+		}
+		
+		t.setHoraControl(horaControl);
 		
 		try{
 			accesoDaoService.insertar(t);
 		}catch(Exception e){
 			throw new SQLException(e.getMessage());
 		}
+		
 		return resultado;
 	}
 
@@ -103,7 +130,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	 * @param t Modelo de control de acceso
 	 * @return Resultado de la validación
 	 */
-	private String validarHoraEntrada(ControlAccesoModel t) {
+	private String validarHora(ControlAccesoModel t) {
 		String[] dia = new String[]{
 				"Domingo",
 				"Lunes",
@@ -115,7 +142,8 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		
 		Calendar now = Calendar.getInstance();
 		
-		TurnoModel turnoModel= new TurnoModel();
+		TurnoModel turnoModel = getAccesoController().getTurnoModel();
+		
 		try {
 			turnoModel = accesoDaoService.getHorario(t, dia[now.get(Calendar.DAY_OF_WEEK)-1]);
 		} catch (SQLException e) {
@@ -124,7 +152,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		
 		if (turnoModel.getIdEstatus()==2){
 			return "Día no laboral";
-		}else{
+		}else if(turnoModel.getIdEstatusComida()==2){
 			
 		}
 		return "correcto";

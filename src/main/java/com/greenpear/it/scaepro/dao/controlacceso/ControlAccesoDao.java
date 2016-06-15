@@ -2,12 +2,15 @@ package com.greenpear.it.scaepro.dao.controlacceso;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -61,20 +64,25 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 		return empleado;
 	}
 	
-	public ControlAccesoModel consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
-		ControlAccesoModel controlAcceso;
-		String sql="SELECT idControlAcceso "
-				+ "FROM t_control_acceso "
-				+ "WHERE idEmpleado="+idEmpleado+" "
-				+ "AND fecha='"+fecha+"'";
+	public List<ControlAccesoModel> consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
+		List<ControlAccesoModel> listaControlAcceso= new ArrayList<ControlAccesoModel>();
+		String sql="SELECT * FROM t_control_horas "
+				+ "INNER JOIN t_control_acceso ON t_control_acceso.idControlAcceso = t_control_horas.idControlAcceso "
+				+ "WHERE idEmpleado="+idEmpleado+" AND "
+						+ "fecha='"+fecha+"'";
 		
 		try{
-			controlAcceso=getJdbcTemplate().query(sql, new ResultSetExtractor<ControlAccesoModel>(){
-				public ControlAccesoModel extractData(ResultSet rs) throws SQLException{
+			listaControlAcceso=getJdbcTemplate().query(sql, new RowMapper<ControlAccesoModel>(){
+				public ControlAccesoModel mapRow(ResultSet rs, int columna) throws SQLException{
 					ControlAccesoModel resultValue=new ControlAccesoModel();
-					if(rs.next()){
-						resultValue.setIdControlAcceso(rs.getInt("idControlAcceso"));
-					}
+					
+					resultValue.setIdControlHoras(rs.getInt("idControlHoras"));
+					resultValue.setIdControlAcceso(rs.getInt("idControlAcceso"));
+					resultValue.setHoraControl(rs.getString("horaControl"));
+					resultValue.setHoraRegistrada(rs.getString("horaRegistrada"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setFecha(rs.getString("fecha"));
+					
 					return resultValue;
 				}
 			});
@@ -83,14 +91,14 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 			throw new SQLException("Existe un problema con la base de datos\n"
 					+ "No se pudo realizar la consulta!");
 		}
-		return controlAcceso;
+		return listaControlAcceso;
 	}
 
 	@Override
 	public String insertar(ControlAccesoModel t) throws SQLException {
 		try {
 			
-			if(t.getIdControlAcceso()==0){
+			if(t.getHoraControl().equals("Hora de entrada")){
 				SimpleJdbcInsert insertControlAcceso = new SimpleJdbcInsert(getDataSource());
 				insertControlAcceso.setTableName("t_control_acceso");
 				insertControlAcceso.setGeneratedKeyName("idControlAcceso");
