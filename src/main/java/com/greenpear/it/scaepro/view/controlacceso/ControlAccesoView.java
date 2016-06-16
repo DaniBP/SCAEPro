@@ -169,5 +169,6 @@ public class ControlAccesoView extends JFrame {
 		lblSalida.setVisible(false);
 		imgEstado.setIcon(null);
 		imgFoto.setIcon(null);
+		btnChecar.setEnabled(true);
 	}
 }

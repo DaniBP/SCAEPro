@@ -64,7 +64,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	 * Método para consultar el control de acceso del empleado
 	 * @param idEmpleado identificador del empleado
 	 * @param fecha del control de acceso
-	 * @return modelo del control de acceso
+	 * @return Lista de modelos del control de acceso
 	 * @throws SQLException excepcion SQL
 	 */
 	public List<ControlAccesoModel> consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
@@ -88,6 +88,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	public String insertar(ControlAccesoModel t) throws SQLException {
 		String horaControl=null;
 		
+		
 		switch (getAccesoController().getListaControlAcceso().size()-1) {
 		case 0:
 			horaControl="Hora de entrada";
@@ -99,6 +100,10 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 			break;
 			
 		case 2:
+			if(getAccesoController().getListaControlAcceso().get(1).getHoraControl().equals("Hora de salida")){
+				return "Labores del día completados";
+			}
+			
 			t.setIdControlAcceso(getAccesoController().getListaControlAcceso().get(0).getIdControlAcceso());
 			horaControl="Hora de entrada de comer";
 			break;
@@ -106,13 +111,17 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 			t.setIdControlAcceso(getAccesoController().getListaControlAcceso().get(0).getIdControlAcceso());
 			horaControl="Hora de salida";
 			break;
+		case 4:
+			return "Labores del día completados";
 		}
 		
 		String resultado = validarHora(t);
 		
-		if(horaControl.equals("Hora de salida a comer") && resultado.equals("Día no laboral")){
+		if(horaControl.equals("Hora de salida a comer") && (resultado.equals("Día no laboral") || resultado.equals("No comida"))){
 			horaControl="Hora de salida";
 		}
+		
+	
 		
 		t.setHoraControl(horaControl);
 		
@@ -153,7 +162,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		if (turnoModel.getIdEstatus()==2){
 			return "Día no laboral";
 		}else if(turnoModel.getIdEstatusComida()==2){
-			
+			return "No comida";
 		}
 		return "correcto";
 	}
