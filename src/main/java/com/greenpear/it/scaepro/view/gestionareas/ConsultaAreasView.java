@@ -47,12 +47,12 @@ public class ConsultaAreasView extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultaAreasView() {
-		setBounds(100, 100, 615, 401);
+		setBounds(100, 100, 789, 401);
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Por Nombre:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
-		panel.setBounds(27, 11, 546, 65);
+		panel.setBounds(22, 11, 551, 65);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -70,12 +70,12 @@ public class ConsultaAreasView extends JFrame {
 		panel.add(btnBuscar);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(27, 87, 546, 273);
+		panel_1.setBounds(22, 87, 729, 273);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 526, 251);
+		scrollPane.setBounds(0, 11, 729, 251);
 		panel_1.add(scrollPane);
 		
 		tablaAreas = new JTable();

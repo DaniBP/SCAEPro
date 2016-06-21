@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import com.greenpear.it.scaepro.bo.gestionareas.AltaAreasBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
-import com.greenpear.it.scaepro.model.gestionareas.AltaAreasModel;
+import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.view.gestionareas.AltaAreasView;
 /**
  * @author EDSONJOSUE
@@ -25,7 +25,7 @@ public class AltaAreasController implements ActionListener{
 	private GovernmentService government;
 	
 	@Autowired
-	private AltaAreasModel modelo;
+	private ConsultaAreasModel modelo;
 	
 	@Autowired
 	private AltaAreasView vista;
@@ -38,7 +38,7 @@ public class AltaAreasController implements ActionListener{
 		return government;
 	}
 	
-	private AltaAreasModel getModelo() {
+	private ConsultaAreasModel getModelo() {
 		return modelo;
 	}
 	
@@ -57,39 +57,79 @@ public class AltaAreasController implements ActionListener{
 		 getVista().btnLimpiar.addActionListener(this);
 		 
 		 }
-			
 			getVista().setVisible(true);
+			editarArea();
 	 }
+
+	private void editarArea() {
+		if(getModelo().getArea() != null){
+			getVista().txtArea.setEditable(false);
+			getVista().txtArea.setText(getModelo().getArea());
+			getModelo().setAreaAnterior(getVista().txtArea.getText());
+			getVista().txtDescArea.setText(getModelo().getDescripcionArea());
+			getVista().btnRegistrar.setText("Editar");
+			getVista().btnLimpiar.setText("Limpiar Descripción");
+			getVista().btnLimpiar.setBounds(340, 240, 160, 23);
+		}
+		
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == getVista().btnRegistrar) {
+		//------Limpiar editar----------
+		if (e.getSource() == getVista().btnLimpiar && getVista().btnLimpiar.getText() == "Limpiar Descripción"){
+			getVista().txtDescArea.setText("");
+		}else if (e.getSource() == getVista().btnLimpiar && getVista().btnLimpiar.getText() == "Limpiar"){
+				getVista().txtArea.setText("");
+				getVista().txtDescArea.setText("");
+			}
+		//------Registrar--------
+		else if (e.getSource() == getVista().btnRegistrar && getVista().btnRegistrar.getText() == "Registrar" ) {
 			if(getVista().txtArea.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese el nombre del área","Registar Área",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ingrese un nombre de área","Registar Área",JOptionPane.WARNING_MESSAGE);
 				return;
 			}else if(getVista().txtDescArea.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese la descripción del área","Registar Área",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ingrese una descripción del área","Registar Área",JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
 			getModelo().setArea(getVista().txtArea.getText());
-			getModelo().setDescripcion(getVista().txtDescArea.getText());
+			getModelo().setDescripcionArea(getVista().txtDescArea.getText());
 			String acceso=null;
-			
 			try {
 				acceso=getBo().insertar(getModelo());
 			} catch (SQLException t) {
 				JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 			}
+				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+				return;
+		//------Editar--------
+		}else if (e.getSource() == getVista().btnRegistrar && getVista().btnRegistrar.getText() == "Editar" ) {
+			if(getVista().txtArea.getText().isEmpty()){
+				JOptionPane.showMessageDialog(null, "Ingrese un nombre de área","Editar Área",JOptionPane.WARNING_MESSAGE);
+				return;
+			}else if(getVista().txtDescArea.getText().isEmpty()){
+				JOptionPane.showMessageDialog(null, "Ingrese una descripción del área","Editar Área",JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			getModelo().setArea(getVista().txtArea.getText());
+			getModelo().setDescripcionArea(getVista().txtDescArea.getText());
+			String acceso=null;
+			try {
+				acceso=getBo().editar(getModelo());
+			} catch (SQLException t) {
+				JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+			}
 			
-//			if(acceso.equals("Registro exitoso!")){
-//				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
-////				getGovernment().mostrarVentanaPrincipal();
-//			}else{
-//				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.WARNING_MESSAGE);
-//			}
+			if(acceso == "Esta área ya existe!"){
+				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}else{
+				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+				getGoverment().getConsultaAreasController().mostrarVistaConsultarAreas();
+				getVista().setVisible(false);
+				return;
+			}
 		}
-		
 	}
 
 }

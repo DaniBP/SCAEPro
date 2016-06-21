@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.greenpear.it.scaepro.dao.gestionareas.AltaAreasDao;
-import com.greenpear.it.scaepro.model.gestionareas.AltaAreasModel;
+import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.services.InsertService;
 
 /**
@@ -18,7 +18,7 @@ import com.greenpear.it.scaepro.services.InsertService;
  *
  */
 @Service("altaAreasBo")
-public class AltaAreasBo implements InsertService<AltaAreasModel>{
+public class AltaAreasBo implements InsertService<ConsultaAreasModel>{
 	
 	@Autowired
 	@Qualifier("altaAreasDao")
@@ -29,7 +29,7 @@ public class AltaAreasBo implements InsertService<AltaAreasModel>{
 	}
 
 	@Override
-	public String insertar(AltaAreasModel modelo) throws SQLException {
+	public String insertar(ConsultaAreasModel modelo) throws SQLException {
 		String acceso=null;
 //		
 //		if(modelo.getUsuario().length()<5){
@@ -40,6 +40,16 @@ public class AltaAreasBo implements InsertService<AltaAreasModel>{
 		
 		try {
 			acceso = getInsertDaoService().insertar(modelo);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return acceso;
+	}
+
+	public String editar(ConsultaAreasModel modelo) throws SQLException {
+		String acceso=null;
+		try {
+			acceso = getInsertDaoService().editar(modelo);
 		} catch (SQLException t) {
 			throw new SQLException(t.getMessage());
 		}

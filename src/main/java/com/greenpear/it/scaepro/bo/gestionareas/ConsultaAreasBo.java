@@ -41,4 +41,23 @@ public class ConsultaAreasBo implements SelectAllService<ConsultaAreasModel>{
 		return listaAreas;
 	}
 
+	public String eliminarArea(ConsultaAreasModel modelo) {
+		String resultado="";
+		try{
+			resultado=getSelectAllService().eliminarArea(modelo);
+		}catch(Exception e){
+			return e.getMessage();
+		}
+		return resultado;
+		
+	}
+
+	public ConsultaAreasModel consultaIndividual(ConsultaAreasModel area) throws SQLException {
+		try{
+			area=getSelectAllService().consultaIndividual(area);
+		}catch(Exception e){
+			throw new SQLException(e.getMessage());
+		}
+		return area;
+	}
 }

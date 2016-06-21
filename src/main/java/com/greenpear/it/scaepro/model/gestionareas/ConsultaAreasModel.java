@@ -3,18 +3,16 @@
  */
 package com.greenpear.it.scaepro.model.gestionareas;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author EDSONJOSUE
  *
  */
 public class ConsultaAreasModel {
+	private int idArea;
 	private String area;
-	private int id_area;
+	private String areaAnterior;
 	private String descripcionArea;
-	private List<String> listaUsuarios = new ArrayList();
 	/**
 	 * @return the area
 	 */
@@ -26,18 +24,6 @@ public class ConsultaAreasModel {
 	 */
 	public void setArea(String area) {
 		this.area = area;
-	}
-	/**
-	 * @return the id_area
-	 */
-	public int getId_area() {
-		return id_area;
-	}
-	/**
-	 * @param id_area the id_area to set
-	 */
-	public void setId_area(int id_area) {
-		this.id_area = id_area;
 	}
 	/**
 	 * @return the descripcionArea
@@ -52,15 +38,27 @@ public class ConsultaAreasModel {
 		this.descripcionArea = descripcionArea;
 	}
 	/**
-	 * @return the listaUsuarios
+	 * @return the idArea
 	 */
-	public List<String> getListaUsuarios() {
-		return listaUsuarios;
+	public int getIdArea() {
+		return idArea;
 	}
 	/**
-	 * @param listaUsuarios the listaUsuarios to set
+	 * @param idArea the idArea to set
 	 */
-	public void setListaUsuarios(List<String> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
+	public void setIdArea(int idArea) {
+		this.idArea = idArea;
+	}
+	/**
+	 * @return the areaAnterior
+	 */
+	public String getAreaAnterior() {
+		return areaAnterior;
+	}
+	/**
+	 * @param areaAnterior the areaAnterior to set
+	 */
+	public void setAreaAnterior(String areaAnterior) {
+		this.areaAnterior = areaAnterior;
 	}
 }
