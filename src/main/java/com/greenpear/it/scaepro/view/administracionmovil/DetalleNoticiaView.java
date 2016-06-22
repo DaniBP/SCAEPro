@@ -13,14 +13,13 @@ import javax.swing.JTable;
 import javax.swing.JSlider;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
-import java.awt.SystemColor;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 
-public class NoticiaView extends JFrame {
+public class DetalleNoticiaView extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField textField;
+	public JPanel contentPane;
+	public JTextField textField;
+	public JTextPane textPane;
+	public JButton btnRegistrar;
 
 	/**
 	 * Launch the application.
@@ -29,7 +28,7 @@ public class NoticiaView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NoticiaView frame = new NoticiaView();
+					DetalleNoticiaView frame = new DetalleNoticiaView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,45 +40,37 @@ public class NoticiaView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NoticiaView() {
-		setTitle("Nueva Noticia");
+	public DetalleNoticiaView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 280, 360);
+		setBounds(100, 100, 360, 420);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblTtulo = new JLabel("T\u00EDtulo:");
-		lblTtulo.setBounds(26, 11, 46, 14);
+		lblTtulo.setBounds(78, 52, 46, 14);
 		contentPane.add(lblTtulo);
 		
 		textField = new JTextField();
-		textField.setBounds(26, 36, 215, 20);
+		textField.setBounds(134, 49, 120, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNoticia = new JLabel("Noticia:");
-		lblNoticia.setBounds(26, 67, 46, 14);
+		lblNoticia.setBounds(78, 116, 46, 14);
 		contentPane.add(lblNoticia);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(24, 92, 217, 87);
+		textPane = new JTextPane();
+		textPane.setBounds(76, 141, 217, 87);
 		contentPane.add(textPane);
 		
 		JLabel lblImgen = new JLabel("Im\u00E1gen:");
-		lblImgen.setBounds(26, 190, 46, 14);
+		lblImgen.setBounds(78, 272, 46, 14);
 		contentPane.add(lblImgen);
 		
-		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(82, 270, 90, 40);
+		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setBounds(134, 304, 90, 40);
 		contentPane.add(btnRegistrar);
-		
-		JButton btnSubirFoto = new JButton("Seleccionar imagen...");
-		btnSubirFoto.setHorizontalAlignment(SwingConstants.LEFT);
-		btnSubirFoto.setIcon(new ImageIcon(NoticiaView.class.getResource("/javax/swing/plaf/basic/icons/image-delayed.png")));
-		btnSubirFoto.setBounds(26, 212, 215, 32);
-		contentPane.add(btnSubirFoto);
 	}
 }

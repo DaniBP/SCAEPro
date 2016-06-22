@@ -11,7 +11,9 @@ import java.awt.SystemColor;
 
 public class AdminNoticiasView extends JFrame {
 
-	private JPanel contentPane;
+	public JPanel contentPane;
+	public JButton btnNoticiaNueva;
+	public JButton btnNoticiasExistentes;
 
 	/**
 	 * Launch the application.
@@ -42,11 +44,11 @@ public class AdminNoticiasView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNoticiaNueva = new JButton("Noticia nueva");
+		btnNoticiaNueva = new JButton("Noticia nueva");
 		btnNoticiaNueva.setBounds(57, 42, 180, 40);
 		contentPane.add(btnNoticiaNueva);
 		
-		JButton btnNoticiasExistentes = new JButton("Noticias existentes");
+		btnNoticiasExistentes = new JButton("Noticias existentes");
 		btnNoticiasExistentes.setBounds(57, 106, 180, 40);
 		contentPane.add(btnNoticiasExistentes);
 	}

@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.greenpear.it.scaepro.controller.accesosistema.*;
+import com.greenpear.it.scaepro.controller.administracionmovil.AdminNoticiasController;
+import com.greenpear.it.scaepro.controller.administracionmovil.NoticiasExistentesController;
+import com.greenpear.it.scaepro.controller.administracionmovil.NuevaNoticiaController;
 import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
 import com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController;
 import com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController;;
@@ -35,6 +38,9 @@ public class GovernmentService implements Government {
 	@Autowired private ControlAccesoController controlAccesoController;
 	@Autowired private AltaAreasController altaAreasController; 
 	@Autowired private ConsultaAreasController consultaAreasController;
+	@Autowired private AdminNoticiasController adminNoticiasController;
+	@Autowired private NoticiasExistentesController noticiasExistentesController;
+	@Autowired private NuevaNoticiaController nuevaNoticiaController;
 
 	public InicioController getInicioController() {
 		return inicioController;
@@ -58,6 +64,18 @@ public class GovernmentService implements Government {
 	
 	public ConsultaAreasController getConsultaAreasController() {
 		return consultaAreasController;
+	}
+	
+	public AdminNoticiasController getAdminNoticiasController() {
+		return adminNoticiasController;
+	}
+	
+	public NoticiasExistentesController getNoticiasExistentesController() {
+		return noticiasExistentesController;
+	}
+	
+	public NuevaNoticiaController getNuevaNoticiaController() {
+		return nuevaNoticiaController;
 	}
 	//*************FIN DE ESTANCIAS***************
 	
@@ -93,5 +111,20 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarVistaConsultarAreas(){
 		getConsultaAreasController().mostrarVistaConsultarAreas();
+	}
+	
+	@Override
+	public void mostrarVistaAdminNoticias(){
+		getAdminNoticiasController().mostrarVistaAdminNoticias();;
+	}
+	
+	@Override
+	public void mostrarNoticiasExistentes() {
+		getNoticiasExistentesController().mostrarNoticiasExistentes();
+	}
+	
+	@Override
+	public void mostrarNuevaNoticia() {
+		getNuevaNoticiaController().mostrarNuevaNoticia();
 	}
 }

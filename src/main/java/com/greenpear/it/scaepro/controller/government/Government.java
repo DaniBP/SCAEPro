@@ -14,4 +14,7 @@ public interface Government {
 	public void mostrarControlAcceso();
 	public void mostrarVistaRegistrarAreas();
 	public void mostrarVistaConsultarAreas();
+	public void mostrarVistaAdminNoticias();
+	public void mostrarNoticiasExistentes();
+	public void mostrarNuevaNoticia();
 }

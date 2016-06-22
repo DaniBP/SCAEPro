@@ -14,8 +14,9 @@ import java.awt.SystemColor;
 
 public class NoticiasExistentesView extends JFrame {
 
-	private JPanel contentPane;
-	private JTable table;
+	public JPanel contentPane;
+	public JTable table;
+	public JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -39,16 +40,16 @@ public class NoticiasExistentesView extends JFrame {
 	public NoticiasExistentesView() {
 		setTitle("Noticias Existentes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 280, 320);
+		setBounds(100, 100, 465, 444);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBackground(SystemColor.activeCaption);
-		scrollPane.setBounds(10, 11, 244, 259);
+		scrollPane.setBounds(10, 11, 429, 383);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
