@@ -100,6 +100,8 @@
 	<bean id="consultaAreasController" class="com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController" />
 	
 	<bean id="adminNoticiasController" class="com.greenpear.it.scaepro.controller.administracionmovil.AdminNoticiasController" />
+	<bean id="noticiasExistentesController" class="com.greenpear.it.scaepro.controller.administracionmovil.NoticiasExistentesController" />
+	<bean id="nuevaNoticiaController" class="com.greenpear.it.scaepro.controller.administracionmovil.NuevaNoticiaController" />
 
 <!-- 	Aquí comienza la declaración de modelos -->
 

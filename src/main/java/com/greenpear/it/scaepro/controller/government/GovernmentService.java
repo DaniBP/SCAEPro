@@ -115,7 +115,7 @@ public class GovernmentService implements Government {
 	
 	@Override
 	public void mostrarVistaAdminNoticias(){
-		getAdminNoticiasController().mostrarVistaAdminNoticias();;
+		getAdminNoticiasController().mostrarVistaAdminNoticias();
 	}
 	
 	@Override
