@@ -296,6 +296,8 @@ public class ControlAccesoController implements ActionListener, Runnable{
 					getControlAccesoView().lblEntradaComer.setEnabled(false);
 					getControlAccesoView().lblSalida.setText("Hora de salida             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
 					getControlAccesoView().lblSalida.setVisible(true);
+					getControlAccesoView().lblHorasTrabajadas.setText("Horas trabajadas            "+listaControlAcceso.get(i).getHorasTrabajadas());
+					getControlAccesoView().lblHorasTrabajadas.setVisible(true);
 					i=4;
 				}else{
 					getControlAccesoView().lblSalidaComer.setText("Hora de salida a comer             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
@@ -310,6 +312,8 @@ public class ControlAccesoController implements ActionListener, Runnable{
 			case 3: 
 				getControlAccesoView().lblSalida.setText("Hora de salida             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
 				getControlAccesoView().lblSalida.setVisible(true);
+				getControlAccesoView().lblHorasTrabajadas.setText("Horas trabajadas            "+listaControlAcceso.get(i).getHorasTrabajadas());
+				getControlAccesoView().lblHorasTrabajadas.setVisible(true);
 				break;
 			}
 		}
@@ -327,7 +331,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	}
 	
 	/**
-	 * Método para esperar 5 con los datos en pantalla
+	 * Método para esperar 5 segundos con los datos en pantalla
 	 */
 	public void esperar(){
 		Runnable r2 = new Runnable() {

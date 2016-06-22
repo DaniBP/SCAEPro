@@ -10,6 +10,7 @@ public class ControlAccesoModel {
 	private int idControlAcceso;
 	private int idEmpleado;
 	private String fecha;
+	private int horasTrabajadas;
 	
 	private int idControlHoras;
 	private String horaControl;
@@ -87,6 +88,18 @@ public class ControlAccesoModel {
 	public void setHoraRegistrada(String horaRegistrada) {
 		this.horaRegistrada = horaRegistrada;
 	}
+	/**
+	 * @return the horasTrabajadas
+	 */
+	public int getHorasTrabajadas() {
+		return horasTrabajadas;
+	}
+	/**
+	 * @param horasTrabajadas the horasTrabajadas to set
+	 */
+	public void setHorasTrabajadas(int horasTrabajadas) {
+		this.horasTrabajadas = horasTrabajadas;
+	}
 	
 	/**
 	 * Método para limpiar modelo
@@ -98,5 +111,5 @@ public class ControlAccesoModel {
 		idControlHoras=0;
 		horaControl=null;
 		horaRegistrada=null;
-	}
+	}	
 }
