@@ -49,11 +49,6 @@ private JdbcTemplate jdbcTemplate;
 		return jdbcTemplate.getDataSource();
 	}
 	
-	private ConsultaAreasDao SelectAllServiceDao;
-	
-	public ConsultaAreasDao getSelectAllServiceDao() {
-		return SelectAllServiceDao;
-	}
 	@Override
 	public List<ConsultaAreasModel> consultaGeneral() throws SQLException {
 		List<ConsultaAreasModel> listaAreas=new ArrayList<ConsultaAreasModel>();

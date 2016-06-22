@@ -5,12 +5,16 @@ package com.greenpear.it.scaepro.controller.administracionmovil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.greenpear.it.scaepro.bo.administracionmovil.NuevaNoticiaBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
 import com.greenpear.it.scaepro.dao.administracionmovil.NuevaNoticiaDao;
+import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.view.administracionmovil.NuevaNoticiaView;
 
 /**
@@ -29,7 +33,7 @@ public class NuevaNoticiaController implements ActionListener {
 	private NuevaNoticiaBo bo;
 
 	@Autowired
-	private NuevaNoticiaDao dao;
+	private NoticiasModel modelo;
 
 	public GovernmentService getGovernment() {
 		return government;
@@ -43,8 +47,8 @@ public class NuevaNoticiaController implements ActionListener {
 		return bo;
 	}
 
-	public NuevaNoticiaDao getDao() {
-		return dao;
+	public NoticiasModel getModelo() {
+		return modelo;
 	}
 	// ***********FIN DE ESTANCIAS****************
 
@@ -58,7 +62,29 @@ public class NuevaNoticiaController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	//------Registrar--------
+	if (e.getSource() == getVista().btnRegistrar) {
+		if(getVista().txtTitulo.getText().isEmpty()){
+			JOptionPane.showMessageDialog(null, "Ingrese un título de la noticia","Nueva Noticia",JOptionPane.WARNING_MESSAGE);
+			return;
+		}else if(getVista().txtDescNoticia.getText().isEmpty()){
+			JOptionPane.showMessageDialog(null, "Ingrese una descripción de la noticia","Nueva Noticia",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		getModelo().setTituloNoticia(getVista().txtTitulo.getText());
+		getModelo().setDescNoticia(getVista().txtDescNoticia.getText());
+		String registro=null;
+		
+		try {
+			registro=getBo().insertar(getModelo());
+		} catch (SQLException t) {
+			JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+		}
+			JOptionPane.showMessageDialog(null, registro,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+			return;
+	//------Editar--------
+	}
 
 	}
 

@@ -44,9 +44,10 @@ public class AdminNoticiasController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Botón Noticia Nueva
 		if (e.getSource() == getVista().btnNoticiaNueva) {
+			getGovernment().mostrarNuevaNoticia();
 		//	Botón Noticias Existentes
 		} else if (e.getSource() == getVista().btnNoticiasExistentes) {
-
+			getGovernment().mostrarNoticiasExistentes();
 		}
 	}
 

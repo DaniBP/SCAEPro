@@ -47,7 +47,7 @@ public class NuevaNoticiaView extends JFrame {
 	public NuevaNoticiaView() {
 		setTitle("Nueva Noticia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 280, 360);
+		setBounds(100, 100, 342, 430);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,7 +59,7 @@ public class NuevaNoticiaView extends JFrame {
 		contentPane.add(lblTtulo);
 		
 		txtTitulo = new JTextField();
-		txtTitulo.setBounds(26, 36, 215, 20);
+		txtTitulo.setBounds(26, 36, 278, 20);
 		contentPane.add(txtTitulo);
 		txtTitulo.setColumns(10);
 		
@@ -68,7 +68,7 @@ public class NuevaNoticiaView extends JFrame {
 		contentPane.add(lblNoticia);
 		
 		txtDescNoticia = new JTextPane();
-		txtDescNoticia.setBounds(24, 92, 217, 87);
+		txtDescNoticia.setBounds(24, 92, 278, 87);
 		contentPane.add(txtDescNoticia);
 		
 		JLabel lblImgen = new JLabel("Im\u00E1gen:");
@@ -76,13 +76,13 @@ public class NuevaNoticiaView extends JFrame {
 		contentPane.add(lblImgen);
 		
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(82, 270, 90, 40);
+		btnRegistrar.setBounds(86, 290, 168, 32);
 		contentPane.add(btnRegistrar);
 		
 		btnSubirFoto = new JButton("Seleccionar imagen...");
 		btnSubirFoto.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSubirFoto.setIcon(new ImageIcon(NuevaNoticiaView.class.getResource("/javax/swing/plaf/basic/icons/image-delayed.png")));
-		btnSubirFoto.setBounds(26, 212, 215, 32);
+		btnSubirFoto.setBounds(26, 212, 278, 32);
 		contentPane.add(btnSubirFoto);
 	}
 }

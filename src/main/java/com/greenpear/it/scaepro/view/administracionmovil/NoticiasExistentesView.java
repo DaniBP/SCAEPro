@@ -15,7 +15,7 @@ import java.awt.SystemColor;
 public class NoticiasExistentesView extends JFrame {
 
 	public JPanel contentPane;
-	public JTable table;
+	public JTable tablaNoticias;
 	public JScrollPane scrollPane;
 
 	/**
@@ -52,27 +52,15 @@ public class NoticiasExistentesView extends JFrame {
 		scrollPane.setBounds(10, 11, 429, 383);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
+		tablaNoticias = new JTable();
+		scrollPane.setViewportView(tablaNoticias);
+		tablaNoticias.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
-				{null, null, null},
+				{},
+				{},
 			},
 			new String[] {
-				"Noticia", "Imagen", "Consultar"
 			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(0).setPreferredWidth(255);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(2).setResizable(false);
+		));
 	}
 }
