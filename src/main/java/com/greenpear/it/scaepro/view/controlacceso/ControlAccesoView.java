@@ -20,6 +20,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class ControlAccesoView extends JFrame {
 
@@ -41,6 +42,7 @@ public class ControlAccesoView extends JFrame {
 	public JLabel lblSalida;
 	public JLabel imgEstado;
 	public JLabel imgFoto;
+	public JLabel lblHorasTrabajadas;
 
 	/**
 	 * Launch the application.
@@ -102,23 +104,29 @@ public class ControlAccesoView extends JFrame {
 		
 		lblEntrada = new JLabel("Hora de Entrada:");
 		lblEntrada.setVisible(false);
-		lblEntrada.setBounds(10, 34, 311, 14);
+		lblEntrada.setBounds(10, 22, 311, 14);
 		panel_1.add(lblEntrada);
 		
 		lblSalidaComer = new JLabel("Hora de Salida a Comer:");
 		lblSalidaComer.setVisible(false);
-		lblSalidaComer.setBounds(10, 60, 311, 14);
+		lblSalidaComer.setBounds(10, 48, 311, 14);
 		panel_1.add(lblSalidaComer);
 		
 		lblEntradaComer = new JLabel("Hora de Entrada de Comer:");
 		lblEntradaComer.setVisible(false);
-		lblEntradaComer.setBounds(10, 85, 311, 14);
+		lblEntradaComer.setBounds(10, 73, 311, 14);
 		panel_1.add(lblEntradaComer);
 		
 		lblSalida = new JLabel("Hora de Salida:");
 		lblSalida.setVisible(false);
-		lblSalida.setBounds(10, 109, 311, 14);
+		lblSalida.setBounds(10, 97, 311, 14);
 		panel_1.add(lblSalida);
+		
+		lblHorasTrabajadas = new JLabel("Horas trabajadas: ");
+		lblHorasTrabajadas.setVisible(false);
+		lblHorasTrabajadas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblHorasTrabajadas.setBounds(10, 121, 311, 14);
+		panel_1.add(lblHorasTrabajadas);
 		
 		JLabel lblFotografia = new JLabel("Fotografia");
 		lblFotografia.setHorizontalAlignment(SwingConstants.CENTER);
@@ -154,6 +162,9 @@ public class ControlAccesoView extends JFrame {
 		contentPane.add(imgEstado);
 	}
 	
+	/**
+	 * Método para limpiar la ventana de control de acceso
+	 */
 	public void limpiarVentana(){
 		lblEmpleado.setText("Empleado:");
 		lblArea.setText("Área:");
@@ -161,12 +172,14 @@ public class ControlAccesoView extends JFrame {
 		lblSalidaComer.setText("Hora de Salida a Comer:");
 		lblEntradaComer.setText("Hora de Entrada de Comer:");
 		lblSalida.setText("Hora de Salida:");
+		lblHorasTrabajadas.setText("Horas trabajadas:");
 		lblEntrada.setVisible(false);
 		lblSalidaComer.setVisible(false);
 		lblSalidaComer.setEnabled(true);
 		lblEntradaComer.setVisible(false);
 		lblEntradaComer.setEnabled(true);
 		lblSalida.setVisible(false);
+		lblHorasTrabajadas.setVisible(false);
 		imgEstado.setIcon(null);
 		imgFoto.setIcon(null);
 		btnChecar.setEnabled(true);

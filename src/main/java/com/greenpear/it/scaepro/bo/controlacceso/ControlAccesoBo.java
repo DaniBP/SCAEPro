@@ -121,7 +121,15 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 			horaControl="Hora de salida";
 		}
 		
-	
+		if(horaControl.equals("Hora de salida")){
+			int horaEntrada = Integer.parseInt(getAccesoController().getListaControlAcceso().get(0).getHoraRegistrada().substring(0, 2));
+			System.out.println(horaEntrada);
+			int horaSalida = Integer.parseInt(getAccesoController().getListaControlAcceso().get(getAccesoController().getListaControlAcceso().size()-1).getHoraRegistrada().substring(0, 2));
+			System.out.println(horaSalida);
+			int horasTrabajadas=horaSalida-horaEntrada;
+			System.out.println(horasTrabajadas);
+			t.setHorasTrabajadas(horasTrabajadas);
+		}
 		
 		t.setHoraControl(horaControl);
 		

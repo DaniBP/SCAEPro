@@ -82,6 +82,7 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 					resultValue.setHoraRegistrada(rs.getString("horaRegistrada"));
 					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
 					resultValue.setFecha(rs.getString("fecha"));
+					resultValue.setHorasTrabajadas(rs.getInt("horasTrabajadas"));
 					
 					return resultValue;
 				}
@@ -108,6 +109,20 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 				paramteters1.put("fecha", t.getFecha());
 				
 				t.setIdControlAcceso(insertControlAcceso.executeAndReturnKey(paramteters1).intValue());
+			}else if(t.getHoraControl().equals("Hora de salida")){
+				String sql="UPDATE t_control_acceso SET "
+						+ "horasTrabajadas=? "
+						+ "WHERE idControlAcceso=?";
+				
+				try{
+					getJdbcTemplate().update(sql,
+							t.getHorasTrabajadas(),
+							t.getIdControlAcceso());
+				}catch(Exception e){
+					log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ",e.getMessage());
+					throw new SQLException("Existe un problema con la base de datos\n"
+							+ "No se pudo realizar la actualización!");
+				}
 			}
 			
 			SimpleJdbcInsert insertControlHoras = new SimpleJdbcInsert(getDataSource());
