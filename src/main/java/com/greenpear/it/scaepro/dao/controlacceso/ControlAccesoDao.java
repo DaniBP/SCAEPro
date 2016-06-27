@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
+import com.greenpear.it.scaepro.model.incidencia.IncidenciaModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.services.DataSourceService;
 import com.greenpear.it.scaepro.services.InsertService;
@@ -66,6 +67,7 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 	
 	public List<ControlAccesoModel> consultarControlAcceso(int idEmpleado,String fecha) throws SQLException{
 		List<ControlAccesoModel> listaControlAcceso= new ArrayList<ControlAccesoModel>();
+		
 		String sql="SELECT * FROM t_control_horas "
 				+ "INNER JOIN t_control_acceso ON t_control_acceso.idControlAcceso = t_control_horas.idControlAcceso "
 				+ "WHERE idEmpleado="+idEmpleado+" AND "
@@ -104,11 +106,11 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 				insertControlAcceso.setTableName("t_control_acceso");
 				insertControlAcceso.setGeneratedKeyName("idControlAcceso");
 				
-				Map<String, Object> paramteters1 = new HashMap<String, Object>();
-				paramteters1.put("idEmpleado", t.getIdEmpleado());
-				paramteters1.put("fecha", t.getFecha());
+				Map<String, Object> paramteters = new HashMap<String, Object>();
+				paramteters.put("idEmpleado", t.getIdEmpleado());
+				paramteters.put("fecha", t.getFecha());
 				
-				t.setIdControlAcceso(insertControlAcceso.executeAndReturnKey(paramteters1).intValue());
+				t.setIdControlAcceso(insertControlAcceso.executeAndReturnKey(paramteters).intValue());
 			}else if(t.getHoraControl().equals("Hora de salida")){
 				String sql="UPDATE t_control_acceso SET "
 						+ "horasTrabajadas=? "
@@ -129,12 +131,12 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 			insertControlHoras.setTableName("t_control_horas");
 			insertControlHoras.setGeneratedKeyName("idControlHoras");
 			
-			Map<String, Object> paramteters2 = new HashMap<String, Object>();
-			paramteters2.put("idControlAcceso", t.getIdControlAcceso());
-			paramteters2.put("horaControl", t.getHoraControl());
-			paramteters2.put("horaRegistrada", t.getHoraRegistrada());
+			Map<String, Object> paramteters = new HashMap<String, Object>();
+			paramteters.put("idControlAcceso", t.getIdControlAcceso());
+			paramteters.put("horaControl", t.getHoraControl());
+			paramteters.put("horaRegistrada", t.getHoraRegistrada());
 			
-			t.setIdControlHoras(insertControlHoras.executeAndReturnKey(paramteters2).intValue());
+			t.setIdControlHoras(insertControlHoras.executeAndReturnKey(paramteters).intValue());
 
 		} catch (Exception e) {
 			log.error("Consulta : Error al cargar los datos. Motivo: {} ",e.getMessage());
@@ -173,5 +175,24 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 					+ "No se pudo realizar la consulta!");
 		}
 		return turnoModel;
+	}
+	
+	public void generarIncidencia(IncidenciaModel incidenciaModel) throws SQLException{
+		try{
+			SimpleJdbcInsert insertIncidencia = new SimpleJdbcInsert(getDataSource());
+			insertIncidencia.setTableName("t_incidencia");
+			insertIncidencia.setGeneratedKeyName("idIncidencia");
+			
+			Map<String, Object> paramteters = new HashMap<String, Object>();
+			paramteters.put("idEmpleado", incidenciaModel.getIdEmpleado());
+			paramteters.put("idTipoIncidencia", incidenciaModel.getIdTipoIncidencia());
+			paramteters.put("idEstatusIncidencia", incidenciaModel.getIdEstatusIncidencia());
+			paramteters.put("fechaIncidencia", incidenciaModel.getFechaIncidencia());
+			
+			incidenciaModel.setIdIncidencia(insertIncidencia.executeAndReturnKey(paramteters).intValue());
+		} catch (Exception e) {
+			log.error("Consulta : Error al cargar los datos. Motivo: {} ",e.getMessage());
+			throw new SQLException("Error al tratar de generar el INSERT");
+		}
 	}
 }

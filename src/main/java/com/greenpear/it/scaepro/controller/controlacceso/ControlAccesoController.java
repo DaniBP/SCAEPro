@@ -22,6 +22,7 @@ import com.greenpear.it.scaepro.bo.controlacceso.ControlAccesoBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
 import com.greenpear.it.scaepro.model.controlacceso.ControlAccesoModel;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
+import com.greenpear.it.scaepro.model.incidencia.IncidenciaModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.view.accesosistema.PrincipalView;
 import com.greenpear.it.scaepro.view.controlacceso.ControlAccesoView;
@@ -58,6 +59,9 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	private TurnoModel turnoModel;
 	
 	@Autowired
+	private IncidenciaModel incidenciaModel;
+	
+	@Autowired
 	@Qualifier("accesoBoService")
 	private ControlAccesoBo accesoBoService;
 	
@@ -87,6 +91,14 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		return turnoModel;
 	}
 	
+	public void setTurnoModel(TurnoModel turnoModel){
+		this.turnoModel=turnoModel;
+	}
+	
+	public IncidenciaModel getIncidenciaModel() {
+		return incidenciaModel;
+	}
+
 	public List<ControlAccesoModel> getListaControlAcceso() {
 		return listaControlAcceso;
 	}
@@ -241,6 +253,8 @@ public class ControlAccesoController implements ActionListener, Runnable{
 						getEmpleadoModel().limpiarModelo();
 						getListaControlAcceso().clear();
 						getControlAccesoModel().limpiarModelo();
+						getTurnoModel().limpiarModelo();
+						getIncidenciaModel().limpiarModelo();
 					}
 				}
 			};

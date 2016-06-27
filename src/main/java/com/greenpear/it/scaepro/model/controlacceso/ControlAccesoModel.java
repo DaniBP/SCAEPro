@@ -111,5 +111,6 @@ public class ControlAccesoModel {
 		idControlHoras=0;
 		horaControl=null;
 		horaRegistrada=null;
+		horasTrabajadas=0;
 	}	
 }

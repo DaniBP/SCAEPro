@@ -111,6 +111,7 @@
    	<bean id="consultaAreasModel" class="com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel" />
    	<bean id="turnoModel" class="com.greenpear.it.scaepro.model.turno.TurnoModel" />
    	<bean id="noticiasModel" class="com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel" />
+   	<bean id="incidenciaModel" class="com.greenpear.it.scaepro.model.incidencia.IncidenciaModel" />
     
 <!-- 	Aquí comienza la declaración de BO -->
 
