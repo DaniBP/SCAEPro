@@ -39,7 +39,7 @@ public class NoticiasExistentesView extends JFrame {
 	 */
 	public NoticiasExistentesView() {
 		setTitle("Noticias Existentes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 465, 444);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);

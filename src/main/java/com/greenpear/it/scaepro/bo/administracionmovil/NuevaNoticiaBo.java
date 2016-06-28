@@ -35,4 +35,14 @@ public class NuevaNoticiaBo {
 		return registro;
 	}
 
+	public String editar(NoticiasModel modelo) throws SQLException {
+		String editado=null;
+		try {
+			editado = getDao().editar(modelo);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return editado;
+	}
+
 }

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
+import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.view.administracionmovil.AdminNoticiasView;
 
 /**
@@ -22,6 +23,9 @@ public class AdminNoticiasController implements ActionListener {
 
 	@Autowired
 	private AdminNoticiasView vista;
+	
+	@Autowired
+	private NoticiasModel modelo;
 
 	public GovernmentService getGovernment() {
 		return government;
@@ -29,6 +33,10 @@ public class AdminNoticiasController implements ActionListener {
 
 	public AdminNoticiasView getVista() {
 		return vista;
+	}
+	
+	public NoticiasModel getModelo() {
+		return modelo;
 	}
 
 	// ***********FIN DE ESTANCIAS****************
@@ -44,6 +52,7 @@ public class AdminNoticiasController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Botón Noticia Nueva
 		if (e.getSource() == getVista().btnNoticiaNueva) {
+			getModelo().setNombreVentana("Nueva Noticia");
 			getGovernment().mostrarNuevaNoticia();
 		//	Botón Noticias Existentes
 		} else if (e.getSource() == getVista().btnNoticiasExistentes) {

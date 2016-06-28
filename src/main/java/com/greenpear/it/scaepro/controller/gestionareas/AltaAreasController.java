@@ -71,7 +71,6 @@ public class AltaAreasController implements ActionListener{
 			getVista().btnLimpiar.setText("Limpiar Descripción");
 			getVista().btnLimpiar.setBounds(340, 240, 160, 23);
 		}
-		
 	}
 
 	@Override

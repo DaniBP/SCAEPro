@@ -33,4 +33,15 @@ public class NoticiasExistentesBo {
 		}
 		return listaAreas;
 	}
+
+	public NoticiasModel consultaEditar(String tituloNoticia) {
+		NoticiasModel modelo = new NoticiasModel();
+		try {
+			modelo = getDao().consultaEditar(tituloNoticia);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelo;
+	}
 }

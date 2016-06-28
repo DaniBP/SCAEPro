@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
@@ -45,7 +46,7 @@ public class NoticiasExistentesDao {
 
 	public List<NoticiasModel> consultaGeneral() throws SQLException {
 		List<NoticiasModel> listaAreas=new ArrayList<NoticiasModel>();
-		String sql="SELECT * FROM c_noticia limit 500";
+		String sql="SELECT * FROM c_noticia where idNoticias>999500";
 		
 		try{
 			listaAreas=getJdbcTemplate().query(sql, new RowMapper<NoticiasModel>(){
@@ -67,6 +68,30 @@ public class NoticiasExistentesDao {
 		}
 		
 		return listaAreas;
+	}
+
+	public NoticiasModel consultaEditar(String tituloNoticia) throws SQLException {
+		NoticiasModel modelo = new NoticiasModel();
+		String sql = "select * from c_noticia where titulo ='" + tituloNoticia + "'";
+
+		try {
+			modelo = getJdbcTemplate().query(sql, new ResultSetExtractor<NoticiasModel>() {
+				public NoticiasModel extractData(ResultSet rs) throws SQLException {
+					NoticiasModel resultValue = new NoticiasModel();
+					if (rs.next()) {
+						resultValue.setIdNoticia(rs.getInt("idNoticias"));
+						resultValue.setDescNoticia(rs.getString("noticia"));
+						resultValue.setTituloNoticia(rs.getString("titulo"));
+						resultValue.setImagenNoticia(rs.getString("imagen"));
+					}
+					return resultValue;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return modelo;
 	}
 
 }
