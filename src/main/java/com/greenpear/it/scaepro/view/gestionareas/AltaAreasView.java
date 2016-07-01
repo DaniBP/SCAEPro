@@ -1,16 +1,8 @@
 package com.greenpear.it.scaepro.view.gestionareas;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.Panel;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
@@ -24,25 +16,7 @@ public class AltaAreasView extends JFrame {
 	public JTextArea txtDescArea;
 	public JButton btnLimpiar;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaAreasView frame = new AltaAreasView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public AltaAreasView() {
 		setResizable(true);
 		setTitle("Gesti\u00F3n de \u00C1reas");

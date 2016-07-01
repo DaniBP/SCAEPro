@@ -2,46 +2,23 @@ package com.greenpear.it.scaepro.view.gestionareas;
 
 import java.awt.EventQueue;
 
-import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import java.awt.ScrollPane;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class ConsultaAreasView extends JFrame {
 	public JTextField txtNombArea;
 	public JButton btnBuscar;
 	public JTable tablaAreas;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConsultaAreasView frame = new ConsultaAreasView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

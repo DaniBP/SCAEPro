@@ -36,13 +36,19 @@ public class NuevaNoticiaBo {
 	}
 
 	public String editar(NoticiasModel modelo) throws SQLException {
-		String editado=null;
+		String update=null;
 		try {
-			editado = getDao().editar(modelo);
+			update = getDao().editar(modelo);
 		} catch (SQLException t) {
 			throw new SQLException(t.getMessage());
 		}
-		return editado;
+		return update;
+	}
+
+	public String eliminar(int idNoticia) throws SQLException {
+		String delete=null;
+		delete = getDao().eliminar(idNoticia);
+		return delete;
 	}
 
 }

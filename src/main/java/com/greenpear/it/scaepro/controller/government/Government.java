@@ -17,4 +17,7 @@ public interface Government {
 	public void mostrarVistaAdminNoticias();
 	public void mostrarNoticiasExistentes();
 	public void mostrarNuevaNoticia();
+	public void mostrarImagenAmpliada();
+	public void mostrarVistaEstatusPago();
+	public void mostrarVistaGenerarAviso();
 }

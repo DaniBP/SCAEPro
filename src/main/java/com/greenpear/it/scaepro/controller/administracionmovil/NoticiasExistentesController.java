@@ -29,7 +29,7 @@ import com.greenpear.it.scaepro.view.administracionmovil.NoticiasExistentesView;
  * @author EDSONJOSUE
  *
  */
-public class NoticiasExistentesController{
+public class NoticiasExistentesController {
 	// ********ESTANCIAS***********************************
 	@Autowired
 	private GovernmentService government;
@@ -39,7 +39,7 @@ public class NoticiasExistentesController{
 
 	@Autowired
 	private NoticiasExistentesBo bo;
-	
+
 	@Autowired
 	private NoticiasModel modelo;
 
@@ -54,7 +54,7 @@ public class NoticiasExistentesController{
 	public NoticiasExistentesBo getBo() {
 		return bo;
 	}
-	
+
 	public NoticiasModel getModelo() {
 		return modelo;
 	}
@@ -64,7 +64,7 @@ public class NoticiasExistentesController{
 		getVista().setVisible(true);
 		cargarNoticias();
 	}
-	
+
 	private void cargarNoticias() {
 		List<NoticiasModel> listaNoticias = new ArrayList<NoticiasModel>();
 		try {
@@ -114,8 +114,8 @@ public class NoticiasExistentesController{
 						StringBuilder sb = new StringBuilder();
 						for (int i = 0; i < vista.tablaNoticias.getModel().getColumnCount(); i++) {
 							if (!getVista().tablaNoticias.getModel().getColumnClass(i).equals(JButton.class)) {
-								sb.append("\n").append(getVista().tablaNoticias.getModel().getColumnName(i)).append(": ")
-										.append(vista.tablaNoticias.getModel().getValueAt(fila, i));
+								sb.append("\n").append(getVista().tablaNoticias.getModel().getColumnName(i))
+										.append(": ").append(vista.tablaNoticias.getModel().getValueAt(fila, i));
 								if (getVista().tablaNoticias.getModel().getColumnName(i) == "Noticias") {
 									tituloNoticia = getVista().tablaNoticias.getModel().getValueAt(fila, i).toString();
 								}
@@ -123,7 +123,7 @@ public class NoticiasExistentesController{
 						}
 						// Botón Editar--------
 						if (boton.toString().contains("Detalle") == true) {
-							NoticiasModel modeloConsulta= new NoticiasModel();
+							NoticiasModel modeloConsulta = new NoticiasModel();
 							modeloConsulta = getBo().consultaEditar(tituloNoticia);
 							getModelo().setTituloNoticia(modeloConsulta.getTituloNoticia());
 							getModelo().setDescNoticia(modeloConsulta.getDescNoticia());
@@ -132,9 +132,12 @@ public class NoticiasExistentesController{
 							getModelo().setNombreVentana("Detalle Noticia");
 							getGovernment().mostrarNuevaNoticia();
 							return;
-						}//Botón Img 
-						else{
-							
+						} // Botón Img
+						else {
+							NoticiasModel modeloConsulta = new NoticiasModel();
+							modeloConsulta = getBo().consultaEditar(tituloNoticia);
+							getModelo().setImagenNoticia(modeloConsulta.getImagenNoticia());
+							getGovernment().mostrarImagenAmpliada();
 							return;
 						}
 					}
@@ -149,7 +152,9 @@ public class NoticiasExistentesController{
 			NoticiasModel noticias = itrPartidos.next();
 			JButton btn = new JButton("Detalle");
 			JButton btn2 = new JButton();
-			ImageIcon icono = new ImageIcon("C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/imgsNoticias/"+noticias.getImagenNoticia());
+			ImageIcon icono = new ImageIcon(
+					"C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/img/imgsNoticias/"
+							+ noticias.getImagenNoticia());
 			Image img = icono.getImage();
 			Image nuevaImg = img.getScaledInstance(75, 60, java.awt.Image.SCALE_SMOOTH);
 			ImageIcon newIcono = new ImageIcon(nuevaImg);
@@ -157,7 +162,7 @@ public class NoticiasExistentesController{
 			fila[0] = noticias.getTituloNoticia();
 			fila[1] = btn2;
 			fila[2] = btn;
-			
+
 			modelo.addRow(fila);
 		}
 		getVista().tablaNoticias.setRowHeight(60);

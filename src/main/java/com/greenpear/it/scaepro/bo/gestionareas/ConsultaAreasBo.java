@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.greenpear.it.scaepro.dao.gestionareas.ConsultaAreasDao;
+import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.services.SelectAllService;
 
@@ -59,5 +60,15 @@ public class ConsultaAreasBo implements SelectAllService<ConsultaAreasModel>{
 			throw new SQLException(e.getMessage());
 		}
 		return area;
+	}
+
+	public ConsultaAreasModel consultaEditar(String area) throws SQLException {
+		ConsultaAreasModel areaModel = new ConsultaAreasModel();
+		try{
+			areaModel=getSelectAllService().consultaEditar(area);
+		}catch(Exception e){
+			throw new SQLException(e.getMessage());
+		}
+		return areaModel;
 	}
 }

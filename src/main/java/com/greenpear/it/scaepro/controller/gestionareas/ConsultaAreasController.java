@@ -30,6 +30,7 @@ import org.springframework.jca.work.jboss.JBossWorkManagerTaskExecutor;
 
 import com.greenpear.it.scaepro.bo.gestionareas.ConsultaAreasBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
+import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.view.gestionareas.ConsultaAreasView;
 
@@ -143,7 +144,17 @@ public class ConsultaAreasController implements ActionListener {
 						// Botón Editar--------
 						if (boton.toString().contains("Editar") == true) {
 							modelo.setArea(area);
-							modelo.setDescripcionArea(descripcionArea);
+							ConsultaAreasModel modeloConsulta= new ConsultaAreasModel();
+							try {
+								modeloConsulta = getBo().consultaEditar(area);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							getModelo().setArea(modeloConsulta.getArea());
+							getModelo().setDescripcionArea(modeloConsulta.getDescripcionArea());
+							getModelo().setIdArea(modeloConsulta.getIdArea());
+//							getModelo().setNombreVentana("Detalle Noticia");
 							getGovernment().mostrarVistaRegistrarAreas();
 
 							return;
