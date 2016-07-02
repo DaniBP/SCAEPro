@@ -24,12 +24,6 @@ public class NuevaNoticiaBo {
 
 	public String insertar(NoticiasModel modelo) throws SQLException {
 		String registro=null;
-//		
-//		if(modelo.getUsuario().length()<5){
-//			return "El nombre de usuario es muy corto";
-//		}else if(modelo.getPassword().length()<3){
-//			return "La contraseña es muy corta";
-//		}
 		
 		registro = getDao().insertar(modelo);
 		return registro;

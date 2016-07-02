@@ -22,12 +22,11 @@ public class GenerarAvisoView extends JFrame {
 	public JPanel contentPane;
 	public JTable tablaBusqueda;
 	public JComboBox cmbTipoAviso;
-	public JComboBox cmbArea;
-	public JLabel lblArea;
 	public JLabel lblTipoAviso;
 	public JButton btnEnviar;
 	public JTextPane txtAviso;
 	public JScrollPane scrollPane;
+	public JLabel lblBusqueda;
 
 	/**
 	 * Launch the application.
@@ -64,19 +63,9 @@ public class GenerarAvisoView extends JFrame {
 		contentPane.add(lblTipoAviso);
 		
 		cmbTipoAviso = new JComboBox();
-		cmbTipoAviso.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar...", "General", "Personal", "\u00C1rea"}));
+		cmbTipoAviso.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar...", "General", "Personal", "Area"}));
 		cmbTipoAviso.setBounds(94, 33, 166, 20);
 		contentPane.add(cmbTipoAviso);
-		
-		lblArea = new JLabel("\u00C1rea:");
-		lblArea.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblArea.setBounds(317, 36, 33, 14);
-		contentPane.add(lblArea);
-		
-		cmbArea = new JComboBox();
-		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar..."}));
-		cmbArea.setBounds(368, 33, 166, 20);
-		contentPane.add(cmbArea);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBackground(SystemColor.activeCaption);
@@ -84,30 +73,21 @@ public class GenerarAvisoView extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tablaBusqueda = new JTable();
-		scrollPane.setViewportView(tablaBusqueda);
 		tablaBusqueda.setEnabled(false);
+		scrollPane.setViewportView(tablaBusqueda);
 		tablaBusqueda.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
-				{null, null},
 			},
 			new String[] {
-				"Nombre", "Seleccionar"
 			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		));
 		
-		JLabel lblBusqueda = new JLabel("Empleado:");
-		lblBusqueda.setBounds(10, 81, 59, 14);
+		lblBusqueda = new JLabel("");
+		lblBusqueda.setBounds(10, 81, 166, 14);
 		contentPane.add(lblBusqueda);
 		
 		txtAviso = new JTextPane();
+		txtAviso.setEnabled(false);
 		txtAviso.setBounds(10, 383, 524, 93);
 		contentPane.add(txtAviso);
 		
@@ -117,9 +97,8 @@ public class GenerarAvisoView extends JFrame {
 		contentPane.add(lblAviso);
 		
 		btnEnviar = new JButton("Enviar");
+		btnEnviar.setEnabled(false);
 		btnEnviar.setBounds(445, 487, 89, 23);
 		contentPane.add(btnEnviar);
-		tablaBusqueda.getColumnModel().getColumn(0).setResizable(false);
-		tablaBusqueda.getColumnModel().getColumn(1).setResizable(false);
 	}
 }
