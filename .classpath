@@ -48,5 +48,9 @@
 	<classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.5.6/commons-pool-1.5.6.jar" sourcepath="M2_REPO/commons-pool/commons-pool/1.5.6/commons-pool-1.5.6-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4.jar" sourcepath="M2_REPO/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4-sources.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/libraries/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/dpfpenrollment.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/dpfpverification.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/dpotapi.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/dpotjni.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

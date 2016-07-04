@@ -50,6 +50,9 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	private ControlAccesoView controlAccesoView;
 	
 	@Autowired
+	private LectorHuellasController lectorHuellasController;
+	
+	@Autowired
 	private EmpleadoModel empleadoModel;
 	
 	@Autowired
@@ -74,7 +77,11 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	public ControlAccesoView getControlAccesoView() {
 		return controlAccesoView;
 	}
-	
+
+	public LectorHuellasController getLectorHuellasController() {
+		return lectorHuellasController;
+	}
+
 	public ControlAccesoBo getAccesoBoService() {
 		return accesoBoService;
 	}
@@ -118,6 +125,9 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		
 		getControlAccesoView().h1 = new Thread(this);
 		getControlAccesoView().h1.start();
+		
+		getLectorHuellasController().Iniciar();
+		getLectorHuellasController().start();
 		
 		getControlAccesoView().setVisible(true);
 	}
@@ -266,12 +276,100 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		}
 	}
 	
+	public List<EmpleadoModel> verificarHuella()throws SQLException{
+		getControlAccesoView().btnChecar.setEnabled(false);
+		
+		
+		
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		try {
+			empleados=getAccesoBoService().consultaHuella();
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		return empleados;
+	}
+	
+	public void chequeo(final String nip){
+		
+		Runnable r2 = new Runnable() {
+			@Override
+			public void run() {
+				
+				try {
+					
+					empleadoModel = getAccesoBoService().consultaIndividual(Integer.parseInt(nip));
+					
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+		
+		
+				if(getEmpleadoModel().getIdEmpleado() == 0){
+					ImageIcon error = new ImageIcon(PrincipalView.class.getResource("/img/Error.png"));
+					Icon iconoError = new ImageIcon(error.getImage().getScaledInstance(
+							getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
+					
+					getControlAccesoView().imgEstado.setIcon(iconoError);
+					
+					esperar();
+				}else{
+					
+					String horaActual;
+					if(getControlAccesoView().ampm.equals("PM")){
+						horaActual = (Integer.parseInt(controlAccesoView.hora)+12)+":"+controlAccesoView.minutos+":"+controlAccesoView.segundos;	
+					}else{
+						horaActual = controlAccesoView.hora+":"+controlAccesoView.minutos+":"+controlAccesoView.segundos;
+					}
+					String fechaActual = controlAccesoView.anio+"-"+controlAccesoView.mes+"-"+controlAccesoView.dia;
+					
+					listaControlAcceso = new ArrayList<ControlAccesoModel>();
+					
+					try {
+						listaControlAcceso = getAccesoBoService().consultarControlAcceso(getEmpleadoModel().getIdEmpleado(), fechaActual);
+					} catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+					listaControlAcceso.add(getControlAccesoModel());
+					
+					listaControlAcceso.get(listaControlAcceso.size()-1).setIdEmpleado(getEmpleadoModel().getIdEmpleado());
+					listaControlAcceso.get(listaControlAcceso.size()-1).setFecha(fechaActual);
+					listaControlAcceso.get(listaControlAcceso.size()-1).setHoraRegistrada(horaActual);
+					
+					try {
+						String resultado=getAccesoBoService().insertar(listaControlAcceso.get(listaControlAcceso.size()-1));
+						
+						mostrarDatosEmpleado();
+						
+						if(!resultado.equals("correcto")){
+							JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
+						}
+					} catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+					esperar();
+					
+					getEmpleadoModel().limpiarModelo();
+					getListaControlAcceso().clear();
+					getControlAccesoModel().limpiarModelo();
+					getTurnoModel().limpiarModelo();
+					getIncidenciaModel().limpiarModelo();
+				}
+			}
+		};
+		
+		Thread h2 = new Thread(r2);
+		h2.start();
+	}
+	
 	/**
 	 * Método para mostrar los datos del empleado en pantalla
 	 */
 	public void mostrarDatosEmpleado(){
-		getControlAccesoView().lblEmpleado.setText("Empleado: "+getEmpleadoModel().getNombreEmpleado()+" "+getEmpleadoModel().getApePatEmpleado()+" "+getEmpleadoModel().getApePatEmpleado());
-		getControlAccesoView().lblArea.setText("Área:     "+getEmpleadoModel().getArea());
+		getControlAccesoView().lblEmpleado.setText("Empleado:            "+getEmpleadoModel().getNombreEmpleado()+" "+getEmpleadoModel().getApePatEmpleado()+" "+getEmpleadoModel().getApePatEmpleado());
+		getControlAccesoView().lblArea.setText("Área:                      "+getEmpleadoModel().getArea());
 		for (int i = 0; i < listaControlAcceso.size(); i++) {
 			String hora = listaControlAcceso.get(i).getHoraRegistrada().substring(0, 2);
 			String ampm;
@@ -296,37 +394,46 @@ public class ControlAccesoController implements ActionListener, Runnable{
 			switch (i) {
 
 			case 0:
-				getControlAccesoView().lblEntrada.setText("Hora de entrada             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
+				getControlAccesoView().lblEntrada.setText("Hora de entrada                               "
+						+ ""+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
 				getControlAccesoView().lblEntrada.setVisible(true);
 				break;
 
 			case 1:
 				if(listaControlAcceso.get(i).getHoraControl().equals("Hora de salida")){
-					getControlAccesoView().lblSalidaComer.setText("Hora de salida a comer             ---");
+					getControlAccesoView().lblSalidaComer.setText("Hora de salida a comer                           "
+							+ "---");
 					getControlAccesoView().lblSalidaComer.setVisible(true);
-					getControlAccesoView().lblSalidaComer.setEnabled(false);;
-					getControlAccesoView().lblEntradaComer.setText("Hora de entrada de comer             ---");
+					getControlAccesoView().lblSalidaComer.setEnabled(false);
+					getControlAccesoView().lblEntradaComer.setText("Hora de entrada de comer                     "
+							+ "---");
 					getControlAccesoView().lblEntradaComer.setVisible(true);
 					getControlAccesoView().lblEntradaComer.setEnabled(false);
-					getControlAccesoView().lblSalida.setText("Hora de salida             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
+					getControlAccesoView().lblSalida.setText("Hora de salida                                  "
+							+ ""+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
 					getControlAccesoView().lblSalida.setVisible(true);
-					getControlAccesoView().lblHorasTrabajadas.setText("Horas trabajadas            "+listaControlAcceso.get(i).getHorasTrabajadas());
+					getControlAccesoView().lblHorasTrabajadas.setText("Horas trabajadas                                      "
+							+ ""+listaControlAcceso.get(i).getHorasTrabajadas());
 					getControlAccesoView().lblHorasTrabajadas.setVisible(true);
 					i=4;
 				}else{
-					getControlAccesoView().lblSalidaComer.setText("Hora de salida a comer             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
+					getControlAccesoView().lblSalidaComer.setText("Hora de salida a comer                  "
+							+ ""+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
 					getControlAccesoView().lblSalidaComer.setVisible(true);
 				}
 				break;
 				
 			case 2:
-				getControlAccesoView().lblEntradaComer.setText("Hora de entrada de comer             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
+				getControlAccesoView().lblEntradaComer.setText("Hora de entrada de comer            "
+						+ ""+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
 				getControlAccesoView().lblEntradaComer.setVisible(true);
 				break;
 			case 3: 
-				getControlAccesoView().lblSalida.setText("Hora de salida             "+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
+				getControlAccesoView().lblSalida.setText("Hora de salida                                  "
+						+ ""+hora+listaControlAcceso.get(i).getHoraRegistrada().substring(2)+" "+ampm);
 				getControlAccesoView().lblSalida.setVisible(true);
-				getControlAccesoView().lblHorasTrabajadas.setText("Horas trabajadas            "+listaControlAcceso.get(i).getHorasTrabajadas());
+				getControlAccesoView().lblHorasTrabajadas.setText("Horas trabajadas                                      "
+						+ ""+listaControlAcceso.get(i).getHorasTrabajadas());
 				getControlAccesoView().lblHorasTrabajadas.setVisible(true);
 				break;
 			}
@@ -336,12 +443,12 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		Icon iconoFoto = new ImageIcon(foto.getImage().getScaledInstance(
 				getControlAccesoView().imgFoto.getWidth(), getControlAccesoView().imgFoto.getHeight(), Image.SCALE_DEFAULT));
 		
-		ImageIcon exito = new ImageIcon(PrincipalView.class.getResource("/img/Éxito.png"));
-		Icon iconoExito = new ImageIcon(exito.getImage().getScaledInstance(
-				getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
+//		ImageIcon exito = new ImageIcon(PrincipalView.class.getResource("/img/Éxito.png"));
+//		Icon iconoExito = new ImageIcon(exito.getImage().getScaledInstance(
+//				getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 		
 		getControlAccesoView().imgFoto.setIcon(iconoFoto);
-		getControlAccesoView().imgEstado.setIcon(iconoExito);
+//		getControlAccesoView().imgEstado.setIcon(iconoExito);
 	}
 	
 	/**
@@ -352,9 +459,10 @@ public class ControlAccesoController implements ActionListener, Runnable{
 			@Override
 			public void run() {
 				try {
-					
+					getLectorHuellasController().stop();
 					Thread.sleep (5000);
 					getControlAccesoView().limpiarVentana();
+					getLectorHuellasController().start();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

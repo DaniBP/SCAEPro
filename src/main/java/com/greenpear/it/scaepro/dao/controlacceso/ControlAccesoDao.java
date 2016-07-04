@@ -31,6 +31,30 @@ import com.greenpear.it.scaepro.services.SelectOneService;
 public class ControlAccesoDao extends DataSourceService implements SelectOneService<EmpleadoModel>, InsertService<ControlAccesoModel>{
 	
 	private static final Logger log = LoggerFactory.getLogger("usuarioDaoService");
+	
+	public List<EmpleadoModel> consultarHuella() throws SQLException{
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		String sql = "SELECT huellaEmpleado,nipempleado FROM t_empleado";
+		
+		try{
+			empleados=getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>(){
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException{
+					EmpleadoModel resultValue=new EmpleadoModel();
+					
+					resultValue.setHuellaEmpleado(rs.getBytes("huellaEmpleado"));
+					resultValue.setNipEmpleado(rs.getString("nipEmpleado"));
+					
+					return resultValue;
+				}
+			});
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la consulta!");
+		}
+		
+		return empleados;
+	}
 
 	@Override
 	public EmpleadoModel consultaIndividual(int id) throws SQLException {

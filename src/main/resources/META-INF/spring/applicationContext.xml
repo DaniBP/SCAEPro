@@ -95,6 +95,7 @@
 	<bean id="principalController" class="com.greenpear.it.scaepro.controller.accesosistema.PrincipalController" />
 	
 	<bean id="controlAccesoController" class="com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController" />
+	<bean id="lectorHuellasController" class="com.greenpear.it.scaepro.controller.controlacceso.LectorHuellasController" />
 	
 	<bean id="altaAreasController" class="com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController" />
 	<bean id="consultaAreasController" class="com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController" />

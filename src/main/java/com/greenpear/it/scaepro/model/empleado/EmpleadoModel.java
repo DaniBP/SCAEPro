@@ -19,6 +19,7 @@ public class EmpleadoModel {
 	private String periodoNominal;
 	private int diaDePago;
 	private String nipEmpleado;
+	private byte huellaEmpleado[];
 	
 	private String area;
 	
@@ -179,6 +180,18 @@ public class EmpleadoModel {
 		this.nipEmpleado = nipEmpleado;
 	}
 	/**
+	 * @return the huellaEmpleado
+	 */
+	public byte[] getHuellaEmpleado() {
+		return huellaEmpleado;
+	}
+	/**
+	 * @param huellaEmpleado the huellaEmpleado to set
+	 */
+	public void setHuellaEmpleado(byte[] huellaEmpleado) {
+		this.huellaEmpleado = huellaEmpleado;
+	}
+	/**
 	 * @return the area
 	 */
 	public String getArea() {
@@ -208,6 +221,7 @@ public class EmpleadoModel {
 		periodoNominal=null;
 		diaDePago=0;
 		nipEmpleado=null;
+		huellaEmpleado=null;
 		area=null;
 	}
 }

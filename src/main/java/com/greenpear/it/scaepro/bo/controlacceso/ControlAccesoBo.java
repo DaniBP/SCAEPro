@@ -42,7 +42,18 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 	public ControlAccesoController getAccesoController() {
 		return accesoController;
 	}
-
+	
+	public List<EmpleadoModel> consultaHuella() throws SQLException{
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		
+		try {
+			empleados=getAccesoDaoService().consultarHuella();
+		} catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}
+		
+		return empleados;
+	}
 	/**
 	 * Método para consultar al empleado
 	 * @param id nip del empleado
@@ -180,6 +191,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		String horarioRegistrado = t.getHoraRegistrada();
 		String horarioValido = getAccesoController().getTurnoModel().getHoraEntrada();
 		int horaRegistrada = Integer.parseInt(horarioRegistrado.substring(0, 2));
+		System.out.println(horarioValido);
 		int horaValida = Integer.parseInt(horarioValido.substring(0, 2));
 		int minutosRegistrados = Integer.parseInt(horarioRegistrado.substring(3, 5));
 		int minutosValidos = Integer.parseInt(horarioValido.substring(3, 5));
@@ -198,7 +210,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		}else if((minutosRegistrados-minutosValidos)>toleranciaFalta){
+		}else if((horaRegistrada == horaValida)&&(minutosRegistrados-minutosValidos)>toleranciaFalta){
 			JOptionPane.showMessageDialog(null, "Ha excedido la tolerancia por falta\nSe ha generado una incidencia", "INCIDENCIA", JOptionPane.WARNING_MESSAGE);
 			getAccesoController().getIncidenciaModel().setIdTipoIncidencia(2);
 			try {
@@ -206,7 +218,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		}else if((minutosRegistrados-minutosValidos)>toleranciaRetardo){
+		}else if((horaRegistrada == horaValida)&&(minutosRegistrados-minutosValidos)>toleranciaRetardo){
 			JOptionPane.showMessageDialog(null, "Ha excedido la tolerancia por retardo\nSe ha generado una incidencia", "INCIDENCIA", JOptionPane.WARNING_MESSAGE);
 			getAccesoController().getIncidenciaModel().setIdTipoIncidencia(1);
 			try {
