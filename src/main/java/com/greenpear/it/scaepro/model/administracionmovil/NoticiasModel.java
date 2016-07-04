@@ -12,6 +12,7 @@ public class NoticiasModel {
 	private String descNoticia;
 	private String imagenNoticia;
 	private int idNoticia;
+	private String nombreVentana;
 	
 	/**
 	 * @return the tituloNoticia
@@ -60,5 +61,17 @@ public class NoticiasModel {
 	 */
 	public void setIdNoticia(int idNoticia) {
 		this.idNoticia = idNoticia;
+	}
+	/**
+	 * @return the nombreVentana
+	 */
+	public String getNombreVentana() {
+		return nombreVentana;
+	}
+	/**
+	 * @param nombreVentana the nombreVentana to set
+	 */
+	public void setNombreVentana(String nombreVentana) {
+		this.nombreVentana = nombreVentana;
 	}
 }

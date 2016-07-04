@@ -63,7 +63,6 @@ public class AltaAreasController implements ActionListener{
 
 	private void editarArea() {
 		if(getModelo().getArea() != null){
-			getVista().txtArea.setEditable(false);
 			getVista().txtArea.setText(getModelo().getArea());
 			getModelo().setAreaAnterior(getVista().txtArea.getText());
 			getVista().txtDescArea.setText(getModelo().getDescripcionArea());
@@ -71,7 +70,6 @@ public class AltaAreasController implements ActionListener{
 			getVista().btnLimpiar.setText("Limpiar Descripción");
 			getVista().btnLimpiar.setBounds(340, 240, 160, 23);
 		}
-		
 	}
 
 	@Override
@@ -120,7 +118,7 @@ public class AltaAreasController implements ActionListener{
 				JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 			}
 			
-			if(acceso == "Esta área ya existe!"){
+			if(acceso == "¡Ya Existe Un Área Con Éste Nombre!"){
 				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}else{

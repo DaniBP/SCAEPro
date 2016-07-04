@@ -87,6 +87,9 @@
 	<bean id="adminNoticiasView" class="com.greenpear.it.scaepro.view.administracionmovil.AdminNoticiasView" />
 	<bean id="noticiasExistentesView" class="com.greenpear.it.scaepro.view.administracionmovil.NoticiasExistentesView" />
 	<bean id="nuevaNoticiaView" class="com.greenpear.it.scaepro.view.administracionmovil.NuevaNoticiaView" />
+	<bean id="noticiaImagenView" class="com.greenpear.it.scaepro.view.administracionmovil.NoticiaImagenView" />
+	<bean id="generarAvisoView" class="com.greenpear.it.scaepro.view.administracionmovil.GenerarAvisoView" />
+	<bean id="estatusPagoView" class="com.greenpear.it.scaepro.view.administracionmovil.EstatusPagoView" />
 	
 <!-- 	Aquí comienza la declaración de controladores -->
 	
@@ -103,6 +106,9 @@
 	<bean id="adminNoticiasController" class="com.greenpear.it.scaepro.controller.administracionmovil.AdminNoticiasController" />
 	<bean id="noticiasExistentesController" class="com.greenpear.it.scaepro.controller.administracionmovil.NoticiasExistentesController" />
 	<bean id="nuevaNoticiaController" class="com.greenpear.it.scaepro.controller.administracionmovil.NuevaNoticiaController" />
+	<bean id="noticiaImagenController" class="com.greenpear.it.scaepro.controller.administracionmovil.NoticiaImagenController" />
+	<bean id="generarAvisoController" class="com.greenpear.it.scaepro.controller.administracionmovil.GenerarAvisoController" />
+	<bean id="estatusPagoController" class="com.greenpear.it.scaepro.controller.administracionmovil.EstatusPagoController" />
 
 <!-- 	Aquí comienza la declaración de modelos -->
 
@@ -113,6 +119,8 @@
    	<bean id="turnoModel" class="com.greenpear.it.scaepro.model.turno.TurnoModel" />
    	<bean id="noticiasModel" class="com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel" />
    	<bean id="incidenciaModel" class="com.greenpear.it.scaepro.model.incidencia.IncidenciaModel" />
+   	<bean id="generarAvisoModel" class="com.greenpear.it.scaepro.model.administracionmovil.GenerarAvisoModel" />
+   	<bean id="estatusPagoModel" class="com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel" />
     
 <!-- 	Aquí comienza la declaración de BO -->
 
@@ -125,6 +133,8 @@
 	
 	<bean id="noticiasExistentesBo" class="com.greenpear.it.scaepro.bo.administracionmovil.NoticiasExistentesBo" />
 	<bean id="nuevaNoticiaBo" class="com.greenpear.it.scaepro.bo.administracionmovil.NuevaNoticiaBo" />
+	<bean id="generarAvisoBo" class="com.greenpear.it.scaepro.bo.administracionmovil.GenerarAvisoBo" />
+	<bean id="estatusPagoBo" class="com.greenpear.it.scaepro.bo.administracionmovil.EstatusPagoBo" />
 	
 <!-- 	Aquí comienza la declaración de DAO -->
 
@@ -137,4 +147,6 @@
 	
 	<bean id="noticiasExistentesDao" class="com.greenpear.it.scaepro.dao.administracionmovil.NoticiasExistentesDao" />
 	<bean id="nuevaNoticiaDao" class="com.greenpear.it.scaepro.dao.administracionmovil.NuevaNoticiaDao" />
+	<bean id="generarAvisoDao" class="com.greenpear.it.scaepro.dao.administracionmovil.GenerarAvisoDao" />
+	<bean id="estatusPagoDao" class="com.greenpear.it.scaepro.dao.administracionmovil.EstatusPagoDao" />
 </beans>

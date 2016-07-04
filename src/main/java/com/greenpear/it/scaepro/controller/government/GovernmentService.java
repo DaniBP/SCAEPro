@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.greenpear.it.scaepro.controller.accesosistema.*;
 import com.greenpear.it.scaepro.controller.administracionmovil.AdminNoticiasController;
+import com.greenpear.it.scaepro.controller.administracionmovil.EstatusPagoController;
+import com.greenpear.it.scaepro.controller.administracionmovil.GenerarAvisoController;
+import com.greenpear.it.scaepro.controller.administracionmovil.NoticiaImagenController;
 import com.greenpear.it.scaepro.controller.administracionmovil.NoticiasExistentesController;
 import com.greenpear.it.scaepro.controller.administracionmovil.NuevaNoticiaController;
 import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
@@ -41,6 +44,10 @@ public class GovernmentService implements Government {
 	@Autowired private AdminNoticiasController adminNoticiasController;
 	@Autowired private NoticiasExistentesController noticiasExistentesController;
 	@Autowired private NuevaNoticiaController nuevaNoticiaController;
+	@Autowired private NoticiaImagenController noticiaImagenController;
+	@Autowired private GenerarAvisoController generarAvisoController;
+	@Autowired private EstatusPagoController estatusPagoController;
+	
 
 	public InicioController getInicioController() {
 		return inicioController;
@@ -76,6 +83,18 @@ public class GovernmentService implements Government {
 	
 	public NuevaNoticiaController getNuevaNoticiaController() {
 		return nuevaNoticiaController;
+	}
+	
+	public NoticiaImagenController getNoticiaImagenController() {
+		return noticiaImagenController;
+	}
+	
+	public EstatusPagoController getEstatusPagoController() {
+		return estatusPagoController;
+	}
+	
+	public GenerarAvisoController getGenerarAvisoController() {
+		return generarAvisoController;
 	}
 	//*************FIN DE ESTANCIAS***************
 	
@@ -126,5 +145,20 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarNuevaNoticia() {
 		getNuevaNoticiaController().mostrarNuevaNoticia();
+	}
+	
+	@Override
+	public void mostrarImagenAmpliada() {
+		getNoticiaImagenController().mostrarImagenAmpliada();
+	}
+	
+	@Override
+	public void mostrarVistaEstatusPago() {
+		getEstatusPagoController().mostrarVistaEstatusPago();
+	}
+	
+	@Override
+	public void mostrarVistaGenerarAviso() {
+		getGenerarAvisoController().mostrarVistaGenerarAviso();
 	}
 }

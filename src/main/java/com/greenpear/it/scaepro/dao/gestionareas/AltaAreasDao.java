@@ -115,17 +115,18 @@ public class AltaAreasDao extends DataSourceService implements InsertService<Con
 			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
 		}
-
-		if (model.getDescripcionArea().equals(modelo.getDescripcionArea())
-				&& model.getArea().equals(modelo.getArea())) {
-			return "No hubo cambios!";
-			
+		System.out.println(modelo.getIdArea());
+		System.out.println(model.getIdArea());
+		if (model.getIdArea() != modelo.getIdArea()) {
+			if (model.getIdArea() != 0) {
+				return "¡Ya Existe Un Área Con Éste Nombre!";
+			}
 		}
 
-		String sqlArea = "UPDATE c_area SET nombreArea=?, descripcionArea=? WHERE nombreArea=?";
+		String sqlArea = "UPDATE c_area SET nombreArea=?, descripcionArea=? WHERE idArea=?";
 
 		try {
-			getJdbcTemplate().update(sqlArea, modelo.getArea(), modelo.getDescripcionArea(), modelo.getAreaAnterior());
+			getJdbcTemplate().update(sqlArea, modelo.getArea(), modelo.getDescripcionArea(), modelo.getIdArea());
 
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());

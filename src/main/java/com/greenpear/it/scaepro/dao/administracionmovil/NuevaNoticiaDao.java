@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.management.modelmbean.ModelMBeanOperationInfo;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
+import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 
 /**
  * @author EDSONJOSUE
@@ -44,6 +46,7 @@ public class NuevaNoticiaDao {
 	}
 
 	public String insertar(NoticiasModel modelo) throws SQLException {
+		// Verificar si ya existe alguna noticia con éste título
 		String sql = "select * from c_noticia where titulo ='" + modelo.getTituloNoticia() + "'";
 
 		NoticiasModel model = new NoticiasModel();
@@ -66,6 +69,29 @@ public class NuevaNoticiaDao {
 			return "Ya Existe una Noticia con este Título!";
 		}
 
+		// Verificar si ya existe alguna imágen con éste nombre
+		String sqlImagen = "select * from c_noticia where imagen ='" + modelo.getImagenNoticia() + "'";
+
+		NoticiasModel modelo2 = new NoticiasModel();
+		try {
+			modelo2 = getJdbcTemplate().query(sqlImagen, new ResultSetExtractor<NoticiasModel>() {
+				public NoticiasModel extractData(ResultSet rs) throws SQLException {
+					NoticiasModel resultValue = new NoticiasModel();
+					if (rs.next()) {
+						resultValue.setIdNoticia(rs.getInt("idNoticias"));
+					}
+					return resultValue;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		if (modelo2.getIdNoticia() != 0) {
+			return "Ya Existe una imágen con este nombre!";
+		}
+
 		try {
 			SimpleJdbcInsert insert = new SimpleJdbcInsert(getDataSource());
 
@@ -76,6 +102,7 @@ public class NuevaNoticiaDao {
 
 			parameters.put("titulo", modelo.getTituloNoticia());
 			parameters.put("noticia", modelo.getDescNoticia());
+			parameters.put("imagen", modelo.getImagenNoticia());
 
 			modelo.setIdNoticia(insert.executeAndReturnKey(parameters).intValue());
 
@@ -83,9 +110,68 @@ public class NuevaNoticiaDao {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserción!");
 		}
+		return "!Registro De Noticia Exitoso!";
+	}
 
-		return "La Noticia " + modelo.getTituloNoticia() + "\n" + "Fue registrado exitosamente!\n\n" + "Su número de ID es: "
-				+ modelo.getIdNoticia();
+	// Editar Noticia
+	public String editar(NoticiasModel modelo) throws SQLException {
+		String sqlid = "select * from c_noticia where idNoticias = " + modelo.getIdNoticia();
+		NoticiasModel modelImagen = new NoticiasModel();
+		modelImagen = getJdbcTemplate().query(sqlid, new ResultSetExtractor<NoticiasModel>() {
+			public NoticiasModel extractData(ResultSet rs) throws SQLException {
+				NoticiasModel resultValue = new NoticiasModel();
+				if (rs.next()) {
+					resultValue.setIdNoticia(rs.getInt("idNoticias"));
+					resultValue.setTituloNoticia(rs.getString("titulo"));
+					resultValue.setImagenNoticia(rs.getString("imagen"));
+				}
+				return resultValue;
+			}
+		});
+
+		if (modelImagen.getTituloNoticia().equals(modelo.getTituloNoticia()) == false) {
+			String sqltit = "select * from c_noticia where titulo = '" + modelo.getTituloNoticia() + "'";
+			NoticiasModel modelTitulodif = new NoticiasModel();
+			modelTitulodif = getJdbcTemplate().query(sqltit, new ResultSetExtractor<NoticiasModel>() {
+				public NoticiasModel extractData(ResultSet rs) throws SQLException {
+					NoticiasModel resultValue = new NoticiasModel();
+					if (rs.next()) {
+						resultValue.setIdNoticia(rs.getInt("idNoticias"));
+					}
+					return resultValue;
+				}
+			});
+			if (modelTitulodif.getIdNoticia() != 0) {
+				return "¡Ya Existe Una Noticia Con Éste Título!";
+			}
+		}
+
+		String sqlEdicion = "UPDATE c_noticia SET titulo=?, noticia=?, imagen=? WHERE idNoticias=?";
+		try {
+			getJdbcTemplate().update(sqlEdicion, modelo.getTituloNoticia(), modelo.getDescNoticia(),
+					modelo.getImagenNoticia(), modelo.getIdNoticia());
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException(
+					"Existe un problema con la base de datos\n" + "No se pudo realizar la actualización!");
+		}
+		if (modelImagen.getImagenNoticia().equals(modelo.getImagenNoticia()) == false) {
+			return "¡Imágen Actualizada Correctamente!";
+		}else{
+			return "¡Noticia Actualizada Correctamente!";
+		}
+	}
+
+	public String eliminar(int idNoticia) throws SQLException {
+		String sql = "DELETE FROM c_noticia WHERE idNoticias=?";
+
+		try {
+			getJdbcTemplate().update(sql, idNoticia);
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminación!");
+		}
+		return "¡Noticia Eliminada Correctamente!";
 	}
 
 }
