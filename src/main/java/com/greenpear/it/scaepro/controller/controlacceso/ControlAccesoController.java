@@ -249,7 +249,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 						try {
 							String resultado=getAccesoBoService().insertar(listaControlAcceso.get(listaControlAcceso.size()-1));
 							
-							mostrarDatosEmpleado();
+							mostrarDatosEmpleado("boton");
 							
 							if(!resultado.equals("correcto")){
 								JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
@@ -340,7 +340,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 					try {
 						String resultado=getAccesoBoService().insertar(listaControlAcceso.get(listaControlAcceso.size()-1));
 						
-						mostrarDatosEmpleado();
+						mostrarDatosEmpleado("huella");
 						
 						if(!resultado.equals("correcto")){
 							JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
@@ -367,7 +367,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	/**
 	 * Método para mostrar los datos del empleado en pantalla
 	 */
-	public void mostrarDatosEmpleado(){
+	public void mostrarDatosEmpleado(String tipoCheck){
 		getControlAccesoView().lblEmpleado.setText("Empleado:            "+getEmpleadoModel().getNombreEmpleado()+" "+getEmpleadoModel().getApePatEmpleado()+" "+getEmpleadoModel().getApePatEmpleado());
 		getControlAccesoView().lblArea.setText("Área:                      "+getEmpleadoModel().getArea());
 		for (int i = 0; i < listaControlAcceso.size(); i++) {
@@ -443,12 +443,14 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		Icon iconoFoto = new ImageIcon(foto.getImage().getScaledInstance(
 				getControlAccesoView().imgFoto.getWidth(), getControlAccesoView().imgFoto.getHeight(), Image.SCALE_DEFAULT));
 		
-//		ImageIcon exito = new ImageIcon(PrincipalView.class.getResource("/img/Éxito.png"));
-//		Icon iconoExito = new ImageIcon(exito.getImage().getScaledInstance(
-//				getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
+		ImageIcon exito = new ImageIcon(PrincipalView.class.getResource("/img/Éxito.png"));
+		Icon iconoExito = new ImageIcon(exito.getImage().getScaledInstance(
+				getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 		
 		getControlAccesoView().imgFoto.setIcon(iconoFoto);
-//		getControlAccesoView().imgEstado.setIcon(iconoExito);
+		if(tipoCheck.equals("boton")){
+			getControlAccesoView().imgEstado.setIcon(iconoExito);
+		}
 	}
 	
 	/**

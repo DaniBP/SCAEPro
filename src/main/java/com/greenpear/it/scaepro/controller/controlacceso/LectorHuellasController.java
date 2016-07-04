@@ -152,7 +152,6 @@ public class LectorHuellasController {
 				accesoController.getControlAccesoView().imgEstado.getWidth(), accesoController.getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 		
 		accesoController.getControlAccesoView().imgEstado.setIcon(iconoExito);
-//			DibujarHuella(image);
 	}
 	
 	public  DPFPFeatureSet extraerCaracteristicas(DPFPSample sample, DPFPDataPurpose purpose){
