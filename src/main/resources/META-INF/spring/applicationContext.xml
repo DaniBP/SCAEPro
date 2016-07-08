@@ -145,6 +145,8 @@
 	
 	<bean id="solicitudReporteBo" class="com.greenpear.it.scaepro.bo.solicitudreporte.SolicitudReporteBo" />
 	
+	<bean id="configurarScaeProBo" class="com.greenpear.it.scaepro.bo.configurarscaepro.ConfigurarScaeProBo" />
+	
 <!-- 	Aquí comienza la declaración de DAO -->
 
 	<bean id="loginDaoService" class="com.greenpear.it.scaepro.dao.accesosistema.AccesoAlSistemaDao" />
@@ -160,4 +162,6 @@
 	<bean id="estatusPagoDao" class="com.greenpear.it.scaepro.dao.administracionmovil.EstatusPagoDao" />
 	
 	<bean id="solicitudReporteDao" class="com.greenpear.it.scaepro.dao.solicitudreporte.SolicitudReporteDao" />
+	
+	<bean id="configurarScaeProDao" class="com.greenpear.it.scaepro.dao.configurarscaepro.ConfigurarScaeProDao" />
 </beans>

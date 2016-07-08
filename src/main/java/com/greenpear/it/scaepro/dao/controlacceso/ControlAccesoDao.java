@@ -30,7 +30,7 @@ import com.greenpear.it.scaepro.services.SelectOneService;
 @Repository("accesoDaoService")
 public class ControlAccesoDao extends DataSourceService implements SelectOneService<EmpleadoModel>, InsertService<ControlAccesoModel>{
 	
-	private static final Logger log = LoggerFactory.getLogger("usuarioDaoService");
+	private static final Logger log = LoggerFactory.getLogger("accesoDaoService");
 	
 	public List<EmpleadoModel> consultarHuella() throws SQLException{
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
