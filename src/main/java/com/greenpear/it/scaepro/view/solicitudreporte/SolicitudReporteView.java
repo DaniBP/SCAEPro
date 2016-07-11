@@ -27,7 +27,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
 
-public class SolicitudReporte extends JFrame {
+public class SolicitudReporteView extends JFrame {
 
 	private JPanel contentPane;
 
@@ -38,7 +38,7 @@ public class SolicitudReporte extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SolicitudReporte frame = new SolicitudReporte();
+					SolicitudReporteView frame = new SolicitudReporteView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +50,7 @@ public class SolicitudReporte extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SolicitudReporte() {
+	public SolicitudReporteView() {
 		setTitle("Reportes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 591, 414);

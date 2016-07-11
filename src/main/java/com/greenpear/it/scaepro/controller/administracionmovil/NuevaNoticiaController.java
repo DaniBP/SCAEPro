@@ -170,19 +170,11 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 						"C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/img/imgsNoticias/"
 								+ nombreArchivo);
 				start = System.nanoTime();
-				try {
-					copyFileUsingJava7Files(source, dest);
-				} catch (FileAlreadyExistsException e2) {
-					e2.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Esta imágen ya ha sido seleccionada para otra noticia",
-							"Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Por algún error la imágen no ha podido ser cargada, \n"
-							+ " intente con una imágen diferente", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
+					try {
+						copyFileUsingJava7Files(source, dest);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+					}
 				end = System.nanoTime();
 			} else {
 				JOptionPane.showMessageDialog(null, registro, "Acceso", JOptionPane.INFORMATION_MESSAGE);

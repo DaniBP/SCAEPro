@@ -16,7 +16,8 @@ import com.greenpear.it.scaepro.controller.administracionmovil.NoticiasExistente
 import com.greenpear.it.scaepro.controller.administracionmovil.NuevaNoticiaController;
 import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
 import com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController;
-import com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController;;
+import com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController;
+import com.greenpear.it.scaepro.controller.solicitudreporte.SolicitudReporteController;;
 
 
 /**
@@ -47,6 +48,7 @@ public class GovernmentService implements Government {
 	@Autowired private NoticiaImagenController noticiaImagenController;
 	@Autowired private GenerarAvisoController generarAvisoController;
 	@Autowired private EstatusPagoController estatusPagoController;
+	@Autowired private SolicitudReporteController solicitudReporteController;
 	
 
 	public InicioController getInicioController() {
@@ -95,6 +97,10 @@ public class GovernmentService implements Government {
 	
 	public GenerarAvisoController getGenerarAvisoController() {
 		return generarAvisoController;
+	}
+	
+	public SolicitudReporteController getSolicitudReporteController() {
+		return solicitudReporteController;
 	}
 	//*************FIN DE ESTANCIAS***************
 	
@@ -160,5 +166,11 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarVistaGenerarAviso() {
 		getGenerarAvisoController().mostrarVistaGenerarAviso();
+	}
+
+	@Override
+	public void mostrarVistaSolicitudReporte() {
+		getSolicitudReporteController().mostrarVistaSolicitudReporte();
+		
 	}
 }

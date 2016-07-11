@@ -17,8 +17,10 @@ import javax.swing.JButton;
 
 public class EstatusPagoView extends JFrame {
 
-	private JPanel contentPane;
-	private JTable table;
+	public JPanel contentPane;
+	public JTable tabla;
+	public JComboBox cmbAreas;
+	public JButton btnConfirmar;
 
 	/**
 	 * Launch the application.
@@ -42,7 +44,7 @@ public class EstatusPagoView extends JFrame {
 	public EstatusPagoView() {
 		setTitle("Estatus de pago");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 300);
+		setBounds(100, 100, 731, 461);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,10 +55,10 @@ public class EstatusPagoView extends JFrame {
 		lblrea.setBounds(10, 31, 46, 14);
 		contentPane.add(lblrea);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar..."}));
-		comboBox.setBounds(66, 28, 120, 20);
-		contentPane.add(comboBox);
+		cmbAreas = new JComboBox();
+		cmbAreas.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar..."}));
+		cmbAreas.setBounds(66, 28, 208, 20);
+		contentPane.add(cmbAreas);
 		
 		JLabel lblEmpleados = new JLabel("Empleados:");
 		lblEmpleados.setBounds(10, 79, 90, 14);
@@ -64,14 +66,12 @@ public class EstatusPagoView extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBackground(SystemColor.activeCaption);
-		scrollPane.setBounds(20, 114, 554, 60);
+		scrollPane.setBounds(10, 114, 695, 247);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		tabla = new JTable();
+		tabla.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
-				{null, null, null},
 			},
 			new String[] {
 				"Nombre", "Estatus de pago", "Comentario"
@@ -84,13 +84,16 @@ public class EstatusPagoView extends JFrame {
 				return columnEditables[column];
 			}
 		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(2).setResizable(false);
-		scrollPane.setViewportView(table);
+		tabla.getColumnModel().getColumn(0).setResizable(false);
+		tabla.getColumnModel().getColumn(0).setPreferredWidth(200);
+		tabla.getColumnModel().getColumn(1).setResizable(false);
+		tabla.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tabla.getColumnModel().getColumn(2).setResizable(false);
+		tabla.getColumnModel().getColumn(2).setPreferredWidth(195);
+		scrollPane.setViewportView(tabla);
 		
-		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(454, 185, 120, 23);
+		btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setBounds(585, 388, 120, 23);
 		contentPane.add(btnConfirmar);
 	}
 }

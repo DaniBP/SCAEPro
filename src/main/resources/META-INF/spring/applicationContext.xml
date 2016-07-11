@@ -91,6 +91,8 @@
 	<bean id="generarAvisoView" class="com.greenpear.it.scaepro.view.administracionmovil.GenerarAvisoView" />
 	<bean id="estatusPagoView" class="com.greenpear.it.scaepro.view.administracionmovil.EstatusPagoView" />
 	
+	<bean id="solicitudReporteView" class="com.greenpear.it.scaepro.view.solicitudreporte.SolicitudReporteView" />
+	
 <!-- 	Aquí comienza la declaración de controladores -->
 	
 	<bean id="inicioController" class="com.greenpear.it.scaepro.controller.accesosistema.InicioController" />
@@ -109,7 +111,8 @@
 	<bean id="noticiaImagenController" class="com.greenpear.it.scaepro.controller.administracionmovil.NoticiaImagenController" />
 	<bean id="generarAvisoController" class="com.greenpear.it.scaepro.controller.administracionmovil.GenerarAvisoController" />
 	<bean id="estatusPagoController" class="com.greenpear.it.scaepro.controller.administracionmovil.EstatusPagoController" />
-
+	
+	<bean id="solicitudReporteController" class="com.greenpear.it.scaepro.controller.solicitudreporte.SolicitudReporteController" />
 <!-- 	Aquí comienza la declaración de modelos -->
 
     <bean id="loginModel" class="com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel" />
@@ -121,7 +124,7 @@
    	<bean id="incidenciaModel" class="com.greenpear.it.scaepro.model.incidencia.IncidenciaModel" />
    	<bean id="generarAvisoModel" class="com.greenpear.it.scaepro.model.administracionmovil.GenerarAvisoModel" />
    	<bean id="estatusPagoModel" class="com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel" />
-    
+    <bean id="solicitudReporteModel" class="com.greenpear.it.scaepro.model.solicitudreporte.SolicitudReporteModel" />
 <!-- 	Aquí comienza la declaración de BO -->
 
 	<bean id="loginBoService" class="com.greenpear.it.scaepro.bo.accesosistema.AccesoAlSistemaBo" />
@@ -136,6 +139,8 @@
 	<bean id="generarAvisoBo" class="com.greenpear.it.scaepro.bo.administracionmovil.GenerarAvisoBo" />
 	<bean id="estatusPagoBo" class="com.greenpear.it.scaepro.bo.administracionmovil.EstatusPagoBo" />
 	
+	<bean id="solicitudReporteBo" class="com.greenpear.it.scaepro.bo.solicitudreporte.SolicitudReporteBo" />
+	
 <!-- 	Aquí comienza la declaración de DAO -->
 
 	<bean id="loginDaoService" class="com.greenpear.it.scaepro.dao.accesosistema.AccesoAlSistemaDao" />
@@ -149,4 +154,6 @@
 	<bean id="nuevaNoticiaDao" class="com.greenpear.it.scaepro.dao.administracionmovil.NuevaNoticiaDao" />
 	<bean id="generarAvisoDao" class="com.greenpear.it.scaepro.dao.administracionmovil.GenerarAvisoDao" />
 	<bean id="estatusPagoDao" class="com.greenpear.it.scaepro.dao.administracionmovil.EstatusPagoDao" />
+	
+	<bean id="solicitudReporteDao" class="com.greenpear.it.scaepro.dao.solicitudreporte.SolicitudReporteDao" />
 </beans>

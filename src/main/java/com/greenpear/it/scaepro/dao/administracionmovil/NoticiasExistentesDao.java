@@ -46,7 +46,7 @@ public class NoticiasExistentesDao {
 
 	public List<NoticiasModel> consultaGeneral() throws SQLException {
 		List<NoticiasModel> listaAreas=new ArrayList<NoticiasModel>();
-		String sql="SELECT * FROM c_noticia where idNoticias>999999";
+		String sql="SELECT * FROM c_noticia";
 		
 		try{
 			listaAreas=getJdbcTemplate().query(sql, new RowMapper<NoticiasModel>(){

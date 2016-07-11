@@ -20,4 +20,5 @@ public interface Government {
 	public void mostrarImagenAmpliada();
 	public void mostrarVistaEstatusPago();
 	public void mostrarVistaGenerarAviso();
+	public void mostrarVistaSolicitudReporte();
 }

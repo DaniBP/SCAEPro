@@ -73,7 +73,6 @@ public class GenerarAvisoDao {
 	public List<GenerarAvisoModel> consultaAreas() throws SQLException{
 		List<GenerarAvisoModel> listaAreas = new ArrayList<GenerarAvisoModel>();
 		String sql = "SELECT * FROM c_area order by nombreArea";
-
 		try {
 			listaAreas = getJdbcTemplate().query(sql, new RowMapper<GenerarAvisoModel>() {
 
@@ -83,20 +82,17 @@ public class GenerarAvisoDao {
 					resultValue.setNombreArea(rs.getString("nombreArea"));
 					return resultValue;
 				}
-
 			});
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
 		}
-
 		return listaAreas;
 	}
 
 	public GenerarAvisoModel consultaArea(String nombre) throws SQLException {
 		GenerarAvisoModel modelo = new GenerarAvisoModel();
 		String sql = "select * from c_area where nombreArea ='" + nombre + "'";
-
 		try {
 			modelo = getJdbcTemplate().query(sql, new ResultSetExtractor<GenerarAvisoModel>() {
 				public GenerarAvisoModel extractData(ResultSet rs) throws SQLException {
