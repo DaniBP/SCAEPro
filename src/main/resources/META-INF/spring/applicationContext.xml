@@ -93,6 +93,8 @@
 	
 	<bean id="solicitudReporteView" class="com.greenpear.it.scaepro.view.solicitudreporte.SolicitudReporteView" />
 	
+	<bean id="configurarScaeProView" class="com.greenpear.it.scaepro.view.configurarscaepro.ConfigurarScaePro" />
+	
 <!-- 	Aquí comienza la declaración de controladores -->
 	
 	<bean id="inicioController" class="com.greenpear.it.scaepro.controller.accesosistema.InicioController" />
@@ -113,6 +115,8 @@
 	<bean id="estatusPagoController" class="com.greenpear.it.scaepro.controller.administracionmovil.EstatusPagoController" />
 	
 	<bean id="solicitudReporteController" class="com.greenpear.it.scaepro.controller.solicitudreporte.SolicitudReporteController" />
+	
+	<bean id="configurarScaeProController" class="com.greenpear.it.scaepro.controller.configurarscaepro.ConfigurarScaeProController" />
 <!-- 	Aquí comienza la declaración de modelos -->
 
     <bean id="loginModel" class="com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel" />

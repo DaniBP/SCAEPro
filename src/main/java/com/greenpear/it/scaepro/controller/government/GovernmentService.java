@@ -14,6 +14,7 @@ import com.greenpear.it.scaepro.controller.administracionmovil.GenerarAvisoContr
 import com.greenpear.it.scaepro.controller.administracionmovil.NoticiaImagenController;
 import com.greenpear.it.scaepro.controller.administracionmovil.NoticiasExistentesController;
 import com.greenpear.it.scaepro.controller.administracionmovil.NuevaNoticiaController;
+import com.greenpear.it.scaepro.controller.configurarscaepro.ConfigurarScaeProController;
 import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
 import com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController;
 import com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController;
@@ -49,7 +50,7 @@ public class GovernmentService implements Government {
 	@Autowired private GenerarAvisoController generarAvisoController;
 	@Autowired private EstatusPagoController estatusPagoController;
 	@Autowired private SolicitudReporteController solicitudReporteController;
-	
+	@Autowired private ConfigurarScaeProController configurarScaeProController;
 
 	public InicioController getInicioController() {
 		return inicioController;
@@ -102,11 +103,14 @@ public class GovernmentService implements Government {
 	public SolicitudReporteController getSolicitudReporteController() {
 		return solicitudReporteController;
 	}
+	
+	public ConfigurarScaeProController getConfigurarScaeProController() {
+		return configurarScaeProController;
+	}
 	//*************FIN DE ESTANCIAS***************
 	
 	
 	//*************CONTROL DE VENTANAS**************
-
 
 	@Override
 	public void mostrarInicio() {
@@ -171,6 +175,12 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarVistaSolicitudReporte() {
 		getSolicitudReporteController().mostrarVistaSolicitudReporte();
+		
+	}
+
+	@Override
+	public void mostrarVistaConfigurarScaePro() {
+		getConfigurarScaeProController().mostrarVistaConfigurarScaePro();
 		
 	}
 }

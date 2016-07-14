@@ -21,4 +21,5 @@ public interface Government {
 	public void mostrarVistaEstatusPago();
 	public void mostrarVistaGenerarAviso();
 	public void mostrarVistaSolicitudReporte();
+	public void mostrarVistaConfigurarScaePro();
 }
