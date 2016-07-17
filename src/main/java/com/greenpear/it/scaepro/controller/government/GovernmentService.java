@@ -14,6 +14,7 @@ import com.greenpear.it.scaepro.controller.administracionmovil.GenerarAvisoContr
 import com.greenpear.it.scaepro.controller.administracionmovil.NoticiaImagenController;
 import com.greenpear.it.scaepro.controller.administracionmovil.NoticiasExistentesController;
 import com.greenpear.it.scaepro.controller.administracionmovil.NuevaNoticiaController;
+import com.greenpear.it.scaepro.controller.configurarempleados.ConfigurarEmpleadosController;
 import com.greenpear.it.scaepro.controller.configurarscaepro.ConfigurarScaeProController;
 import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
 import com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController;
@@ -51,6 +52,7 @@ public class GovernmentService implements Government {
 	@Autowired private EstatusPagoController estatusPagoController;
 	@Autowired private SolicitudReporteController solicitudReporteController;
 	@Autowired private ConfigurarScaeProController configurarScaeProController;
+	@Autowired private ConfigurarEmpleadosController registrarEmpleadoController;
 
 	public InicioController getInicioController() {
 		return inicioController;
@@ -107,6 +109,11 @@ public class GovernmentService implements Government {
 	public ConfigurarScaeProController getConfigurarScaeProController() {
 		return configurarScaeProController;
 	}
+	
+	public ConfigurarEmpleadosController getRegistrarEmpleadoController() {
+		return registrarEmpleadoController;
+	}
+	
 	//*************FIN DE ESTANCIAS***************
 	
 	
@@ -182,5 +189,10 @@ public class GovernmentService implements Government {
 	public void mostrarVistaConfigurarScaePro() {
 		getConfigurarScaeProController().mostrarVistaConfigurarScaePro();
 		
+	}
+	
+	@Override
+	public void mostrarVistaRegistro() {
+		getRegistrarEmpleadoController().mostrarVistaRegistroEmpleado();
 	}
 }

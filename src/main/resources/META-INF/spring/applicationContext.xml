@@ -95,6 +95,8 @@
 	
 	<bean id="configurarScaeProView" class="com.greenpear.it.scaepro.view.configurarscaepro.ConfigurarScaePro" />
 	
+	<bean id="empleadoView" class="com.greenpear.it.scaepro.view.configurarempleados.RegistrarEmpleado" />
+	
 <!-- 	Aquí comienza la declaración de controladores -->
 	
 	<bean id="inicioController" class="com.greenpear.it.scaepro.controller.accesosistema.InicioController" />
@@ -117,6 +119,7 @@
 	<bean id="solicitudReporteController" class="com.greenpear.it.scaepro.controller.solicitudreporte.SolicitudReporteController" />
 	
 	<bean id="configurarScaeProController" class="com.greenpear.it.scaepro.controller.configurarscaepro.ConfigurarScaeProController" />
+	<bean id="configurarEmpleadosController" class="com.greenpear.it.scaepro.controller.configurarempleados.ConfigurarEmpleadosController" />
 <!-- 	Aquí comienza la declaración de modelos -->
 
     <bean id="loginModel" class="com.greenpear.it.scaepro.model.accesosistema.AccesoAlSistemaModel" />
@@ -129,6 +132,7 @@
    	<bean id="generarAvisoModel" class="com.greenpear.it.scaepro.model.administracionmovil.GenerarAvisoModel" />
    	<bean id="estatusPagoModel" class="com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel" />
     <bean id="solicitudReporteModel" class="com.greenpear.it.scaepro.model.solicitudreporte.SolicitudReporteModel" />
+    <bean id="direccionModel" class="com.greenpear.it.scaepro.model.direccion.DireccionModelo" />
 <!-- 	Aquí comienza la declaración de BO -->
 
 	<bean id="loginBoService" class="com.greenpear.it.scaepro.bo.accesosistema.AccesoAlSistemaBo" />
@@ -147,6 +151,8 @@
 	
 	<bean id="configurarScaeProBo" class="com.greenpear.it.scaepro.bo.configurarscaepro.ConfigurarScaeProBo" />
 	
+	<bean id="empleadosBoService" class="com.greenpear.it.scaepro.bo.configurarempleados.ConfigurarEmpleadosBo" />	
+	
 <!-- 	Aquí comienza la declaración de DAO -->
 
 	<bean id="loginDaoService" class="com.greenpear.it.scaepro.dao.accesosistema.AccesoAlSistemaDao" />
@@ -164,4 +170,5 @@
 	<bean id="solicitudReporteDao" class="com.greenpear.it.scaepro.dao.solicitudreporte.SolicitudReporteDao" />
 	
 	<bean id="configurarScaeProDao" class="com.greenpear.it.scaepro.dao.configurarscaepro.ConfigurarScaeProDao" />
+	<bean id="empleadoDaoService" class="com.greenpear.it.scaepro.dao.configurarempleados.ConfigurarEmpleadoDao" />
 </beans>

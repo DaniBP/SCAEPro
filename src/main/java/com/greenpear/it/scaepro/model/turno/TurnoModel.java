@@ -21,6 +21,8 @@ public class TurnoModel {
 	private int idEstatus;
 	private int idEstatusComida;
 	
+	private String area;
+	
 	/**
 	 * @return the idTurno
 	 */
@@ -176,6 +178,13 @@ public class TurnoModel {
 	 */
 	public void setIdEstatusComida(int idEstatusComida) {
 		this.idEstatusComida = idEstatusComida;
+	}
+	
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 	public void limpiarModelo(){

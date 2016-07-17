@@ -20,6 +20,7 @@ public class EmpleadoModel {
 	private int diaDePago;
 	private String nipEmpleado;
 	private byte huellaEmpleado[];
+	private String estado;
 	
 	private String area;
 	
@@ -204,8 +205,14 @@ public class EmpleadoModel {
 		this.area = area;
 	}
 	
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	/**
-	 * Método para limpiar el modelo
+	 * Mï¿½todo para limpiar el modelo
 	 */
 	public void limpiarModelo(){
 		idEmpleado=0;
@@ -221,7 +228,8 @@ public class EmpleadoModel {
 		periodoNominal=null;
 		diaDePago=0;
 		nipEmpleado=null;
-		huellaEmpleado=null;
 		area=null;
+		huellaEmpleado=null;
+		estado=null;
 	}
 }
