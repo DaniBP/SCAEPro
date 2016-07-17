@@ -18,14 +18,13 @@ import java.util.Formatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.UIManager;
+import java.awt.Color;
+import java.awt.Component;
 
 public class ConfigurarScaePro extends JFrame {
 	private JTextField txtMinutosRetardo;
 	private JTextField txtMinutosFalta;
-	private JTextField txtHoraEntradG;
-	private JTextField txtHoraSalidaG;
-	private JTextField txtHoraSalidaComidaG;
-	private JTextField txtHoraEntradaComidaG;
 	private JTextField txtNombreTurno;
 	private JComboBox cmbArea;
 	private JCheckBox chckbxLunes;
@@ -75,6 +74,15 @@ public class ConfigurarScaePro extends JFrame {
 	private JButton btnGuardarEditar;
 	private JButton btnEliminar;
 	private JCheckBox chkHorarioGeneral;
+	private JSpinner spnHoraSalidaG;
+	private JSpinner spnHoraEntradaG;
+	private JSpinner spnHoraSalidaComidaG;
+	private JSpinner spnHoraEntradaComidaG;
+	
+	private SpinnerDateModel model;
+	
+	Date now;
+	private JPanel tjpnlHorarios;
 	
 	public ConfigurarScaePro() {
 		getContentPane().setLayout(null);
@@ -85,7 +93,7 @@ public class ConfigurarScaePro extends JFrame {
 		super.setTitle("Configurar Scae Pro");
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Configuracion del area", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Configuracion del \u00E1rea", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(10, 10, 953, 130);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -126,18 +134,6 @@ public class ConfigurarScaePro extends JFrame {
 		lblHoraDeSalidaG.setBounds(355, 100, 147, 16);
 		panel.add(lblHoraDeSalidaG);
 		
-		txtHoraEntradG = new JTextField();
-		txtHoraEntradG.setEnabled(false);
-		txtHoraEntradG.setColumns(10);
-		txtHoraEntradG.setBounds(453, 65, 130, 26);
-		panel.add(txtHoraEntradG);
-		
-		txtHoraSalidaG = new JTextField();
-		txtHoraSalidaG.setEnabled(false);
-		txtHoraSalidaG.setColumns(10);
-		txtHoraSalidaG.setBounds(453, 95, 130, 26);
-		panel.add(txtHoraSalidaG);
-		
 		JLabel lblHoraSalidaComidaG = new JLabel("Hora de salida (Comida):");
 		lblHoraSalidaComidaG.setEnabled(false);
 		lblHoraSalidaComidaG.setBounds(618, 70, 165, 16);
@@ -148,34 +144,75 @@ public class ConfigurarScaePro extends JFrame {
 		lblHoraDeEntradaComidaG.setBounds(618, 100, 165, 16);
 		panel.add(lblHoraDeEntradaComidaG);
 		
-		txtHoraSalidaComidaG = new JTextField();
-		txtHoraSalidaComidaG.setEnabled(false);
-		txtHoraSalidaComidaG.setColumns(10);
-		txtHoraSalidaComidaG.setBounds(770, 65, 130, 26);
-		panel.add(txtHoraSalidaComidaG);
-		
-		txtHoraEntradaComidaG = new JTextField();
-		txtHoraEntradaComidaG.setEnabled(false);
-		txtHoraEntradaComidaG.setColumns(10);
-		txtHoraEntradaComidaG.setBounds(770, 95, 130, 26);
-		panel.add(txtHoraEntradaComidaG);
-		
 		cmbArea = new JComboBox();
 		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"---------------Seleccione un \u00E1rea---------------"}));
 		cmbArea.setBounds(159, 35, 265, 27);
 		panel.add(cmbArea);
 		
-		chkHorarioGeneral = new JCheckBox("Aplicar un horario para el area en general");
+		chkHorarioGeneral = new JCheckBox("Aplicar un horario para el \u00E1rea en general");
 		chkHorarioGeneral.setEnabled(false);
 		chkHorarioGeneral.setBounds(503, 35, 300, 23);
 		panel.add(chkHorarioGeneral);
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+		
+		try {
+			now = sdf.parse("00:00 AM");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
+		
+		spnHoraEntradaG = new JSpinner();
+		spnHoraEntradaG.setEnabled(false);
+		spnHoraEntradaG.setBounds(453, 68, 130, 23);
+		spnHoraEntradaG.setModel(new SpinnerDateModel());
+		spnHoraEntradaG.setEditor(new JSpinner.DateEditor(spnHoraEntradaG, "hh:mm a"));
+		spnHoraEntradaG.setValue(now);
+		panel.add(spnHoraEntradaG);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
+		
+		spnHoraSalidaG = new JSpinner();
+		spnHoraSalidaG.setEnabled(false);
+		spnHoraSalidaG.setBounds(453, 98, 130, 23);
+		spnHoraSalidaG.setModel(model);
+		spnHoraSalidaG.setEditor(new JSpinner.DateEditor(spnHoraSalidaG, "hh:mm a"));
+		spnHoraSalidaG.setValue(now);
+		panel.add(spnHoraSalidaG);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
+		
+		spnHoraSalidaComidaG = new JSpinner();
+		spnHoraSalidaComidaG.setEnabled(false);
+		spnHoraSalidaComidaG.setBounds(770, 68, 130, 23);
+		spnHoraSalidaComidaG.setModel(model);
+		spnHoraSalidaComidaG.setEditor(new JSpinner.DateEditor(spnHoraSalidaComidaG, "hh:mm a"));
+		spnHoraSalidaComidaG.setValue(now);
+		panel.add(spnHoraSalidaComidaG);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
+		
+		spnHoraEntradaComidaG = new JSpinner();
+		spnHoraEntradaComidaG.setEnabled(false);
+		spnHoraEntradaComidaG.setBounds(770, 98, 130, 23);
+		spnHoraEntradaComidaG.setModel(model);
+		spnHoraEntradaComidaG.setEditor(new JSpinner.DateEditor(spnHoraEntradaComidaG, "hh:mm a"));
+		spnHoraEntradaComidaG.setValue(now);
+		panel.add(spnHoraEntradaComidaG);		
+		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setVisible(false);
 		tabbedPane.setBorder(new TitledBorder(null, "Configuracion de horarios:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		tabbedPane.setBounds(10, 141, 788, 401);
+		tabbedPane.setBounds(20, 151, 788, 380);
 		getContentPane().add(tabbedPane);
 		
-		JPanel tjpnlHorarios = new JPanel();
+		tjpnlHorarios = new JPanel();
 		tabbedPane.addTab("Turno 1", null, tjpnlHorarios, null);
 		tjpnlHorarios.setLayout(null);
 		
@@ -371,9 +408,8 @@ public class ConfigurarScaePro extends JFrame {
 		lblHEntradaComidaDomingo.setBounds(645, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaDomingo);
 		
-		SpinnerDateModel model = new SpinnerDateModel();
+		model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
-		
 		
 		spnHEntradaLunes = new JSpinner();
 		spnHEntradaLunes.setEnabled(false);
@@ -381,157 +417,305 @@ public class ConfigurarScaePro extends JFrame {
 
 		spnHEntradaLunes.setModel(model);
 		spnHEntradaLunes.setEditor(new JSpinner.DateEditor(spnHEntradaLunes, "hh:mm a"));
-		
-		
-//		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
-//		Date now2 = null;
-//		try {
-//			now2 = sdf.parse("00:00 AM");
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
-		
-//		spnHEntradaLunes.setValue(now2);
-//		spnHEntradaLunes.setValue("08:53 AM");
-//		spnHEntradaLunes.setValue("Thu Jul 07 08:50:39 CDT 2016");
+		spnHEntradaLunes.setValue(now);
 		tjpnlHorarios.add(spnHEntradaLunes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaLunes = new JSpinner();
 		spnHSalidaLunes.setEnabled(false);
 		spnHSalidaLunes.setBounds(20, 160, 80, 26);
+		
+		spnHSalidaLunes.setModel(model);
+		spnHSalidaLunes.setEditor(new JSpinner.DateEditor(spnHSalidaLunes, "hh:mm a"));
+		spnHSalidaLunes.setValue(now);
 		tjpnlHorarios.add(spnHSalidaLunes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaComidaLunes = new JSpinner();
 		spnHSalidaComidaLunes.setEnabled(false);
 		spnHSalidaComidaLunes.setBounds(20, 240, 80, 26);
+		spnHSalidaComidaLunes.setModel(model);
+		spnHSalidaComidaLunes.setEditor(new JSpinner.DateEditor(spnHSalidaComidaLunes, "hh:mm a"));
+		spnHSalidaComidaLunes.setValue(now);
 		tjpnlHorarios.add(spnHSalidaComidaLunes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaComidaLunes = new JSpinner();
 		spnHEntradaComidaLunes.setEnabled(false);
 		spnHEntradaComidaLunes.setBounds(20, 290, 80, 26);
+		spnHEntradaComidaLunes.setModel(model);
+		spnHEntradaComidaLunes.setEditor(new JSpinner.DateEditor(spnHEntradaComidaLunes, "hh:mm a"));
+		spnHEntradaComidaLunes.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaLunes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaMartes = new JSpinner();
 		spnHEntradaMartes.setEnabled(false);
 		spnHEntradaMartes.setBounds(122, 110, 80, 26);
+		spnHEntradaMartes.setModel(model);
+		spnHEntradaMartes.setEditor(new JSpinner.DateEditor(spnHEntradaMartes, "hh:mm a"));
+		spnHEntradaMartes.setValue(now);
 		tjpnlHorarios.add(spnHEntradaMartes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaMartes = new JSpinner();
 		spnHSalidaMartes.setEnabled(false);
 		spnHSalidaMartes.setBounds(122, 160, 80, 26);
+		spnHSalidaMartes.setModel(model);
+		spnHSalidaMartes.setEditor(new JSpinner.DateEditor(spnHSalidaMartes, "hh:mm a"));
+		spnHSalidaMartes.setValue(now);
 		tjpnlHorarios.add(spnHSalidaMartes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaComidaMartes = new JSpinner();
 		spnHSalidaComidaMartes.setEnabled(false);
 		spnHSalidaComidaMartes.setBounds(122, 240, 80, 26);
+		spnHSalidaComidaMartes.setModel(model);
+		spnHSalidaComidaMartes.setEditor(new JSpinner.DateEditor(spnHSalidaComidaMartes, "hh:mm a"));
+		spnHSalidaComidaMartes.setValue(now);
 		tjpnlHorarios.add(spnHSalidaComidaMartes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaComidaMartes = new JSpinner();
 		spnHEntradaComidaMartes.setEnabled(false);
 		spnHEntradaComidaMartes.setBounds(122, 290, 80, 26);
+		spnHEntradaComidaMartes.setModel(model);
+		spnHEntradaComidaMartes.setEditor(new JSpinner.DateEditor(spnHEntradaComidaMartes, "hh:mm a"));
+		spnHEntradaComidaMartes.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaMartes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaMiercoles = new JSpinner();
 		spnHEntradaMiercoles.setEnabled(false);
 		spnHEntradaMiercoles.setBounds(225, 110, 80, 26);
+		spnHEntradaMiercoles.setModel(model);
+		spnHEntradaMiercoles.setEditor(new JSpinner.DateEditor(spnHEntradaMiercoles, "hh:mm a"));
+		spnHEntradaMiercoles.setValue(now);
 		tjpnlHorarios.add(spnHEntradaMiercoles);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaMiercoles = new JSpinner();
 		spnHSalidaMiercoles.setEnabled(false);
 		spnHSalidaMiercoles.setBounds(225, 160, 80, 26);
+		spnHSalidaMiercoles.setModel(model);
+		spnHSalidaMiercoles.setEditor(new JSpinner.DateEditor(spnHSalidaMiercoles, "hh:mm a"));
+		spnHSalidaMiercoles.setValue(now);
 		tjpnlHorarios.add(spnHSalidaMiercoles);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaComidaMiercoles = new JSpinner();
 		spnHSalidaComidaMiercoles.setEnabled(false);
 		spnHSalidaComidaMiercoles.setBounds(225, 240, 80, 26);
+		spnHSalidaComidaMiercoles.setModel(model);
+		spnHSalidaComidaMiercoles.setEditor(new JSpinner.DateEditor(spnHSalidaComidaMiercoles, "hh:mm a"));
+		spnHSalidaComidaMiercoles.setValue(now);
 		tjpnlHorarios.add(spnHSalidaComidaMiercoles);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaComidaMiercoles = new JSpinner();
 		spnHEntradaComidaMiercoles.setEnabled(false);
 		spnHEntradaComidaMiercoles.setBounds(225, 290, 80, 26);
+		spnHEntradaComidaMiercoles.setModel(model);
+		spnHEntradaComidaMiercoles.setEditor(new JSpinner.DateEditor(spnHEntradaComidaMiercoles, "hh:mm a"));
+		spnHEntradaComidaMiercoles.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaMiercoles);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaJueves = new JSpinner();
 		spnHEntradaJueves.setEnabled(false);
 		spnHEntradaJueves.setBounds(330, 110, 80, 26);
+		spnHEntradaJueves.setModel(model);
+		spnHEntradaJueves.setEditor(new JSpinner.DateEditor(spnHEntradaJueves, "hh:mm a"));
+		spnHEntradaJueves.setValue(now);
 		tjpnlHorarios.add(spnHEntradaJueves);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaJueves = new JSpinner();
 		spnHSalidaJueves.setEnabled(false);
 		spnHSalidaJueves.setBounds(330, 160, 80, 26);
+		spnHSalidaJueves.setModel(model);
+		spnHSalidaJueves.setEditor(new JSpinner.DateEditor(spnHSalidaJueves, "hh:mm a"));
+		spnHSalidaJueves.setValue(now);
 		tjpnlHorarios.add(spnHSalidaJueves);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaComidaJueves = new JSpinner();
 		spnHSalidaComidaJueves.setEnabled(false);
 		spnHSalidaComidaJueves.setBounds(330, 240, 80, 26);
+		spnHSalidaComidaJueves.setModel(model);
+		spnHSalidaComidaJueves.setEditor(new JSpinner.DateEditor(spnHSalidaComidaJueves, "hh:mm a"));
+		spnHSalidaComidaJueves.setValue(now);
 		tjpnlHorarios.add(spnHSalidaComidaJueves);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaComidaJueves = new JSpinner();
 		spnHEntradaComidaJueves.setEnabled(false);
 		spnHEntradaComidaJueves.setBounds(330, 290, 80, 26);
+		spnHEntradaComidaJueves.setModel(model);
+		spnHEntradaComidaJueves.setEditor(new JSpinner.DateEditor(spnHEntradaComidaJueves, "hh:mm a"));
+		spnHEntradaComidaJueves.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaJueves);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaComidaViernes = new JSpinner();
 		spnHEntradaComidaViernes.setEnabled(false);
 		spnHEntradaComidaViernes.setBounds(438, 290, 80, 26);
+		spnHEntradaComidaViernes.setModel(model);
+		spnHEntradaComidaViernes.setEditor(new JSpinner.DateEditor(spnHEntradaComidaJueves, "hh:mm a"));
+		spnHEntradaComidaViernes.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaViernes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaComidaViernes = new JSpinner();
 		spnHSalidaComidaViernes.setEnabled(false);
 		spnHSalidaComidaViernes.setBounds(438, 240, 80, 26);
+		spnHSalidaComidaViernes.setModel(model);
+		spnHSalidaComidaViernes.setEditor(new JSpinner.DateEditor(spnHSalidaComidaViernes, "hh:mm a"));
+		spnHSalidaComidaViernes.setValue(now);
 		tjpnlHorarios.add(spnHSalidaComidaViernes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaViernes = new JSpinner();
 		spnHSalidaViernes.setEnabled(false);
 		spnHSalidaViernes.setBounds(438, 160, 80, 26);
+		spnHSalidaViernes.setModel(model);
+		spnHSalidaViernes.setEditor(new JSpinner.DateEditor(spnHSalidaViernes, "hh:mm a"));
+		spnHSalidaViernes.setValue(now);
 		tjpnlHorarios.add(spnHSalidaViernes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaViernes = new JSpinner();
 		spnHEntradaViernes.setEnabled(false);
 		spnHEntradaViernes.setBounds(438, 110, 80, 26);
+		spnHEntradaViernes.setModel(model);
+		spnHEntradaViernes.setEditor(new JSpinner.DateEditor(spnHEntradaViernes, "hh:mm a"));
+		spnHEntradaViernes.setValue(now);
 		tjpnlHorarios.add(spnHEntradaViernes);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaSabado = new JSpinner();
 		spnHEntradaSabado.setEnabled(false);
 		spnHEntradaSabado.setBounds(542, 110, 80, 26);
+		spnHEntradaSabado.setModel(model);
+		spnHEntradaSabado.setEditor(new JSpinner.DateEditor(spnHEntradaSabado, "hh:mm a"));
+		spnHEntradaSabado.setValue(now);
 		tjpnlHorarios.add(spnHEntradaSabado);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaSabado = new JSpinner();
 		spnHSalidaSabado.setEnabled(false);
 		spnHSalidaSabado.setBounds(542, 160, 80, 26);
+		spnHSalidaSabado.setModel(model);
+		spnHSalidaSabado.setEditor(new JSpinner.DateEditor(spnHSalidaSabado, "hh:mm a"));
+		spnHSalidaSabado.setValue(now);
 		tjpnlHorarios.add(spnHSalidaSabado);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaComidaSabado = new JSpinner();
 		spnHSalidaComidaSabado.setEnabled(false);
 		spnHSalidaComidaSabado.setBounds(542, 240, 80, 26);
+		spnHSalidaComidaSabado.setModel(model);
+		spnHSalidaComidaSabado.setEditor(new JSpinner.DateEditor(spnHSalidaComidaSabado, "hh:mm a"));
+		spnHSalidaComidaSabado.setValue(now);
 		tjpnlHorarios.add(spnHSalidaComidaSabado);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaComidaSabado = new JSpinner();
 		spnHEntradaComidaSabado.setEnabled(false);
 		spnHEntradaComidaSabado.setBounds(542, 290, 80, 26);
+		spnHEntradaComidaSabado.setModel(model);
+		spnHEntradaComidaSabado.setEditor(new JSpinner.DateEditor(spnHEntradaComidaSabado, "hh:mm a"));
+		spnHEntradaComidaSabado.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaSabado);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaDomingo = new JSpinner();
 		spnHEntradaDomingo.setEnabled(false);
 		spnHEntradaDomingo.setBounds(645, 110, 80, 26);
+		spnHEntradaDomingo.setModel(model);
+		spnHEntradaDomingo.setEditor(new JSpinner.DateEditor(spnHEntradaDomingo, "hh:mm a"));
+		spnHEntradaDomingo.setValue(now);
 		tjpnlHorarios.add(spnHEntradaDomingo);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaDomingo = new JSpinner();
 		spnHSalidaDomingo.setEnabled(false);
 		spnHSalidaDomingo.setBounds(645, 160, 80, 26);
+		spnHSalidaDomingo.setModel(model);
+		spnHSalidaDomingo.setEditor(new JSpinner.DateEditor(spnHSalidaDomingo, "hh:mm a"));
+		spnHSalidaDomingo.setValue(now);
 		tjpnlHorarios.add(spnHSalidaDomingo);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHSalidaComidaDomingo = new JSpinner();
 		spnHSalidaComidaDomingo.setEnabled(false);
 		spnHSalidaComidaDomingo.setBounds(645, 240, 80, 26);
+		spnHSalidaComidaDomingo.setModel(model);
+		spnHSalidaComidaDomingo.setEditor(new JSpinner.DateEditor(spnHSalidaComidaDomingo, "hh:mm a"));
+		spnHSalidaComidaDomingo.setValue(now);
 		tjpnlHorarios.add(spnHSalidaComidaDomingo);
+		
+		model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		
 		spnHEntradaComidaDomingo = new JSpinner();
 		spnHEntradaComidaDomingo.setEnabled(false);
 		spnHEntradaComidaDomingo.setBounds(645, 290, 80, 26);
+		spnHEntradaComidaDomingo.setModel(model);
+		spnHEntradaComidaDomingo.setEditor(new JSpinner.DateEditor(spnHEntradaComidaDomingo, "hh:mm a"));
+		spnHEntradaComidaDomingo.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaDomingo);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -548,10 +732,6 @@ public class ConfigurarScaePro extends JFrame {
 		btnGuardarEditar.setEnabled(false);
 		btnGuardarEditar.setBounds(850, 304, 70, 70);
 		getContentPane().add(btnGuardarEditar);
-	}
-	
-	public JComboBox getCmbArea() {
-		return cmbArea;
 	}
 
 	public JTextField getTxtMinutosRetardo() {
@@ -570,44 +750,20 @@ public class ConfigurarScaePro extends JFrame {
 		this.txtMinutosFalta = txtMinutosFalta;
 	}
 
-	public JTextField getTxtHoraEntradG() {
-		return txtHoraEntradG;
-	}
-
-	public void setTxtHoraEntradG(JTextField txtHoraEntradG) {
-		this.txtHoraEntradG = txtHoraEntradG;
-	}
-
-	public JTextField getTxtHoraSalidaG() {
-		return txtHoraSalidaG;
-	}
-
-	public void setTxtHoraSalidaG(JTextField txtHoraSalidaG) {
-		this.txtHoraSalidaG = txtHoraSalidaG;
-	}
-
-	public JTextField getTxtHoraSalidaComidaG() {
-		return txtHoraSalidaComidaG;
-	}
-
-	public void setTxtHoraSalidaComidaG(JTextField txtHoraSalidaComidaG) {
-		this.txtHoraSalidaComidaG = txtHoraSalidaComidaG;
-	}
-
-	public JTextField getTxtHoraEntradaComidaG() {
-		return txtHoraEntradaComidaG;
-	}
-
-	public void setTxtHoraEntradaComidaG(JTextField txtHoraEntradaComidaG) {
-		this.txtHoraEntradaComidaG = txtHoraEntradaComidaG;
-	}
-
 	public JTextField getTxtNombreTurno() {
 		return txtNombreTurno;
 	}
 
 	public void setTxtNombreTurno(JTextField txtNombreTurno) {
 		this.txtNombreTurno = txtNombreTurno;
+	}
+
+	public JComboBox getCmbArea() {
+		return cmbArea;
+	}
+
+	public void setCmbArea(JComboBox cmbArea) {
+		this.cmbArea = cmbArea;
 	}
 
 	public JCheckBox getChckbxLunes() {
@@ -986,28 +1142,55 @@ public class ConfigurarScaePro extends JFrame {
 		this.chkHorarioGeneral = chkHorarioGeneral;
 	}
 
-	public void setCmbArea(JComboBox cmbArea) {
-		this.cmbArea = cmbArea;
+	public JSpinner getSpnHoraSalidaG() {
+		return spnHoraSalidaG;
+	}
+
+	public void setSpnHoraSalidaG(JSpinner spnHoraSalidaG) {
+		this.spnHoraSalidaG = spnHoraSalidaG;
+	}
+
+	public JSpinner getSpnHoraEntradaG() {
+		return spnHoraEntradaG;
+	}
+
+	public void setSpnHoraEntradaG(JSpinner spnHoraEntradaG) {
+		this.spnHoraEntradaG = spnHoraEntradaG;
+	}
+
+	public JSpinner getSpnHoraSalidaComidaG() {
+		return spnHoraSalidaComidaG;
+	}
+
+	public void setSpnHoraSalidaComidaG(JSpinner spnHoraSalidaComidaG) {
+		this.spnHoraSalidaComidaG = spnHoraSalidaComidaG;
+	}
+
+	public JSpinner getSpnHoraEntradaComidaG() {
+		return spnHoraEntradaComidaG;
+	}
+
+	public void setSpnHoraEntradaComidaG(JSpinner spnHoraEntradaComidaG) {
+		this.spnHoraEntradaComidaG = spnHoraEntradaComidaG;
+	}
+
+	public JPanel getTjpnlHorarios() {
+		return tjpnlHorarios;
+	}
+
+	public void setTjpnlHorarios(JPanel tjpnlHorarios) {
+		this.tjpnlHorarios = tjpnlHorarios;
 	}
 
 	public void limpiarVentana(){
-		txtMinutosRetardo.setText(null);
-		txtMinutosFalta.setText(null);
-		txtHoraEntradG.setText(null);
-		txtHoraSalidaG.setText(null);
-		txtHoraSalidaComidaG.setText(null);
-		txtHoraEntradaComidaG.setText(null);
+		txtMinutosRetardo.setText("0");
+		txtMinutosFalta.setText("0");
 		txtNombreTurno.setText(null);
 		
 		txtMinutosRetardo.setEnabled(false);
 		txtMinutosFalta.setEnabled(false);
-		txtHoraEntradG.setEnabled(false);
-		txtHoraSalidaG.setEnabled(false);
-		txtHoraSalidaComidaG.setEnabled(false);
-		txtHoraEntradaComidaG.setEnabled(false);
 		txtNombreTurno.setEnabled(false);
 		
-		chkHorarioGeneral.setSelected(false);
 		chckbxLunes.setSelected(false);
 		chkMartes.setSelected(false);
 		chkMiercoles.setSelected(false);
@@ -1023,7 +1206,6 @@ public class ConfigurarScaePro extends JFrame {
 		chkSabado.setSelected(false);
 		chkDomingo.setSelected(false);
 		
-		chkHorarioGeneral.setEnabled(false);
 		chckbxLunes.setEnabled(false);
 		chkMartes.setEnabled(false);
 		chkMiercoles.setEnabled(false);
@@ -1037,71 +1219,93 @@ public class ConfigurarScaePro extends JFrame {
 		chkComidaMartes.setEnabled(false);
 		chkComidaLunes.setEnabled(false);
 		chkSabado.setEnabled(false);
-		chkDomingo.setEnabled(false);
+		chkDomingo.setEnabled(false);		
 		
-//		spnHEntradaLunes.setValue("00:00 AM");
-//		spnHSalidaLunes;
-//		spnHSalidaComidaLunes;
-//		spnHEntradaComidaLunes;
-//		spnHSalidaMartes;
-//		spnHSalidaComidaMartes;
-//		spnHEntradaComidaMartes;
-//		spnHEntradaMiercoles;
-//		spnHSalidaMiercoles;
-//		spnHSalidaComidaMiercoles;
-//		spnHEntradaComidaMiercoles;
-//		spnHEntradaJueves;
-//		spnHSalidaJueves;
-//		spnHSalidaComidaJueves;
-//		spnHEntradaComidaJueves;
-//		spnHEntradaComidaViernes;
-//		spnHSalidaComidaViernes;
-//		spnHSalidaViernes;
-//		spnHEntradaViernes;
-//		spnHEntradaSabado;
-//		spnHSalidaSabado;
-//		spnHSalidaComidaSabado;
-//		spnHEntradaComidaSabado;
-//		spnHEntradaDomingo;
-//		spnHSalidaDomingo;
-//		spnHSalidaComidaDomingo;
-//		spnHEntradaComidaDomingo;
-//		spnHEntradaMartes;
-//		
-//		spnHEntradaLunes;
-//		spnHSalidaLunes;
-//		spnHSalidaComidaLunes;
-//		spnHEntradaComidaLunes;
-//		spnHSalidaMartes;
-//		spnHSalidaComidaMartes;
-//		spnHEntradaComidaMartes;
-//		spnHEntradaMiercoles;
-//		spnHSalidaMiercoles;
-//		spnHSalidaComidaMiercoles;
-//		spnHEntradaComidaMiercoles;
-//		spnHEntradaJueves;
-//		spnHSalidaJueves;
-//		spnHSalidaComidaJueves;
-//		spnHEntradaComidaJueves;
-//		spnHEntradaComidaViernes;
-//		spnHSalidaComidaViernes;
-//		spnHSalidaViernes;
-//		spnHEntradaViernes;
-//		spnHEntradaSabado;
-//		spnHSalidaSabado;
-//		spnHSalidaComidaSabado;
-//		spnHEntradaComidaSabado;
-//		spnHEntradaDomingo;
-//		spnHSalidaDomingo;
-//		spnHSalidaComidaDomingo;
-//		spnHEntradaComidaDomingo;
-//		spnHEntradaMartes;
-//		
-//		tabbedPane;
-//		
-//		btnNuevoTurno;
-//		btnGuardarEditar;
-//		btnEliminar;
+		spnHEntradaLunes.setValue(now);
+		spnHSalidaLunes.setValue(now);
+		spnHSalidaComidaLunes.setValue(now);
+		spnHEntradaComidaLunes.setValue(now);
+		spnHSalidaMartes.setValue(now);
+		spnHSalidaComidaMartes.setValue(now);
+		spnHEntradaComidaMartes.setValue(now);
+		spnHEntradaMiercoles.setValue(now);
+		spnHSalidaMiercoles.setValue(now);
+		spnHSalidaComidaMiercoles.setValue(now);
+		spnHEntradaComidaMiercoles.setValue(now);
+		spnHEntradaJueves.setValue(now);
+		spnHSalidaJueves.setValue(now);
+		spnHSalidaComidaJueves.setValue(now);
+		spnHEntradaComidaJueves.setValue(now);
+		spnHEntradaComidaViernes.setValue(now);
+		spnHSalidaComidaViernes.setValue(now);
+		spnHSalidaViernes.setValue(now);
+		spnHEntradaViernes.setValue(now);
+		spnHEntradaSabado.setValue(now);
+		spnHSalidaSabado.setValue(now);
+		spnHSalidaComidaSabado.setValue(now);
+		spnHEntradaComidaSabado.setValue(now);
+		spnHEntradaDomingo.setValue(now);
+		spnHSalidaDomingo.setValue(now);
+		spnHSalidaComidaDomingo.setValue(now);
+		spnHEntradaComidaDomingo.setValue(now);
+		spnHEntradaMartes.setValue(now);
+		
+		spnHEntradaLunes.setEnabled(false);
+		spnHSalidaLunes.setEnabled(false);
+		spnHSalidaComidaLunes.setEnabled(false);
+		spnHEntradaComidaLunes.setEnabled(false);
+		spnHSalidaMartes.setEnabled(false);
+		spnHSalidaComidaMartes.setEnabled(false);
+		spnHEntradaComidaMartes.setEnabled(false);
+		spnHEntradaMiercoles.setEnabled(false);
+		spnHSalidaMiercoles.setEnabled(false);
+		spnHSalidaComidaMiercoles.setEnabled(false);
+		spnHEntradaComidaMiercoles.setEnabled(false);
+		spnHEntradaJueves.setEnabled(false);
+		spnHSalidaJueves.setEnabled(false);
+		spnHSalidaComidaJueves.setEnabled(false);
+		spnHEntradaComidaJueves.setEnabled(false);
+		spnHEntradaComidaViernes.setEnabled(false);
+		spnHSalidaComidaViernes.setEnabled(false);
+		spnHSalidaViernes.setEnabled(false);
+		spnHEntradaViernes.setEnabled(false);
+		spnHEntradaSabado.setEnabled(false);
+		spnHSalidaSabado.setEnabled(false);
+		spnHSalidaComidaSabado.setEnabled(false);
+		spnHEntradaComidaSabado.setEnabled(false);
+		spnHEntradaDomingo.setEnabled(false);
+		spnHSalidaDomingo.setEnabled(false);
+		spnHSalidaComidaDomingo.setEnabled(false);
+		spnHEntradaComidaDomingo.setEnabled(false);
+		spnHEntradaMartes.setEnabled(false);
+		
+		tabbedPane.setVisible(false);
+		
+		btnNuevoTurno.setEnabled(false);
+		btnGuardarEditar.setEnabled(false);
+		btnEliminar.setEnabled(false);
+		
+		chkHorarioGeneral.setSelected(false);
+		chkHorarioGeneral.setEnabled(false);
+		
+		spnHoraSalidaG.setValue(now);
+		spnHoraEntradaG.setValue(now);
+		spnHoraSalidaComidaG.setValue(now);
+		spnHoraEntradaComidaG.setValue(now);
+		
+		spnHoraSalidaG.setEnabled(false);
+		spnHoraEntradaG.setEnabled(false);
+		spnHoraSalidaComidaG.setEnabled(false);
+		spnHoraEntradaComidaG.setEnabled(false);
+		
+		int c = tabbedPane.getTabCount();
+		
+		
+
+		
+		for (int i = 1; i < c; i++) {
+			tabbedPane.remove(1);
+		}
 		
 	}
 }

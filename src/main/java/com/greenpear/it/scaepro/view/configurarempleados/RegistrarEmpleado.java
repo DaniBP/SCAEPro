@@ -112,78 +112,78 @@ public class RegistrarEmpleado extends JFrame {
 		dtfechaNac.setBounds(196, 159, 145, 26);
 		pnlDatosPersonales.add(dtfechaNac);
 
-		JPanel pnlDirección = new JPanel();
-		pnlDirección.setBorder(
+		JPanel pnlDireccion = new JPanel();
+		pnlDireccion.setBorder(
 				new TitledBorder(null, "Direcci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnlDirección.setBounds(381, 10, 360, 307);
-		contentPane.add(pnlDirección);
-		pnlDirección.setLayout(null);
+		pnlDireccion.setBounds(381, 10, 360, 307);
+		contentPane.add(pnlDireccion);
+		pnlDireccion.setLayout(null);
 
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setBounds(18, 70, 80, 16);
-		pnlDirección.add(lblEstado);
+		pnlDireccion.add(lblEstado);
 
 		JLabel lblMunicipio = new JLabel("Municipio:");
 		lblMunicipio.setBounds(18, 115, 80, 16);
-		pnlDirección.add(lblMunicipio);
+		pnlDireccion.add(lblMunicipio);
 
 		JLabel lblCalle = new JLabel("Calle:");
 		lblCalle.setBounds(18, 265, 80, 16);
-		pnlDirección.add(lblCalle);
+		pnlDireccion.add(lblCalle);
 
 		JLabel lblNumeroExt = new JLabel("Numero Ext:");
 		lblNumeroExt.setBounds(18, 215, 87, 16);
-		pnlDirección.add(lblNumeroExt);
+		pnlDireccion.add(lblNumeroExt);
 
 		JLabel lblColonia = new JLabel("Colonia:");
 		lblColonia.setBounds(18, 165, 80, 16);
-		pnlDirección.add(lblColonia);
+		pnlDireccion.add(lblColonia);
 
 		JLabel lblNumeroInt = new JLabel("Numero Int:");
 		lblNumeroInt.setBounds(181, 215, 87, 16);
-		pnlDirección.add(lblNumeroInt);
+		pnlDireccion.add(lblNumeroInt);
 
 		txtCalle = new JTextField();
 		txtCalle.setColumns(10);
 		txtCalle.setBounds(94, 260, 243, 26);
-		pnlDirección.add(txtCalle);
+		pnlDireccion.add(txtCalle);
 
 		txtNumeroExt = new JTextField();
 		txtNumeroExt.setBounds(97, 210, 72, 26);
-		pnlDirección.add(txtNumeroExt);
+		pnlDireccion.add(txtNumeroExt);
 		txtNumeroExt.setColumns(10);
 
 		txtNumeroInt = new JTextField();
 		txtNumeroInt.setColumns(10);
 		txtNumeroInt.setBounds(265, 210, 72, 26);
-		pnlDirección.add(txtNumeroInt);
+		pnlDireccion.add(txtNumeroInt);
 
 		JLabel label = new JLabel("C.P:");
 		label.setBounds(18, 33, 80, 16);
-		pnlDirección.add(label);
+		pnlDireccion.add(label);
 
 		txtCp = new JTextField();
 		txtCp.setColumns(10);
 		txtCp.setBounds(94, 28, 243, 26);
-		pnlDirección.add(txtCp);
+		pnlDireccion.add(txtCp);
 
 		txtEstado = new JTextField();
 		txtEstado.setEnabled(false);
 		txtEstado.setBounds(94, 65, 243, 26);
-		pnlDirección.add(txtEstado);
+		pnlDireccion.add(txtEstado);
 		txtEstado.setColumns(10);
 
 		txtMunicipio = new JTextField();
 		txtMunicipio.setEnabled(false);
 		txtMunicipio.setColumns(10);
 		txtMunicipio.setBounds(94, 110, 243, 26);
-		pnlDirección.add(txtMunicipio);
+		pnlDireccion.add(txtMunicipio);
 
 		cmbColonia = new JComboBox();
 		cmbColonia.setModel(new DefaultComboBoxModel(new String[] { "---Seleccione su colonia---" }));
 		cmbColonia.setEnabled(false);
 		cmbColonia.setBounds(94, 161, 243, 26);
-		pnlDirección.add(cmbColonia);
+		pnlDireccion.add(cmbColonia);
 
 		JPanel pnlNipFotografia = new JPanel();
 		pnlNipFotografia.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null),
@@ -208,30 +208,30 @@ public class RegistrarEmpleado extends JFrame {
 		btnCapturarFoto.setBounds(35, 186, 140, 30);
 		pnlNipFotografia.add(btnCapturarFoto);
 
-		JPanel pnlAsignación = new JPanel();
-		pnlAsignación.setBorder(
+		JPanel pnlAsignacion = new JPanel();
+		pnlAsignacion.setBorder(
 				new TitledBorder(null, "Asignaci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnlAsignación.setBounds(10, 334, 360, 201);
-		contentPane.add(pnlAsignación);
-		pnlAsignación.setLayout(null);
+		pnlAsignacion.setBounds(10, 334, 360, 201);
+		contentPane.add(pnlAsignacion);
+		pnlAsignacion.setLayout(null);
 
 		cmbArea = new JComboBox();
 		cmbArea.setBounds(20, 101, 311, 27);
-		pnlAsignación.add(cmbArea);
+		pnlAsignacion.add(cmbArea);
 
 		cmbTurno = new JComboBox();
 		cmbTurno.setEnabled(false);
 		cmbTurno.setModel(new DefaultComboBoxModel(new String[] {"--------Seleccione un turno--------", "a"}));
 		cmbTurno.setBounds(20, 154, 311, 27);
-		pnlAsignación.add(cmbTurno);
+		pnlAsignacion.add(cmbTurno);
 
 		lblPuesto = new JLabel("Puesto :");
 		lblPuesto.setBounds(20, 46, 61, 16);
-		pnlAsignación.add(lblPuesto);
+		pnlAsignacion.add(lblPuesto);
 
 		txtPuesto = new JTextField();
 		txtPuesto.setBounds(78, 41, 253, 26);
-		pnlAsignación.add(txtPuesto);
+		pnlAsignacion.add(txtPuesto);
 		txtPuesto.setColumns(10);
 
 		JPanel pnlNomina = new JPanel();

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
+import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.services.DataSourceService;
 
 /**
@@ -47,5 +48,41 @@ public class ConfigurarScaeProDao extends DataSourceService{
 		return areas;
 	}
 
-//	public List<E>
+	public List<TurnoModel> consultarTurnos(int idArea)throws SQLException{
+		List<TurnoModel> turnos = new ArrayList<TurnoModel>();
+		String sql= "SELECT * FROM c_turno INNER JOIN "
+				+ "t_horario_turno ON t_horario_turno.idTurno = c_turno.idTurno "
+				+ "WHERE idArea = " + idArea;
+		
+		
+		try{
+			turnos=getJdbcTemplate().query(sql, new RowMapper<TurnoModel>(){
+				public TurnoModel mapRow(ResultSet rs, int columna) throws SQLException{
+					TurnoModel resultValue=new TurnoModel();
+					
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					resultValue.setTiempoRetardo(rs.getInt("tiempoRetardo"));
+					resultValue.setTiempoFalta(rs.getInt("tiempoFalta"));
+					resultValue.setIdHorarioTurno(rs.getInt("idHorarioTurno"));
+					resultValue.setDia(rs.getString("dia"));
+					resultValue.setHoraEntrada(rs.getString("horaEntrada"));
+					resultValue.setHoraSalidaComer(rs.getString("horaSalidaComer"));
+					resultValue.setHoraEntradaComer(rs.getString("horaEntradaComer"));
+					resultValue.setHoraSalida(rs.getString("horaSalida"));
+					resultValue.setIdEstatus(rs.getInt("idEstatus"));
+					resultValue.setIdEstatusComida(rs.getInt("idEstatusComida"));
+					
+					return resultValue;
+				}
+			});
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la consulta!");
+		}
+		
+		return turnos;
+	}
 }

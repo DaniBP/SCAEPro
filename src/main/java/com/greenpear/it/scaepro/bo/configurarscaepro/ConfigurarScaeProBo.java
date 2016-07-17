@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.greenpear.it.scaepro.dao.configurarscaepro.ConfigurarScaeProDao;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
+import com.greenpear.it.scaepro.model.turno.TurnoModel;
 
 /**
  * 
@@ -35,5 +36,15 @@ public class ConfigurarScaeProBo {
 			throw new SQLException(e.getMessage());
 		}
 		return areas;
+	}
+	
+	public List<TurnoModel> consultarTunos(int idArea) throws SQLException{
+		List<TurnoModel> turnos = new ArrayList<TurnoModel>();
+		try{
+			turnos=getConfigurarScaeProDao().consultarTurnos(idArea);
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+		return turnos;
 	}
 }
