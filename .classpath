@@ -52,5 +52,9 @@
 	<classpathentry kind="lib" path="src/main/resources/libraries/dpotapi.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/libraries/dpotjni.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/libraries/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/bridj-0.6.2.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/webcam-capture-0.3.10.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

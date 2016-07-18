@@ -43,7 +43,8 @@ public class RegistrarEmpleado extends JFrame {
 	private JTextField txtMunicipio;
 	private JLabel lblPuesto;
 	private JTextField txtPuesto;
-
+	private JLabel lblFotografia;
+	
 	public RegistrarEmpleado() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 970, 580);
@@ -192,7 +193,7 @@ public class RegistrarEmpleado extends JFrame {
 		contentPane.add(pnlNipFotografia);
 		pnlNipFotografia.setLayout(null);
 
-		JLabel lblFotografia = new JLabel("");
+		lblFotografia = new JLabel("");
 		lblFotografia.setBounds(20, 22, 170, 162);
 		pnlNipFotografia.add(lblFotografia);
 
@@ -364,4 +365,9 @@ public class RegistrarEmpleado extends JFrame {
 	public void setTxtPuesto(JTextField txtPuesto) {
 		this.txtPuesto = txtPuesto;
 	}
+
+	public JLabel getLblFotografia() {
+		return lblFotografia;
+	}
+	
 }

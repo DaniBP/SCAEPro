@@ -2,6 +2,7 @@ package com.greenpear.it.scaepro.bo.configurarempleados;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -77,6 +78,18 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 			throw new SQLException(t.getMessage());
 		}
 		return acceso;
+	}
+	
+	public EmpleadoModel consultarIdEmpleado() {
+		System.out.println("lol1");
+
+		EmpleadoModel empleadoModel = null;
+		try {
+			empleadoModel =getEmpleadoDao().consultarIdEmpleado();
+		} catch (SQLException t) {
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return empleadoModel;
 	}
 
 }

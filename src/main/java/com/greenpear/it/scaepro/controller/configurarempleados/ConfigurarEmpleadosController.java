@@ -1,6 +1,5 @@
 package com.greenpear.it.scaepro.controller.configurarempleados;
 
-import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,15 +11,14 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -30,9 +28,10 @@ import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.view.configurarempleados.RegistrarEmpleado;
+import jdk.nashorn.internal.scripts.JO;
 
 @Controller
-public class ConfigurarEmpleadosController implements ActionListener, ItemListener, WindowListener {
+public class ConfigurarEmpleadosController implements ActionListener, ItemListener, WindowListener{
 
 	public ConfigurarEmpleadosController() {
 		super();
@@ -58,6 +57,10 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 	@Qualifier("empleadosBoService")
 	private ConfigurarEmpleadosBo empleadosBo;
 
+	//Controladores
+	@Autowired
+	private TomarFotoController fotoController;
+	
 	// Getters de clases privadas antes declaradas
 	public EmpleadoModel getConfigurarEmpleadosModel() {
 		return configurarEmpleadosModel;
@@ -83,12 +86,17 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		return goverment;
 	}
 
+	public TomarFotoController getFotoController() {
+		return fotoController;
+	}
+
 	public void mostrarVistaRegistroEmpleado() {
 		if (getRegistrarEmpleadoView().getBtnRegistrar().getActionListeners().length == 0) {
 			getRegistrarEmpleadoView().getBtnRegistrar().addActionListener(this);
 			getRegistrarEmpleadoView().getCmbArea().addItemListener(this);
 			getRegistrarEmpleadoView().addWindowListener(this);
 			getRegistrarEmpleadoView().getCmbPeriodoNominal().addItemListener(this);
+			getRegistrarEmpleadoView().getBtnCapturarFoto().addActionListener(this);
 		}
 		getRegistrarEmpleadoView().setVisible(true);
 	}
@@ -136,6 +144,10 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 
 				// limpiarVentanas();
 			}
+		}else if(e.getSource().equals(getRegistrarEmpleadoView().getBtnCapturarFoto())){
+//			fotoController.iniciar();
+			SwingUtilities.invokeLater(fotoController);
+//			consultarIdEmpleado();
 		}
 
 	}
@@ -455,6 +467,12 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		} catch (SQLException t) {
 			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	public int consultarIdEmpleado(){
+		configurarEmpleadosModel=getEmpleadosBo().consultarIdEmpleado();
+		System.out.println(configurarEmpleadosModel.getIdEmpleado());
+		return configurarEmpleadosModel.getIdEmpleado();
 	}
 
 	private void limpiarTurnos() {

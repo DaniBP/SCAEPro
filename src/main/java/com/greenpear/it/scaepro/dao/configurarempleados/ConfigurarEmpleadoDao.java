@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +12,11 @@ import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -133,7 +136,6 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		String sql = "select DISTINCT t_Colonia.nombreColonia from t_Colonia INNER JOIN t_Municipio"
 				+ " on t_Colonia.idMunicipio=t_Municipio.idEstado where t_Municipio.nombreMunicipio='"
 				+ direccionModelo.getMunicipio() + "' ORDER BY t_Colonia.nombreColonia";
-		JOptionPane.showMessageDialog(null, sql);
 		try {
 			listaMunicipios = getJdbcTemplate().query(sql, new RowMapper<DireccionModelo>() {
 
@@ -197,7 +199,30 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		}
 
 		return "La direccion con el cp" + direccionModelo2.getCp() + "\n" + "Fue registrado exitosamente!\n\n"
-				+ "Su id de DireccionEmpleado es: " + direccionModelo2.getIdDireccion()+ " con la colonia"
-						+ " " +getDireccionModelo().getUniColonia() ;
+				+ "Su id de DireccionEmpleado es: " + direccionModelo2.getIdDireccion() + " con la colonia" + " "
+				+ getDireccionModelo().getUniColonia();
+	}
+
+	public EmpleadoModel consultarIdEmpleado()throws SQLException {
+		EmpleadoModel empleadoModel=new EmpleadoModel();
+		System.out.println("lol2");
+		String sql="select idEmpleado from t_empleado ORDER BY IDEMPLEADO DESC LIMIT 1";
+		
+		System.out.println(sql);
+		try {
+			empleadoModel=getJdbcTemplate().query(sql,new ResultSetExtractor<EmpleadoModel>(){
+				public EmpleadoModel extractData(ResultSet rs)throws SQLException{
+					EmpleadoModel empleado=new EmpleadoModel();
+					if(rs.next()){
+						empleado.setIdEmpleado(rs.getInt("idEmpleado"));
+					}
+					return empleado;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserci�n!");
+		}
+		return empleadoModel;
 	}
 }
