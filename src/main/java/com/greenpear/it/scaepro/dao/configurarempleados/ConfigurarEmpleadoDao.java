@@ -109,51 +109,6 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaDireccion;
 	}
 
-	public List<DireccionModelo> consultarMunicipio(DireccionModelo direccionModelo) throws SQLException {
-		List<DireccionModelo> listaEstados = new ArrayList<DireccionModelo>();
-		String sql = "SELECT t_Municipio.nombre_municipio from t_Municipio INNER JOIN t_Estado on "
-				+ "t_Municipio.Estado=t_Estado.id_Estado WHERE t_Estado.estado='" + direccionModelo.getEstado() + "'";
-		try {
-			listaEstados = getJdbcTemplate().query(sql, new RowMapper<DireccionModelo>() {
-
-				public DireccionModelo mapRow(ResultSet rs, int columna) throws SQLException {
-					DireccionModelo resultValue = new DireccionModelo();
-					resultValue.setMunicipio(rs.getString("nombre_municipio"));
-					return resultValue;
-				}
-
-			});
-		} catch (Exception e) {
-			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
-			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
-		}
-
-		return listaEstados;
-	}
-
-	public List<DireccionModelo> consultarColonias(DireccionModelo direccionModelo) throws SQLException {
-		List<DireccionModelo> listaMunicipios = new ArrayList<DireccionModelo>();
-		String sql = "select DISTINCT t_Colonia.nombreColonia from t_Colonia INNER JOIN t_Municipio"
-				+ " on t_Colonia.idMunicipio=t_Municipio.idEstado where t_Municipio.nombreMunicipio='"
-				+ direccionModelo.getMunicipio() + "' ORDER BY t_Colonia.nombreColonia";
-		try {
-			listaMunicipios = getJdbcTemplate().query(sql, new RowMapper<DireccionModelo>() {
-
-				public DireccionModelo mapRow(ResultSet rs, int columna) throws SQLException {
-					DireccionModelo resultValue = new DireccionModelo();
-					resultValue.setColonia(rs.getString("nombreColonia"));
-					return resultValue;
-				}
-
-			});
-		} catch (Exception e) {
-			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
-			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
-		}
-
-		return listaMunicipios;
-	}
-
 	public List<TurnoModel> consultarTurno() throws SQLException {
 		List<TurnoModel> listaAreas = new ArrayList<TurnoModel>();
 		String sql = "SELECT nombreTurno from c_turno INNER JOIN c_area on c_turno.idArea=c_area.idArea WHERE c_area.nombreArea='"
@@ -195,7 +150,7 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
-			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserci�n!");
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserciï¿½n!");
 		}
 
 		return "La direccion con el cp" + direccionModelo2.getCp() + "\n" + "Fue registrado exitosamente!\n\n"
@@ -205,10 +160,7 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 
 	public EmpleadoModel consultarIdEmpleado()throws SQLException {
 		EmpleadoModel empleadoModel=new EmpleadoModel();
-		System.out.println("lol2");
 		String sql="select idEmpleado from t_empleado ORDER BY IDEMPLEADO DESC LIMIT 1";
-		
-		System.out.println(sql);
 		try {
 			empleadoModel=getJdbcTemplate().query(sql,new ResultSetExtractor<EmpleadoModel>(){
 				public EmpleadoModel extractData(ResultSet rs)throws SQLException{
@@ -221,8 +173,54 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 			});
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
-			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserci�n!");
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserciï¿½n!");
 		}
 		return empleadoModel;
+	}
+
+	public TurnoModel consultarIdArea(TurnoModel turnoModelo2) throws SQLException {
+		TurnoModel turnomodel=new TurnoModel();
+		String sql="select idArea from c_area where nombreArea='"+turnoModelo2.getArea()+"'";
+		try {
+			turnomodel=getJdbcTemplate().query(sql,new ResultSetExtractor<TurnoModel>(){
+				public TurnoModel extractData(ResultSet rs)throws SQLException{
+					TurnoModel turno=new TurnoModel();
+					if(rs.next()){
+						turno.setIdArea(rs.getInt("idArea"));
+					}
+					return turno;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserciï¿½n!");
+		}
+		return turnomodel;
+	}
+
+	public TurnoModel consultarIdTurno(TurnoModel turnoModelo3) throws SQLException {
+		TurnoModel turnomodel=new TurnoModel();
+		String sql="select idTurno from c_turno inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where nombreArea='"+turnoModelo3.getArea()+"' and nombreTurno='"+turnoModelo3.getNombreTurno()+"'";
+		System.out.println(sql);
+		try {
+			turnomodel=getJdbcTemplate().query(sql,new ResultSetExtractor<TurnoModel>(){
+				public TurnoModel extractData(ResultSet rs)throws SQLException{
+					TurnoModel turno=new TurnoModel();
+					if(rs.next()){
+						turno.setIdTurno(rs.getInt("idTurno"));
+					}
+					return turno;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserciï¿½n!");
+		}
+		return turnomodel;
+	}
+
+	public String registrarEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
+		return null;
 	}
 }

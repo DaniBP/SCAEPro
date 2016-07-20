@@ -21,8 +21,10 @@ public class EmpleadoModel {
 	private String nipEmpleado;
 	private byte huellaEmpleado[];
 	private String estado;
-	
+	private String puesto;
 	private String area;
+	private String nombreUsuario;
+	private String password;
 	
 	/**
 	 * @return the idEmpleado
@@ -214,6 +216,25 @@ public class EmpleadoModel {
 	/**
 	 * M�todo para limpiar el modelo
 	 */
+	public String getPuesto() {
+		return puesto;
+	}
+	public void setPuesto(String puesto) {
+		this.puesto = puesto;
+	}
+	
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public void limpiarModelo(){
 		idEmpleado=0;
 		nombreEmpleado=null;
@@ -231,5 +252,7 @@ public class EmpleadoModel {
 		area=null;
 		huellaEmpleado=null;
 		estado=null;
+		puesto=null;
 	}
+	
 }

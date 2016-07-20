@@ -81,8 +81,6 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 	}
 	
 	public EmpleadoModel consultarIdEmpleado() {
-		System.out.println("lol1");
-
 		EmpleadoModel empleadoModel = null;
 		try {
 			empleadoModel =getEmpleadoDao().consultarIdEmpleado();
@@ -90,6 +88,36 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return empleadoModel;
+	}
+
+	public TurnoModel consultarIdArea(TurnoModel turnoModelo) {
+		TurnoModel turnoModel=null;
+		try {
+			turnoModel =getEmpleadoDao().consultarIdArea(turnoModelo);
+		} catch (SQLException t) {
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return turnoModel;
+	}
+	
+	public TurnoModel consultarIdTurno(TurnoModel turnoModelo) {
+		TurnoModel turnoModel=null;
+		try {
+			turnoModel =getEmpleadoDao().consultarIdTurno(turnoModelo);
+		} catch (SQLException t) {
+			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return turnoModel;
+	}
+
+	public String registrarEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		String mensaje=null;
+		try {
+			mensaje = getEmpleadoDao().registrarEmpleado(configurarEmpleadosModel);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return mensaje;
 	}
 
 }

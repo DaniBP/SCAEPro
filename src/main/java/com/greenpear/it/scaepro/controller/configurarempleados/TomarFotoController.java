@@ -44,9 +44,8 @@ import com.greenpear.it.scaepro.view.configurarempleados.RegistrarEmpleado;
 
 
 /**
- * Proof of concept of how to handle webcam video stream from Java
  * 
- * @author Bartosz Firyn (SarXos)
+ * @author RyuuZangetsu
  */
 @Controller
 public class TomarFotoController extends JFrame implements Runnable, WebcamListener, WindowListener, UncaughtExceptionHandler, ItemListener, WebcamDiscoveryListener, ActionListener {
@@ -68,14 +67,14 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 	private Webcam webcam = null;
 	private WebcamPanel panel = null;
 	private WebcamPicker picker = null;
-	private JButton boton=new JButton("Boton");
+	private JButton boton=new JButton("Tomar fotografia");
 	
 	@Override
 	public void run() {
 
 		Webcam.addDiscoveryListener(this);
 
-		setTitle("Java Webcam Capture POC");
+		setTitle("Tomar fotografia de empleado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
@@ -87,7 +86,7 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 		webcam = picker.getSelectedWebcam();
 
 		if (webcam == null) {
-			System.out.println("No webcams found...");
+			System.out.println("No se encontro ninguna camara");
 			System.exit(1);
 		}
 
@@ -112,7 +111,7 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 				panel.start();
 			}
 		};
-		t.setName("example-starter");
+		t.setName("Empezando");
 		t.setDaemon(true);
 		t.setUncaughtExceptionHandler(this);
 		t.start();
@@ -124,17 +123,17 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 
 	@Override
 	public void webcamOpen(WebcamEvent we) {
-		System.out.println("webcam open");
+		System.out.println("Camara abierta");
 	}
 
 	@Override
 	public void webcamClosed(WebcamEvent we) {
-		System.out.println("webcam closed");
+		System.out.println("Camara cerrada");
 	}
 
 	@Override
 	public void webcamDisposed(WebcamEvent we) {
-		System.out.println("webcam disposed");
+		System.out.println("Camara destruida XD");
 	}
 
 	@Override
@@ -165,13 +164,13 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		System.out.println("webcam viewer resumed");
+		System.out.println("Resume de camara web");
 		panel.resume();
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
-		System.out.println("webcam viewer paused");
+		System.out.println("Camara pausada");
 		panel.pause();
 	}
 
@@ -197,7 +196,7 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 				webcam.setViewSize(WebcamResolution.VGA.getSize());
 				webcam.addWebcamListener(this);
 
-				System.out.println("selected " + webcam.getName());
+				System.out.println("Seleccionada  " + webcam.getName());
 
 				panel = new WebcamPanel(webcam, false);
 				panel.setFPSDisplayed(true);
@@ -212,7 +211,7 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 						panel.start();
 					}
 				};
-				t.setName("example-stoper");
+				t.setName("Detenido");
 				t.setDaemon(true);
 				t.setUncaughtExceptionHandler(this);
 				t.start();
@@ -259,23 +258,24 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 		ImageIcon fotografia=new ImageIcon("src/main/resources/img/fotosempleados/"+idEmpleado);
 		Icon icono=new ImageIcon(fotografia.getImage().getScaledInstance(getEmpleadosController().getRegistrarEmpleadoView().getLblFotografia().getWidth(),getEmpleadosController().getRegistrarEmpleadoView().getLblFotografia().getHeight() , Image.SCALE_DEFAULT));
 		empleadosController.getRegistrarEmpleadoView().getLblFotografia().setIcon(icono);
+		empleadosController.getConfigurarEmpleadosModel().setFotografia(idEmpleado);
 	}
 
 	private String validarNombre(String idEmpleado) {
 		if(idEmpleado.length()==1){
-			idEmpleado="FT000000"+idEmpleado+".png";
+			idEmpleado="Ft000000"+idEmpleado+".png";
 		}else if(idEmpleado.length()==2){
-			idEmpleado="FT00000"+idEmpleado;
+			idEmpleado="Ft00000"+idEmpleado;
 		}else if(idEmpleado.length()==3){
-			idEmpleado="FT0000"+idEmpleado;
+			idEmpleado="Ft0000"+idEmpleado;
 		}else if(idEmpleado.length()==4){
-			idEmpleado="FT000"+idEmpleado;
+			idEmpleado="Ft000"+idEmpleado;
 		}else if(idEmpleado.length()==5){
-			idEmpleado="FT00"+idEmpleado;
+			idEmpleado="Ft00"+idEmpleado;
 		}else if(idEmpleado.length()==6){
-			idEmpleado="FT0"+idEmpleado;
+			idEmpleado="Ft0"+idEmpleado;
 		}else if(idEmpleado.length()==7){
-			idEmpleado="FT"+idEmpleado;
+			idEmpleado="Ft"+idEmpleado;
 		}
 		return idEmpleado;
 	}
@@ -284,15 +284,5 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 
 	public ConfigurarEmpleadosController getEmpleadosController() {
 		return empleadosController;
-	}
-
-//	public EmpleadoModel getConfigurarEmpleadosModel() {
-//		return configurarEmpleadosModel;
-//	}
-
-//	public ConfigurarEmpleadosBo getEmpleadosBo() {
-//		return empleadosBo;
-//	}
-	
-	
+	}	
 }

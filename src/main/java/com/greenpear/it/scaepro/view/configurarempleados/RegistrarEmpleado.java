@@ -46,6 +46,7 @@ public class RegistrarEmpleado extends JFrame {
 	private JLabel lblFotografia;
 	
 	public RegistrarEmpleado() {
+		setTitle("Registrar empleado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 970, 580);
 		contentPane = new JPanel();

@@ -94,6 +94,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		if (getRegistrarEmpleadoView().getBtnRegistrar().getActionListeners().length == 0) {
 			getRegistrarEmpleadoView().getBtnRegistrar().addActionListener(this);
 			getRegistrarEmpleadoView().getCmbArea().addItemListener(this);
+			getRegistrarEmpleadoView().getCmbTurno().addItemListener(this);
 			getRegistrarEmpleadoView().addWindowListener(this);
 			getRegistrarEmpleadoView().getCmbPeriodoNominal().addItemListener(this);
 			getRegistrarEmpleadoView().getBtnCapturarFoto().addActionListener(this);
@@ -112,44 +113,110 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 				fecha = "vacio";
 			}
 
-			// Validar panel datos personales
-			if (getRegistrarEmpleadoView().getTxtNombres().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getTxtApePat().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getTxtApeMat().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getTxtTelCasa().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getTxtTelCel().getText().isEmpty() || fecha.equals("vacio")) {
-				JOptionPane.showMessageDialog(null, "Completa todos los valores solicitados de 'Datos personales'");
-				// Validar panel de direccion
-			} else if (getRegistrarEmpleadoView().getTxtCp().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getTxtCalle().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getTxtNumeroInt().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getTxtNumeroExt().getText().isEmpty() || getRegistrarEmpleadoView()
-							.getCmbColonia().getSelectedItem().equals("---Seleccione su colonia---")) {
-				JOptionPane.showMessageDialog(null, "Completa todos los valores solicitados de 'Direccion'");
-				// Validar panel de asignacion
-			} else if (getRegistrarEmpleadoView().getTxtPuesto().getText().isEmpty()
-					|| getRegistrarEmpleadoView().getCmbArea().getSelectedItem()
-							.equals("--------Seleccione un área--------")
-					|| getRegistrarEmpleadoView().getCmbTurno().getSelectedItem()
-							.equals("--------Seleccione un turno--------")) {
-				JOptionPane.showMessageDialog(null, "Completa todos los campos de  'Asignación'");
-				// Validar campos de nomina
-			} else if (getRegistrarEmpleadoView().getCmbPeriodoNominal().getSelectedItem()
-					.equals("----Selecciona un periodo nominal----")
-					|| getRegistrarEmpleadoView().getCmbDiaNomina().getSelectedItem()
-							.equals("---------Selecciona un dia---------")) {
-				JOptionPane.showMessageDialog(null, "Completa todos los campos de 'Nomina'");
-			} else {
-				insertarDireccionEmpleado();
-
+//			// Validar panel datos personales
+//			if (getRegistrarEmpleadoView().getTxtNombres().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getTxtApePat().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getTxtApeMat().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getTxtTelCasa().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getTxtTelCel().getText().isEmpty() 
+//					|| fecha.equals("vacio")) {
+//				JOptionPane.showMessageDialog(null, "Completa todos los valores solicitados de 'Datos personales'");
+//			// Validar panel de direccion
+//			} else if (getRegistrarEmpleadoView().getTxtCp().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getTxtCalle().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getTxtNumeroInt().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getTxtNumeroExt().getText().isEmpty() || getRegistrarEmpleadoView()
+//							.getCmbColonia().getSelectedItem().equals("---Seleccione su colonia---")) {
+//				JOptionPane.showMessageDialog(null, "Completa todos los valores solicitados de 'Direccion'");
+//				// Validar panel de asignacion
+//			} else if (getRegistrarEmpleadoView().getTxtPuesto().getText().isEmpty()
+//					|| getRegistrarEmpleadoView().getCmbArea().getSelectedItem()
+//							.equals("--------Seleccione un área--------")
+//					|| getRegistrarEmpleadoView().getCmbTurno().getSelectedItem()
+//							.equals("--------Seleccione un turno--------")) {
+//				JOptionPane.showMessageDialog(null, "Completa todos los campos de  'Asignación'");
+//				// Validar campos de nomina
+//			} else if (getRegistrarEmpleadoView().getCmbPeriodoNominal().getSelectedItem()
+//					.equals("----Selecciona un periodo nominal----")
+//					|| getRegistrarEmpleadoView().getCmbDiaNomina().getSelectedItem()
+//							.equals("---------Selecciona un dia---------")) {
+//				JOptionPane.showMessageDialog(null, "Completa todos los campos de 'Nomina'");
+//			} else if(getConfigurarEmpleadosModel().getFotografia()==null){
+//				JOptionPane.showMessageDialog(null, "Por favor capture una fotografia");
+//			}else{
+//				insertarDireccionEmpleado();
+//				conocerIdTurno();
+				insertarEmpleado();
 				// limpiarVentanas();
-			}
+//			}
 		}else if(e.getSource().equals(getRegistrarEmpleadoView().getBtnCapturarFoto())){
 //			fotoController.iniciar();
 			SwingUtilities.invokeLater(fotoController);
 //			consultarIdEmpleado();
 		}
 
+	}
+
+	private void insertarEmpleado() {
+		DateFormat df = DateFormat.getDateInstance();
+		String fecha = df.format(registrarEmpleadoView.getFecha().getDate());
+		fecha=construirFecha(fecha);
+//		String nombreUsuario=construirNombreUsuario();
+//		getConfigurarEmpleadosModel().setNombreEmpleado(getRegistrarEmpleadoView().getTxtNombres().getText());
+//		getConfigurarEmpleadosModel().setApePatEmpleado(getRegistrarEmpleadoView().getTxtApePat().getText());
+//		getConfigurarEmpleadosModel().setApeMatEmpleado(getRegistrarEmpleadoView().getTxtApeMat().getText());
+//		getConfigurarEmpleadosModel().setFechaNacimiento(fecha);
+//		getConfigurarEmpleadosModel().setTelCasa(getRegistrarEmpleadoView().getTxtTelCasa().getText());
+//		getConfigurarEmpleadosModel().setTelCel(getRegistrarEmpleadoView().getTxtTelCel().getText());
+//		getConfigurarEmpleadosModel().setIdDireccionEmpleado(getDireccionModelo().getIdDireccion());
+//		getConfigurarEmpleadosModel().setPuesto(getRegistrarEmpleadoView().getTxtPuesto().getText());
+//		getConfigurarEmpleadosModel().setIdTurno(turnoModelo.getIdTurno());
+//		getConfigurarEmpleadosModel().setFotografia(configurarEmpleadosModel.getFotografia());
+//		getConfigurarEmpleadosModel().setPeriodoNominal(getRegistrarEmpleadoView().getCmbPeriodoNominal().getSelectedItem().toString());
+//		getConfigurarEmpleadosModel().setDiaDePago(Integer.parseInt(getRegistrarEmpleadoView().getCmbDiaNomina().getSelectedItem().toString()));
+//		getConfigurarEmpleadosModel().setNombreUsuario(nombreUsuario);
+//		getConfigurarEmpleadosModel().setPassword("123456789");
+//		System.out.println("Estos son todos los datos a insertar");
+//		System.out.println(configurarEmpleadosModel.getNombreEmpleado());
+//		System.out.println(configurarEmpleadosModel.getApePatEmpleado());
+//		System.out.println(configurarEmpleadosModel.getApeMatEmpleado());
+		System.out.println(configurarEmpleadosModel.getFechaNacimiento());
+//		System.out.println(configurarEmpleadosModel.getTelCasa());
+//		System.out.println(configurarEmpleadosModel.getTelCel());
+//		System.out.println(configurarEmpleadosModel.getIdDireccionEmpleado());
+//		System.out.println(configurarEmpleadosModel.getPuesto());
+//		System.out.println(configurarEmpleadosModel.getIdTurno());
+//		System.out.println(configurarEmpleadosModel.getFotografia());
+//		System.out.println(configurarEmpleadosModel.getPeriodoNominal());
+//		System.out.println(configurarEmpleadosModel.getDiaDePago());
+//		System.out.println(configurarEmpleadosModel.getNombreUsuario());
+//		System.out.println(configurarEmpleadosModel.getPassword());
+//		String mensaje=null;
+		
+//		try {
+//			mensaje=getEmpleadosBo().registrarEmpleado(configurarEmpleadosModel);
+////			JOptionPane.showMessageDialog(null,getDireccionModelo().getIdDireccion());
+//		} catch (SQLException t) {
+//			JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+//		}
+		
+	}
+
+	private String construirFecha(String fecha) {
+		System.out.println(fecha);
+		String ano,mes,dia;
+		
+//		fecha=ano+"/"+mes+"/"+dia;
+		return fecha;
+	}
+
+	private String construirNombreUsuario() {
+		String idUsuario,nombreEmpleado,apellido,nomFinal;
+		idUsuario=Integer.toString(configurarEmpleadosModel.getIdEmpleado());
+		nombreEmpleado=(getRegistrarEmpleadoView().getTxtNombres().getText()).substring(0, 3);
+		apellido=(getRegistrarEmpleadoView().getTxtApePat().getText()).substring(0, 3);
+		nomFinal=idUsuario+nombreEmpleado+apellido;
+		return nomFinal;
 	}
 
 	private void limpiarVentanas() {
@@ -166,8 +233,28 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		getRegistrarEmpleadoView().getTxtTelCasa().setText(null);
 		getRegistrarEmpleadoView().getTxtTelCel().setText(null);
 		getRegistrarEmpleadoView().getFecha().setDate(null);
+		getRegistrarEmpleadoView().getLblFotografia().setIcon(null);
 		limpiarCombos();
 		limpiarDireccion();
+		limpiarModeloEmpleado();
+	}
+
+	private void limpiarModeloEmpleado() {
+		getConfigurarEmpleadosModel().setFotografia(null);
+		getConfigurarEmpleadosModel().setNipEmpleado(null);
+		getConfigurarEmpleadosModel().setApeMatEmpleado(null);
+		getConfigurarEmpleadosModel().setApePatEmpleado(null);
+		getConfigurarEmpleadosModel().setArea(null);
+		getConfigurarEmpleadosModel().setDiaDePago(0);
+		getConfigurarEmpleadosModel().setIdDireccionEmpleado(0);
+		getConfigurarEmpleadosModel().setEstado(null);
+		getConfigurarEmpleadosModel().setIdEmpleado(0);
+		getConfigurarEmpleadosModel().setHuellaEmpleado(null);
+		getConfigurarEmpleadosModel().setIdTurno(0);
+		getConfigurarEmpleadosModel().setPeriodoNominal(null);
+		getConfigurarEmpleadosModel().setTelCasa(null);
+		getConfigurarEmpleadosModel().setTelCel(null);
+
 	}
 
 	private void limpiarCombos() {
@@ -202,6 +289,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		
 		try {
 			acceso=getEmpleadosBo().insertarDirEmpl(getDireccionModelo());
+//			JOptionPane.showMessageDialog(null,getDireccionModelo().getIdDireccion());
 		} catch (SQLException t) {
 			JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 		}
@@ -212,12 +300,19 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		// Escucha el cambio del area y llena los turno dependiendo el area
 		if (e.getSource().equals(getRegistrarEmpleadoView().getCmbArea())) {
 			if (!getRegistrarEmpleadoView().getCmbArea().getSelectedItem()
-					.equals("--------Seleccione un área--------")) {
+					.equals("--------Seleccione un area--------")) {
 				getRegistrarEmpleadoView().getCmbTurno().setEnabled(true);
 				llenarTurnos();
+//				conocerIdTurno();
 			} else {
 				getRegistrarEmpleadoView().getCmbTurno().setEnabled(false);
 			}
+		}else if(e.getSource().equals(getRegistrarEmpleadoView().getCmbTurno())){
+//			System.out.println(getRegistrarEmpleadoView().getCmbTurno().getSelectedItem());
+//			System.out.println(getRegistrarEmpleadoView().getCmbTurno().getSelectedItem().toString());
+//			if(getRegistrarEmpleadoView().getCmbTurno().getSelectedItem()!="--------Seleccione un turno--------"){
+//				JOptionPane.showMessageDialog(null, "Entro");
+//			}
 		}
 		// Escucha el cambio del combo periodo nominal y realiza las
 		// asignaciones de dia
@@ -249,9 +344,19 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			}
 
 		}
-
 	}
 
+	private int conocerIdArea() {
+		turnoModelo.setArea(getRegistrarEmpleadoView().getCmbArea().getSelectedItem().toString());
+		turnoModelo=getEmpleadosBo().consultarIdArea(turnoModelo);
+		return configurarEmpleadosModel.getIdEmpleado();		
+	}
+	private int conocerIdTurno() {
+		turnoModelo.setArea(getRegistrarEmpleadoView().getCmbArea().getSelectedItem().toString());
+		turnoModelo.setNombreTurno(getRegistrarEmpleadoView().getCmbTurno().getSelectedItem().toString());
+		turnoModelo=getEmpleadosBo().consultarIdTurno(turnoModelo);
+		return configurarEmpleadosModel.getIdEmpleado();		
+	}
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// El siguiente evento limita la entrada de letras en los campos de tipo
@@ -437,7 +542,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 
 	private void llenarComboArea() {
 		// getRegistrarEmpleadoView().getCmbArea().removeAllItems();
-		getRegistrarEmpleadoView().getCmbArea().addItem("--------Seleccione un área--------");
+		getRegistrarEmpleadoView().getCmbArea().addItem("--------Seleccione un area--------");
 		List<EmpleadoModel> lista = new ArrayList<EmpleadoModel>();
 		try {
 			lista = getEmpleadosBo().consultaGeneral();
@@ -463,6 +568,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			while (listaIterator.hasNext()) {
 				TurnoModel listai = listaIterator.next();
 				getRegistrarEmpleadoView().getCmbTurno().addItem(listai.getNombreTurno());
+//				conocerIdArea();
 			}
 		} catch (SQLException t) {
 			JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
