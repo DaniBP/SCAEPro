@@ -19,6 +19,8 @@ import com.greenpear.it.scaepro.controller.configurarscaepro.ConfigurarScaeProCo
 import com.greenpear.it.scaepro.controller.controlacceso.ControlAccesoController;
 import com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController;
 import com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController;
+import com.greenpear.it.scaepro.controller.gestionusuarios.AltaUsuariosController;
+import com.greenpear.it.scaepro.controller.gestionusuarios.ConsultaUsuariosController;
 import com.greenpear.it.scaepro.controller.solicitudreporte.SolicitudReporteController;;
 
 
@@ -53,6 +55,9 @@ public class GovernmentService implements Government {
 	@Autowired private SolicitudReporteController solicitudReporteController;
 	@Autowired private ConfigurarScaeProController configurarScaeProController;
 	@Autowired private ConfigurarEmpleadosController registrarEmpleadoController;
+	@Autowired private AltaUsuariosController altaUsuariosController; 
+	@Autowired private ConsultaUsuariosController consultaUsuariosController; 
+
 
 	public InicioController getInicioController() {
 		return inicioController;
@@ -112,6 +117,14 @@ public class GovernmentService implements Government {
 	
 	public ConfigurarEmpleadosController getRegistrarEmpleadoController() {
 		return registrarEmpleadoController;
+	}
+	
+	public AltaUsuariosController getAltaUsuariosController(){
+		return altaUsuariosController;
+	}
+	
+	public ConsultaUsuariosController getConsultaUsuariosController(){
+		return consultaUsuariosController;
 	}
 	
 	//*************FIN DE ESTANCIAS***************
@@ -194,5 +207,15 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarVistaRegistro() {
 		getRegistrarEmpleadoController().mostrarVistaRegistroEmpleado();
+	}
+	
+	@Override
+	public void mostrarVistaRegistrarUsuarios(){
+		getAltaUsuariosController().mostrarVistaRegistrarUsuarios();
+	}
+	
+	@Override
+	public void mostrarVistaConsultarUsuarios(){
+		getConsultaUsuariosController().mostrarVistaConsultarUsuarios();
 	}
 }

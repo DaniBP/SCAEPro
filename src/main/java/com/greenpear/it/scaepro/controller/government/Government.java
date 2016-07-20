@@ -23,4 +23,6 @@ public interface Government {
 	public void mostrarVistaSolicitudReporte();
 	public void mostrarVistaConfigurarScaePro();
 	public void mostrarVistaRegistro();
+	public void mostrarVistaRegistrarUsuarios();
+	public void mostrarVistaConsultarUsuarios();
 }

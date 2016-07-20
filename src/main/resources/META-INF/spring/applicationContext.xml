@@ -90,6 +90,8 @@
 	<bean id="solicitudReporteView" class="com.greenpear.it.scaepro.view.solicitudreporte.SolicitudReporteView" />
 	<bean id="configurarScaeProView" class="com.greenpear.it.scaepro.view.configurarscaepro.ConfigurarScaePro" />
 	<bean id="empleadoView" class="com.greenpear.it.scaepro.view.configurarempleados.RegistrarEmpleado" />
+	<bean id="altaUsuariosView" class="com.greenpear.it.scaepro.view.gestionusuarios.AltaUsuariosView" />
+	<bean id="consultaUsuariosView" class="com.greenpear.it.scaepro.view.gestionusuarios.ConsultaUsuariosView" />
 	
 <!-- 	Aquí comienza la declaración de controladores -->
 	
@@ -110,6 +112,8 @@
 	<bean id="configurarScaeProController" class="com.greenpear.it.scaepro.controller.configurarscaepro.ConfigurarScaeProController" />
 	<bean id="configurarEmpleadosController" class="com.greenpear.it.scaepro.controller.configurarempleados.ConfigurarEmpleadosController" />
 	<bean id="tomarFotoController" class="com.greenpear.it.scaepro.controller.configurarempleados.TomarFotoController" />
+	<bean id="altaUsuariosController" class="com.greenpear.it.scaepro.controller.gestionusuarios.AltaUsuariosController" />
+	<bean id="consultaUsuariosController" class="com.greenpear.it.scaepro.controller.gestionusuarios.ConsultaUsuariosController" />
 
 <!-- 	Aquí comienza la declaración de modelos -->
 
@@ -124,6 +128,7 @@
    	<bean id="estatusPagoModel" class="com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel" />
     <bean id="solicitudReporteModel" class="com.greenpear.it.scaepro.model.solicitudreporte.SolicitudReporteModel" />
     <bean id="direccionModel" class="com.greenpear.it.scaepro.model.direccion.DireccionModelo" />
+    <bean id="consultaUsuariosModel" class="com.greenpear.it.scaepro.model.gestionusuarios.ConsultaUsuariosModel" />
 
 <!-- 	Aquí comienza la declaración de BO -->
 
@@ -138,6 +143,8 @@
 	<bean id="solicitudReporteBo" class="com.greenpear.it.scaepro.bo.solicitudreporte.SolicitudReporteBo" />
 	<bean id="configurarScaeProBo" class="com.greenpear.it.scaepro.bo.configurarscaepro.ConfigurarScaeProBo" />
 	<bean id="empleadosBoService" class="com.greenpear.it.scaepro.bo.configurarempleados.ConfigurarEmpleadosBo" />	
+	<bean id="altaUsuariosBo" class="com.greenpear.it.scaepro.bo.gestionusuarios.AltaUsuariosBo" />
+	<bean id="consultaUsuariosBo" class="com.greenpear.it.scaepro.bo.gestionusuarios.ConsultaUsuariosBo" />
 	
 <!-- 	Aquí comienza la declaración de DAO -->
 
@@ -152,4 +159,6 @@
 	<bean id="solicitudReporteDao" class="com.greenpear.it.scaepro.dao.solicitudreporte.SolicitudReporteDao" />
 	<bean id="configurarScaeProDao" class="com.greenpear.it.scaepro.dao.configurarscaepro.ConfigurarScaeProDao" />
 	<bean id="empleadoDaoService" class="com.greenpear.it.scaepro.dao.configurarempleados.ConfigurarEmpleadoDao" />
+	<bean id="altaUsuariosDao" class="com.greenpear.it.scaepro.dao.gestionusuarios.AltaUsuariosDao" />
+	<bean id="consultaUsuariosDao" class="com.greenpear.it.scaepro.dao.gestionusuarios.ConsultaUsuariosDao" />
 </beans>
