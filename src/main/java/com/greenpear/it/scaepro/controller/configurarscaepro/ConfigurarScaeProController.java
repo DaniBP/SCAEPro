@@ -425,13 +425,13 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 		getConfigurarScaeProView().getBtnEliminar().setEnabled(true);
 	}
 	
-	public void moverControles(int pestañaSeleccionada){
+	public void moverControles(int pestanaSeleccionada){
 		getConfigurarScaeProView().getTabbedPane().setSelectedIndex(turnoSeleccionado);
 		Component[] componentes = paneles.get(turnoSeleccionado).getComponents();
 		for (int i = 0; i < componentes.length; i++) {
-			paneles.get(pestañaSeleccionada).add(componentes[i]);
+			paneles.get(pestanaSeleccionada).add(componentes[i]);
 		}
-		turnoSeleccionado=pestañaSeleccionada;
+		turnoSeleccionado=pestanaSeleccionada;
 	}
 
 	@Override
