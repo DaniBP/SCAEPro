@@ -221,6 +221,40 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 	}
 
 	public String registrarEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
-		return null;
+		try {
+			SimpleJdbcInsert insert = new SimpleJdbcInsert(getDataSource());
+
+			insert.setTableName("t_empleado");
+			insert.setGeneratedKeyName("idEmpleado");
+
+			Map<String, Object> parameters = new HashMap<String, Object>();
+
+			parameters.put("nombreEmpleado", configurarEmpleadosModel.getNombreEmpleado());
+			parameters.put("apePatEmpleado", configurarEmpleadosModel.getApePatEmpleado());
+			parameters.put("apeMatEmpleado", configurarEmpleadosModel.getApeMatEmpleado());
+			parameters.put("fechaNacimiento", configurarEmpleadosModel.getFechaNacimiento());
+			parameters.put("telCel", configurarEmpleadosModel.getTelCel());
+			parameters.put("telCasa", configurarEmpleadosModel.getTelCasa());
+			parameters.put("idDireccionEmpleado", configurarEmpleadosModel.getIdDireccionEmpleado());
+			parameters.put("puesto", configurarEmpleadosModel.getPuesto());
+			parameters.put("idTurno", configurarEmpleadosModel.getIdTurno());
+			parameters.put("fotografia", configurarEmpleadosModel.getFotografia());
+			parameters.put("periodoNominal", configurarEmpleadosModel.getPeriodoNominal());
+			parameters.put("diaDePago", configurarEmpleadosModel.getDiaDePago());
+			parameters.put("usuarioEmpleado", configurarEmpleadosModel.getNombreUsuario());
+			parameters.put("passwordEmpleado", configurarEmpleadosModel.getPassword());
+			configurarEmpleadosModel.setIdEmpleado(insert.executeAndReturnKey(parameters).intValue());
+
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserion!");
+		}
+
+		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() +" "+configurarEmpleadosModel.getApePatEmpleado()+""
+				+ " "+configurarEmpleadosModel.getApeMatEmpleado()+ "\n" 
+				+ "Fue registrado exitosamente!\n\n"
+				+ "Su usuario para la app movil es: " + configurarEmpleadosModel.getNombreUsuario() +"\n"+ "Su contraseña " + "\n"
+				+ configurarEmpleadosModel.getPassword()+ "\n"+"\n"
+				+ "Recuerde cambiarla al iniciar sesion.";
 	}
 }

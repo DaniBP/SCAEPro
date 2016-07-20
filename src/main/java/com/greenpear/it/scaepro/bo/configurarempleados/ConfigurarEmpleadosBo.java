@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.greenpear.it.scaepro.controller.configurarempleados.ConfigurarEmpleadosController;
 import com.greenpear.it.scaepro.dao.configurarempleados.ConfigurarEmpleadoDao;
 import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
@@ -28,6 +29,8 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 	private ConfigurarEmpleadoDao empleadoDao;
 	@Autowired
 	private DireccionModelo direccionModelo;
+	@Autowired
+	private ConfigurarEmpleadosController empleadoController;
 	
 	public ConfigurarEmpleadoDao getEmpleadoDao() {
 		return empleadoDao;
@@ -37,6 +40,9 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 		return direccionModelo;
 	}
 
+	public ConfigurarEmpleadosController getEmpleadoController() {
+		return empleadoController;
+	}
 
 	@Override
 	public List<EmpleadoModel> consultaGeneral() throws SQLException {
@@ -112,6 +118,16 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 
 	public String registrarEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
 		String mensaje=null;
+		if(configurarEmpleadosModel.getTelCel().length()<8 || configurarEmpleadosModel.getTelCel().length()>10){
+			return "Por favor verifique numero de celular"
+					+ " Minimo 8 Maximo 10 digitos";
+		}else if(configurarEmpleadosModel.getTelCasa().length()<8 || configurarEmpleadosModel.getTelCasa().length()>10){
+			return "Por favor verifique numero de casa"
+					+ " Minimo 8 Maximo 10 digitos";
+		}else if(getEmpleadoController().getRegistrarEmpleadoView().getTxtNumeroExt().getText().length()>5 || 
+				empleadoController.getRegistrarEmpleadoView().getTxtNumeroInt().getText().length()>5){
+			return "El numero acepta maximo 5 digitos";
+		}
 		try {
 			mensaje = getEmpleadoDao().registrarEmpleado(configurarEmpleadosModel);
 		} catch (SQLException t) {
