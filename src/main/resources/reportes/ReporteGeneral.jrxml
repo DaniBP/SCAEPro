@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-21T04:32:24 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteGeneral" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7095eae2-1e66-422b-add2-6cd0cd2bcbc2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="adapterScaeproBD"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="fechaInicio" class="java.lang.String"/>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT  scaeprobd.t_incidencia.idEmpleado AS ID,
+CONCAT(scaeprobd.t_empleado.apePatEmpleado," ",scaeprobd.t_empleado.apeMatEmpleado," ",scaeprobd.t_empleado.nombreEmpleado) AS Nombre,
+(SELECT COUNT(*) FROM scaeprobd.t_incidencia
+INNER JOIN scaeprobd.t_empleado ON scaeprobd.t_incidencia.idEmpleado = scaeprobd.t_empleado.idEmpleado
+INNER JOIN scaeprobd.c_tipo_incidencia ON scaeprobd.t_incidencia.idTipoIncidencia = scaeprobd.c_tipo_incidencia.idTipoIncidencia 
+INNER JOIN scaeprobd.c_turno ON scaeprobd.t_empleado.idTurno = scaeprobd.c_turno.idTurno 
+INNER JOIN scaeprobd.c_area ON scaeprobd.c_turno.idArea = scaeprobd.c_area.idArea 
+WHERE tipoIncidencia = 'Falta' AND fechaIncidencia >= $P{fechaInicio} AND fechaIncidencia <= $P{fechaFin} AND scaeprobd.t_incidencia.idEmpleado = ID) AS Faltas,
+(SELECT COUNT(*) FROM scaeprobd.t_incidencia
+INNER JOIN scaeprobd.t_empleado ON scaeprobd.t_incidencia.idEmpleado = scaeprobd.t_empleado.idEmpleado
+INNER JOIN scaeprobd.c_tipo_incidencia ON scaeprobd.t_incidencia.idTipoIncidencia = scaeprobd.c_tipo_incidencia.idTipoIncidencia 
+INNER JOIN scaeprobd.c_turno ON scaeprobd.t_empleado.idTurno = scaeprobd.c_turno.idTurno 
+INNER JOIN scaeprobd.c_area ON scaeprobd.c_turno.idArea = scaeprobd.c_area.idArea 
+WHERE tipoIncidencia = 'Retardo' AND fechaIncidencia >= $P{fechaInicio} AND fechaIncidencia <= $P{fechaFin} AND scaeprobd.t_incidencia.idEmpleado = ID) AS Retardos FROM scaeprobd.t_incidencia
+INNER JOIN scaeprobd.t_empleado ON scaeprobd.t_incidencia.idEmpleado = scaeprobd.t_empleado.idEmpleado
+INNER JOIN scaeprobd.c_tipo_incidencia ON scaeprobd.t_incidencia.idTipoIncidencia = scaeprobd.c_tipo_incidencia.idTipoIncidencia 
+INNER JOIN scaeprobd.c_turno ON scaeprobd.t_empleado.idTurno = scaeprobd.c_turno.idTurno 
+INNER JOIN scaeprobd.c_area ON scaeprobd.c_turno.idArea = scaeprobd.c_area.idArea WHERE  fechaIncidencia >= $P{fechaInicio} AND fechaIncidencia <= $P{fechaFin} GROUP BY scaeprobd.t_incidencia.idEmpleado ORDER BY scaeprobd.t_empleado.apePatEmpleado]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="Faltas" class="java.lang.Integer"/>
+	<field name="Retardos" class="java.lang.Integer"/>
+	<variable name="Faltas1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Faltas}]]></variableExpression>
+	</variable>
+	<variable name="Retardos1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Retardos}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="80" y="0" width="400" height="60" forecolor="#407399" uuid="fef26591-6848-4597-be56-52b5b8be2ded"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial Black" size="30" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE GENERAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="290" y="0" width="120" height="30" uuid="804b93c8-7edc-44bc-a9d0-388dc30b5ed9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Generado el día:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="430" y="0" width="130" height="30" uuid="f7637be7-2512-4f90-80e7-f99ac48e9785"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="50" width="90" height="30" uuid="36eed15a-c3f9-48db-b620-a9fd4244a489"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="50" width="100" height="30" uuid="14c4fcda-121c-4c97-bbf0-fd24b03c159a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="49" width="140" height="30" uuid="910e57d0-ba2c-4193-bad4-056fa3d91359"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Reporte del día]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="49" width="20" height="30" uuid="e4c4e3e6-800f-4fbe-908b-957c16a5fe41"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="16" width="160" height="30" forecolor="#65909E" uuid="4aa85498-99b0-44ed-8322-8dd292e531a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="16" width="100" height="30" forecolor="#65909E" uuid="d8948d5b-9577-43be-9f7e-803b1432836e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faltas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="16" width="100" height="30" forecolor="#65909E" uuid="3f76728c-ee1a-4a58-8bf0-2553da761cca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Retardos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="0" width="160" height="30" uuid="72107f6f-15cb-4928-a97e-38f99446bdbd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="30" uuid="071f89e4-0540-488c-9458-35a885822196"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Faltas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="b06da7ad-7f8a-412b-b567-5a7cff5021c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Retardos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="130" height="30" forecolor="#8C2523" uuid="2d096773-f1b8-4b26-b7d3-1774538ded53"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Faltas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="30" width="150" height="30" forecolor="#8C2523" uuid="c9c264a2-df42-4827-a2e7-16de8755d0cf"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Retardos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="0" width="100" height="30" uuid="ca48cbd1-d2e5-4bfa-a752-6287a2c6203c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Faltas1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="30" width="100" height="30" uuid="eaad3422-d0d9-4c78-ab5a-8077934a5b7f"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Retardos1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="80" splitType="Stretch">
+			<textField>
+				<reportElement x="530" y="50" width="30" height="30" uuid="41919c0e-9883-48a1-beea-761973e903b0"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Bottom">
+				<reportElement x="20" y="10" width="260" height="70" uuid="c4ea4e55-95d8-441d-a32f-d1f2a718270d"/>
+				<imageExpression><![CDATA["src/main/resources/img/SCAEpro1.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -24,12 +24,21 @@ import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
 
 public class SolicitudReporteView extends JFrame {
 
-	private JPanel contentPane;
+	public JPanel contentPane;
+	public JRadioButton rdbtnReporteGeneral;
+	public JRadioButton rdbtnReportePorArea;
+	public JComboBox cmbAreas;
+	public JDateChooser dataInicio;
+	public JLabel lblArea;
+	public JDateChooser dataFin;
+	public JButton btnGenerarReporte;
+	public JLabel lblFecha;
 
 	/**
 	 * Launch the application.
@@ -53,7 +62,7 @@ public class SolicitudReporteView extends JFrame {
 	public SolicitudReporteView() {
 		setTitle("Reportes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 591, 414);
+		setBounds(100, 100, 670, 457);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,29 +70,30 @@ public class SolicitudReporteView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Fecha Actual:");
-		lblNewLabel.setBounds(178, 11, 105, 14);
+		lblNewLabel.setBounds(379, 11, 79, 14);
 		contentPane.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(25, 42, 255, 90);
+		panel.setBounds(54, 42, 255, 90);
 		
 		panel.setBackground(SystemColor.activeCaption);
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tipo de Reporte", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JRadioButton rdbtnReporteGeneral = new JRadioButton("Reporte General");
+		rdbtnReporteGeneral = new JRadioButton("Reporte General");
+		rdbtnReporteGeneral.setSelected(true);
 		rdbtnReporteGeneral.setBackground(SystemColor.activeCaption);
 		rdbtnReporteGeneral.setBounds(6, 20, 129, 23);
 		panel.add(rdbtnReporteGeneral);
 		
-		JRadioButton rdbtnReportePorrea = new JRadioButton("Reporte por \u00C1rea");
-		rdbtnReportePorrea.setBackground(SystemColor.activeCaption);
-		rdbtnReportePorrea.setBounds(6, 46, 129, 23);
-		panel.add(rdbtnReportePorrea);
+		rdbtnReportePorArea = new JRadioButton("Reporte por \u00C1rea");
+		rdbtnReportePorArea.setBackground(SystemColor.activeCaption);
+		rdbtnReportePorArea.setBounds(6, 46, 129, 23);
+		panel.add(rdbtnReportePorArea);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(25, 143, 381, 200);
+		panel_1.setBounds(57, 143, 539, 207);
 		panel_1.setBackground(SystemColor.activeCaption);
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Reporte Personalizado", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(panel_1);
@@ -94,30 +104,40 @@ public class SolicitudReporteView extends JFrame {
 		panel_1.add(lblHoraDeSalida);
 		
 		JLabel lblHoraDeEntrada = new JLabel("Fecha Fin");
-		lblHoraDeEntrada.setBounds(279, 28, 64, 14);
+		lblHoraDeEntrada.setBounds(372, 28, 64, 14);
 		panel_1.add(lblHoraDeEntrada);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(78, 65, 95, 20);
-		panel_1.add(dateChooser);
+		dataInicio = new JDateChooser();
+		dataInicio.setBounds(78, 65, 161, 20);
+		panel_1.add(dataInicio);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(248, 65, 95, 20);
-		panel_1.add(dateChooser_1);
+		dataFin = new JDateChooser();
+		dataFin.setBounds(321, 65, 161, 20);
+		panel_1.add(dataFin);
 		
-		JLabel lblHora = new JLabel("\u00C1rea:");
-		lblHora.setBounds(332, 42, 38, 14);
-		contentPane.add(lblHora);
+		lblArea = new JLabel("\u00C1rea:");
+		lblArea.setEnabled(false);
+		lblArea.setBounds(331, 58, 38, 14);
+		contentPane.add(lblArea);
 		
-		JButton btnSalir = new JButton("Generar Reporte");
-		btnSalir.setBounds(416, 341, 149, 23);
-		contentPane.add(btnSalir);
+		btnGenerarReporte = new JButton("Generar Reporte");
+		btnGenerarReporte.setBounds(270, 361, 149, 23);
+		contentPane.add(btnGenerarReporte);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Selecciona \u00C1rea"}));
-		comboBox.setToolTipText("");
-		comboBox.setForeground(new Color(0, 0, 0));
-		comboBox.setBounds(380, 39, 141, 20);
-		contentPane.add(comboBox);
+		cmbAreas = new JComboBox();
+		cmbAreas.setEnabled(false);
+		cmbAreas.setModel(new DefaultComboBoxModel(new String[] {"Selecciona..."}));
+		cmbAreas.setToolTipText("");
+		cmbAreas.setForeground(new Color(0, 0, 0));
+		cmbAreas.setBounds(379, 55, 217, 20);
+		contentPane.add(cmbAreas);
+		
+		lblFecha = new JLabel("");
+		lblFecha.setBounds(468, 11, 163, 14);
+		contentPane.add(lblFecha);
+		
+		ButtonGroup radios = new ButtonGroup();
+		radios.add(rdbtnReporteGeneral);
+		radios.add(rdbtnReportePorArea);
 	}
 }
