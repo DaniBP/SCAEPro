@@ -198,7 +198,7 @@ public class LectorHuellasController {
 				        DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
 				        
 				        if (result.isVerified()){
-				        	accesoController.chequeo(empleados.get(i).getNipEmpleado());
+				        	accesoController.chequeo(empleados.get(i).getIdEmpleado());
 				        	return;
 				        }
 		    	   	}

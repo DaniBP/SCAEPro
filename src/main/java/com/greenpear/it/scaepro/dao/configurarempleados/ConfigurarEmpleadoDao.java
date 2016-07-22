@@ -1,5 +1,7 @@
 package com.greenpear.it.scaepro.dao.configurarempleados;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -249,6 +251,8 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserion!");
 		}
+		
+		registrarHuella(configurarEmpleadosModel);
 
 		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() +" "+configurarEmpleadosModel.getApePatEmpleado()+""
 				+ " "+configurarEmpleadosModel.getApeMatEmpleado()+ "\n" 
@@ -256,5 +260,26 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 				+ "Su usuario para la app movil es: " + configurarEmpleadosModel.getNombreUsuario() +"\n"+ "Su contraseña " + "\n"
 				+ configurarEmpleadosModel.getPassword()+ "\n"+"\n"
 				+ "Recuerde cambiarla al iniciar sesion.";
+	}
+
+	public void registrarHuella(EmpleadoModel empleadoModel) {
+		try {
+			 Connection c=conectar();
+		     PreparedStatement guardarHuella = c.prepareStatement("UPDATE t_empleado SET "
+		     		+ "huellaEmpleado = ? "
+		     		+ "WHERE "
+		     		+ "idEmpleado = ?");
+
+		     guardarHuella.setBinaryStream(1, empleadoModel.getDatosHuella(),empleadoModel.getTamanoHuella());
+		     guardarHuella.setInt(2, empleadoModel.getIdEmpleado());
+		     
+		     guardarHuella.execute();
+		     guardarHuella.close();
+		     desconectar();
+		} catch (SQLException ex) {
+		     System.err.println("Error al guardar los datos de la huella.");
+		}finally{
+		     desconectar();
+		}
 	}
 }

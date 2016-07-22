@@ -1,5 +1,7 @@
 package com.greenpear.it.scaepro.model.empleado;
 
+import java.io.ByteArrayInputStream;
+
 /**
  * 
  * @author DanielBP
@@ -25,6 +27,9 @@ public class EmpleadoModel {
 	private String area;
 	private String nombreUsuario;
 	private String password;
+	
+	private ByteArrayInputStream datosHuella;
+	private int tamanoHuella;
 	
 	/**
 	 * @return the idEmpleado
@@ -235,6 +240,18 @@ public class EmpleadoModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public ByteArrayInputStream getDatosHuella() {
+		return datosHuella;
+	}
+	public void setDatosHuella(ByteArrayInputStream datosHuella) {
+		this.datosHuella = datosHuella;
+	}
+	public int getTamanoHuella() {
+		return tamanoHuella;
+	}
+	public void setTamanoHuella(int tamanoHuella) {
+		this.tamanoHuella = tamanoHuella;
+	}
 	public void limpiarModelo(){
 		idEmpleado=0;
 		nombreEmpleado=null;
@@ -253,6 +270,8 @@ public class EmpleadoModel {
 		huellaEmpleado=null;
 		estado=null;
 		puesto=null;
+		datosHuella=null;
+		tamanoHuella=0;
 	}
 	
 }

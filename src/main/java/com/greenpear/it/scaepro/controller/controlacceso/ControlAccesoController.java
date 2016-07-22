@@ -203,7 +203,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 				@Override
 				public void run() {
 					
-					int nip = 252409999;
+					int nip = 1;
 					
 					try {
 						
@@ -279,9 +279,8 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	public List<EmpleadoModel> verificarHuella()throws SQLException{
 		getControlAccesoView().btnChecar.setEnabled(false);
 		
-		
-		
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		
 		try {
 			empleados=getAccesoBoService().consultaHuella();
 		} catch (SQLException e) {
@@ -290,7 +289,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		return empleados;
 	}
 	
-	public void chequeo(final String nip){
+	public void chequeo(final int id){
 		
 		Runnable r2 = new Runnable() {
 			@Override
@@ -298,7 +297,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 				
 				try {
 					
-					empleadoModel = getAccesoBoService().consultaIndividual(Integer.parseInt(nip));
+					empleadoModel = getAccesoBoService().consultaIndividual(id);
 					
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

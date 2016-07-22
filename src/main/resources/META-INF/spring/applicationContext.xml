@@ -114,6 +114,7 @@
 	<bean id="tomarFotoController" class="com.greenpear.it.scaepro.controller.configurarempleados.TomarFotoController" />
 	<bean id="altaUsuariosController" class="com.greenpear.it.scaepro.controller.gestionusuarios.AltaUsuariosController" />
 	<bean id="consultaUsuariosController" class="com.greenpear.it.scaepro.controller.gestionusuarios.ConsultaUsuariosController" />
+	<bean id="capturaHuellaController" class="com.greenpear.it.scaepro.controller.configurarempleados.CapturaHuellaController" />
 
 <!-- 	Aquí comienza la declaración de modelos -->
 

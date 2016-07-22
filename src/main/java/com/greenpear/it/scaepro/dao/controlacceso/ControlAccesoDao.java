@@ -34,7 +34,7 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 	
 	public List<EmpleadoModel> consultarHuella() throws SQLException{
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
-		String sql = "SELECT huellaEmpleado,nipempleado FROM t_empleado";
+		String sql = "SELECT huellaEmpleado,idEmpleado FROM t_empleado";
 		
 		try{
 			empleados=getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>(){
@@ -42,7 +42,7 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 					EmpleadoModel resultValue=new EmpleadoModel();
 					
 					resultValue.setHuellaEmpleado(rs.getBytes("huellaEmpleado"));
-					resultValue.setNipEmpleado(rs.getString("nipEmpleado"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
 					
 					return resultValue;
 				}
@@ -64,7 +64,7 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 				+ "FROM t_empleado "
 				+ "INNER JOIN c_turno ON c_turno.idTurno=t_empleado.idTurno "
 				+ "INNER JOIN c_area ON c_area.idArea=c_turno.idArea "
-				+ "WHERE nipEmpleado='"+id+"'";
+				+ "WHERE idEmpleado='"+id+"'";
 		
 		try{
 			empleado=getJdbcTemplate().query(sql, new ResultSetExtractor<EmpleadoModel>(){

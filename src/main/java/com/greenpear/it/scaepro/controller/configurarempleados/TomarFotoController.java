@@ -265,17 +265,17 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 		if(idEmpleado.length()==1){
 			idEmpleado="Ft000000"+idEmpleado+".png";
 		}else if(idEmpleado.length()==2){
-			idEmpleado="Ft00000"+idEmpleado;
+			idEmpleado="Ft00000"+idEmpleado+".png";
 		}else if(idEmpleado.length()==3){
-			idEmpleado="Ft0000"+idEmpleado;
+			idEmpleado="Ft0000"+idEmpleado+".png";
 		}else if(idEmpleado.length()==4){
-			idEmpleado="Ft000"+idEmpleado;
+			idEmpleado="Ft000"+idEmpleado+".png";
 		}else if(idEmpleado.length()==5){
-			idEmpleado="Ft00"+idEmpleado;
+			idEmpleado="Ft00"+idEmpleado+".png";
 		}else if(idEmpleado.length()==6){
-			idEmpleado="Ft0"+idEmpleado;
+			idEmpleado="Ft0"+idEmpleado+".png";
 		}else if(idEmpleado.length()==7){
-			idEmpleado="Ft"+idEmpleado;
+			idEmpleado="Ft"+idEmpleado+".png";
 		}
 		return idEmpleado;
 	}

@@ -53,6 +53,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 	// Vistas
 	@Autowired
 	private RegistrarEmpleado registrarEmpleadoView;
+	
 	@Autowired
 	@Qualifier("empleadosBoService")
 	private ConfigurarEmpleadosBo empleadosBo;
@@ -60,6 +61,8 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 	//Controladores
 	@Autowired
 	private TomarFotoController fotoController;
+	@Autowired
+	private CapturaHuellaController huellaController;
 	
 	// Getters de clases privadas antes declaradas
 	public EmpleadoModel getConfigurarEmpleadosModel() {
@@ -90,6 +93,10 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		return fotoController;
 	}
 
+	public CapturaHuellaController getHuellaController() {
+		return huellaController;
+	}
+
 	public void mostrarVistaRegistroEmpleado() {
 		if (getRegistrarEmpleadoView().getBtnRegistrar().getActionListeners().length == 0) {
 			getRegistrarEmpleadoView().getBtnRegistrar().addActionListener(this);
@@ -98,6 +105,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			getRegistrarEmpleadoView().addWindowListener(this);
 			getRegistrarEmpleadoView().getCmbPeriodoNominal().addItemListener(this);
 			getRegistrarEmpleadoView().getBtnCapturarFoto().addActionListener(this);
+			getRegistrarEmpleadoView().getBtnLeerHuella().addActionListener(this);
 		}
 		getRegistrarEmpleadoView().setVisible(true);
 	}
@@ -143,6 +151,8 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 				JOptionPane.showMessageDialog(null, "Completa todos los campos de 'Nomina'");
 			} else if(getConfigurarEmpleadosModel().getFotografia()==null){
 				JOptionPane.showMessageDialog(null, "Por favor capture una fotografia");
+			}else if(getConfigurarEmpleadosModel().getDatosHuella()==null){
+				JOptionPane.showMessageDialog(null, "Por favor capture la huella digital");
 			}else{
 				insertarDireccionEmpleado();
 				conocerIdTurno();
@@ -153,8 +163,9 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 //			fotoController.iniciar();
 			SwingUtilities.invokeLater(fotoController);
 //			consultarIdEmpleado();
+		}else if(e.getSource().equals(getRegistrarEmpleadoView().getBtnLeerHuella())){
+			getHuellaController().setVisible(true);
 		}
-
 	}
 
 	private void insertarEmpleado() {

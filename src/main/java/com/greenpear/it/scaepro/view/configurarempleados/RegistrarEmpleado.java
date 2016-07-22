@@ -44,6 +44,7 @@ public class RegistrarEmpleado extends JFrame {
 	private JLabel lblPuesto;
 	private JTextField txtPuesto;
 	private JLabel lblFotografia;
+	private JLabel lblHuellaDigital; 
 	
 	public RegistrarEmpleado() {
 		setTitle("Registrar empleado");
@@ -198,7 +199,7 @@ public class RegistrarEmpleado extends JFrame {
 		lblFotografia.setBounds(20, 22, 170, 162);
 		pnlNipFotografia.add(lblFotografia);
 
-		JLabel lblHuellaDigital = new JLabel("");
+		lblHuellaDigital = new JLabel("");
 		lblHuellaDigital.setBounds(51, 228, 120, 170);
 		pnlNipFotografia.add(lblHuellaDigital);
 
@@ -369,6 +370,10 @@ public class RegistrarEmpleado extends JFrame {
 
 	public JLabel getLblFotografia() {
 		return lblFotografia;
+	}
+
+	public JLabel getLblHuellaDigital() {
+		return lblHuellaDigital;
 	}
 	
 }
