@@ -47,4 +47,14 @@ public class ConfigurarScaeProBo {
 		}
 		return turnos;
 	}
+	
+	public String registrarTurno(List<TurnoModel> turno) throws SQLException{
+		String resultado=null;
+		try{
+			resultado=getConfigurarScaeProDao().registrarTurno(turno);
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+		return resultado;
+	}
 }

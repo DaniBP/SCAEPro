@@ -3,11 +3,16 @@ package com.greenpear.it.scaepro.dao.configurarscaepro;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
@@ -84,5 +89,47 @@ public class ConfigurarScaeProDao extends DataSourceService{
 		}
 		
 		return turnos;
+	}
+	
+	public String registrarTurno(List<TurnoModel> turno) throws SQLException{
+		System.out.println(turno.get(0).getNombreTurno());
+		try{
+			SimpleJdbcInsert insertTurno = new SimpleJdbcInsert(getDataSource());
+			insertTurno.setTableName("c_turno");
+			insertTurno.setGeneratedKeyName("idturno");
+			
+			Map<String, Object> paramteters = new HashMap<String, Object>();
+			paramteters.put("idArea", turno.get(0).getIdArea());
+			paramteters.put("nombreTurno", turno.get(0).getNombreTurno());
+			paramteters.put("tiempoRetardo", turno.get(0).getTiempoRetardo());
+			paramteters.put("tiempoFalta", turno.get(0).getTiempoFalta());
+			
+			int idTurno=insertTurno.executeAndReturnKey(paramteters).intValue();
+			
+			for (int i = 0; i < 7; i++) {
+				turno.get(i).getHoraEntrada();
+				SimpleJdbcInsert insertHorarioTurno = new SimpleJdbcInsert(getDataSource());
+				insertHorarioTurno.setTableName("t_horario_turno");
+				insertHorarioTurno.setGeneratedKeyName("idHorarioTurno");
+				
+				Map<String, Object> paramteters2 = new HashMap<String, Object>();
+				paramteters2.put("idTurno", idTurno);
+				paramteters2.put("dia", turno.get(i).getDia());
+				paramteters2.put("horaEntrada", turno.get(i).getHoraEntrada());
+				paramteters2.put("horaSalida", turno.get(i).getHoraSalida());
+				paramteters2.put("horaSalidaComer", turno.get(i).getHoraSalidaComer());
+				paramteters2.put("horaEntradaComer", turno.get(i).getHoraEntradaComer());
+				paramteters2.put("idEstatus", turno.get(i).getIdEstatus());
+				paramteters2.put("idEstatusComida", turno.get(i).getIdEstatusComida());
+				
+				turno.get(i).setIdHorarioTurno(insertHorarioTurno.executeAndReturnKey(paramteters2).intValue());
+			}
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la Inserción!");
+		}
+		
+		return "Turno registrado correctamente";
 	}
 }

@@ -170,7 +170,7 @@ public class ConfigurarScaePro extends JFrame {
 		cmbArea.setBounds(159, 35, 265, 27);
 		panel.add(cmbArea);
 		
-		chkHorarioGeneral = new JCheckBox("Aplicar un horario para el \u00E1rea en general");
+		chkHorarioGeneral = new JCheckBox("Aplicar un horario para el turno en general");
 		chkHorarioGeneral.setBackground(SystemColor.activeCaption);
 		chkHorarioGeneral.setEnabled(false);
 		chkHorarioGeneral.setBounds(503, 35, 300, 23);
@@ -248,7 +248,7 @@ public class ConfigurarScaePro extends JFrame {
 		
 		tjpnlHorarios = new JPanel();
 		tjpnlHorarios.setBackground(SystemColor.activeCaption);
-		tabbedPane.addTab("Turno 1", null, tjpnlHorarios, null);
+		tabbedPane.addTab("Nuevo Turno", null, tjpnlHorarios, null);
 		tjpnlHorarios.setLayout(null);
 		
 		JLabel lblNombreTurno = new JLabel("Nombre del turno:");
@@ -267,12 +267,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chckbxLunes);
 		
 		lblHEntradaLunes = new JLabel("H.Entrada:");
-		lblHEntradaLunes.setVisible(false);
 		lblHEntradaLunes.setBounds(20, 90, 80, 16);
 		tjpnlHorarios.add(lblHEntradaLunes);
 		
 		lblHSalidaLunes = new JLabel("H.Salida:");
-		lblHSalidaLunes.setVisible(false);
 		lblHSalidaLunes.setBounds(20, 140, 80, 16);
 		tjpnlHorarios.add(lblHSalidaLunes);
 		
@@ -283,12 +281,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkComidaLunes);
 		
 		lblHoraSalidaComerLunes = new JLabel("H.Salida:");
-		lblHoraSalidaComerLunes.setVisible(false);
 		lblHoraSalidaComerLunes.setBounds(20, 220, 80, 16);
 		tjpnlHorarios.add(lblHoraSalidaComerLunes);
 		
 		lblHEntradaComidaLunes = new JLabel("H.Entrada:");
-		lblHEntradaComidaLunes.setVisible(false);
 		lblHEntradaComidaLunes.setBounds(20, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaLunes);
 		
@@ -298,12 +294,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkMartes);
 		
 		lblHEntradaMartes = new JLabel("H.Entrada:");
-		lblHEntradaMartes.setVisible(false);
 		lblHEntradaMartes.setBounds(122, 90, 80, 16);
 		tjpnlHorarios.add(lblHEntradaMartes);
 		
 		lblHSalidaMartes = new JLabel("H.Salida:");
-		lblHSalidaMartes.setVisible(false);
 		lblHSalidaMartes.setBounds(122, 140, 80, 16);
 		tjpnlHorarios.add(lblHSalidaMartes);
 		
@@ -314,12 +308,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkComidaMartes);
 		
 		lblHoraSalidaComerMartes = new JLabel("H.Salida:");
-		lblHoraSalidaComerMartes.setVisible(false);
 		lblHoraSalidaComerMartes.setBounds(122, 220, 80, 16);
 		tjpnlHorarios.add(lblHoraSalidaComerMartes);
 		
 		lblHEntradaComidaMartes = new JLabel("H.Entrada:");
-		lblHEntradaComidaMartes.setVisible(false);
 		lblHEntradaComidaMartes.setBounds(122, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaMartes);
 		
@@ -329,12 +321,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkMiercoles);
 		
 		lblHEntradaMiercoles = new JLabel("H.Entrada:");
-		lblHEntradaMiercoles.setVisible(false);
 		lblHEntradaMiercoles.setBounds(225, 90, 80, 16);
 		tjpnlHorarios.add(lblHEntradaMiercoles);
 		
 		lblHSalidaMiercoles = new JLabel("H.Salida:");
-		lblHSalidaMiercoles.setVisible(false);
 		lblHSalidaMiercoles.setBounds(225, 140, 80, 16);
 		tjpnlHorarios.add(lblHSalidaMiercoles);
 		
@@ -345,12 +335,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkComidaMiercoles);
 		
 		lblHoraSalidaComerMiercoles = new JLabel("H.Salida:");
-		lblHoraSalidaComerMiercoles.setVisible(false);
 		lblHoraSalidaComerMiercoles.setBounds(225, 220, 80, 16);
 		tjpnlHorarios.add(lblHoraSalidaComerMiercoles);
 		
 		lblHEntradaComidaMiercoles = new JLabel("H.Entrada:");
-		lblHEntradaComidaMiercoles.setVisible(false);
 		lblHEntradaComidaMiercoles.setBounds(225, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaMiercoles);
 		
@@ -360,12 +348,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkJueves);
 		
 		lblHEntradaJueves = new JLabel("H.Entrada:");
-		lblHEntradaJueves.setVisible(false);
 		lblHEntradaJueves.setBounds(330, 90, 80, 16);
 		tjpnlHorarios.add(lblHEntradaJueves);
 		
 		lblHSalidaJueves = new JLabel("H.Salida:");
-		lblHSalidaJueves.setVisible(false);
 		lblHSalidaJueves.setBounds(330, 140, 80, 16);
 		tjpnlHorarios.add(lblHSalidaJueves);
 		
@@ -376,12 +362,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkComidaJueves);
 		
 		lblHoraSalidaComerJueves = new JLabel("H.Salida:");
-		lblHoraSalidaComerJueves.setVisible(false);
 		lblHoraSalidaComerJueves.setBounds(330, 220, 80, 16);
 		tjpnlHorarios.add(lblHoraSalidaComerJueves);
 		
 		lblHEntradaComidaJueves = new JLabel("H.Entrada:");
-		lblHEntradaComidaJueves.setVisible(false);
 		lblHEntradaComidaJueves.setBounds(330, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaJueves);
 		
@@ -391,12 +375,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkViernes);
 		
 		lblHEntradaViernes = new JLabel("H.Entrada:");
-		lblHEntradaViernes.setVisible(false);
 		lblHEntradaViernes.setBounds(438, 90, 80, 16);
 		tjpnlHorarios.add(lblHEntradaViernes);
 		
 		lblHSalidaViernes = new JLabel("H.Salida:");
-		lblHSalidaViernes.setVisible(false);
 		lblHSalidaViernes.setBounds(438, 140, 80, 16);
 		tjpnlHorarios.add(lblHSalidaViernes);
 		
@@ -407,12 +389,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkComidaViernes);
 		
 		lblHoraSalidaComerViernes = new JLabel("H.Salida:");
-		lblHoraSalidaComerViernes.setVisible(false);
 		lblHoraSalidaComerViernes.setBounds(438, 220, 80, 16);
 		tjpnlHorarios.add(lblHoraSalidaComerViernes);
 		
 		lblHEntradaComidaViernes = new JLabel("H.Entrada:");
-		lblHEntradaComidaViernes.setVisible(false);
 		lblHEntradaComidaViernes.setBounds(438, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaViernes);
 		
@@ -422,12 +402,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkSabado);
 		
 		lblHEntradaSabado = new JLabel("H.Entrada:");
-		lblHEntradaSabado.setVisible(false);
 		lblHEntradaSabado.setBounds(542, 90, 80, 16);
 		tjpnlHorarios.add(lblHEntradaSabado);
 		
 		lblHSalidaSabado = new JLabel("H.Salida:");
-		lblHSalidaSabado.setVisible(false);
 		lblHSalidaSabado.setBounds(542, 140, 80, 16);
 		tjpnlHorarios.add(lblHSalidaSabado);
 		
@@ -438,12 +416,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkComidaSabado);
 		
 		lblHoraSalidaComerSabado = new JLabel("H.Salida:");
-		lblHoraSalidaComerSabado.setVisible(false);
 		lblHoraSalidaComerSabado.setBounds(542, 220, 80, 16);
 		tjpnlHorarios.add(lblHoraSalidaComerSabado);
 		
 		lblHEntradaComidaSabado = new JLabel("H.Entrada:");
-		lblHEntradaComidaSabado.setVisible(false);
 		lblHEntradaComidaSabado.setBounds(542, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaSabado);
 		
@@ -453,12 +429,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkDomingo);
 		
 		lblHEntradaDomingo = new JLabel("H.Entrada:");
-		lblHEntradaDomingo.setVisible(false);
 		lblHEntradaDomingo.setBounds(645, 90, 80, 16);
 		tjpnlHorarios.add(lblHEntradaDomingo);
 		
 		lblHSalidaDomingo = new JLabel("H.Salida:");
-		lblHSalidaDomingo.setVisible(false);
 		lblHSalidaDomingo.setBounds(645, 140, 80, 16);
 		tjpnlHorarios.add(lblHSalidaDomingo);
 		
@@ -469,12 +443,10 @@ public class ConfigurarScaePro extends JFrame {
 		tjpnlHorarios.add(chkComidaDomingo);
 		
 		lblHoraSalidaComerDomingo = new JLabel("H.Salida:");
-		lblHoraSalidaComerDomingo.setVisible(false);
 		lblHoraSalidaComerDomingo.setBounds(645, 220, 80, 16);
 		tjpnlHorarios.add(lblHoraSalidaComerDomingo);
 		
 		lblHEntradaComidaDomingo = new JLabel("H.Entrada:");
-		lblHEntradaComidaDomingo.setVisible(false);
 		lblHEntradaComidaDomingo.setBounds(645, 270, 80, 16);
 		tjpnlHorarios.add(lblHEntradaComidaDomingo);
 		
@@ -1557,7 +1529,6 @@ public class ConfigurarScaePro extends JFrame {
 		spnHEntradaMartes.setEnabled(false);
 		
 		chkHorarioGeneral.setSelected(false);
-		chkHorarioGeneral.setEnabled(false);
 		
 		spnHoraSalidaG.setValue(now);
 		spnHoraEntradaG.setValue(now);
@@ -1568,6 +1539,8 @@ public class ConfigurarScaePro extends JFrame {
 		spnHoraEntradaG.setEnabled(false);
 		spnHoraSalidaComidaG.setEnabled(false);
 		spnHoraEntradaComidaG.setEnabled(false);
+		
+		txtNombreTurno.setText(null);
 	}
 
 	public void limpiarVentana(){
@@ -1659,36 +1632,6 @@ public class ConfigurarScaePro extends JFrame {
 		spnHSalidaComidaDomingo.setEnabled(false);
 		spnHEntradaComidaDomingo.setEnabled(false);
 		spnHEntradaMartes.setEnabled(false);
-		
-		lblHEntradaLunes.setVisible(false);
-		lblHSalidaLunes.setVisible(false);
-		lblHoraSalidaComerLunes.setVisible(false);
-		lblHEntradaComidaLunes.setVisible(false);
-		lblHEntradaMartes.setVisible(false);
-		lblHSalidaMartes.setVisible(false);
-		lblHoraSalidaComerMartes.setVisible(false);
-		lblHEntradaComidaMartes.setVisible(false);
-		lblHEntradaComidaMiercoles.setVisible(false);
-		lblHoraSalidaComerMiercoles.setVisible(false);
-		lblHSalidaMiercoles.setVisible(false);
-		lblHEntradaMiercoles.setVisible(false);
-		lblHEntradaJueves.setVisible(false);
-		lblHSalidaJueves.setVisible(false);
-		lblHoraSalidaComerJueves.setVisible(false);
-		lblHEntradaComidaJueves.setVisible(false);
-		lblHEntradaViernes.setVisible(false);
-		lblHSalidaViernes.setVisible(false);
-		lblHoraSalidaComerViernes.setVisible(false);
-		lblHEntradaComidaViernes.setVisible(false);
-		lblHEntradaSabado.setVisible(false);
-		lblHSalidaSabado.setVisible(false);
-		lblHoraSalidaComerSabado.setVisible(false);
-		lblHEntradaComidaSabado.setVisible(false);
-		lblHEntradaComidaDomingo.setVisible(false);
-		lblHoraSalidaComerDomingo.setVisible(false);
-		lblHSalidaDomingo.setVisible(false);
-		lblHEntradaDomingo.setVisible(false);
-		
 		
 		tabbedPane.setVisible(false);
 		
