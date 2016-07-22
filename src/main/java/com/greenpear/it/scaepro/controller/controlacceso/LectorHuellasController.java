@@ -133,7 +133,7 @@ public class LectorHuellasController {
 	
 	public void ProcesarCaptura(DPFPSample sample){
 		
-		ImageIcon identificando = new ImageIcon(PrincipalView.class.getResource("/img/Identificando.gif"));
+		ImageIcon identificando = new ImageIcon("src/main/resources/img/Identificando.gif");
 		Icon iconoIde = new ImageIcon(identificando.getImage().getScaledInstance(
 				accesoController.getControlAccesoView().imgEstado.getWidth(), accesoController.getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 		
@@ -187,6 +187,8 @@ public class LectorHuellasController {
 	       if(!empleados.isEmpty()){
 	    	   for (int i = 0; i < empleados.size(); i++) {
 	    		   	byte templateBuffer[] = empleados.get(i).getHuellaEmpleado();
+	    		   
+	    		   	
 	    	   		if(templateBuffer!=null){
 		    	   		//Crea una nueva plantilla a partir de la guardada en la base de datos
 				        DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
@@ -201,17 +203,18 @@ public class LectorHuellasController {
 				        	accesoController.chequeo(empleados.get(i).getIdEmpleado());
 				        	return;
 				        }
+				        if(i==(empleados.size()-1)){
+					        ImageIcon error = new ImageIcon("src/main/resources/img/Error.png");
+					        Icon iconoError = new ImageIcon(error.getImage().getScaledInstance(
+					        		accesoController.getControlAccesoView().imgEstado.getWidth(), accesoController.getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
+					        
+					        accesoController.getControlAccesoView().imgEstado.setIcon(iconoError);
+					        accesoController.esperar();
+				        }
 		    	   	}
-    	   		
-    	   		ImageIcon error = new ImageIcon(PrincipalView.class.getResource("/img/Error.png"));
-				Icon iconoError = new ImageIcon(error.getImage().getScaledInstance(
-						accesoController.getControlAccesoView().imgEstado.getWidth(), accesoController.getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
-				
-				accesoController.getControlAccesoView().imgEstado.setIcon(iconoError);
-				accesoController.esperar();
 	    	   }
 	       }else{
-	    	   	ImageIcon error = new ImageIcon(PrincipalView.class.getResource("/img/Error.png"));
+	    	   	ImageIcon error = new ImageIcon("src/main/resources/img/Error.png");
 				Icon iconoError = new ImageIcon(error.getImage().getScaledInstance(
 						accesoController.getControlAccesoView().imgEstado.getWidth(), accesoController.getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 				

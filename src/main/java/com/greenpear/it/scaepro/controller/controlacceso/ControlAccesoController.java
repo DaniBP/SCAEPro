@@ -193,7 +193,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		if(e.getSource() == getControlAccesoView().btnChecar){
 			getControlAccesoView().btnChecar.setEnabled(false);
 			
-			ImageIcon identificando = new ImageIcon(PrincipalView.class.getResource("/img/Identificando.gif"));
+			ImageIcon identificando = new ImageIcon("src/main/resources/img/Identificando.gif");
 			Icon iconoIde = new ImageIcon(identificando.getImage().getScaledInstance(
 					getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 			
@@ -203,11 +203,11 @@ public class ControlAccesoController implements ActionListener, Runnable{
 				@Override
 				public void run() {
 					
-					int nip = 1;
+					int id = 1;
 					
 					try {
 						
-						empleadoModel = getAccesoBoService().consultaIndividual(nip);
+						empleadoModel = getAccesoBoService().consultaIndividual(id);
 						
 					} catch (SQLException ex) {
 						JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -215,7 +215,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 			
 			
 					if(getEmpleadoModel().getIdEmpleado() == 0){
-						ImageIcon error = new ImageIcon(PrincipalView.class.getResource("/img/Error.png"));
+						ImageIcon error = new ImageIcon("src/main/resources/img/Error.png");
 						Icon iconoError = new ImageIcon(error.getImage().getScaledInstance(
 								getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 						
@@ -305,7 +305,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		
 		
 				if(getEmpleadoModel().getIdEmpleado() == 0){
-					ImageIcon error = new ImageIcon(PrincipalView.class.getResource("/img/Error.png"));
+					ImageIcon error = new ImageIcon("src/main/resources/img/Error.png");
 					Icon iconoError = new ImageIcon(error.getImage().getScaledInstance(
 							getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 					
@@ -438,11 +438,11 @@ public class ControlAccesoController implements ActionListener, Runnable{
 			}
 		}
 		
-		ImageIcon foto = new ImageIcon(PrincipalView.class.getResource("/img/fotosempleados/"+getEmpleadoModel().getFotografia()));
+		ImageIcon foto = new ImageIcon("src/main/resources/img/fotosempleados/"+getEmpleadoModel().getFotografia());
 		Icon iconoFoto = new ImageIcon(foto.getImage().getScaledInstance(
 				getControlAccesoView().imgFoto.getWidth(), getControlAccesoView().imgFoto.getHeight(), Image.SCALE_DEFAULT));
 		
-		ImageIcon exito = new ImageIcon(PrincipalView.class.getResource("/img/Éxito.png"));
+		ImageIcon exito = new ImageIcon("src/main/resources/img/Éxito.png");
 		Icon iconoExito = new ImageIcon(exito.getImage().getScaledInstance(
 				getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
 		
@@ -457,6 +457,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	 */
 	public void esperar(){
 		Runnable r2 = new Runnable() {
+			
 			@Override
 			public void run() {
 				try {
