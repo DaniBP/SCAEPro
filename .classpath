@@ -55,15 +55,16 @@
 	<classpathentry kind="lib" path="src/main/resources/libraries/bridj-0.6.2.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/libraries/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/libraries/webcam-capture-0.3.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/commons-collections-3.2.1-1.0.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/commons-digester-2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/jasperreports-6.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/jasperreports-fonts-6.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/jasperreports-functions-6.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/jasperreports-javaflow-6.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/joda-time-2.9.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/mysql-connector-java-5.0.8-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/libraries/sqljdbc4-2.0.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/commons-collections-3.2.1-1.0.0.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/jasperreports-6.2.1.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/jasperreports-fonts-6.2.1.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/jasperreports-functions-6.2.1.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/jasperreports-javaflow-6.2.1.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/joda-time-2.9.3.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/libraries/sqljdbc4-2.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
