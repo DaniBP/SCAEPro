@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
@@ -22,6 +23,8 @@ import java.util.Calendar;
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
+
 import javax.swing.SpinnerNumberModel;
 import java.awt.SystemColor;
 
@@ -114,6 +117,12 @@ public class ConfigurarScaePro extends JFrame {
 	private JLabel lblHEntradaDomingo;
 	private JSpinner spnMinutosRetardo;
 	private JSpinner spnMinutosFalta;
+	private JLabel lblMinRetardos;
+	private JLabel lblMinutosFaltas;
+	private JLabel lblHoraEntradaG;
+	private JLabel lblHoraDeSalidaG;
+	private JLabel lblHoraSalidaComidaG;
+	private JLabel lblHoraDeEntradaComidaG;
 	
 	public ConfigurarScaePro() {
 		getContentPane().setBackground(SystemColor.activeCaption);
@@ -135,32 +144,32 @@ public class ConfigurarScaePro extends JFrame {
 		lblArea.setBounds(15, 40, 190, 16);
 		panel.add(lblArea);
 		
-		JLabel lblMinRetardos = new JLabel("Minutos tolerancia (Retardo):");
+		lblMinRetardos = new JLabel("Minutos tolerancia (Retardo):");
 		lblMinRetardos.setEnabled(false);
 		lblMinRetardos.setBounds(15, 70, 190, 16);
 		panel.add(lblMinRetardos);
 		
-		JLabel lblMinutosFaltas = new JLabel("Minutos tolerancia (Falta):");
+		lblMinutosFaltas = new JLabel("Minutos tolerancia (Falta):");
 		lblMinutosFaltas.setEnabled(false);
 		lblMinutosFaltas.setBounds(15, 100, 190, 16);
 		panel.add(lblMinutosFaltas);
 		
-		JLabel lblHoraEntradaG = new JLabel("Hora de entrada:");
+		lblHoraEntradaG = new JLabel("Hora de entrada:");
 		lblHoraEntradaG.setEnabled(false);
 		lblHoraEntradaG.setBounds(355, 70, 147, 16);
 		panel.add(lblHoraEntradaG);
 		
-		JLabel lblHoraDeSalidaG = new JLabel("Hora de salida:");
+		lblHoraDeSalidaG = new JLabel("Hora de salida:");
 		lblHoraDeSalidaG.setEnabled(false);
 		lblHoraDeSalidaG.setBounds(355, 100, 147, 16);
 		panel.add(lblHoraDeSalidaG);
 		
-		JLabel lblHoraSalidaComidaG = new JLabel("Hora de salida (Comida):");
+		lblHoraSalidaComidaG = new JLabel("Hora de salida (Comida):");
 		lblHoraSalidaComidaG.setEnabled(false);
 		lblHoraSalidaComidaG.setBounds(618, 70, 165, 16);
 		panel.add(lblHoraSalidaComidaG);
 		
-		JLabel lblHoraDeEntradaComidaG = new JLabel("Hora de entrada (Comida):");
+		lblHoraDeEntradaComidaG = new JLabel("Hora de entrada (Comida):");
 		lblHoraDeEntradaComidaG.setEnabled(false);
 		lblHoraDeEntradaComidaG.setBounds(618, 100, 165, 16);
 		panel.add(lblHoraDeEntradaComidaG);
@@ -257,7 +266,7 @@ public class ConfigurarScaePro extends JFrame {
 		
 		txtNombreTurno = new JTextField();
 		txtNombreTurno.setEnabled(false);
-		txtNombreTurno.setBounds(146, 16, 286, 26);
+		txtNombreTurno.setBounds(122, 16, 286, 26);
 		tjpnlHorarios.add(txtNombreTurno);
 		txtNombreTurno.setColumns(10);
 		
@@ -758,20 +767,31 @@ public class ConfigurarScaePro extends JFrame {
 		spnHEntradaComidaDomingo.setValue(now);
 		tjpnlHorarios.add(spnHEntradaComidaDomingo);
 		
-		btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("");
+		ImageIcon iconoEliminar= new ImageIcon(ConfigurarScaePro.class.getResource("/img/Eliminar Turno.png"));
+		iconoEliminar=new ImageIcon(iconoEliminar.getImage().getScaledInstance(65,-1 , Image.SCALE_DEFAULT));
+		btnEliminar.setIcon(iconoEliminar);	
 		btnEliminar.setEnabled(false);
 		btnEliminar.setBounds(820, 423, 100, 70);
 		getContentPane().add(btnEliminar);
 		
-		btnNuevoTurno = new JButton("Nuevo");
+		btnNuevoTurno = new JButton("");
+		ImageIcon iconoNuevo= new ImageIcon(ConfigurarScaePro.class.getResource("/img/Nuevo Turno.png"));
+		iconoNuevo=new ImageIcon(iconoNuevo.getImage().getScaledInstance(70,-1 , Image.SCALE_DEFAULT));
+		btnNuevoTurno.setIcon(iconoNuevo);	
 		btnNuevoTurno.setEnabled(false);
 		btnNuevoTurno.setBounds(820, 177, 100, 70);
 		getContentPane().add(btnNuevoTurno);
 		
-		btnGuardarEditar = new JButton("Guardar");
+		btnGuardarEditar = new JButton("");
+		ImageIcon iconoGuardar= new ImageIcon(ConfigurarScaePro.class.getResource("/img/Guardar Turno.png"));
+		iconoGuardar=new ImageIcon(iconoGuardar.getImage().getScaledInstance(60,-1 , Image.SCALE_DEFAULT));
+		btnGuardarEditar.setIcon(iconoGuardar);	
 		btnGuardarEditar.setEnabled(false);
 		btnGuardarEditar.setBounds(820, 304, 100, 70);
 		getContentPane().add(btnGuardarEditar);
+		
+		
 	}
 
 	public JTextField getTxtNombreTurno() {
@@ -1446,7 +1466,59 @@ public class ConfigurarScaePro extends JFrame {
 		this.spnMinutosFalta = spnMinutosFalta;
 	}
 	
+	public JLabel getLblMinRetardos() {
+		return lblMinRetardos;
+	}
+
+	public void setLblMinRetardos(JLabel lblMinRetardos) {
+		this.lblMinRetardos = lblMinRetardos;
+	}
+
+	public JLabel getLblMinutosFaltas() {
+		return lblMinutosFaltas;
+	}
+
+	public void setLblMinutosFaltas(JLabel lblMinutosFaltas) {
+		this.lblMinutosFaltas = lblMinutosFaltas;
+	}
+
+	public JLabel getLblHoraEntradaG() {
+		return lblHoraEntradaG;
+	}
+
+	public void setLblHoraEntradaG(JLabel lblHoraEntradaG) {
+		this.lblHoraEntradaG = lblHoraEntradaG;
+	}
+
+	public JLabel getLblHoraDeSalidaG() {
+		return lblHoraDeSalidaG;
+	}
+
+	public void setLblHoraDeSalidaG(JLabel lblHoraDeSalidaG) {
+		this.lblHoraDeSalidaG = lblHoraDeSalidaG;
+	}
+
+	public JLabel getLblHoraSalidaComidaG() {
+		return lblHoraSalidaComidaG;
+	}
+
+	public void setLblHoraSalidaComidaG(JLabel lblHoraSalidaComidaG) {
+		this.lblHoraSalidaComidaG = lblHoraSalidaComidaG;
+	}
+
+	public JLabel getLblHoraDeEntradaComidaG() {
+		return lblHoraDeEntradaComidaG;
+	}
+
+	public void setLblHoraDeEntradaComidaG(JLabel lblHoraDeEntradaComidaG) {
+		this.lblHoraDeEntradaComidaG = lblHoraDeEntradaComidaG;
+	}
+
 	public void reiniciarControles(){
+		
+		spnMinutosRetardo.setValue(0);
+		spnMinutosFalta.setValue(0);
+		
 		chckbxLunes.setSelected(false);
 		chkMartes.setSelected(false);
 		chkMiercoles.setSelected(false);
@@ -1540,12 +1612,21 @@ public class ConfigurarScaePro extends JFrame {
 		spnHoraSalidaComidaG.setEnabled(false);
 		spnHoraEntradaComidaG.setEnabled(false);
 		
+		lblHoraDeSalidaG.setEnabled(false);
+		lblHoraEntradaG.setEnabled(false);
+		lblHoraSalidaComidaG.setEnabled(false);
+		lblHoraDeEntradaComidaG.setEnabled(false);
+		
 		txtNombreTurno.setText(null);
 	}
 
 	public void limpiarVentana(){
 		spnMinutosRetardo.setValue(0);
 		spnMinutosFalta.setValue(0);
+		
+		lblMinRetardos.setEnabled(false);
+		lblMinutosFaltas.setEnabled(false);
+		
 		txtNombreTurno.setText(null);
 		
 		spnMinutosRetardo.setEnabled(false);
@@ -1651,6 +1732,11 @@ public class ConfigurarScaePro extends JFrame {
 		spnHoraEntradaG.setEnabled(false);
 		spnHoraSalidaComidaG.setEnabled(false);
 		spnHoraEntradaComidaG.setEnabled(false);
+		
+		lblHoraDeSalidaG.setEnabled(false);
+		lblHoraEntradaG.setEnabled(false);
+		lblHoraSalidaComidaG.setEnabled(false);
+		lblHoraDeEntradaComidaG.setEnabled(false);
 		
 		int c = tabbedPane.getTabCount();
 		

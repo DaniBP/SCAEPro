@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -14,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,7 +42,7 @@ import com.greenpear.it.scaepro.view.configurarscaepro.ConfigurarScaePro;
  *
  */
 @Controller
-public class ConfigurarScaeProController implements ActionListener,ItemListener,MouseListener,ChangeListener{
+public class ConfigurarScaeProController implements ActionListener,ItemListener,MouseListener,ChangeListener,KeyListener{
 
 	/**
 	 * Constructor
@@ -103,10 +107,14 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			getConfigurarScaeProView().getSpnHoraSalidaG().addChangeListener(this);
 			getConfigurarScaeProView().getSpnHoraSalidaComidaG().addChangeListener(this);
 			getConfigurarScaeProView().getSpnHoraEntradaComidaG().addChangeListener(this);
+			getConfigurarScaeProView().getSpnMinutosFalta().addChangeListener(this);
+			getConfigurarScaeProView().getSpnMinutosRetardo().addChangeListener(this);
 			
 			getConfigurarScaeProView().getBtnNuevoTurno().addActionListener(this);
 			getConfigurarScaeProView().getBtnEliminar().addActionListener(this);
 			getConfigurarScaeProView().getBtnGuardarEditar().addActionListener(this);
+			
+			getConfigurarScaeProView().getTxtNombreTurno().addKeyListener(this);
 			
 		}
 		
@@ -138,9 +146,26 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 		if(e.getSource() == getConfigurarScaeProView().getBtnNuevoTurno()){
 			crearNuevoTurno();
 		}else if(e.getSource() == getConfigurarScaeProView().getBtnGuardarEditar()){
+			
 			if(getConfigurarScaeProView().getTxtNombreTurno().getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Ingrese el nombre del turno", "Alerta", JOptionPane.WARNING_MESSAGE);
 				return;
+			}else if(getConfigurarScaeProView().getTxtNombreTurno().getText().equals("Nuevo Turno")){
+				JOptionPane.showMessageDialog(null, "Debe cambiar el nombre del turno", "Alerta", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			for (int i = 0; i < getConfigurarScaeProView().getTabbedPane().getTabCount(); i++) {
+				if(getConfigurarScaeProView().getTxtNombreTurno().getText().equals(
+						getConfigurarScaeProView().getTabbedPane().getTitleAt(i))){
+					
+					if(!getConfigurarScaeProView().getTabbedPane().getTitleAt(i).equals(
+							getConfigurarScaeProView().getTabbedPane().getTitleAt(turnoSeleccionado))){
+						JOptionPane.showMessageDialog(null, "Existe otro turno en esta \u00E1rea registrado con el nombre \n\""+
+							getConfigurarScaeProView().getTxtNombreTurno().getText()+"\"", "Alerta", JOptionPane.WARNING_MESSAGE);
+						return;						
+					}
+				}
 			}
 			
 			if(JOptionPane.showConfirmDialog(
@@ -373,6 +398,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 		getConfigurarScaeProView().getTxtNombreTurno().setEnabled(true);
 		getConfigurarScaeProView().getSpnMinutosRetardo().setEnabled(true);
 		getConfigurarScaeProView().getSpnMinutosFalta().setEnabled(true);
+		getConfigurarScaeProView().getLblMinRetardos().setEnabled(true);
+		getConfigurarScaeProView().getLblMinutosFaltas().setEnabled(true);
+		
 	}
 
 	@Override
@@ -692,12 +720,23 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHoraSalidaComidaG().setEnabled(true);
 				getConfigurarScaeProView().getSpnHoraEntradaComidaG().setEnabled(true);
 				
+				getConfigurarScaeProView().getLblHoraEntradaG().setEnabled(true);
+				getConfigurarScaeProView().getLblHoraDeSalidaG().setEnabled(true);
+				getConfigurarScaeProView().getLblHoraSalidaComidaG().setEnabled(true);
+				getConfigurarScaeProView().getLblHoraDeEntradaComidaG().setEnabled(true);
+				
 				aplicarHorarioGeneral();				
 			}else{
 				getConfigurarScaeProView().getSpnHoraEntradaG().setEnabled(false);
 				getConfigurarScaeProView().getSpnHoraSalidaG().setEnabled(false);
 				getConfigurarScaeProView().getSpnHoraSalidaComidaG().setEnabled(false);
 				getConfigurarScaeProView().getSpnHoraEntradaComidaG().setEnabled(false);
+				
+				getConfigurarScaeProView().getLblHoraEntradaG().setEnabled(false);
+				getConfigurarScaeProView().getLblHoraDeSalidaG().setEnabled(false);
+				getConfigurarScaeProView().getLblHoraSalidaComidaG().setEnabled(false);
+				getConfigurarScaeProView().getLblHoraDeEntradaComidaG().setEnabled(false);
+				
 				if(!getConfigurarScaeProView().getTabbedPane().getTitleAt(turnoSeleccionado).equals("Nuevo Turno")){					
 					llenarHorario();
 				}else{
@@ -1081,9 +1120,11 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			break;
 			}
 			getConfigurarScaeProView().getSpnMinutosRetardo().setValue(turnos.get(i).getTiempoRetardo());
-			getConfigurarScaeProView().getSpnMinutosRetardo().setEnabled(true);;
+			getConfigurarScaeProView().getSpnMinutosRetardo().setEnabled(true);
+			getConfigurarScaeProView().getLblMinRetardos().setEnabled(true);
 			getConfigurarScaeProView().getSpnMinutosFalta().setValue(turnos.get(i).getTiempoFalta());
 			getConfigurarScaeProView().getSpnMinutosFalta().setEnabled(true);
+			getConfigurarScaeProView().getLblMinutosFaltas().setEnabled(true);
 			getConfigurarScaeProView().getTxtNombreTurno().setText(turnos.get(i).getNombreTurno());
 			getConfigurarScaeProView().getTxtNombreTurno().setEnabled(true);
 			idTurno=turnos.get(i).getIdTurno();
@@ -1155,6 +1196,44 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				e.getSource()==getConfigurarScaeProView().getSpnHoraSalidaComidaG() ||
 				e.getSource()==getConfigurarScaeProView().getSpnHoraEntradaComidaG()){
 			aplicarHorarioGeneral();
+		}else if(e.getSource()==getConfigurarScaeProView().getSpnMinutosRetardo() ||
+				e.getSource()==getConfigurarScaeProView().getSpnMinutosFalta()){
+			int toleranciaF = (Integer) getConfigurarScaeProView().getSpnMinutosFalta().getValue();
+			int toleranciaR = (Integer) getConfigurarScaeProView().getSpnMinutosRetardo().getValue();
+			if(toleranciaR >= toleranciaF){
+				if(toleranciaF != 0){				
+					getConfigurarScaeProView().getSpnMinutosRetardo().setValue(toleranciaF-1);
+				}else{
+					getConfigurarScaeProView().getSpnMinutosRetardo().setValue(0);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if(e.getSource()==getConfigurarScaeProView().getTxtNombreTurno()){
+			String c =Character.toString(e.getKeyChar());
+			
+			Pattern pat = Pattern.compile("[a-zA-Z0-9·¡È…ÌÕÛ”˙⁄]");
+		    Matcher mat = pat.matcher(c);
+		    if (!mat.matches()) {
+		    	e.consume();
+		    }else if(getConfigurarScaeProView().getTxtNombreTurno().getText().length()==20){
+		    	e.consume();
+		    }
 		}
 	}
 }

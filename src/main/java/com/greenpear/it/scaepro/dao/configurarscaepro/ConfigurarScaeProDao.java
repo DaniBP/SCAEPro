@@ -211,6 +211,7 @@ public class ConfigurarScaeProDao extends DataSourceService{
 			
 			return "¡El turno no puede ser eliminado "
 			+ "debido a que existen empleados afiliados a este!";
+			
 		}catch(Exception e){
 			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n"
