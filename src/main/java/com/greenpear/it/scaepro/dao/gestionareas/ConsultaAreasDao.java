@@ -20,6 +20,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.services.DataSourceService;
 import com.greenpear.it.scaepro.services.InsertService;
@@ -130,5 +131,38 @@ public class ConsultaAreasDao extends DataSourceService implements SelectAllServ
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
 		}
 		return areas;
+	}
+	
+	public String verificarEmpleados(String nombreArea) throws SQLException{
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		
+		String sql = "SELECT idEmpleado FROM t_empleado "
+				+ "INNER JOIN c_turno ON c_turno.idTurno = t_empleado.idTurno "
+				+ "INNER JOIN c_area ON c_area.idArea = c_turno.idArea "
+				+ "WHERE c_area.nombreArea = '"+nombreArea+"'";
+		
+		try{
+			empleados=getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>(){
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException{
+					EmpleadoModel resultValue=new EmpleadoModel();
+					
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					
+					return resultValue;
+				}
+			});
+			
+			if(empleados.isEmpty()){
+				return "Sin empleados en el area";
+			}
+			
+			return "¡El area no puede ser eliminada "
+			+ "debido a que existen empleados afiliados a esta!";
+			
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la consulta de empleados!");
+		}		
 	}
 }

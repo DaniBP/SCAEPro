@@ -162,7 +162,11 @@ public class ConsultaAreasController implements ActionListener {
 						} else if (boton.toString().contains("Eliminar") == true) {
 							if (JOptionPane.showConfirmDialog(null, "Seguro de Eliminar el Àrea :" + area) == 0) {
 								modelo.setArea(area);
-								delete = getBo().eliminarArea(getModelo());
+								try {
+									delete = getBo().eliminarArea(getModelo());
+								} catch (SQLException e1) {
+									JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+								}
 								if (delete.equals("El àrea fue eliminada correctamente!")) {
 									JOptionPane.showMessageDialog(null, delete, "Eliminar área",
 											JOptionPane.INFORMATION_MESSAGE);
@@ -276,7 +280,11 @@ public class ConsultaAreasController implements ActionListener {
 							} else if (boton.toString().contains("Eliminar") == true) {
 								if (JOptionPane.showConfirmDialog(null, "Seguro de Eliminar el Àrea :" + area) == 0) {
 									modelo.setArea(area);
-									delete = getBo().eliminarArea(getModelo());
+									try {
+										delete = getBo().eliminarArea(getModelo());
+									} catch (SQLException e1) {
+										JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+									}
 									if (delete.equals("El àrea fue eliminada correctamente!")) {
 										JOptionPane.showMessageDialog(null, delete, "Eliminar área",
 												JOptionPane.INFORMATION_MESSAGE);
