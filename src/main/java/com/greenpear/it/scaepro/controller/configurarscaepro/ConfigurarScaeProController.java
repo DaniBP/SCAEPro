@@ -150,8 +150,19 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}
 
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			
+			int idArea=0;
+			
+			for (int i = 0; i < areas.size(); i++) {
+				if(areas.get(i).getArea().equals(getConfigurarScaeProView().getCmbArea().getSelectedItem())){
+					idArea=areas.get(i).getIdArea();
+				}
+			}
 
 			for (int i = 0; i < 7; i++) {
+				turnos.add(new TurnoModel());
+				turnos.get(i).setIdArea(idArea);
+				turnos.get(i).setIdTurno(idTurno);
 				turnos.get(i).setNombreTurno(getConfigurarScaeProView().getTxtNombreTurno().getText());
 				turnos.get(i).setTiempoRetardo((Integer) getConfigurarScaeProView().getSpnMinutosRetardo().getValue());
 				turnos.get(i).setTiempoFalta((Integer) getConfigurarScaeProView().getSpnMinutosFalta().getValue());
@@ -292,14 +303,50 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				}
 			}
 			
+			String resultado=null;
+			
 			if(getConfigurarScaeProView().getTabbedPane().getTitleAt(turnoSeleccionado).equals("Nuevo Turno")){
 				try {
-					JOptionPane.showMessageDialog(null, getConfigurarScaeProBo().registrarTurno(turnos));
+					resultado = getConfigurarScaeProBo().registrarTurno(turnos);
 				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}else{
+				try{
+					resultado = getConfigurarScaeProBo().editarTurno(turnos);
+				}catch(SQLException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			
+			if(resultado.equals("correcto")){
+				JOptionPane.showMessageDialog(null, "Turno guardado correctamente");
+				getConfigurarScaeProView().getCmbArea().setSelectedIndex(getConfigurarScaeProView().getCmbArea().getSelectedIndex()-1);
+				getConfigurarScaeProView().getCmbArea().setSelectedIndex(getConfigurarScaeProView().getCmbArea().getSelectedIndex()+1);
+			}else{
+				JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
+			}
+		}else if(e.getSource()==getConfigurarScaeProView().getBtnEliminar()){
+			if(JOptionPane.showConfirmDialog(
+					null, "¿Seguro que desea eliminar este turno?", "Confirmación",JOptionPane.YES_NO_OPTION)
+					!=JOptionPane.YES_OPTION){
+				return;
+			}
+			
+			String resultado=null;
+			
+			try {
+				resultado = getConfigurarScaeProBo().eliminarTurno(idTurno);
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			if(resultado.equals("correcto")){
+				JOptionPane.showMessageDialog(null, "Turno eliminado correctamente");
+				getConfigurarScaeProView().getCmbArea().setSelectedIndex(getConfigurarScaeProView().getCmbArea().getSelectedIndex()-1);
+				getConfigurarScaeProView().getCmbArea().setSelectedIndex(getConfigurarScaeProView().getCmbArea().getSelectedIndex()+1);
+			}else{
+				JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 	
@@ -323,6 +370,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 		getConfigurarScaeProView().getBtnEliminar().setEnabled(false);
 		getConfigurarScaeProView().getTabbedPane().setSelectedIndex(paneles.size()-1);
 		getConfigurarScaeProView().getChkHorarioGeneral().setEnabled(true);
+		getConfigurarScaeProView().getTxtNombreTurno().setEnabled(true);
+		getConfigurarScaeProView().getSpnMinutosRetardo().setEnabled(true);
+		getConfigurarScaeProView().getSpnMinutosFalta().setEnabled(true);
 	}
 
 	@Override
@@ -386,8 +436,13 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHEntradaComidaLunes().setEnabled(false);
 				getConfigurarScaeProView().getSpnHEntradaLunes().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaLunes().setEnabled(false);
-				getConfigurarScaeProView().getChkComidaLunes().setSelected(false);	
+				getConfigurarScaeProView().getChkComidaLunes().setSelected(false);
 				getConfigurarScaeProView().getChkComidaLunes().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHSalidaComidaLunes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaComidaLunes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaLunes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaLunes().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkMartes()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -401,6 +456,11 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHSalidaMartes().setEnabled(false);
 				getConfigurarScaeProView().getChkComidaMartes().setSelected(false);	
 				getConfigurarScaeProView().getChkComidaMartes().setEnabled(false);	
+				
+				getConfigurarScaeProView().getSpnHSalidaComidaMartes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaComidaMartes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaMartes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaMartes().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkMiercoles()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -414,6 +474,11 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHSalidaMiercoles().setEnabled(false);
 				getConfigurarScaeProView().getChkComidaMiercoles().setSelected(false);	
 				getConfigurarScaeProView().getChkComidaMiercoles().setEnabled(false);	
+				
+				getConfigurarScaeProView().getSpnHSalidaComidaMiercoles().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaComidaMiercoles().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaMiercoles().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaMiercoles().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkJueves()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -427,6 +492,11 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHSalidaJueves().setEnabled(false);
 				getConfigurarScaeProView().getChkComidaJueves().setSelected(false);	
 				getConfigurarScaeProView().getChkComidaJueves().setEnabled(false);	
+				
+				getConfigurarScaeProView().getSpnHSalidaComidaJueves().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaComidaJueves().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaJueves().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaJueves().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkViernes()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -439,7 +509,12 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHEntradaViernes().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaViernes().setEnabled(false);
 				getConfigurarScaeProView().getChkComidaViernes().setSelected(false);	
-				getConfigurarScaeProView().getChkComidaViernes().setEnabled(false);	
+				getConfigurarScaeProView().getChkComidaViernes().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHSalidaComidaViernes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaComidaViernes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaViernes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaViernes().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkSabado()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -453,6 +528,11 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHSalidaSabado().setEnabled(false);
 				getConfigurarScaeProView().getChkComidaSabado().setSelected(false);	
 				getConfigurarScaeProView().getChkComidaSabado().setEnabled(false);	
+				
+				getConfigurarScaeProView().getSpnHSalidaComidaSabado().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaComidaSabado().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaSabado().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaSabado().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkDomingo()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -466,6 +546,11 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 				getConfigurarScaeProView().getSpnHSalidaDomingo().setEnabled(false);
 				getConfigurarScaeProView().getChkComidaDomingo().setSelected(false);	
 				getConfigurarScaeProView().getChkComidaDomingo().setEnabled(false);	
+				
+				getConfigurarScaeProView().getSpnHSalidaComidaDomingo().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaComidaDomingo().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHEntradaDomingo().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaDomingo().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkComidaLunes()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -474,6 +559,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}else{
 				getConfigurarScaeProView().getSpnHEntradaComidaLunes().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaComidaLunes().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHEntradaComidaLunes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaComidaLunes().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkComidaMartes()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -482,6 +570,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}else{
 				getConfigurarScaeProView().getSpnHEntradaComidaMartes().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaComidaMartes().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHEntradaComidaMartes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaComidaMartes().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkComidaMiercoles()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -490,6 +581,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}else{
 				getConfigurarScaeProView().getSpnHEntradaComidaMiercoles().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaComidaMiercoles().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHEntradaComidaMiercoles().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaComidaMiercoles().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkComidaJueves()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -498,6 +592,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}else{
 				getConfigurarScaeProView().getSpnHEntradaComidaJueves().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaComidaJueves().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHEntradaComidaJueves().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaComidaJueves().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkComidaViernes()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -506,6 +603,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}else{
 				getConfigurarScaeProView().getSpnHEntradaComidaViernes().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaComidaViernes().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHEntradaComidaViernes().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaComidaViernes().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkComidaSabado()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -514,6 +614,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}else{
 				getConfigurarScaeProView().getSpnHEntradaComidaSabado().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaComidaSabado().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHEntradaComidaSabado().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaComidaSabado().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkComidaDomingo()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -522,6 +625,9 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			}else{
 				getConfigurarScaeProView().getSpnHEntradaComidaDomingo().setEnabled(false);
 				getConfigurarScaeProView().getSpnHSalidaComidaDomingo().setEnabled(false);
+				
+				getConfigurarScaeProView().getSpnHEntradaComidaDomingo().setValue(getConfigurarScaeProView().now);
+				getConfigurarScaeProView().getSpnHSalidaComidaDomingo().setValue(getConfigurarScaeProView().now);
 			}
 		}else if(e.getSource()==getConfigurarScaeProView().getChkHorarioGeneral()){
 			if (e.getStateChange() == ItemEvent.SELECTED) {

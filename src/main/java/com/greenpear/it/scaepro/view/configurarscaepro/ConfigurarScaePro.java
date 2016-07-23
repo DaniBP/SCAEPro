@@ -82,7 +82,7 @@ public class ConfigurarScaePro extends JFrame {
 	
 	private SpinnerDateModel model;
 	
-	Date now;
+	public Date now;
 	private JPanel tjpnlHorarios;
 	private JLabel lblHEntradaLunes;
 	private JLabel lblHSalidaLunes;

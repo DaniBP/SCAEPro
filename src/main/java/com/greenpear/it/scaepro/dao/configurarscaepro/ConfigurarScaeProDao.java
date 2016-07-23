@@ -45,12 +45,13 @@ public class ConfigurarScaeProDao extends DataSourceService{
 					return resultValue;
 				}
 			});
+			
+			return areas;
 		}catch(Exception e){
 			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n"
 					+ "No se pudo realizar la consulta!");
 		}
-		return areas;
 	}
 
 	public List<TurnoModel> consultarTurnos(int idArea)throws SQLException{
@@ -82,17 +83,16 @@ public class ConfigurarScaeProDao extends DataSourceService{
 					return resultValue;
 				}
 			});
+			
+			return turnos;
 		}catch(Exception e){
 			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n"
 					+ "No se pudo realizar la consulta!");
-		}
-		
-		return turnos;
+		}		
 	}
 	
 	public String registrarTurno(List<TurnoModel> turno) throws SQLException{
-		System.out.println(turno.get(0).getNombreTurno());
 		try{
 			SimpleJdbcInsert insertTurno = new SimpleJdbcInsert(getDataSource());
 			insertTurno.setTableName("c_turno");
@@ -124,12 +124,97 @@ public class ConfigurarScaeProDao extends DataSourceService{
 				
 				turno.get(i).setIdHorarioTurno(insertHorarioTurno.executeAndReturnKey(paramteters2).intValue());
 			}
+			return "correcto";
 		}catch(Exception e){
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ",e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n"
 					+ "No se pudo realizar la Inserción!");
-		}
+		}		
+	}
+	
+	public String editarTurno(List<TurnoModel> turno) throws SQLException{
+		String sql="UPDATE c_turno SET "
+				+ "nombreTurno = ?, "
+				+ "tiempoRetardo = ?, "
+				+ "tiempoFalta = ? "
+				+ "WHERE idTurno = ?";
 		
-		return "Turno registrado correctamente";
+		try{
+			getJdbcTemplate().update(sql,
+					turno.get(0).getNombreTurno(),
+					turno.get(0).getTiempoRetardo(),
+					turno.get(0).getTiempoFalta(),
+					turno.get(0).getIdTurno());
+			
+			sql="UPDATE t_horario_turno SET "
+					+ "horaEntrada = ?, "
+					+ "horaSalidaComer = ?, "
+					+ "horaEntradaComer = ?, "
+					+ "horaSalida = ?, "
+					+ "idEstatus = ?, "
+					+ "idEstatusComida = ? "
+					+ "WHERE idTurno = ? "
+					+ "AND dia = ?";
+			
+			for (int i = 0; i < 7; i++) {				
+				getJdbcTemplate().update(sql,
+						turno.get(i).getHoraEntrada(),
+						turno.get(i).getHoraSalidaComer(),
+						turno.get(i).getHoraEntradaComer(),
+						turno.get(i).getHoraSalida(),
+						turno.get(i).getIdEstatus(),
+						turno.get(i).getIdEstatusComida(),
+						turno.get(i).getIdTurno(),
+						turno.get(i).getDia());
+			}
+			
+			return "correcto";
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la actualización!");
+		} 
+	}
+	
+	public String eliminarTurno(int idTurno) throws SQLException{
+		String sql = "DELETE FROM c_turno WHERE idTurno= ? ";
+
+		try {
+			getJdbcTemplate().update(sql, idTurno);
+			
+			return "correcto";
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminación!");
+		}
+	}
+	
+	public String verificarEmpleados(int idTurno) throws SQLException{
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		
+		String sql = "SELECT idEmpleado FROM t_empleado WHERE idTurno = "+idTurno;
+		
+		try{
+			empleados=getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>(){
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException{
+					EmpleadoModel resultValue=new EmpleadoModel();
+					
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					
+					return resultValue;
+				}
+			});
+			
+			if(empleados.isEmpty()){
+				return "Sin empleados en el turno";
+			}
+			
+			return "¡El turno no puede ser eliminado "
+			+ "debido a que existen empleados afiliados a este!";
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la consulta!");
+		}		
 	}
 }

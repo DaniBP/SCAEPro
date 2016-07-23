@@ -32,29 +32,59 @@ public class ConfigurarScaeProBo {
 		List<ConsultaAreasModel> areas = new ArrayList<ConsultaAreasModel>();
 		try{
 			areas = getConfigurarScaeProDao().consultarAreas();
+			return areas;
 		}catch(SQLException e){
 			throw new SQLException(e.getMessage());
 		}
-		return areas;
 	}
 	
 	public List<TurnoModel> consultarTunos(int idArea) throws SQLException{
 		List<TurnoModel> turnos = new ArrayList<TurnoModel>();
 		try{
 			turnos=getConfigurarScaeProDao().consultarTurnos(idArea);
+			return turnos;
 		}catch(SQLException e){
 			throw new SQLException(e.getMessage());
 		}
-		return turnos;
 	}
 	
 	public String registrarTurno(List<TurnoModel> turno) throws SQLException{
 		String resultado=null;
 		try{
 			resultado=getConfigurarScaeProDao().registrarTurno(turno);
+			return resultado;
 		}catch(SQLException e){
 			throw new SQLException(e.getMessage());
 		}
-		return resultado;
 	}
+	
+	public String editarTurno(List<TurnoModel> turno) throws SQLException{
+		String resultado = null;
+		try{
+			resultado=getConfigurarScaeProDao().editarTurno(turno);
+			return resultado;
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+	}
+
+	public String eliminarTurno(int idTurno) throws SQLException{
+		String resultado = null;
+		try{
+			resultado = getConfigurarScaeProDao().verificarEmpleados(idTurno);
+			
+			if(!resultado.equals("Sin empleados en el turno")){
+				return resultado;
+			}
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}		
+		
+		try{
+			resultado=getConfigurarScaeProDao().eliminarTurno(idTurno);
+			return resultado;
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+	}	
 }
