@@ -48,7 +48,7 @@ public class RegistrarEmpleado extends JFrame {
 	
 	public RegistrarEmpleado() {
 		setTitle("Registrar empleado");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 970, 580);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -266,6 +266,62 @@ public class RegistrarEmpleado extends JFrame {
 
 	public JTextField getTxtNombres() {
 		return txtNombres;
+	}
+	
+	public void setTxtNombres(JTextField txtNombres) {
+		this.txtNombres = txtNombres;
+	}
+
+	public void setTxtApePat(JTextField txtApePat) {
+		this.txtApePat = txtApePat;
+	}
+
+	public void setTxtApeMat(JTextField txtApeMat) {
+		this.txtApeMat = txtApeMat;
+	}
+
+	public void setTxtTelCel(JTextField txtTelCel) {
+		this.txtTelCel = txtTelCel;
+	}
+
+	public void setTxtTelCasa(JTextField txtTelCasa) {
+		this.txtTelCasa = txtTelCasa;
+	}
+
+	public void setTxtCalle(JTextField txtCalle) {
+		this.txtCalle = txtCalle;
+	}
+
+	public void setTxtNumeroExt(JTextField txtNumeroExt) {
+		this.txtNumeroExt = txtNumeroExt;
+	}
+
+	public void setTxtNumeroInt(JTextField txtNumeroInt) {
+		this.txtNumeroInt = txtNumeroInt;
+	}
+
+	public void setCmbArea(JComboBox cmbArea) {
+		this.cmbArea = cmbArea;
+	}
+
+	public void setCmbPeriodoNominal(JComboBox cmbPeriodoNominal) {
+		this.cmbPeriodoNominal = cmbPeriodoNominal;
+	}
+
+	public void setCmbDiaNomina(JComboBox cmbDiaNomina) {
+		this.cmbDiaNomina = cmbDiaNomina;
+	}
+
+	public void setCmbTurno(JComboBox cmbTurno) {
+		this.cmbTurno = cmbTurno;
+	}
+
+	public void setLblFotografia(JLabel lblFotografia) {
+		this.lblFotografia = lblFotografia;
+	}
+
+	public void setLblHuellaDigital(JLabel lblHuellaDigital) {
+		this.lblHuellaDigital = lblHuellaDigital;
 	}
 
 	public JTextField getTxtApePat() {

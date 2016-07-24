@@ -14,6 +14,7 @@ import com.greenpear.it.scaepro.controller.configurarempleados.ConfigurarEmplead
 import com.greenpear.it.scaepro.dao.configurarempleados.ConfigurarEmpleadoDao;
 import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
+import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.services.SelectAllService;
 /**
@@ -134,6 +135,79 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 			throw new SQLException(t.getMessage());
 		}
 		return mensaje;
+	}
+
+	public List<EmpleadoModel> consultaGeneralEmpleados()throws SQLException {
+		List<EmpleadoModel> listaEmpleados=new ArrayList<EmpleadoModel>();
+		try {
+			listaEmpleados = getEmpleadoDao().consultaGeneralEmpleados();
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public EmpleadoModel consultaModificarEmpleado(String idEmpleado)throws SQLException {
+		EmpleadoModel empleadoModelo = new EmpleadoModel();
+		try{
+			empleadoModelo=getEmpleadoDao().consultaModificarEmpleado(idEmpleado);
+		}catch(Exception e){
+			throw new SQLException(e.getMessage());
+		}
+		return empleadoModelo;
+	}
+
+	public DireccionModelo consultarCpDireccionEmpleado(int idDireccionEmpleado)throws SQLException {
+		DireccionModelo direccionModelo=new DireccionModelo();
+		try{
+			direccionModelo=getEmpleadoDao().consultarCpDireccionEmpleado(idDireccionEmpleado);
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+		return direccionModelo;
+		
+	}
+
+	public TurnoModel consultarAreaEmpleado(int idTurno)throws SQLException {
+		TurnoModel turnoModel= new TurnoModel();
+		try{
+			turnoModel=getEmpleadoDao().consultarAreaEmpleado(idTurno);
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+		return turnoModel;
+	}
+
+	public String ModificarEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		String mensaje=null;
+		if(configurarEmpleadosModel.getTelCel().length()<8 || configurarEmpleadosModel.getTelCel().length()>10){
+			return "Por favor verifique numero de celular"
+					+ " Minimo 8 Maximo 10 digitos";
+		}else if(configurarEmpleadosModel.getTelCasa().length()<8 || configurarEmpleadosModel.getTelCasa().length()>10){
+			return "Por favor verifique numero de casa"
+					+ " Minimo 8 Maximo 10 digitos";
+		}else if(getEmpleadoController().getRegistrarEmpleadoView().getTxtNumeroExt().getText().length()>5 || 
+				empleadoController.getRegistrarEmpleadoView().getTxtNumeroInt().getText().length()>5){
+			return "El numero acepta maximo 5 digitos";
+		}
+		try {
+			mensaje = getEmpleadoDao().modificarEmpleado(configurarEmpleadosModel);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return mensaje;
+	}
+
+
+
+	public String eliminarEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		String resultado="";
+		try{
+			resultado=getEmpleadoDao().eliminarEmpleado(configurarEmpleadosModel);
+		}catch(Exception e){
+			return e.getMessage();
+		}
+		return resultado;
 	}
 
 }

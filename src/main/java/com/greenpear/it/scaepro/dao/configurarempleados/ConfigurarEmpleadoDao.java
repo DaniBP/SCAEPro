@@ -24,6 +24,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
+import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.services.DataSourceService;
 import com.greenpear.it.scaepro.services.SelectAllService;
@@ -281,5 +282,168 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		}finally{
 		     desconectar();
 		}
+	}
+
+	public List<EmpleadoModel> consultaGeneralEmpleados()throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public EmpleadoModel consultaModificarEmpleado(String idEmpleado)throws SQLException {
+  		EmpleadoModel empleados = new EmpleadoModel();
+		String sql = "SELECT * FROM t_empleado WHERE idEmpleado=" + idEmpleado;
+		try {
+			empleados = getJdbcTemplate().query(sql, new ResultSetExtractor<EmpleadoModel>() {
+				public EmpleadoModel extractData(ResultSet rs) throws SQLException {
+					if (rs.next()) {
+						EmpleadoModel resultValue = new EmpleadoModel();
+						resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+						resultValue.setNombreEmpleado(rs.getString("nombreEmpleado"));
+						resultValue.setApePatEmpleado(rs.getString("apePatEmpleado"));
+						resultValue.setApeMatEmpleado(rs.getString("apeMatEmpleado"));
+						resultValue.setFechaNacimiento(rs.getString("fechaNacimiento"));
+						resultValue.setTelCel(rs.getString("telCel"));
+						resultValue.setTelCasa(rs.getString("telCasa"));
+						resultValue.setIdDireccionEmpleado(rs.getInt("idDireccionEmpleado"));
+						resultValue.setPuesto(rs.getString("puesto"));
+						resultValue.setIdTurno(rs.getInt("idTurno"));
+						resultValue.setFotografia(rs.getString("fotografia"));
+						resultValue.setPeriodoNominal(rs.getString("periodoNominal"));
+						resultValue.setDiaDePago(rs.getInt("diaDePago"));
+						resultValue.setHuellaEmpleado(rs.getBytes("huellaEmpleado"));
+						resultValue.setNombreUsuario(rs.getString("usuarioEmpleado"));
+						resultValue.setPassword(rs.getString("passwordEmpleado"));
+						return resultValue;
+					}
+					return null;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return empleados;
+	}
+
+	public DireccionModelo consultarCpDireccionEmpleado(int idDireccionEmpleado)throws SQLException {
+		DireccionModelo direccionModelo=new DireccionModelo();
+		String sql = "SELECT codigoPostal,uniColonia,calle,numEx,numIn FROM t_direccionEmpleado WHERE idDireccionEmpleado=" + idDireccionEmpleado;
+		try {
+			direccionModelo = getJdbcTemplate().query(sql, new ResultSetExtractor<DireccionModelo>() {
+				public DireccionModelo extractData(ResultSet rs) throws SQLException {
+					if (rs.next()) {
+						DireccionModelo resultValue = new DireccionModelo();
+						resultValue.setCp(rs.getString("codigoPostal"));
+						resultValue.setUniColonia(rs.getString("uniColonia"));
+						resultValue.setCalle(rs.getString("calle"));
+						resultValue.setNumEx(rs.getString("numEx"));
+						resultValue.setNumIn(rs.getString("numIn"));
+						return resultValue;
+					}
+					return null;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return direccionModelo;
+	}
+
+	public TurnoModel consultarAreaEmpleado(int idTurno)throws SQLException {
+		TurnoModel turnoModel=new TurnoModel();
+		String sql = "SELECT c_area.nombreArea,c_turno.nombreTurno from c_area "
+				+ "inner join c_turno on c_area.idArea=c_turno.idArea where idTurno=" + idTurno;
+		try {
+			turnoModel = getJdbcTemplate().query(sql, new ResultSetExtractor<TurnoModel>() {
+				public TurnoModel extractData(ResultSet rs) throws SQLException {
+					if (rs.next()) {
+						TurnoModel resultValue = new TurnoModel();
+						resultValue.setArea(rs.getString("nombreArea"));
+						resultValue.setNombreTurno(rs.getString("nombreTurno"));
+						return resultValue;
+					}
+					return null;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return turnoModel;
+	}
+
+	public String modificarEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
+		String sql = "UPDATE t_empleado SET nombreEmpleado=?, apePatEmpleado=?,apeMatEmpleado=?,"
+				+ "fechaNacimiento=?,telCel=?,telCasa=?,idDireccionEmpleado=?,"
+				+ "puesto=?,idTurno=?,fotografia=?,periodoNominal=?,diaDePago=?,"
+				+ "usuarioEmpleado=?,passwordEmpleado=? WHERE idEmpleado=?";
+		try {
+			getJdbcTemplate().update(sql,
+		configurarEmpleadosModel.getNombreEmpleado(),
+		configurarEmpleadosModel.getApePatEmpleado(),
+		configurarEmpleadosModel.getApeMatEmpleado(),
+		configurarEmpleadosModel.getFechaNacimiento(),
+		configurarEmpleadosModel.getTelCel(),
+		configurarEmpleadosModel.getTelCasa(),
+		configurarEmpleadosModel.getIdDireccionEmpleado(),
+		configurarEmpleadosModel.getPuesto(),
+		configurarEmpleadosModel.getIdTurno(),
+		configurarEmpleadosModel.getFotografia(),
+		configurarEmpleadosModel.getPeriodoNominal(),
+		configurarEmpleadosModel.getDiaDePago(),
+		configurarEmpleadosModel.getNombreUsuario(),
+		configurarEmpleadosModel.getPassword(),
+		configurarEmpleadosModel.getIdEmpleado());
+
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserion!");
+		}
+		
+		registrarHuella(configurarEmpleadosModel);
+
+		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() +" "+configurarEmpleadosModel.getApePatEmpleado()+""
+				+ " "+configurarEmpleadosModel.getApeMatEmpleado()+ "\n" 
+				+ "Fue actualizado exitosamente!\n\n"
+				+ "Recuerde que puede cambiar su usuario y contraseña la app movil";
+	}
+
+	public String eliminarEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		String sql = "DELETE FROM t_empleado WHERE idEmpleado=?";
+		try {
+			getJdbcTemplate().update(sql, configurarEmpleadosModel.getIdEmpleado());
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminaci�n!");
+		}
+		return "El empleado fue eliminado correctamente!";
 	}
 }
