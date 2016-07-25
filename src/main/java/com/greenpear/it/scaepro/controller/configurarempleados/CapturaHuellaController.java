@@ -112,13 +112,13 @@ public class CapturaHuellaController extends JFrame {
 				stop();
 			}
 		});
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Imposible modificar el tema visual", 
-			"Lookandfeel inválido.",
-			JOptionPane.ERROR_MESSAGE);
-		}
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null, "Imposible modificar el tema visual", 
+//			"Lookandfeel inválido.",
+//			JOptionPane.ERROR_MESSAGE);
+//		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 485, 488);

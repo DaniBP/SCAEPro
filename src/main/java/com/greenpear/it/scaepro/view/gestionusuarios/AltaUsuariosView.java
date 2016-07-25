@@ -6,16 +6,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
-public class AltaUsuariosView extends JFrame {
+public class AltaUsuariosView extends JInternalFrame {
 	public JTextField txtNombre;
 	public JTextField txtPassword;
 	public JTextField txtPassword2;
@@ -43,11 +44,18 @@ public class AltaUsuariosView extends JFrame {
 	 * Create the frame.
 	 */
 	public AltaUsuariosView() {
+		setFrameIcon(new ImageIcon(AltaUsuariosView.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
+		getContentPane().setBackground(SystemColor.activeCaption);
 		setTitle("Registrar Usuario");
 		setBounds(100, 100, 420, 414);
 		getContentPane().setLayout(null);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.activeCaption);
 		panel.setBorder(new TitledBorder(null, "Datos del Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 11, 384, 312);
 		getContentPane().add(panel);
@@ -104,14 +112,17 @@ public class AltaUsuariosView extends JFrame {
 		panel.add(lblEstatus);
 		
 		rbtnActivo = new JRadioButton("Activo");
+		rbtnActivo.setBackground(SystemColor.activeCaption);
 		rbtnActivo.setBounds(143, 236, 92, 23);
 		panel.add(rbtnActivo);
 		
 		rbtnInactivo = new JRadioButton("Inactivo");
+		rbtnInactivo.setBackground(SystemColor.activeCaption);
 		rbtnInactivo.setBounds(282, 236, 92, 23);
 		panel.add(rbtnInactivo);
 		
 		chbxNotificacion = new JCheckBox("Recibir notificaciones de empleados");
+		chbxNotificacion.setBackground(SystemColor.activeCaption);
 		chbxNotificacion.setBounds(143, 276, 231, 23);
 		panel.add(chbxNotificacion);
 		
@@ -136,19 +147,11 @@ public class AltaUsuariosView extends JFrame {
 		getContentPane().add(btnLimpiar);
 		
 		btnSalir = new JButton("Salir");
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
+	
 		btnSalir.setBounds(305, 346, 89, 23);
 		getContentPane().add(btnSalir);
 		
 		bg.add(rbtnActivo);
 		bg.add(rbtnInactivo);
-		
-
-		
-
 	}
 }

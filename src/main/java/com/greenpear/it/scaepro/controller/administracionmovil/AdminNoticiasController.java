@@ -46,6 +46,7 @@ public class AdminNoticiasController implements ActionListener {
 			getVista().btnNoticiasExistentes.addActionListener(this);
 		}
 		getVista().setVisible(true);
+		getVista().toFront();
 	}
 
 	@Override

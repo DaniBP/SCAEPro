@@ -32,6 +32,7 @@ import com.greenpear.it.scaepro.bo.gestionareas.ConsultaAreasBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
 import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
+import com.greenpear.it.scaepro.view.accesosistema.PrincipalView;
 import com.greenpear.it.scaepro.view.gestionareas.ConsultaAreasView;
 
 /**
@@ -74,7 +75,12 @@ public class ConsultaAreasController implements ActionListener {
 	public void mostrarVistaConsultarAreas() {
 		if (getVista().btnBuscar.getActionListeners().length == 0) {
 			getVista().btnBuscar.addActionListener(this);
-		}
+			 
+		 }
+
+		getVista().setVisible(true);
+		getVista().toFront();
+		 
 		tabla();
 		getVista().setVisible(true);
 	}

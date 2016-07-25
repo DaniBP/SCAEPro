@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -16,8 +17,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
-public class GenerarAvisoView extends JFrame {
+public class GenerarAvisoView extends JInternalFrame {
 
 	public JPanel contentPane;
 	public JTable tablaBusqueda;
@@ -48,14 +50,18 @@ public class GenerarAvisoView extends JFrame {
 	 * Create the frame.
 	 */
 	public GenerarAvisoView() {
+		setFrameIcon(new ImageIcon(GenerarAvisoView.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
 		setTitle("Generar aviso");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 560, 560);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		lblTipoAviso = new JLabel("Tipo de aviso:");
 		lblTipoAviso.setHorizontalAlignment(SwingConstants.LEFT);

@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,21 +16,15 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
-
-import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jca.work.jboss.JBossWorkManagerTaskExecutor;
 
 
 import com.greenpear.it.scaepro.bo.gestionusuarios.ConsultaUsuariosBo;
+import com.greenpear.it.scaepro.controller.accesosistema.PrincipalController;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
-import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.model.gestionusuarios.ConsultaUsuariosModel;
 import com.greenpear.it.scaepro.view.gestionusuarios.ConsultaUsuariosView;
 
@@ -54,7 +47,7 @@ public class ConsultaUsuariosController implements ActionListener {
 
 	@Autowired
 	private ConsultaUsuariosView vista;
-
+	
 	public GovernmentService getGovernment() {
 		return government;
 	}
@@ -75,9 +68,13 @@ public class ConsultaUsuariosController implements ActionListener {
 	public void mostrarVistaConsultarUsuarios() {
 		if (getVista().btnBuscar.getActionListeners().length == 0) {
 			getVista().btnBuscar.addActionListener(this);
+			
 		}
-		tabla();
+		
 		getVista().setVisible(true);
+		getVista().toFront();
+		
+		tabla();		
 	}
 
 	@SuppressWarnings({ "rawtypes", "serial" })

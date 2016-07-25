@@ -1,21 +1,19 @@
 package com.greenpear.it.scaepro.view.gestionareas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
-import java.awt.Color;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JTable;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
-public class ConsultaAreasView extends JFrame {
+public class ConsultaAreasView extends JInternalFrame {
 	public JTextField txtNombArea;
 	public JButton btnBuscar;
 	public JTable tablaAreas;
@@ -24,11 +22,19 @@ public class ConsultaAreasView extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultaAreasView() {
+		setFrameIcon(new ImageIcon(ConsultaAreasView.class.getResource("/img/Logo1.png")));
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setTitle("Consultar \u00E1reas");
+		getContentPane().setBackground(SystemColor.activeCaption);
+		setIconifiable(true);
+		setClosable(true);
 		setBounds(100, 100, 789, 401);
 		getContentPane().setLayout(null);
+		setResizable(false);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Por Nombre:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBorder(new TitledBorder(null, "Por nombre: ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(22, 11, 551, 65);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -47,11 +53,13 @@ public class ConsultaAreasView extends JFrame {
 		panel.add(btnBuscar);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.activeCaption);
 		panel_1.setBounds(22, 87, 729, 273);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground(SystemColor.activeCaption);
 		scrollPane.setBounds(0, 11, 729, 251);
 		panel_1.add(scrollPane);
 		

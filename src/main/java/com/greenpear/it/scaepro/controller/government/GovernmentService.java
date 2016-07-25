@@ -36,9 +36,7 @@ public class GovernmentService implements Government {
 	/**
 	 * Constructor
 	 */
-	public GovernmentService() {
-		super();
-	}
+
 	
 	//****************ESTANCIAS*****************
 	@Autowired private InicioController inicioController;

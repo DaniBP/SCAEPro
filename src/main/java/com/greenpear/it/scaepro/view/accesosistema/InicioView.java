@@ -42,7 +42,7 @@ public class InicioView extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioView() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(InicioView.class.getResource("/img/LogoGreenPearfin.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InicioView.class.getResource("/img/Logo1.png")));
 		setResizable(false);
 		setTitle("Inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

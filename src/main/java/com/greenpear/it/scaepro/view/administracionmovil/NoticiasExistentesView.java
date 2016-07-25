@@ -5,14 +5,16 @@ import java.awt.EventQueue;
 import java.awt.ScrollPane;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
-public class NoticiasExistentesView extends JFrame {
+public class NoticiasExistentesView extends JInternalFrame {
 
 	public JPanel contentPane;
 	public JTable tablaNoticias;
@@ -38,14 +40,18 @@ public class NoticiasExistentesView extends JFrame {
 	 * Create the frame.
 	 */
 	public NoticiasExistentesView() {
+		setFrameIcon(new ImageIcon(NoticiasExistentesView.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
 		setTitle("Noticias Existentes");
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 465, 444);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBackground(SystemColor.activeCaption);

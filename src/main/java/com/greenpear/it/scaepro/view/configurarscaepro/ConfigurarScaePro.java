@@ -1,6 +1,7 @@
 package com.greenpear.it.scaepro.view.configurarscaepro;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -28,7 +29,7 @@ import java.awt.Image;
 import javax.swing.SpinnerNumberModel;
 import java.awt.SystemColor;
 
-public class ConfigurarScaePro extends JFrame {
+public class ConfigurarScaePro extends JInternalFrame {
 	private JTextField txtNombreTurno;
 	private JComboBox cmbArea;
 	private JCheckBox chckbxLunes;
@@ -125,12 +126,14 @@ public class ConfigurarScaePro extends JFrame {
 	private JLabel lblHoraDeEntradaComidaG;
 	
 	public ConfigurarScaePro() {
+		setFrameIcon(new ImageIcon(ConfigurarScaePro.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
 		getContentPane().setBackground(SystemColor.activeCaption);
 		getContentPane().setLayout(null);
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 980, 570);
-		setLocationRelativeTo(null);
 		super.setTitle("Configurar Scae Pro");
 		
 		JPanel panel = new JPanel();

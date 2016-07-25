@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -14,8 +15,9 @@ import java.awt.SystemColor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
-public class EstatusPagoView extends JFrame {
+public class EstatusPagoView extends JInternalFrame {
 
 	public JPanel contentPane;
 	public JTable tabla;
@@ -42,14 +44,18 @@ public class EstatusPagoView extends JFrame {
 	 * Create the frame.
 	 */
 	public EstatusPagoView() {
+		setFrameIcon(new ImageIcon(EstatusPagoView.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
 		setTitle("Estatus de pago");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 731, 461);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		JLabel lblrea = new JLabel("\u00C1rea:");
 		lblrea.setBounds(10, 31, 46, 14);

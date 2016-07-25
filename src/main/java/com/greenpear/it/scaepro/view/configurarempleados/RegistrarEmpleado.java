@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.text.DateFormat;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -17,8 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.SystemColor;
 
-public class RegistrarEmpleado extends JFrame {
+public class RegistrarEmpleado extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNombres;
@@ -47,15 +49,21 @@ public class RegistrarEmpleado extends JFrame {
 	private JLabel lblHuellaDigital; 
 	
 	public RegistrarEmpleado() {
+		setFrameIcon(new ImageIcon(RegistrarEmpleado.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
 		setTitle("Registrar empleado");
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 970, 580);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 
 		JPanel pnlDatosPersonales = new JPanel();
+		pnlDatosPersonales.setBackground(SystemColor.activeCaption);
 		pnlDatosPersonales.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null),
 				"Datos personales:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnlDatosPersonales.setBounds(10, 10, 360, 307);
@@ -116,6 +124,7 @@ public class RegistrarEmpleado extends JFrame {
 		pnlDatosPersonales.add(dtfechaNac);
 
 		JPanel pnlDireccion = new JPanel();
+		pnlDireccion.setBackground(SystemColor.activeCaption);
 		pnlDireccion.setBorder(
 				new TitledBorder(null, "Direcci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlDireccion.setBounds(381, 10, 360, 307);
@@ -189,6 +198,7 @@ public class RegistrarEmpleado extends JFrame {
 		pnlDireccion.add(cmbColonia);
 
 		JPanel pnlNipFotografia = new JPanel();
+		pnlNipFotografia.setBackground(SystemColor.activeCaption);
 		pnlNipFotografia.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null),
 				"Nip y fotograf\u00EDa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnlNipFotografia.setBounds(749, 10, 215, 458);
@@ -212,6 +222,7 @@ public class RegistrarEmpleado extends JFrame {
 		pnlNipFotografia.add(btnCapturarFoto);
 
 		JPanel pnlAsignacion = new JPanel();
+		pnlAsignacion.setBackground(SystemColor.activeCaption);
 		pnlAsignacion.setBorder(
 				new TitledBorder(null, "Asignaci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlAsignacion.setBounds(10, 334, 360, 201);
@@ -238,6 +249,7 @@ public class RegistrarEmpleado extends JFrame {
 		txtPuesto.setColumns(10);
 
 		JPanel pnlNomina = new JPanel();
+		pnlNomina.setBackground(SystemColor.activeCaption);
 		pnlNomina.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Nomina:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnlNomina.setBounds(381, 334, 360, 201);

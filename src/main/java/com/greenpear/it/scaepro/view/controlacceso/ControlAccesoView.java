@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class ControlAccesoView extends JFrame {
 
@@ -64,6 +65,7 @@ public class ControlAccesoView extends JFrame {
 	 * Create the frame.
 	 */
 	public ControlAccesoView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ControlAccesoView.class.getResource("/img/Logo1.png")));
 		setTitle("Registro de Control de Acceso");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 521, 370);

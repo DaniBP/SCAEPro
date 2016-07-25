@@ -27,8 +27,9 @@ import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.ImageIcon;
 
-public class SolicitudReporteView extends JFrame {
+public class SolicitudReporteView extends JInternalFrame {
 
 	public JPanel contentPane;
 	public JRadioButton rdbtnReporteGeneral;
@@ -60,14 +61,18 @@ public class SolicitudReporteView extends JFrame {
 	 * Create the frame.
 	 */
 	public SolicitudReporteView() {
+		setFrameIcon(new ImageIcon(SolicitudReporteView.class.getResource("/img/Logo1.png")));
+		setClosable(true);
+		setIconifiable(true);
 		setTitle("Reportes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 670, 457);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		JLabel lblNewLabel = new JLabel("Fecha Actual:");
 		lblNewLabel.setBounds(379, 11, 79, 14);

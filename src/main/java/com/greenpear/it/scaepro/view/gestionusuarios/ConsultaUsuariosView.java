@@ -22,8 +22,10 @@ import java.awt.ScrollPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.UIManager;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
-public class ConsultaUsuariosView extends JFrame {
+public class ConsultaUsuariosView extends JInternalFrame {
 	public JTextField txtNombreUsuario;
 	public JButton btnBuscar;
 	public JTable tablaUsuarios;
@@ -48,11 +50,19 @@ public class ConsultaUsuariosView extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultaUsuariosView() {
+		setFrameIcon(new ImageIcon(ConsultaUsuariosView.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
+		setTitle("Consulta de usuarios");
+		getContentPane().setBackground(SystemColor.activeCaption);
 		setBounds(100, 100, 615, 401);
 		getContentPane().setLayout(null);
+		setResizable(false);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Buscar por Nombre:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBorder(new TitledBorder(null, "Buscar por nombre: ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(27, 11, 546, 65);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -71,11 +81,13 @@ public class ConsultaUsuariosView extends JFrame {
 		panel.add(btnBuscar);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.activeCaption);
 		panel_1.setBounds(27, 87, 546, 273);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground(SystemColor.activeCaption);
 		scrollPane.setBounds(10, 11, 526, 251);
 		panel_1.add(scrollPane);
 		

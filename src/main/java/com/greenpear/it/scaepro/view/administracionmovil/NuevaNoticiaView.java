@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -19,7 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 
-public class NuevaNoticiaView extends JFrame {
+public class NuevaNoticiaView extends JInternalFrame {
 
 	public JPanel contentPane;
 	public JTextField txtTitulo;
@@ -49,14 +50,18 @@ public class NuevaNoticiaView extends JFrame {
 	 * Create the frame.
 	 */
 	public NuevaNoticiaView() {
+		setFrameIcon(new ImageIcon(NuevaNoticiaView.class.getResource("/img/Logo1.png")));
+		setIconifiable(true);
+		setClosable(true);
 		setTitle("Nueva Noticia");
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 381, 481);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		JLabel lblTtulo = new JLabel("T\u00EDtulo:");
 		lblTtulo.setBounds(26, 11, 46, 14);

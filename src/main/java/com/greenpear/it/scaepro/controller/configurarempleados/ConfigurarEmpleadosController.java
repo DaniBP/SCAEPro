@@ -103,12 +103,15 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			getRegistrarEmpleadoView().getBtnRegistrar().addActionListener(this);
 			getRegistrarEmpleadoView().getCmbArea().addItemListener(this);
 			getRegistrarEmpleadoView().getCmbTurno().addItemListener(this);
-			getRegistrarEmpleadoView().addWindowListener(this);
+//			getRegistrarEmpleadoView().addWindowListener(this);
 			getRegistrarEmpleadoView().getCmbPeriodoNominal().addItemListener(this);
 			getRegistrarEmpleadoView().getBtnCapturarFoto().addActionListener(this);
 			getRegistrarEmpleadoView().getBtnLeerHuella().addActionListener(this);
 		}
 		getRegistrarEmpleadoView().setVisible(true);
+		getRegistrarEmpleadoView().toFront();
+		
+		ventanaOpen();
 	}
 
 	@Override
@@ -496,6 +499,41 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 					}
 				});
 		llenarComboArea();
+	}
+	
+	public void ventanaOpen(){
+		// El siguiente evento limita la entrada de letras en los campos de tipo
+				// numerico
+				soloNumeros(getRegistrarEmpleadoView().getTxtCp(), getRegistrarEmpleadoView().getTxtNumeroExt(),
+						getRegistrarEmpleadoView().getTxtNumeroInt(), getRegistrarEmpleadoView().getTxtTelCasa(),
+						getRegistrarEmpleadoView().getTxtTelCel());
+				// El siguiente evento limita la entrada de numeros en los campos de
+				// tipo texto
+				soloLetras(getRegistrarEmpleadoView().getTxtNombres(), getRegistrarEmpleadoView().getTxtApePat(),
+						getRegistrarEmpleadoView().getTxtApeMat(), getRegistrarEmpleadoView().getTxtPuesto());
+				// El siguiente evento limita la entrada de caracteres de Codigo Postal
+				// a 5
+				limitadorDeCaracteres();
+
+				// El siguiente evento escucha los cambios de las entradas cobre el
+				// Codigo Postal
+				getRegistrarEmpleadoView().getTxtCp().getDocument()
+						.addDocumentListener(new javax.swing.event.DocumentListener() {
+							public void insertUpdate(javax.swing.event.DocumentEvent evt) {
+								if (getRegistrarEmpleadoView().getTxtCp().getText().length() == 5) {
+									String cp = getRegistrarEmpleadoView().getTxtCp().getText();
+									llenarDireccion(cp);
+								}
+							}
+
+							public void removeUpdate(javax.swing.event.DocumentEvent evt) {
+							}
+
+							public void changedUpdate(javax.swing.event.DocumentEvent evt) {
+
+							}
+						});
+				llenarComboArea();
 	}
 
 	private void limitadorDeCaracteres() {

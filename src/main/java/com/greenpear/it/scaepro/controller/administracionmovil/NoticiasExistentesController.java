@@ -62,6 +62,7 @@ public class NoticiasExistentesController {
 	// ***********FIN DE ESTANCIAS****************
 	public void mostrarNoticiasExistentes() {
 		getVista().setVisible(true);
+		getVista().toFront();
 		cargarNoticias();
 	}
 

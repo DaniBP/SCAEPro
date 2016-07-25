@@ -79,6 +79,7 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 			llenarAreas();
 			obtenerFechaActual();
 			getVista().setVisible(true);
+			getVista().toFront();
 		}
 		
 		private void obtenerFechaActual() {

@@ -42,7 +42,7 @@ public class AltaAreasController implements ActionListener{
 		return modelo;
 	}
 	
-	private AltaAreasView getVista() {
+	public AltaAreasView getVista() {
 		return vista;
 	}
 	
@@ -53,11 +53,11 @@ public class AltaAreasController implements ActionListener{
 	//***********FIN DE ESTANCIAS****************
 	 public void mostrarVistaRegistrarAreas(){
 		 if(getVista().btnRegistrar.getActionListeners().length == 0){
-		 getVista().btnRegistrar.addActionListener(this);
-		 getVista().btnLimpiar.addActionListener(this);
-		 
+			 getVista().btnRegistrar.addActionListener(this);
+			 getVista().btnLimpiar.addActionListener(this);
 		 }
 			getVista().setVisible(true);
+			getVista().toFront();
 			editarArea();
 	 }
 

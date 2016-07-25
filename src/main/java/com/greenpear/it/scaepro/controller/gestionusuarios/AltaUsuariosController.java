@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import com.greenpear.it.scaepro.bo.gestionareas.AltaAreasBo;
 import com.greenpear.it.scaepro.bo.gestionusuarios.AltaUsuariosBo;
+import com.greenpear.it.scaepro.controller.accesosistema.PrincipalController;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
-import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.model.gestionusuarios.ConsultaUsuariosModel;
-import com.greenpear.it.scaepro.view.gestionareas.AltaAreasView;
 import com.greenpear.it.scaepro.view.gestionusuarios.AltaUsuariosView;
 /**
  * @author Alan Aguilar
@@ -45,7 +43,7 @@ public class AltaUsuariosController implements ActionListener{
 		return modelo;
 	}
 	
-	private AltaUsuariosView getVista() {
+	public AltaUsuariosView getVista() {
 		return vista;
 	}
 	
@@ -53,14 +51,16 @@ public class AltaUsuariosController implements ActionListener{
 		return bo;
 	}
 
+
 	//***********FIN DE ESTANCIAS****************
 	 public void mostrarVistaRegistrarUsuarios(){
 		 if(getVista().btnRegistrar.getActionListeners().length == 0){
-		 getVista().btnRegistrar.addActionListener(this);
-		 getVista().btnLimpiar.addActionListener(this);
-		 
+			 getVista().btnRegistrar.addActionListener(this);
+			 getVista().btnLimpiar.addActionListener(this);		 
 		 }
-			getVista().setVisible(true);
+
+		 	getVista().setVisible(true);
+		 	getVista().toFront();
 			editarUsuario();
 	 }
 

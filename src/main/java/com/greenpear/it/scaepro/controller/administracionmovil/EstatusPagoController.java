@@ -69,6 +69,7 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 		}
 		llenarAreas();
 		getVista().setVisible(true);
+		getVista().toFront();
 	}
 
 	private void llenarAreas() {

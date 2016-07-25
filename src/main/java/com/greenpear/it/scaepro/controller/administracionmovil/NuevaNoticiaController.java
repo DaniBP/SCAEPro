@@ -84,6 +84,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 		getVista().setTitle(getModelo().getNombreVentana());
 		getVista().btnRegistrar.setBounds(101, 385, 168, 32);
 		getVista().btnEliminar.setVisible(false);
+		getVista().toFront();
 		editarNoticia();
 	}
 

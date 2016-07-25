@@ -70,6 +70,7 @@ public class GenerarAvisoController implements ActionListener, ItemListener {
 			getVista().cmbTipoAviso.addItemListener(this);
 		}
 		getVista().setVisible(true);
+		getVista().toFront();
 	}
 
 	@Override

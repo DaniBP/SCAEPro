@@ -15,6 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class AccesoAlSistemaView extends JFrame {
 
@@ -45,6 +46,7 @@ public class AccesoAlSistemaView extends JFrame {
 	 * Create the frame.
 	 */
 	public AccesoAlSistemaView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AccesoAlSistemaView.class.getResource("/img/Logo1.png")));
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 475);

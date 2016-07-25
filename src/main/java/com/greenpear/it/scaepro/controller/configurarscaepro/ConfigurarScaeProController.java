@@ -34,6 +34,7 @@ import com.greenpear.it.scaepro.bo.configurarscaepro.ConfigurarScaeProBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
+import com.greenpear.it.scaepro.view.accesosistema.PrincipalView;
 import com.greenpear.it.scaepro.view.configurarscaepro.ConfigurarScaePro;
 
 /**
@@ -61,7 +62,7 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 	@Autowired
 	@Qualifier("configurarScaeProBo")
 	private ConfigurarScaeProBo configurarScaeProBo;
-
+	
 	public GovernmentService getGovernment() {
 		return government;
 	}
@@ -115,10 +116,10 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 			getConfigurarScaeProView().getBtnGuardarEditar().addActionListener(this);
 			
 			getConfigurarScaeProView().getTxtNombreTurno().addKeyListener(this);
-			
 		}
 		
 		getConfigurarScaeProView().setVisible(true);
+		getConfigurarScaeProView().toFront();
 		
 		llenarComboAreas();
 		
@@ -1227,7 +1228,7 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 		if(e.getSource()==getConfigurarScaeProView().getTxtNombreTurno()){
 			String c =Character.toString(e.getKeyChar());
 			
-			Pattern pat = Pattern.compile("[a-zA-Z0-9·¡È…ÌÕÛ”˙⁄]");
+			Pattern pat = Pattern.compile("[a-zA-Z0-9·¡È…ÌÕÛ”˙⁄ ]");
 		    Matcher mat = pat.matcher(c);
 		    if (!mat.matches()) {
 		    	e.consume();
