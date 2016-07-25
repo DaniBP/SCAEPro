@@ -44,6 +44,7 @@ public class PrincipalController implements ActionListener{
 			getVistaPrincipal().getMntmConsultarreas().addActionListener(this);
 			getVistaPrincipal().getMntmConfigurarScaePro().addActionListener(this);
 			getVistaPrincipal().getMntmRegistrarEmpleado().addActionListener(this);
+			getVistaPrincipal().getMntmConsultarEmpleados().addActionListener(this);
 			getVistaPrincipal().getMntmGenerarReporte().addActionListener(this);
 			getVistaPrincipal().getMntmAdministrarAvisos().addActionListener(this);
 			getVistaPrincipal().getMntmAdministrarNotcias().addActionListener(this);
@@ -55,6 +56,7 @@ public class PrincipalController implements ActionListener{
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getConsultaAreasController().getVista());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getConfigurarScaeProController().getConfigurarScaeProView());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getRegistrarEmpleadoController().getRegistrarEmpleadoView());
+			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getConsultarEmpleadosController().getConsultaEmpleadoView());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getSolicitudReporteController().getVista());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getAdminNoticiasController().getVista());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getNuevaNoticiaController().getVista());
@@ -82,6 +84,8 @@ public class PrincipalController implements ActionListener{
 			getGovernment().mostrarVistaConfigurarScaePro();
 		}else if(e.getSource() == getVistaPrincipal().getMntmRegistrarEmpleado()){
 			getGovernment().mostrarVistaRegistro();
+		}else if(e.getSource() == getVistaPrincipal().getMntmConsultarEmpleados()){
+			getGovernment().mostrarVistaConsultarEmpleados();
 		}else if(e.getSource() == getVistaPrincipal().getMntmGenerarReporte()){
 			getGovernment().mostrarVistaSolicitudReporte();
 		}else if(e.getSource() == getVistaPrincipal().getMntmAdministrarNotcias()){

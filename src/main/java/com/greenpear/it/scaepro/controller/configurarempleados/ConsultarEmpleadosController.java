@@ -103,9 +103,12 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 			getConsultaEmpleadoView().getCmbArea().addItemListener(this);
 			getConsultaEmpleadoView().getCmbPuesto().addItemListener(this);
 			getConsultaEmpleadoView().getCmbTurno().addItemListener(this);
-			getConsultaEmpleadoView().addWindowListener(this);
-			getConsultaEmpleadoView().setVisible(true);
+//			getConsultaEmpleadoView().addWindowListener(this);
 		}
+		
+		getConsultaEmpleadoView().setVisible(true);
+		getConsultaEmpleadoView().toFront();
+		ventanaOpen();
 	}
 
 	@Override
@@ -206,6 +209,11 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 
 	@Override
 	public void windowOpened(WindowEvent e) {
+		consultarAreas();
+		consultaGeneral();
+	}
+	
+	public void ventanaOpen(){
 		consultarAreas();
 		consultaGeneral();
 	}
