@@ -123,6 +123,8 @@ public class EstatusPagoDao {
 			parameters.put("comentario", modeloConsulta.getComentario());
 			
 			insert.executeAndReturnKey(parameters).intValue();
+			
+			System.out.println("LOL");
 
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());

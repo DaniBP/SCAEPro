@@ -93,6 +93,7 @@ public class AccesoAlSistemaController implements ActionListener{
 			
 			if(acceso.equals("Acceso concedido!")){
 				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+				getLoginView().setVisible(false);
 				getGovernment().mostrarVentanaPrincipal();
 			}else{
 				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.WARNING_MESSAGE);

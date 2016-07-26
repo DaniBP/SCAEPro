@@ -111,6 +111,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		getRegistrarEmpleadoView().setVisible(true);
 		getRegistrarEmpleadoView().toFront();
 		
+		limpiarVentanas();
 		ventanaOpen();
 	}
 
@@ -318,18 +319,37 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 
 	private void limpiarVentanas() {
 		getRegistrarEmpleadoView().getTxtNombres().setText(null);
+		getRegistrarEmpleadoView().getTxtNombres().setEditable(true);
 		getRegistrarEmpleadoView().getTxtApePat().setText(null);
+		getRegistrarEmpleadoView().getTxtApePat().setEditable(true);
 		getRegistrarEmpleadoView().getTxtApeMat().setText(null);
+		getRegistrarEmpleadoView().getTxtApeMat().setEditable(true);
 		getRegistrarEmpleadoView().getTxtCalle().setText(null);
+		getRegistrarEmpleadoView().getTxtCalle().setEditable(true);
 		getRegistrarEmpleadoView().getTxtCp().setText(null);
+		getRegistrarEmpleadoView().getTxtCp().setEditable(true);
 		getRegistrarEmpleadoView().getTxtNumeroExt().setText(null);
+		getRegistrarEmpleadoView().getTxtNumeroExt().setEditable(true);
 		getRegistrarEmpleadoView().getTxtNumeroInt().setText(null);
+		getRegistrarEmpleadoView().getTxtNumeroInt().setEditable(true);
 		getRegistrarEmpleadoView().getTxtPuesto().setText(null);
+		getRegistrarEmpleadoView().getTxtPuesto().setEditable(true);
 		getRegistrarEmpleadoView().getTxtMunicipio().setText(null);
+		getRegistrarEmpleadoView().getTxtMunicipio().setEditable(true);
 		getRegistrarEmpleadoView().getTxtEstado().setText(null);
+		getRegistrarEmpleadoView().getTxtEstado().setEditable(true);
 		getRegistrarEmpleadoView().getTxtTelCasa().setText(null);
+		getRegistrarEmpleadoView().getTxtTelCasa().setEditable(true);
 		getRegistrarEmpleadoView().getTxtTelCel().setText(null);
+		getRegistrarEmpleadoView().getTxtTelCel().setEditable(true);
 		getRegistrarEmpleadoView().getFecha().setDate(null);
+		getRegistrarEmpleadoView().getFecha().setEnabled(true);
+		getRegistrarEmpleadoView().getBtnCapturarFoto().setText("Capturar Foto");
+		getRegistrarEmpleadoView().getBtnCapturarFoto().setVisible(true);
+		getRegistrarEmpleadoView().getBtnLeerHuella().setText("Capturar Huella");
+		getRegistrarEmpleadoView().getBtnLeerHuella().setVisible(true);
+		getRegistrarEmpleadoView().getBtnRegistrar().setText("Registrar");
+		getRegistrarEmpleadoView().getBtnRegistrar().setVisible(true);
 		getRegistrarEmpleadoView().getLblFotografia().setIcon(null);
 		getRegistrarEmpleadoView().getLblHuellaDigital().setIcon(null);
 		limpiarCombos();
@@ -358,10 +378,11 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 	public void limpiarCombos() {
 		final int tempArea = getRegistrarEmpleadoView().getCmbArea().getItemCount();
 		final int tempNomina = getRegistrarEmpleadoView().getCmbPeriodoNominal().getItemCount();
+		getRegistrarEmpleadoView().getCmbArea().setEnabled(true);
+		getRegistrarEmpleadoView().getCmbPeriodoNominal().setEnabled(true);
 		for (int x = 0; x < tempArea; x++) {
-			getRegistrarEmpleadoView().getCmbArea().removeItemAt(0);
-			if (getRegistrarEmpleadoView().getCmbArea().getItemCount() == 1) {
-				llenarComboArea();
+			if (getRegistrarEmpleadoView().getCmbArea().getItemCount() != 1) {
+				getRegistrarEmpleadoView().getCmbArea().removeItemAt(1);
 			}
 		}
 		for (int x = 0; x < tempNomina; x++) {
@@ -377,9 +398,8 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 	}
 	public void limpiarArea(){
 		final int tempArea = getRegistrarEmpleadoView().getCmbArea().getItemCount();
-		final int tempNomina = getRegistrarEmpleadoView().getCmbPeriodoNominal().getItemCount();
 		for (int x = 0; x < tempArea; x++) {
-			getRegistrarEmpleadoView().getCmbArea().removeItemAt(0);
+			getRegistrarEmpleadoView().getCmbArea().removeItemAt(1);
 			if (getRegistrarEmpleadoView().getCmbArea().getItemCount() == 1) {
 				llenarComboArea();
 			}
@@ -685,7 +705,6 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 
 	public void llenarComboArea() {
 		// getRegistrarEmpleadoView().getCmbArea().removeAllItems();
-		getRegistrarEmpleadoView().getCmbArea().addItem("--------Seleccione un area--------");
 		List<EmpleadoModel> lista = new ArrayList<EmpleadoModel>();
 		try {
 			lista = getEmpleadosBo().consultaGeneral();

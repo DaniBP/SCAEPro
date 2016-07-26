@@ -75,7 +75,7 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 		Webcam.addDiscoveryListener(this);
 
 		setTitle("Tomar fotografia de empleado");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
 		addWindowListener(this);

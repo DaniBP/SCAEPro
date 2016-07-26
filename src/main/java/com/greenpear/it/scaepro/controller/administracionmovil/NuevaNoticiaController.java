@@ -99,7 +99,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 			getVista().setTitle(getModelo().getNombreVentana());
 			getVista().btnEliminar.setVisible(true);
 			ImageIcon icono = new ImageIcon(
-					"C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/img/imgsNoticias/"
+					"src/main/resources/img/imgsNoticias/"
 							+ getModelo().getImagenNoticia());
 			Image img = icono.getImage();
 			Image nuevaImg = img.getScaledInstance(213, 102, java.awt.Image.SCALE_SMOOTH);
@@ -168,7 +168,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 				// copy file using Java 7 Files class
 				File source = new File(archive);
 				File dest = new File(
-						"C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/img/imgsNoticias/"
+						"src/main/resources/img/imgsNoticias/"
 								+ nombreArchivo);
 				start = System.nanoTime();
 					try {
@@ -230,7 +230,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 				// copy file using Java 7 Files class
 				File source = new File(archive);
 				File dest = new File(
-						"C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/img/imgsNoticias/"
+						"src/main/resources/img/imgsNoticias/"
 								+ nombreArchivo);
 				start = System.nanoTime();
 				try {

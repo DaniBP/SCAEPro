@@ -43,7 +43,7 @@ public class NoticiaImagenController {
 		public void mostrarImagenAmpliada() {
 			getVista().setTitle(getModelo().getImagenNoticia());
 			ImageIcon icono = new ImageIcon(
-					"C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/img/imgsNoticias/"
+					"src/main/resources/img/imgsNoticias/"
 							+ getModelo().getImagenNoticia());
 			Image img = icono.getImage();
 			Image nuevaImg = img.getScaledInstance(544, 321, java.awt.Image.SCALE_SMOOTH);

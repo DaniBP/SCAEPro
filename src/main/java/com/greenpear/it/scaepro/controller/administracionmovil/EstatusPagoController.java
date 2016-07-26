@@ -93,8 +93,8 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 		}
 		if(e.getSource() == getVista().btnConfirmar){
 			String registroStatusPago = null;
-			int columnas = getVista().tabla.getColumnCount();
-			for(int x=0; x<columnas; x++){
+			int filas = getVista().tabla.getRowCount();
+			for(int x=0; x<filas; x++){
 				String empleado;
 				String comentario;
 				int idStatusPago = 0;

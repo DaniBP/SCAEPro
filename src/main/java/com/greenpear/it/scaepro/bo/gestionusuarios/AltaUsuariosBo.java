@@ -37,16 +37,14 @@ public class AltaUsuariosBo implements InsertService<ConsultaUsuariosModel>{
 			return "Las contraseñas no coinciden";
 		} else if (modelo.getPasswordUsuario2().length() < 8) {
 			return "la contraseña es muy corta";
-		} else if (modelo.getCorreoUsuario().length() < 8 || modelo.getCorreoUsuario().length() > 30 || // ){
-
-		modelo.getCorreoUsuario().matches(
-				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
-
+		} else if (modelo.getCorreoUsuario().length() < 8 || modelo.getCorreoUsuario().length() > 30){
+				return "El correo debe contener de 8 a 30 caracteres";
+		}else if(!modelo.getCorreoUsuario().matches(
+			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+		return "El formato del correo es incorrecto";
 		} else if (!modelo.getCorreoUsuario().equals(modelo.getCorreoUsuario2())) {
 			return "Los Correos no coinciden";
 			
-		} else {
-			return "EL email ingresado es invalido";
 		}
 		
 		try {
@@ -68,16 +66,14 @@ public class AltaUsuariosBo implements InsertService<ConsultaUsuariosModel>{
 			return "Las contraseñas no coinciden";
 		} else if (modelo.getPasswordUsuario2().length() < 8) {
 			return "la contraseña es muy corta";
-		} else if (modelo.getCorreoUsuario().length() < 8 || modelo.getCorreoUsuario().length() > 30 || // ){
-
-		modelo.getCorreoUsuario().matches(
+		} else if (modelo.getCorreoUsuario().length() < 8 || modelo.getCorreoUsuario().length() > 30){
+			return "El correo debe contener de 8 a 30 caracteres";
+		}else if(!modelo.getCorreoUsuario().matches(
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
-
+			return "El formato del correo es incorrecto";
 		} else if (!modelo.getCorreoUsuario2().equals(modelo.getCorreoUsuario())) {
 			return "Los Correos no coinciden";
 			
-		} else {
-			return "EL email ingresado es invalido";
 		}
 		
 		try {

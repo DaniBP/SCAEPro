@@ -48,7 +48,7 @@ public class GenerarAvisoDao {
 
 	public List<GenerarAvisoModel> consultaGeneral() throws SQLException {
 		List<GenerarAvisoModel> listaEmpleados = new ArrayList<GenerarAvisoModel>();
-		String sql = "SELECT * FROM t_empleado where idEmpleado>999900 order by apePatEmpleado";
+		String sql = "SELECT * FROM t_empleado order by apePatEmpleado";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<GenerarAvisoModel>() {

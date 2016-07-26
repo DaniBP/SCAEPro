@@ -230,6 +230,7 @@ public class RegistrarEmpleado extends JInternalFrame {
 		pnlAsignacion.setLayout(null);
 
 		cmbArea = new JComboBox();
+		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"--------Seleccione un \u00E1rea--------"}));
 		cmbArea.setBounds(20, 101, 311, 27);
 		pnlAsignacion.add(cmbArea);
 

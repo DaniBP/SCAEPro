@@ -154,7 +154,7 @@ public class NoticiasExistentesController {
 			JButton btn = new JButton("Detalle");
 			JButton btn2 = new JButton();
 			ImageIcon icono = new ImageIcon(
-					"C:/Users/EDSONJOSUE/Documents/WorkSpaceSpringTools/SCAEPro/src/main/resources/img/imgsNoticias/"
+					"src/main/resources/img/imgsNoticias/"
 							+ noticias.getImagenNoticia());
 			Image img = icono.getImage();
 			Image nuevaImg = img.getScaledInstance(75, 60, java.awt.Image.SCALE_SMOOTH);

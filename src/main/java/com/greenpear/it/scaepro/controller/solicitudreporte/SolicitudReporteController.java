@@ -160,7 +160,7 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 					JasperPrint jasperPrint=JasperFillManager.fillReport(new File(".").getAbsolutePath()+"/src/main/resources/reportes/ReportePorArea.jasper", parametro, connection);
 					JasperViewer jasperViewer=new JasperViewer(jasperPrint);
 					jasperViewer.setVisible(true);
-					jasperViewer.setDefaultCloseOperation(jasperViewer.DO_NOTHING_ON_CLOSE);
+					jasperViewer.setDefaultCloseOperation(jasperViewer.HIDE_ON_CLOSE);
 				}catch (JRException ex){
 					System.out.println(ex.getMessage());
 				}
@@ -181,6 +181,7 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 					JasperPrint jasperPrint=JasperFillManager.fillReport(new File(".").getAbsolutePath()+"/src/main/resources/reportes/ReporteGeneral.jasper", parametro, connection);
 					JasperViewer jasperViewer=new JasperViewer(jasperPrint);
 					jasperViewer.setVisible(true);
+					jasperViewer.setDefaultCloseOperation(jasperViewer.HIDE_ON_CLOSE);
 				}catch (JRException ex){
 					System.out.println(ex.getMessage());
 				}
