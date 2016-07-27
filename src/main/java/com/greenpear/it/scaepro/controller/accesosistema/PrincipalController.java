@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
+import com.greenpear.it.scaepro.model.solicitudreporte.SolicitudReporteModel;
 import com.greenpear.it.scaepro.view.accesosistema.PrincipalView;
 /**
  * 
@@ -23,6 +24,7 @@ public class PrincipalController implements ActionListener{
 	
 	@Autowired
 	private GovernmentService government;
+	
 	
 	@Autowired
 	private PrincipalView vistaPrincipal;

@@ -10,13 +10,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -35,10 +40,15 @@ import com.greenpear.it.scaepro.controller.government.GovernmentService;
 import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
+import com.greenpear.it.scaepro.model.solicitudreporte.SolicitudReporteModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.view.configurarempleados.ConsultarEmpleado;
 
 import jdk.nashorn.internal.scripts.JO;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 @Controller
 
@@ -51,11 +61,16 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 	// Government
 	@Autowired
 	private GovernmentService goverment;
+	
 	// Modelos
 	@Autowired
 	private EmpleadoModel configurarEmpleadosModel;
+	
 	@Autowired
 	private TurnoModel turnoModelo;
+	
+	@Autowired
+	private SolicitudReporteModel solicitudReporteModel;
 
 	// Vistas
 	@Autowired
@@ -92,6 +107,10 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 
 	public void setTurnoModelo(TurnoModel turnoModelo) {
 		this.turnoModelo = turnoModelo;
+	}
+	
+	public SolicitudReporteModel getSolicitudReporteModel() {
+		return solicitudReporteModel;
 	}
 
 	// End Setter and Getters
@@ -284,7 +303,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 									nombreArea = getConsultaEmpleadoView().getTable().getModel().getValueAt(fila, i).toString();
 								}
 								if (getConsultaEmpleadoView().getTable().getModel().getColumnName(i) == "Turno") {
-									nombreArea = getConsultaEmpleadoView().getTable().getModel().getValueAt(fila, i).toString();
+									turno = getConsultaEmpleadoView().getTable().getModel().getValueAt(fila, i).toString();
 								}
 							}
 						}
@@ -321,20 +340,12 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							return;
 						}
 						else if (boton.toString().contains("Reporte") == true) {
-							JOptionPane.showMessageDialog(null, "Entro a reporte");
-//							if (JOptionPane.showConfirmDialog(null, "Seguro de Eliminar el empleado :" + nombreEmpleado) == 0) {
-//								configurarEmpleadosModel.setNombreEmpleado(nombreEmpleado);
-//								delete = getEmpleadosBo().eliminarEmpleado(getConfigurarEmpleadosModel());
-//								if (delete.equals("El �rea fue eliminada correctamente!")) {
-//									JOptionPane.showMessageDialog(null, delete, "Eliminar �rea",
-//											JOptionPane.INFORMATION_MESSAGE);
-//								} else {
-//									JOptionPane.showMessageDialog(null, delete, "Eliminar �rea",
-//											JOptionPane.WARNING_MESSAGE);
-//								}
-//								consultaGeneral();
-//							}
-//							return;
+							getSolicitudReporteModel().setIdEmpleado(Integer.parseInt(idEmpleado));
+							getSolicitudReporteModel().setNombreEmpleado(nombreEmpleado);
+							getSolicitudReporteModel().setNombreArea(nombreArea);
+							getSolicitudReporteModel().setTurno(turno);
+							getSolicitudReporteModel().setBandera("Empleados");
+							getGoverment().mostrarVistaSolicitudReporte();
 						}
 						else if (boton.toString().contains("Mas") == true) {
 							EmpleadoModel empleadoModel = new EmpleadoModel();
@@ -351,21 +362,19 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				}
 
 				private void abrirVentanaModificar(EmpleadoModel empleadoModel) {
-					getGoverment().mostrarVistaRegistro();
 					String fecha=transformarFecha(empleadoModel.getFechaNacimiento());
 					Date fechaInsert=convertirFecha(fecha);
 					cargarvaloresDiaPago(empleadoModel);
 					DireccionModelo direccionModelo=consultarDireccionEmpleado(empleadoModel.getIdDireccionEmpleado());
 					TurnoModel turnoModel=consultarAreaTurnoEmpleado(empleadoModel.getIdTurno());
-					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtApePat().setText(empleadoModel.getApePatEmpleado());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtNombres().setText(empleadoModel.getNombreEmpleado());
+					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtApePat().setText(empleadoModel.getApePatEmpleado());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtApeMat().setText(empleadoModel.getApeMatEmpleado());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtTelCel().setText(empleadoModel.getTelCel());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtTelCasa().setText(empleadoModel.getTelCasa());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtPuesto().setText(empleadoModel.getPuesto());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getFecha().setDate(fechaInsert);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbPeriodoNominal().setSelectedItem(empleadoModel.getPeriodoNominal());
-					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setSelectedItem(Integer.toString(empleadoModel.getDiaDePago()));
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setEnabled(true);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtCp().setText(direccionModelo.getCp());
 					getGoverment().getRegistrarEmpleadoController().llenarDireccion(direccionModelo.getCp());
@@ -373,6 +382,8 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtCalle().setText(direccionModelo.getCalle());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtNumeroExt().setText(direccionModelo.getNumEx());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtNumeroInt().setText(direccionModelo.getNumIn());
+					getGoverment().getRegistrarEmpleadoController().llenarComboArea();
+					getGoverment().mostrarVistaRegistro();
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbArea().setSelectedItem(turnoModel.getArea());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbTurno().setSelectedItem(turnoModel.getNombreTurno());
 					ImageIcon fotografia=new ImageIcon("src/main/resources/img/fotosempleados/"+empleadoModel.getFotografia());
@@ -394,7 +405,6 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnLeerHuella().setText("Cambiar Huella");
 				}
 				public void abrirVentanaMas(EmpleadoModel empleadoModel) {
-					getGoverment().mostrarVistaRegistro();
 					String fecha=transformarFecha(empleadoModel.getFechaNacimiento());
 					Date fechaInsert=convertirFecha(fecha);
 					cargarvaloresDiaPago(empleadoModel);
@@ -417,7 +427,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbPeriodoNominal().setSelectedItem(empleadoModel.getPeriodoNominal());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbPeriodoNominal().setEnabled(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setEnabled(true);
-					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setSelectedItem(Integer.toString(empleadoModel.getDiaDePago()));
+//					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setSelectedItem(empleadoModel.get);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setEnabled(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtCp().setText(direccionModelo.getCp());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtCp().setEditable(false);
@@ -430,6 +440,8 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtNumeroExt().setEditable(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtNumeroInt().setText(direccionModelo.getNumIn());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtNumeroInt().setEditable(false);
+					getGoverment().getRegistrarEmpleadoController().llenarComboArea();
+					getGoverment().mostrarVistaRegistro();
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbArea().setSelectedItem(turnoModel.getArea());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbArea().setEnabled(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbTurno().setSelectedItem(turnoModel.getNombreTurno());
@@ -480,14 +492,12 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().addItem("30");
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setEnabled(true);
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setSelectedItem(Integer.toString(empleadoModel.getDiaDePago()));
-						
 					} else if (empleadoModel.getPeriodoNominal().equals("Quincenal")) {
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().addItem("1");
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().addItem("15");
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().addItem("30");
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setEnabled(true);
-						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setSelectedItem(empleadoModel.getDiaDePago());
-						System.out.println(empleadoModel.getDiaDePago());
+						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().setSelectedItem(Integer.toString(empleadoModel.getDiaDePago()));
 					} else if (empleadoModel.getPeriodoNominal().equals("Mensual")) {
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().addItem("1");
 						getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbDiaNomina().addItem("30");
