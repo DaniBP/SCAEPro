@@ -1,6 +1,5 @@
 package com.greenpear.it.scaepro.view.controlacceso;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,12 +9,6 @@ import java.awt.SystemColor;
 import java.util.Calendar;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JMenuItem;
-import javax.swing.JTextPane;
-import java.awt.Panel;
-import javax.swing.JInternalFrame;
-import java.awt.Label;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
@@ -24,7 +17,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 
 public class ControlAccesoView extends JFrame {
-
+	
 	private JPanel contentPane;
 	public JButton btnChecar;
 	public JButton btnSalir;
@@ -75,6 +68,7 @@ public class ControlAccesoView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		lblFecha = new JLabel("Fecha Actual:  ");
 		lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);

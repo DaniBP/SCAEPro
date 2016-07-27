@@ -161,13 +161,12 @@ public class PrincipalView extends JFrame {
 		lblNewLabel.setIcon(icono);
 		
 		try {
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	} catch (Exception e) {
-		JOptionPane.showMessageDialog(null, "Imposible modificar el tema visual", 
-		"Lookandfeel inválido.",
-		JOptionPane.ERROR_MESSAGE);
-	}
-
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Imposible modificar el tema visual", 
+			"Lookandfeel inválido.",
+			JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public JDesktopPane getPanelEscritorio() {

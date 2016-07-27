@@ -11,6 +11,7 @@ import javax.swing.JInternalFrame;
 
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
 
 public class AltaAreasView extends JInternalFrame {
 	
@@ -18,6 +19,7 @@ public class AltaAreasView extends JInternalFrame {
 	public JButton btnRegistrar;
 	public JTextArea txtDescArea;
 	public JButton btnLimpiar;
+	private JScrollPane scrollPane;
 	
 	public static void main(String[] args) {
 		AltaAreasView area = new AltaAreasView();
@@ -57,10 +59,6 @@ public class AltaAreasView extends JInternalFrame {
 		panel.add(txtArea);
 		txtArea.setColumns(10);
 		
-		txtDescArea = new JTextArea();
-		txtDescArea.setBounds(124, 128, 246, 90);
-		panel.add(txtDescArea);
-		
 		btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.setBounds(399, 129, 89, 23);
 		panel.add(btnLimpiar);
@@ -68,6 +66,13 @@ public class AltaAreasView extends JInternalFrame {
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(399, 63, 89, 23);
 		panel.add(btnRegistrar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(124, 127, 246, 89);
+		panel.add(scrollPane);
+		
+		txtDescArea = new JTextArea();
+		scrollPane.setViewportView(txtDescArea);
 
 	}
 }
