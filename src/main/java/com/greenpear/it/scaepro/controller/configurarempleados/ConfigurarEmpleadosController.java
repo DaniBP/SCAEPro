@@ -143,7 +143,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 								.getCmbColonia().getSelectedItem().equals("---Seleccione su colonia---")) {
 					JOptionPane.showMessageDialog(null, "Completa todos los valores solicitados de 'Direccion'");
 					// Validar panel de asignacion
-				} else if (getRegistrarEmpleadoView().getTxtPuesto().getText().isEmpty()
+				} else if (getRegistrarEmpleadoView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 						|| getRegistrarEmpleadoView().getCmbArea().getSelectedItem()
 								.equals("--------Seleccione un área--------")
 						|| getRegistrarEmpleadoView().getCmbTurno().getSelectedItem()
@@ -191,7 +191,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 								.getCmbColonia().getSelectedItem().equals("---Seleccione su colonia---")) {
 					JOptionPane.showMessageDialog(null, "Completa todos los valores solicitados de 'Direccion'");
 					// Validar panel de asignacion
-				} else if (getRegistrarEmpleadoView().getTxtPuesto().getText().isEmpty()
+				} else if (getRegistrarEmpleadoView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 						|| getRegistrarEmpleadoView().getCmbArea().getSelectedItem()
 								.equals("--------Seleccione un área--------")
 						|| getRegistrarEmpleadoView().getCmbTurno().getSelectedItem()
@@ -235,7 +235,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		getConfigurarEmpleadosModel().setTelCasa(getRegistrarEmpleadoView().getTxtTelCasa().getText());
 		getConfigurarEmpleadosModel().setTelCel(getRegistrarEmpleadoView().getTxtTelCel().getText());
 		getConfigurarEmpleadosModel().setIdDireccionEmpleado(getDireccionModelo().getIdDireccion());
-		getConfigurarEmpleadosModel().setPuesto(getRegistrarEmpleadoView().getTxtPuesto().getText());
+		getConfigurarEmpleadosModel().setPuesto(getRegistrarEmpleadoView().getCmbPuesto().getSelectedItem().toString());
 		getConfigurarEmpleadosModel().setIdTurno(turnoModelo.getIdTurno());
 		getConfigurarEmpleadosModel().setFotografia(configurarEmpleadosModel.getFotografia());
 		getConfigurarEmpleadosModel().setPeriodoNominal(getRegistrarEmpleadoView().getCmbPeriodoNominal().getSelectedItem().toString());
@@ -277,7 +277,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		getConfigurarEmpleadosModel().setTelCasa(getRegistrarEmpleadoView().getTxtTelCasa().getText());
 		getConfigurarEmpleadosModel().setTelCel(getRegistrarEmpleadoView().getTxtTelCel().getText());
 		getConfigurarEmpleadosModel().setIdDireccionEmpleado(getDireccionModelo().getIdDireccion());
-		getConfigurarEmpleadosModel().setPuesto(getRegistrarEmpleadoView().getTxtPuesto().getText());
+		getConfigurarEmpleadosModel().setPuesto(getRegistrarEmpleadoView().getCmbPuesto().getSelectedItem().toString());
 		getConfigurarEmpleadosModel().setIdTurno(turnoModelo.getIdTurno());
 		getConfigurarEmpleadosModel().setFotografia(configurarEmpleadosModel.getFotografia());
 		getConfigurarEmpleadosModel().setPeriodoNominal(getRegistrarEmpleadoView().getCmbPeriodoNominal().getSelectedItem().toString());
@@ -332,8 +332,6 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		getRegistrarEmpleadoView().getTxtNumeroExt().setEditable(true);
 		getRegistrarEmpleadoView().getTxtNumeroInt().setText(null);
 		getRegistrarEmpleadoView().getTxtNumeroInt().setEditable(true);
-		getRegistrarEmpleadoView().getTxtPuesto().setText(null);
-		getRegistrarEmpleadoView().getTxtPuesto().setEditable(true);
 		getRegistrarEmpleadoView().getTxtMunicipio().setText(null);
 		getRegistrarEmpleadoView().getTxtMunicipio().setEditable(true);
 		getRegistrarEmpleadoView().getTxtEstado().setText(null);
@@ -385,6 +383,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 				getRegistrarEmpleadoView().getCmbArea().removeItemAt(1);
 			}
 		}
+		getRegistrarEmpleadoView().getCmbPuesto().setSelectedItem("-----Seleccione puesto-----");
 		for (int x = 0; x < tempNomina; x++) {
 			getRegistrarEmpleadoView().getCmbPeriodoNominal().removeItemAt(0);
 			if (getRegistrarEmpleadoView().getCmbPeriodoNominal().getItemCount() == 1) {
@@ -495,7 +494,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		// El siguiente evento limita la entrada de numeros en los campos de
 		// tipo texto
 		soloLetras(getRegistrarEmpleadoView().getTxtNombres(), getRegistrarEmpleadoView().getTxtApePat(),
-				getRegistrarEmpleadoView().getTxtApeMat(), getRegistrarEmpleadoView().getTxtPuesto());
+				getRegistrarEmpleadoView().getTxtApeMat());
 		// El siguiente evento limita la entrada de caracteres de Codigo Postal
 		// a 5
 		limitadorDeCaracteres();
@@ -530,7 +529,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 				// El siguiente evento limita la entrada de numeros en los campos de
 				// tipo texto
 				soloLetras(getRegistrarEmpleadoView().getTxtNombres(), getRegistrarEmpleadoView().getTxtApePat(),
-						getRegistrarEmpleadoView().getTxtApeMat(), getRegistrarEmpleadoView().getTxtPuesto());
+						getRegistrarEmpleadoView().getTxtApeMat());
 				// El siguiente evento limita la entrada de caracteres de Codigo Postal
 				// a 5
 				limitadorDeCaracteres();
@@ -630,7 +629,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		});
 	}
 
-	private void soloLetras(JTextField txtNombres, JTextField txtApePat, JTextField txtApeMat, JTextField txtPuesto) {
+	private void soloLetras(JTextField txtNombres, JTextField txtApePat, JTextField txtApeMat) {
 		txtNombres.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
@@ -650,15 +649,6 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			}
 		});
 		txtApeMat.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (Character.isDigit(c)) {
-					Toolkit.getDefaultToolkit().beep();
-					e.consume();
-				}
-			}
-		});
-		txtPuesto.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
 				if (Character.isDigit(c)) {

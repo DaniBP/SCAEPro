@@ -39,12 +39,11 @@ public class RegistrarEmpleado extends JInternalFrame {
 	private JComboBox cmbDiaNomina;
 	private JComboBox cmbTurno;
 	private JComboBox cmbColonia;
+	private JComboBox cmbPuesto;
 	private JDateChooser dtfechaNac;
 	private JTextField txtCp;
 	private JTextField txtEstado;
 	private JTextField txtMunicipio;
-	private JLabel lblPuesto;
-	private JTextField txtPuesto;
 	private JLabel lblFotografia;
 	private JLabel lblHuellaDigital; 
 	
@@ -239,15 +238,11 @@ public class RegistrarEmpleado extends JInternalFrame {
 		cmbTurno.setModel(new DefaultComboBoxModel(new String[] {"--------Seleccione un turno--------", "a"}));
 		cmbTurno.setBounds(20, 154, 311, 27);
 		pnlAsignacion.add(cmbTurno);
-
-		lblPuesto = new JLabel("Puesto :");
-		lblPuesto.setBounds(20, 46, 61, 16);
-		pnlAsignacion.add(lblPuesto);
-
-		txtPuesto = new JTextField();
-		txtPuesto.setBounds(78, 41, 253, 26);
-		pnlAsignacion.add(txtPuesto);
-		txtPuesto.setColumns(10);
+		
+		cmbPuesto = new JComboBox();
+		cmbPuesto.setModel(new DefaultComboBoxModel(new String[] {"-----Seleccione puesto-----", "CEO", "Socio empresarial", "Gerente Comercial", ".....Gerente de Ventas", ".....Sub Gerente Comercial o de Ventas", ".....Jefe/ Supervisor de Ventas", ".....Vendedor(a)/ Representante Comercial", ".....Vendedor(a) de Salon", ".....Promotor(a)", ".....Administrativo Area Ventas", ".....Asistente Comercial", ".....Preventista", ".....Encargado/ Asistente de Escrituraciones", ".....Gerente Departamental/ Sucursal/ Unidad de Negocios", ".....Comercial de Unidad de Negocios", ".....Encargado(a) de Local", ".....Analista de Ventas", ".....Ejecutivo/ Oficial/ Asesor de Ventas/ Cuentas/ Creditos", ".....Ejecutivo/ Oficial/ Asesor de Ventas/ Cuentas/ Creditos Junior", ".....Desarrollador de Negocios (Business Developer)", ".....Gerente de Marketing", ".....Gerente Marketing por Unidad de Negocios", ".....Encargado/ Jefe/ Supervisor(a) de Marketing", ".....Ejecutivo(a) de Marketing", ".....Gerente/ Jefe de Producto\t", ".....Investigador de Mercado", ".....Analista de Trade Marketing", ".....Analista/ Asesor de Marketing", ".....Merchandiser - Encargado(a) de Stock Comercio Minorista", ".....Analista/ Asesor de Marketing Junior", ".....Asistente de Marketing", ".....Community Manager", ".....Brand Manager", ".....Channel Manager / Jefe o Encargado de Canal", ".....Supervisor(a) de Telemarketing\t", ".....Telemarketero(a)", "Director/ Gerente de Administracion y Finanzas", ".....Gerente Administrativo y/o de Operaciones", ".....Jefe/ Encargado/ Supervisor de Operaciones", ".....Jefe/ Supervisor/ Encargado Administrativo", ".....Auxiliar/ Secretario(a) Administrativo(a)/ de Operaciones\t", ".....Analista de Control de Gestion/ Auditor de Operaciones/ Controller", ".....Contador General / Gerente de Contabilidad", ".....Jefe/ Supervisor/ Encargado/ Analista de Contabilidad", ".....Auxiliar Contable", ".....Analista/ Encargado(a) de Impuestos\t", ".....Asistente/ Auxiliar de Impuestos\t", ".....Analista/ Asistente de Costos/ Presupuestos", ".....Encargado(a) de Cuentas a Pagar / Pagos a Proveedores", ".....Encargado(a)/ Auxiliar de Patrimonio", ".....Gerente de Finanzas y/o de Creditos", ".....Supervisor(a)/ Jefe(a)/ Coordinador(a) de Finanzas/ Creditos", ".....Analista/ Asesor de Finanzas/ Microfinanzas", ".....Auxiliar de Finanzas/ Analista de Finanzas Junior", ".....Encargado(a) de Facturacion y/o Cuentas Corrientes", ".....Auxiliar de Facturacion y/o Cuentas Corrientes", ".....Encargado(a) de Creditos y/o Cobranzas", ".....Auxiliar de Creditos y/o Cobranzas", ".....Analista de Creditos/ Riesgos Crediticios/ Operacionales", ".....Analista de Creditos/ Riesgos Crediticios Junior", ".....Tesorero(a)", ".....Asistente de Tesorera", ".....Supervisor de Cajas", ".....Cajero(a)", ".....Recontador de billetes", "Director/ Gerente General/ ", ".....Sub Gerente General", ".....Gerente Propietario", ".....Gerente/ Jefe de Planificacion", ".....Analista de Planificacion", ".....Asistente de Planificacion", ".....Secretaria(o) de Gerencia/ Directorio", ".....Gerente/ Jefe de Comunicacion Interinstitucional/ Relaciones Publicas", ".....Asistente de Comunicacion Interinstitucional/ Relaciones Publicas", ".....Auditor Senior", ".....Auditor", ".....Auditor Junior", "Gerente de Informatica y/o de Tecnologia", ".....Encargado de Informatica\t", ".....Asistente Informatico", ".....Gerente de Analisis y Diseeño de Sistemas", ".....Arquitecto(a) de Sistemas", ".....Analista de Sistemas Informaticos", ".....Analista de Sistemas Informaticos Junior", ".....Jefe de Organizacion y Metodos", ".....Analista de Organizacion y Metodos", ".....Gerente/ Jefe de Desarrollo de Sistemas", ".....Analista-Programador/ Desarrollador", ".....Programador/ Desarrollador Senior", ".....Programador", ".....Tester o Controlador de Calidad de Software", ".....Programador Junior", ".....Tecnico en Implementacion de Sistemas Informaticos", ".....Gerente de Infraestructura", ".....Encargado de Infraestructura/ Mantenimiento (Hardware y/o Software)", ".....Jefe de Procesamiento de Datos u Operaciones", ".....Administrador de Base de Datos", ".....Administrador de Redes/ Servidores", ".....Webmaster", ".....Digitador / Operador de Computador/ Sistemas", ".....Encargado(a)/ Asistente de Codificacion", ".....Gerente/ Jefe/ Encargado de Seguridad Informatica", ".....Auditor(a) Informatico", ".....Gerente/ Jefe/ Encargado(a) de Desarrollo Web", ".....Diseño/ Desarrollador Web", ".....Diseño/ Desarrollador Web Junior\t", ".....Gerente/ Encargado de Soporte a Usuarios", ".....Tecnico en Soporte a Usuarios / Help Desk", ".....Tecnico en Investigacion y Desarrollo Informaticos/ Tecnologicos", "Gerente de Produccion", ".....Supervisor/ Jefe/ Encargado de Produccion", ".....Gerente/ Ingeniero de Producto/ Investigacion y Desarrollo", ".....Asistente de Investigacion y Desarrollo", ".....Jefe de Laboratorio industrial/ quimico/ bioquimico", ".....Tecnico o Asistente de Laboratorio", ".....Proyectista/ Diseño Industrial", ".....Asistente de Proyectista / Diseño Industrial\t", ".....Gerente de Planta/ Gerente Tecnico Industrial", ".....Jefe de Planificacion de la Produccion", ".....Ingeniero/ Tecnico/ de Procesos Industriales", ".....Asistente de Procesos Industriales", ".....Supervisor/ Jefe de Planta/ Sector", ".....Asistente de Planta/ Produccion", ".....Jefe de Turno", ".....Operario de Industria (general) ", ".....Operador de Maquinas/ Equipamiento ", ".....Jefe/ Encargado de Mantenimiento Industrial (Mecanico/ Electrico)", ".....Tecnico en Mantenimiento Industrial (Mecanico/ Electrico)", ".....Gerente/ Encargado de Control de Calidad", ".....Tecnico en Control de Calidad", ".....Asistente de Control de Calidad", ".....Tecnico en Seguridad e Higiene Industrial", "Gerente de Recursos Humanos", ".....Jefe(a)/ Encargado(a) de Recursos Humanos", ".....Auxiliar de Recursos Humanos", ".....Encargado(a) de Capacitacion y/o Desarrollo Organizacional", ".....Encargado(a) de Reclutamiento y/o Seleccion de Personal", ".....Encargado(a) de Administracion del Personal", ".....Liquidador(a) de Sueldos y Jornales", "Gerente de Compras/ Adquisiciones", ".....Jefe o Gerente de Comercio Exterior", ".....Analista o Encargado de Comercio Exterior", ".....Auxiliar Comercio Exterior", ".....Jefe/ Supervisor de Compras o Abastecimiento", ".....Encargado de Compras/ Abastecimiento", ".....Asistente/ Auxiliar de Compras/ Abastecimiento", ".....Jefe/ Supervisor/ Encargado de Licitaciones", ".....Asistente o Auxiliar de Licitaciones", ".....Jefe/ Supervisor/ Encargado de Logistica/ Despacho/ Transporte", ".....Asistente de Logistica/ Despacho/Transporte// Empaquetador/ Repartidor", ".....Repositor(a)", ".....Jefe/ Supervisor/ Encargado de Deposito", ".....Auxiliar de Deposito", ".....Administrativo area Stock/ Deposito/ Logistica", "Gerente/ Jefe(a)/ Encargado(a) de Servicios Generales", ".....Asistente Servicios Generales\t", ".....Secretario(a) General - Secretario(a) Ejecutivo - Office Manager", ".....Secretario(a)", ".....Asistente de Secretaria", ".....Atencion al Cliente/ Recepcionista", ".....Chofer", ".....Cadete u Ordenanza", ".....Chofer-Cobrador", ".....Cobrador(a)", ".....Gestor(a)", ".....Encargado(a) de Limpieza ", ".....Operario de Limpieza ", ".....Supervisor de Call Center", ".....Operador de Call Center / Atencion Telefonica al Cliente/ Telefonista\t", ".....Jefe o Auxiliar de Suministros", ".....Encargado(a) de Archivo / Centro de Documentacion/ Biblioteca", ".....Asistente de Archivo / Biblioteca / Documentacion", ".....Coordinador/ Supervisor de Eventos", ".....Asistente de Eventos", ".....Agente de Servicio Post Venta"}));
+		cmbPuesto.setBounds(20, 50, 311, 27);
+		pnlAsignacion.add(cmbPuesto);
 
 		JPanel pnlNomina = new JPanel();
 		pnlNomina.setBackground(SystemColor.activeCaption);
@@ -429,12 +424,12 @@ public class RegistrarEmpleado extends JInternalFrame {
 		this.cmbColonia = cmbColonia;
 	}
 
-	public JTextField getTxtPuesto() {
-		return txtPuesto;
+	public JComboBox getCmbPuesto() {
+		return cmbPuesto;
 	}
 
-	public void setTxtPuesto(JTextField txtPuesto) {
-		this.txtPuesto = txtPuesto;
+	public void setCmbPuesto(JComboBox cmbPuesto) {
+		this.cmbPuesto = cmbPuesto;
 	}
 
 	public JLabel getLblFotografia() {
@@ -444,5 +439,4 @@ public class RegistrarEmpleado extends JInternalFrame {
 	public JLabel getLblHuellaDigital() {
 		return lblHuellaDigital;
 	}
-	
 }
