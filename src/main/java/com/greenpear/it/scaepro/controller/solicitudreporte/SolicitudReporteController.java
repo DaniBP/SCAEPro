@@ -154,7 +154,7 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 	private void obtenerFechaActual() {
 		Calendar calendar = new GregorianCalendar();
 		String dia = Integer.toString(calendar.get(Calendar.DATE));
-		String mes = Integer.toString(calendar.get(Calendar.MONTH));
+		String mes = Integer.toString(calendar.get(Calendar.MONTH)+1);
 		String annio = Integer.toString(calendar.get(Calendar.YEAR));
 		getVista().lblFecha.setText(dia + "/" + mes + "/" + annio);
 	}
@@ -205,7 +205,7 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 				return;
 			}
 			String nombreArea = getVista().cmbAreas.getSelectedItem().toString();
-			String formato = "yyyy/MM/d";
+			String formato = "yyyy-MM-d";
 			// Formato
 			Date dateInicio = getVista().dataInicio.getDate();
 			SimpleDateFormat sdf = new SimpleDateFormat(formato);
@@ -231,7 +231,7 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 			}
 		} else if (e.getSource() == getVista().btnGenerarReporte
 				&&  getVista().btnGenerarReporte.getText() == "Generar Reporte General") {
-			String formato = "yyyy/MM/d";
+			String formato = "yyyy-MM-d";
 			// Formato
 			Date dateInicio = getVista().dataInicio.getDate();
 			SimpleDateFormat sdf = new SimpleDateFormat(formato);
@@ -239,6 +239,8 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 
 			Date dateFin = getVista().dataFin.getDate();
 			String fechaFin = (sdf.format(dateFin));
+//			System.out.println(fechaInicio);
+//			System.out.println(fechaFin);
 			Map parametro = new HashMap();
 			parametro.put("fechaInicio", fechaInicio);
 			parametro.put("fechaFin", fechaFin);
@@ -252,7 +254,7 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 				System.out.println(ex.getMessage());
 			}
 		} else if (e.getSource() == getVista().btnGenerarReporte && getVista().btnGenerarReporte.getText() == "Generar Reporte Personal") {
-			String formato = "yyyy/MM/d";
+			String formato = "yyyy-MM-d";
 			// Formato
 			Date dateInicio = getVista().dataInicio.getDate();
 			SimpleDateFormat sdf = new SimpleDateFormat(formato);

@@ -25,10 +25,10 @@ public class EstatusPagoBo {
 		return Dao;
 	}
 
-	public List<EstatusPagoModel> consultaAreas(String area) throws SQLException  {
+	public List<EstatusPagoModel> consultaAreas(String area, String estatusPago) throws SQLException  {
 		List<EstatusPagoModel> listaEmpleados = new ArrayList<EstatusPagoModel>();
 		try {
-			listaEmpleados = getDao().consultaAreas(area);
+			listaEmpleados = getDao().consultaAreas(area,estatusPago);
 		} catch (SQLException t) {
 			throw new SQLException(t.getMessage());
 		}
@@ -67,4 +67,24 @@ public class EstatusPagoBo {
 		return registro;
 	}
 
+	public List<EstatusPagoModel> consultaFechas() throws SQLException {
+		List<EstatusPagoModel> consulta = new ArrayList<EstatusPagoModel>();
+		try {
+			consulta = getDao().consultaFechas();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return consulta;
+	}
+
+	public String editar(EstatusPagoModel fechasPagosModel) throws SQLException {
+		String update=null;
+		try {
+			update = getDao().editar(fechasPagosModel);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return update;
+	}
 }

@@ -9,11 +9,16 @@ package com.greenpear.it.scaepro.model.administracionmovil;
  */
 public class EstatusPagoModel {
 	private String nombreArea;
-	private int idArea;
 	private String nombreEmpleado;
-	private int idEmpleado;
 	private String comentario;
 	private String statusPago;
+	private String fechaActual;
+	private String periodoNominal;
+	private String fechaPago;
+	private int idEstatusPago;
+	private int diaDePago;
+	private int idEmpleado;
+	private int idArea;
 	private int idStatusPago;
 	
 	/**
@@ -99,5 +104,65 @@ public class EstatusPagoModel {
 	 */
 	public void setIdStatusPago(int idStatusPago) {
 		this.idStatusPago = idStatusPago;
+	}
+	/**
+	 * @return the fechaActual
+	 */
+	public String getFechaActual() {
+		return fechaActual;
+	}
+	/**
+	 * @param fechaActual the fechaActual to set
+	 */
+	public void setFechaActual(String fechaActual) {
+		this.fechaActual = fechaActual;
+	}
+	/**
+	 * @return the periodoNominal
+	 */
+	public String getPeriodoNominal() {
+		return periodoNominal;
+	}
+	/**
+	 * @param periodoNominal the periodoNominal to set
+	 */
+	public void setPeriodoNominal(String periodoNominal) {
+		this.periodoNominal = periodoNominal;
+	}
+	/**
+	 * @return the fechaPago
+	 */
+	public String getFechaPago() {
+		return fechaPago;
+	}
+	/**
+	 * @param fechaPago the fechaPago to set
+	 */
+	public void setFechaPago(String fechaPago) {
+		this.fechaPago = fechaPago;
+	}
+	/**
+	 * @return the diaDePago
+	 */
+	public int getDiaDePago() {
+		return diaDePago;
+	}
+	/**
+	 * @param diaDePago the diaDePago to set
+	 */
+	public void setDiaDePago(int diaDePago) {
+		this.diaDePago = diaDePago;
+	}
+	/**
+	 * @return the idEstatusPago
+	 */
+	public int getIdEstatusPago() {
+		return idEstatusPago;
+	}
+	/**
+	 * @param idEstatusPago the idEstatusPago to set
+	 */
+	public void setIdEstatusPago(int idEstatusPago) {
+		this.idEstatusPago = idEstatusPago;
 	}
 }
