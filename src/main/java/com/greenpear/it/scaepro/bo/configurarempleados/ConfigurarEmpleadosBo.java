@@ -210,4 +210,14 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 		return resultado;
 	}
 
+	public EmpleadoModel validarEmpleado(String nombres, String apepat, String apemat)throws SQLException {
+		EmpleadoModel empleadoModel=new EmpleadoModel();
+		try{
+			empleadoModel=getEmpleadoDao().validarEmpleado(nombres,apepat,apemat);
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+		return empleadoModel;
+	}
+
 }

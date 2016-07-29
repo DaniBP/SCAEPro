@@ -205,7 +205,6 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		TurnoModel turnomodel=new TurnoModel();
 		String sql="select idTurno from c_turno inner join c_area on c_turno.idArea=c_area.idArea"
 				+ " where nombreArea='"+turnoModelo3.getArea()+"' and nombreTurno='"+turnoModelo3.getNombreTurno()+"'";
-		System.out.println(sql);
 		try {
 			turnomodel=getJdbcTemplate().query(sql,new ResultSetExtractor<TurnoModel>(){
 				public TurnoModel extractData(ResultSet rs)throws SQLException{
@@ -433,7 +432,7 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() +" "+configurarEmpleadosModel.getApePatEmpleado()+""
 				+ " "+configurarEmpleadosModel.getApeMatEmpleado()+ "\n" 
 				+ "Fue actualizado exitosamente!\n\n"
-				+ "Recuerde que puede cambiar su usuario y contraseña la app movil";
+				+ "Recuerde que puede cambiar su usuario y contraseña dentro la app movil";
 	}
 
 	public String eliminarEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
@@ -446,4 +445,33 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		}
 		return "El empleado fue eliminado correctamente!";
 	}
+
+	public EmpleadoModel validarEmpleado(String nombres, String apepat, String apemat)throws SQLException {
+		EmpleadoModel empleadoModel=new EmpleadoModel();
+		String sql ="select nombreEmpleado,apePatEmpleado,apeMatEmpleado from t_empleado where nombreEmpleado='"+nombres+"' and apePatEmpleado='"+apepat+"' and apeMatEmpleado='"+apemat+"'";
+		System.out.println(sql);
+		try {
+			empleadoModel = getJdbcTemplate().query(sql, new ResultSetExtractor<EmpleadoModel>() {
+			
+				public EmpleadoModel extractData(ResultSet rs) throws SQLException {
+					if (rs.next()) {
+						EmpleadoModel resultValue = new EmpleadoModel();
+						resultValue.setNombreEmpleado(rs.getString("nombreEmpleado"));
+						System.out.println(rs.getString("nombreEmpleado"));
+						resultValue.setApePatEmpleado(rs.getString("apePatEmpleado"));
+						System.out.println(rs.getString("nombreEmpleado"));
+						resultValue.setApeMatEmpleado(rs.getString("apeMatEmpleado"));
+						System.out.println(rs.getString("nombreEmpleado"));
+						return resultValue;
+					}
+					return null;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return empleadoModel;
+	}
+
 }

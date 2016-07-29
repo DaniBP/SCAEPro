@@ -114,6 +114,12 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 	}
 
 	// End Setter and Getters
+	//Variables globales
+	private String nombreInicial="";
+	
+	public String getNombreInicial() {
+		return nombreInicial;
+	}
 
 	public void mostrarVistaConsultaEmpleado() {
 		if (getConsultaEmpleadoView().getBtnConsultar().getActionListeners().length == 0) {
@@ -404,6 +410,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnCapturarFoto().setText("Cambiar Foto");
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar().setText("Modificar");
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnLeerHuella().setText("Cambiar Huella");
+					nombreInicial=getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtNombres().getText() + " "
+							+ getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtApePat().getText() + " "
+							+ getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtApeMat().getText();
 				}
 				public void abrirVentanaMas(EmpleadoModel empleadoModel) {
 					getGoverment().mostrarVistaRegistro();
@@ -423,7 +432,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtTelCasa().setText(empleadoModel.getTelCasa());
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getTxtTelCasa().setEditable(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbPuesto().setSelectedItem(empleadoModel.getPuesto());
-					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbPuesto().setEditable(false);
+					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbPuesto().setEnabled(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getFecha().setDate(fechaInsert);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getFecha().setEnabled(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getCmbPeriodoNominal().setSelectedItem(empleadoModel.getPeriodoNominal());
