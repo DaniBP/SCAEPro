@@ -511,4 +511,421 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return "La direccion del empleado fue eliminada correctamente!";
 	}
 
+	public List<EmpleadoModel> consultaNombreCompletoEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException{
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where nombreEmpleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
+						+ "and apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
+								+ "and apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaNombreEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where nombreEmpleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaApePatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException{
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaApeMatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaNomApatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
+						+ "and nombreempleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaNomAmatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
+						+ "and nombreempleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaApellidos(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
+						+ "and apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaAsignacion(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
+						+ "and c_turno.nombreTurno='"+configurarEmpleadosModel.getNombreTurno()+"' "
+								+ "and puesto='"+configurarEmpleadosModel.getPuesto()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaArea(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaAreaTurno(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
+						+ "and c_turno.nombreTurno='"+configurarEmpleadosModel.getNombreTurno()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaAreaPuesto(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
+						+ "and puesto='"+configurarEmpleadosModel.getPuesto()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<EmpleadoModel> consultaPuesto(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
+		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
+				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
+				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
+				+ "inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where puesto='"+configurarEmpleadosModel.getPuesto()+"' "
+				+ "ORDER BY c_area.nombreArea";
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
+
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					EmpleadoModel resultValue = new EmpleadoModel();
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setIdArea(rs.getInt("idArea"));
+					resultValue.setArea(rs.getString("nombreArea"));
+					resultValue.setIdTurno(rs.getInt("idTurno"));
+					resultValue.setNombreTurno(rs.getString("nombreTurno"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
 }
