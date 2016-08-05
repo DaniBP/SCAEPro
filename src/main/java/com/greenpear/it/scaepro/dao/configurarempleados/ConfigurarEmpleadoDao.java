@@ -22,6 +22,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+
+import com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel;
 import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
@@ -249,7 +251,7 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
-			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserion!");
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la insercion!");
 		}
 		
 		registrarHuella(configurarEmpleadosModel);
@@ -260,6 +262,28 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 				+ "Su usuario para la app movil es: " + configurarEmpleadosModel.getNombreUsuario() +"\n"+ "Su contraseña " + "\n"
 				+ configurarEmpleadosModel.getPassword()+ "\n"+"\n"
 				+ "Recuerde cambiarla al iniciar sesion.";
+	}
+	
+	public void registrarEstatusPago(EstatusPagoModel estatusPago) throws SQLException{
+		try {
+			SimpleJdbcInsert insert = new SimpleJdbcInsert(getDataSource());
+
+			insert.setTableName("c_estatuspago");
+			insert.setGeneratedKeyName("idEstatus");
+
+			Map<String, Object> parameters = new HashMap<String, Object>();
+
+			parameters.put("idEmpleado", estatusPago.getIdEmpleado());
+			parameters.put("idEstatusPago", estatusPago.getIdEstatusPago());
+			parameters.put("comentario", estatusPago.getComentario());
+			parameters.put("fechaPago", estatusPago.getFechaPago());
+			
+			estatusPago.setIdStatusPago(insert.executeAndReturnKey(parameters).intValue());
+
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la insercion del estatus de pago!");
+		}
 	}
 
 	public void registrarHuella(EmpleadoModel empleadoModel) {
@@ -427,7 +451,9 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserion!");
 		}
 		
-		registrarHuella(configurarEmpleadosModel);
+		if(configurarEmpleadosModel.getTamanoHuella()!=0){			
+			registrarHuella(configurarEmpleadosModel);
+		}
 
 		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() +" "+configurarEmpleadosModel.getApePatEmpleado()+""
 				+ " "+configurarEmpleadosModel.getApeMatEmpleado()+ "\n" 

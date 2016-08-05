@@ -368,7 +368,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 
 	private String construirNombreUsuario() {
 		String idUsuario, nombreEmpleado, apellido, nomFinal;
-		idUsuario = Integer.toString(configurarEmpleadosModel.getIdEmpleado());
+		idUsuario = Integer.toString(configurarEmpleadosModel.getIdEmpleado()+1);
 		nombreEmpleado = (getRegistrarEmpleadoView().getTxtNombres().getText()).substring(0, 3);
 		apellido = (getRegistrarEmpleadoView().getTxtApePat().getText()).substring(0, 3);
 		nomFinal = idUsuario + nombreEmpleado + apellido;
@@ -428,7 +428,11 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		getConfigurarEmpleadosModel().setPeriodoNominal(null);
 		getConfigurarEmpleadosModel().setTelCasa(null);
 		getConfigurarEmpleadosModel().setTelCel(null);
-
+		getConfigurarEmpleadosModel().setTamanoHuella(0);
+		getConfigurarEmpleadosModel().setDatosHuella(null);
+		getConfigurarEmpleadosModel().setNombreUsuario(null);
+		getConfigurarEmpleadosModel().setPassword(null);
+		getConfigurarEmpleadosModel().setIdEmpleado(0);
 	}
 
 	public void limpiarCombos() {
