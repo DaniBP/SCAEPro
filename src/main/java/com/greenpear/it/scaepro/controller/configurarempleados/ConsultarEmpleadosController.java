@@ -332,7 +332,6 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 								configurarEmpleadosModel.setIdEmpleado(Integer.parseInt(idEmpleado));
 								try {
 									configurarEmpleadosModel = getEmpleadosBo().consultaModificarEmpleado(idEmpleado);
-									JOptionPane.showMessageDialog(null, configurarEmpleadosModel.getIdDireccionEmpleado());
 									deleteEmpleado = getEmpleadosBo().eliminarEmpleado(getConfigurarEmpleadosModel());
 									deleteDireccion = getEmpleadosBo().eliminarDireccion(configurarEmpleadosModel);
 								} catch (SQLException e1) {
