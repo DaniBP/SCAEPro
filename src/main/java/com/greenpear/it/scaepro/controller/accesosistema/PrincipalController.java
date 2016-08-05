@@ -39,7 +39,6 @@ public class PrincipalController implements ActionListener{
 	
 	public void mostrarVistaPrincipal(){
 		if(getVistaPrincipal().getMntmSalir().getActionListeners().length==0){
-			getVistaPrincipal().getMntmRegresar().addActionListener(this);
 			getVistaPrincipal().getMntmSalir().addActionListener(this);
 			getVistaPrincipal().getMntmRegistrarUsuario().addActionListener(this);
 			getVistaPrincipal().getMntmConsultarUsuarios().addActionListener(this);
@@ -73,10 +72,7 @@ public class PrincipalController implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == getVistaPrincipal().getMntmRegresar()){
-			getVistaPrincipal().setVisible(false);
-			getGovernment().mostrarInicio();
-		}else if(e.getSource() == getVistaPrincipal().getMntmSalir()){
+		if(e.getSource() == getVistaPrincipal().getMntmSalir()){
 			System.exit(0);
 		}else if(e.getSource() == getVistaPrincipal().getMntmRegistrarUsuario()){
 			getGovernment().mostrarVistaRegistrarUsuarios();

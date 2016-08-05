@@ -94,6 +94,8 @@
 	<bean id="consultaUsuariosView" class="com.greenpear.it.scaepro.view.gestionusuarios.ConsultaUsuariosView" />
 	<bean id="consultaEmpleadosView" class="com.greenpear.it.scaepro.view.configurarempleados.ConsultarEmpleado" />
 	<bean id="primerUsuarioView" class="com.greenpear.it.scaepro.view.accesosistema.PrimerUsuarioView" />
+	<bean id="incidencias" class="com.greenpear.it.scaepro.view.incidencias.Incidencias" />
+	<bean id="justificarIncidenciasView" class="com.greenpear.it.scaepro.view.incidencias.JustificarIncidencias" />
 	
 <!-- 	Aquí comienza la declaración de controladores -->
 	

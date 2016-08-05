@@ -152,15 +152,15 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 
 		int dias = 0;
 		
-		final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+		final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al dï¿½a 
 		java.util.Date hoy = new Date(); //Fecha de hoy 
 		
-		int año = anioPago; int mes = mesPago; int dia = diaPago; //Fecha anterior 
-		Calendar calendar = new GregorianCalendar(año, mes-1, dia); 
+		int anio = anioPago; int mes = mesPago; int dia = diaPago; //Fecha anterior 
+		Calendar calendar = new GregorianCalendar(anio, mes-1, dia); 
 		java.sql.Date fecha = new java.sql.Date(calendar.getTimeInMillis());
 
 		long diferencia = ( hoy.getTime() - fecha.getTime() )/MILLSECS_PER_DAY; 
-		System.out.println("Días transcurridos: "+diferencia); 
+		System.out.println("Dï¿½as transcurridos: "+diferencia); 
 		
 		dias = (int) (diferencia);
 
@@ -291,7 +291,7 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 
 	private void limpiarTabla() {
 		getVista().tabla.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "idEstatus",
-				"Nombre Empleados", "Fecha última de pago", "Periodo", "Estatus de pago", "Comentario" }) {
+				"Nombre Empleados", "Fecha ï¿½ltima de pago", "Periodo", "Estatus de pago", "Comentario" }) {
 			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false };
 
 			public boolean isCellEditable(int row, int column) {
@@ -324,7 +324,7 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 		}
 
 		Iterator<EstatusPagoModel> itrAreas = listaAreas.iterator();
-		String[] columnNames = { "idEstatus", "Nombre Empleados", "Fecha última de pago", "Periodo", "Estatus de pago",
+		String[] columnNames = { "idEstatus", "Nombre Empleados", "Fecha ï¿½ltima de pago", "Periodo", "Estatus de pago",
 				"Comentario" };
 
 		final Class[] tiposColumnas = new Class[] { java.lang.Integer.class, java.lang.String.class,
