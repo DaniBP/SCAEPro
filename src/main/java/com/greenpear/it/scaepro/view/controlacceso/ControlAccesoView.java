@@ -60,7 +60,7 @@ public class ControlAccesoView extends JFrame {
 	public ControlAccesoView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ControlAccesoView.class.getResource("/img/Logo1.png")));
 		setTitle("Registro de Control de Acceso");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 521, 370);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();

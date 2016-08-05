@@ -57,6 +57,7 @@ public class GovernmentService implements Government {
 	@Autowired private AltaUsuariosController altaUsuariosController; 
 	@Autowired private ConsultaUsuariosController consultaUsuariosController; 
 	@Autowired private ConsultarEmpleadosController consultarEmpleadosController;
+	@Autowired private PrimerUsuarioController primerUsuarioController;
 
 
 	public InicioController getInicioController() {
@@ -131,10 +132,15 @@ public class GovernmentService implements Government {
 		return consultarEmpleadosController;
 	}
 	
+	public PrimerUsuarioController getPrimerUsuarioController() {
+		return primerUsuarioController;
+	}
+	
 	//*************FIN DE ESTANCIAS***************
 	
 	
 	//*************CONTROL DE VENTANAS**************
+
 
 
 
@@ -228,5 +234,10 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarVistaConsultarEmpleados() {
 		getConsultarEmpleadosController().mostrarVistaConsultaEmpleado();
+	}
+
+	@Override
+	public void mostrarRegistroPrimerUsuario() {
+		getPrimerUsuarioController().mostrarVistaRegistrarUsuarios();
 	}
 }

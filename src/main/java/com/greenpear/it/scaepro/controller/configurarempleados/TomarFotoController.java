@@ -41,6 +41,7 @@ import com.greenpear.it.scaepro.dao.configurarempleados.ConfigurarEmpleadoDao;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.view.configurarempleados.RegistrarEmpleado;
+import java.awt.Toolkit;
 
 
 /**
@@ -49,6 +50,9 @@ import com.greenpear.it.scaepro.view.configurarempleados.RegistrarEmpleado;
  */
 @Controller
 public class TomarFotoController extends JFrame implements Runnable, WebcamListener, WindowListener, UncaughtExceptionHandler, ItemListener, WebcamDiscoveryListener, ActionListener {
+	public TomarFotoController() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TomarFotoController.class.getResource("/img/Logo1.png")));
+	}
 	
 	// Modelos
 //	private EmpleadoModel configurarEmpleadosModel=new EmpleadoModel();
@@ -96,9 +100,9 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 		panel = new WebcamPanel(webcam, false);
 		panel.setFPSDisplayed(true);
 
-		add(picker, BorderLayout.NORTH);
-		add(panel, BorderLayout.CENTER);
-		add(boton, BorderLayout.SOUTH);
+		getContentPane().add(picker, BorderLayout.NORTH);
+		getContentPane().add(panel, BorderLayout.CENTER);
+		getContentPane().add(boton, BorderLayout.SOUTH);
 		
 		boton.addActionListener(this);
 		pack();

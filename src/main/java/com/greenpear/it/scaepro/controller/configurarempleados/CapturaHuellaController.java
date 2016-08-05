@@ -55,6 +55,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class CapturaHuellaController extends JFrame {
 	
@@ -97,12 +99,12 @@ public class CapturaHuellaController extends JFrame {
 	 * Create the frame.
 	 */
 	public CapturaHuellaController() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CapturaHuellaController.class.getResource("/img/Logo1.png")));
 		setTitle("Huellas");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				Iniciar();
-				start();
 				EstadoHuellas();
 				btnGuardar.setEnabled(false);
 				btnSalir.grabFocus();
@@ -120,14 +122,16 @@ public class CapturaHuellaController extends JFrame {
 //			JOptionPane.ERROR_MESSAGE);
 //		}
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 485, 488);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		panHuellas = new JPanel();
+		panHuellas.setBackground(SystemColor.activeCaption);
 		panHuellas.setBounds(5, 5, 457, 275);
 		panHuellas.setBorder(new TitledBorder(null, "Huella Digital Capturada", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panHuellas);
@@ -142,12 +146,14 @@ public class CapturaHuellaController extends JFrame {
 		panel.add(lblImagenHuella, BorderLayout.CENTER);
 		
 		JPanel panBtns = new JPanel();
+		panBtns.setBackground(SystemColor.activeCaption);
 		panBtns.setBounds(5, 291, 457, 158);
 		panBtns.setBorder(new TitledBorder(null, "Acciones", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(panBtns);
 		panBtns.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.activeCaption);
 		panel_1.setBounds(6, 11, 441, 41);
 		panBtns.add(panel_1);
 		panel_1.setLayout(null);
@@ -156,6 +162,7 @@ public class CapturaHuellaController extends JFrame {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
+				stop();
 			}
 		});
 		btnSalir.setBounds(209, 11, 89, 23);
@@ -167,13 +174,13 @@ public class CapturaHuellaController extends JFrame {
 				guardarHuella();
 				Reclutador.clear();
 				lblImagenHuella.setIcon(null);
-				start();
 			}
 		});
 		btnGuardar.setBounds(110, 11, 89, 23);
 		panel_1.add(btnGuardar);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.activeCaption);
 		panel_2.setBounds(6, 59, 441, 88);
 		panBtns.add(panel_2);
 		panel_2.setLayout(null);
@@ -340,6 +347,7 @@ public class CapturaHuellaController extends JFrame {
 		
 		btnGuardar.setEnabled(false);
 		setVisible(false);
+		stop();
 	}
 	
 }

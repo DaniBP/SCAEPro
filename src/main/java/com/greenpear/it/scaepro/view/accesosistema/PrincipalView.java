@@ -67,17 +67,17 @@ public class PrincipalView extends JFrame {
 		setTitle("Administraci\u00F3n SCAE Pro");
 		setBounds(100, 100, 1280, 720);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnEstatusDeConexin = new JMenu("Archivo");
-		menuBar.add(mnEstatusDeConexin);
+		JMenu mnInicio = new JMenu("Inicio");
+		menuBar.add(mnInicio);
 		
 		mntmSalir = new JMenuItem("Salir");
-		mnEstatusDeConexin.add(mntmSalir);
+		mnInicio.add(mntmSalir);
 		
 		JMenu mnUsuarios = new JMenu("Usuarios");
 		menuBar.add(mnUsuarios);

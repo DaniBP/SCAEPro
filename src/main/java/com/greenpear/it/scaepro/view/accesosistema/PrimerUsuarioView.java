@@ -15,6 +15,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JPasswordField;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class PrimerUsuarioView extends JFrame {
 	public JTextField txtNombre;
@@ -42,6 +43,7 @@ public class PrimerUsuarioView extends JFrame {
 	 * Create the frame.
 	 */
 	public PrimerUsuarioView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PrimerUsuarioView.class.getResource("/img/Logo1.png")));
 		getContentPane().setBackground(SystemColor.activeCaption);
 		setTitle("Registrar Usuario");
 		setBounds(100, 100, 420, 414);

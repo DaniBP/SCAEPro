@@ -2,6 +2,10 @@ package com.greenpear.it.scaepro.controller.accesosistema;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JInternalFrame;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,6 +43,12 @@ public class PrincipalController implements ActionListener{
 	
 	public void mostrarVistaPrincipal(){
 		if(getVistaPrincipal().getMntmSalir().getActionListeners().length==0){
+			getVistaPrincipal().addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e){
+					regresarInicio();
+				}
+			});
+			
 			getVistaPrincipal().getMntmSalir().addActionListener(this);
 			getVistaPrincipal().getMntmRegistrarUsuario().addActionListener(this);
 			getVistaPrincipal().getMntmConsultarUsuarios().addActionListener(this);
@@ -66,14 +76,26 @@ public class PrincipalController implements ActionListener{
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getGenerarAvisoController().getVista());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getEstatusPagoController().getVista());
 		}
-		
+		limpiarVentanaPrincipal();
 		getVistaPrincipal().setVisible(true);
+	}
+
+	private void limpiarVentanaPrincipal() {
+		JInternalFrame[] internals = getVistaPrincipal().getPanelEscritorio().getAllFrames();
+		for (int i = 0; i < internals.length; i++) {			
+			internals[i].setVisible(false);
+		}
+	}
+	
+	private void regresarInicio(){
+		getVistaPrincipal().setVisible(false);
+		getGovernment().mostrarInicio();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == getVistaPrincipal().getMntmSalir()){
-			System.exit(0);
+			regresarInicio();
 		}else if(e.getSource() == getVistaPrincipal().getMntmRegistrarUsuario()){
 			getGovernment().mostrarVistaRegistrarUsuarios();
 		}else if(e.getSource() == getVistaPrincipal().getMntmConsultarUsuarios()){

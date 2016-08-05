@@ -71,9 +71,31 @@ public class AccesoAlSistemaController implements ActionListener,KeyListener{
 			getLoginView().txtUsuario.addKeyListener(this);
 		}
 		
+		limpiar();
 		getLoginView().setVisible(true);
+		validarExistenciaUsuarios();
 	}
 	
+	private void limpiar() {
+		getLoginView().txtContrase.setText(null);
+		getLoginView().txtUsuario.setText(null);
+	}
+	
+	private void validarExistenciaUsuarios() {
+		String resultado = null;
+		try {
+			resultado = getLoginBoService().consultaUsuarios();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error en la base de datos", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		if(!resultado.equals("Existen usuarios")){
+			JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
+			getLoginView().setVisible(false);
+			getGovernment().mostrarRegistroPrimerUsuario();
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == getLoginView().btnAcceder) {

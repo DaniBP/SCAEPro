@@ -3,6 +3,8 @@ package com.greenpear.it.scaepro.controller.controlacceso;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -119,17 +121,31 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	 */
 	public void mostrarVistaControlAcceso(){
 		if(getControlAccesoView().btnSalir.getActionListeners().length == 0){
+			getControlAccesoView().addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e){
+					regresarInicio();
+				}
+			});
+			
 			getControlAccesoView().btnChecar.addActionListener(this);
 			getControlAccesoView().btnSalir.addActionListener(this);
+			getLectorHuellasController().Iniciar();
 		}
 		
 		getControlAccesoView().h1 = new Thread(this);
 		getControlAccesoView().h1.start();
 		
-		getLectorHuellasController().Iniciar();
 		getLectorHuellasController().start();
-		
 		getControlAccesoView().setVisible(true);
+	}
+	
+	/**
+	 * Método para regresar al inicio
+	 */
+	private void regresarInicio(){
+		getControlAccesoView().setVisible(false);
+		getGovernment().mostrarInicio();
+		getLectorHuellasController().stop();
 	}
 	
 	/**
@@ -272,7 +288,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 			Thread h2 = new Thread(r2);
 			h2.start();
 		}else if(e.getSource()==getControlAccesoView().btnSalir){
-			System.exit(0);
+			regresarInicio();
 		}
 	}
 	

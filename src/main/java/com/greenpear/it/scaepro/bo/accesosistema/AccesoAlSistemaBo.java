@@ -39,4 +39,14 @@ public class AccesoAlSistemaBo implements LoginService{
 		}
 		return acceso;
 	}
+	
+	public String consultaUsuarios() throws SQLException{
+		String resultado=null;
+		try {
+			resultado = getLoginDaoService().consultaUsuarios();
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return resultado;
+	}
 }

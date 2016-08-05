@@ -26,4 +26,5 @@ public interface Government {
 	public void mostrarVistaRegistrarUsuarios();
 	public void mostrarVistaConsultarUsuarios();
 	public void mostrarVistaConsultarEmpleados();
+	public void mostrarRegistroPrimerUsuario();
 }

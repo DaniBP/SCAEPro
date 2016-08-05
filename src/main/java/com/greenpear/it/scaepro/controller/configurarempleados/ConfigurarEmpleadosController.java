@@ -252,6 +252,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			// consultarIdEmpleado();
 		} else if (e.getSource().equals(getRegistrarEmpleadoView().getBtnLeerHuella())) {
 			getHuellaController().setVisible(true);
+			getHuellaController().start();
 		}
 	}
 

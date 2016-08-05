@@ -48,6 +48,7 @@ public class AccesoAlSistemaView extends JFrame {
 	public AccesoAlSistemaView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AccesoAlSistemaView.class.getResource("/img/Logo1.png")));
 		setTitle("Login");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 475);
 		setLocationRelativeTo(null);

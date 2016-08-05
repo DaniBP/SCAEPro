@@ -14,6 +14,7 @@ import com.greenpear.it.scaepro.bo.gestionusuarios.AltaUsuariosBo;
 import com.greenpear.it.scaepro.controller.accesosistema.PrincipalController;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
 import com.greenpear.it.scaepro.model.gestionusuarios.ConsultaUsuariosModel;
+import com.greenpear.it.scaepro.view.accesosistema.PrimerUsuarioView;
 import com.greenpear.it.scaepro.view.gestionusuarios.AltaUsuariosView;
 /**
  * @author Alan Aguilar
@@ -29,7 +30,7 @@ public class PrimerUsuarioController implements ActionListener{
 	private ConsultaUsuariosModel modelo;
 	
 	@Autowired
-	private AltaUsuariosView vista;
+	private PrimerUsuarioView vista;
 	
 	@Autowired
 	@Qualifier("altaUsuariosBo")
@@ -43,7 +44,7 @@ public class PrimerUsuarioController implements ActionListener{
 		return modelo;
 	}
 	
-	public AltaUsuariosView getVista() {
+	public PrimerUsuarioView getVista() {
 		return vista;
 	}
 	
@@ -57,79 +58,29 @@ public class PrimerUsuarioController implements ActionListener{
 		 if(getVista().btnRegistrar.getActionListeners().length == 0){
 			 getVista().btnRegistrar.addActionListener(this);
 			 getVista().btnLimpiar.addActionListener(this);		 
+			 getVista().btnSalir.addActionListener(this);
 		 }
-
 		 	getVista().setVisible(true);
-		 	getVista().toFront();
-			editarUsuario();
+		 	limpiar();
 	 }
 
-	private void editarUsuario() {
-		//aqui se recuperan los demas datos
-		if(getModelo().getNombreUsuario() != null){
-			getVista().txtNombre.setText(getModelo().getNombreUsuario());
-			getModelo().setUsuarioAnterior(getVista().txtNombre.getText());
-			getVista().txtPassword.setText(getModelo().getPasswordUsuario());
-			getVista().txtPassword2.setText(getModelo().getPasswordUsuario());
-			getVista().txtEmail.setText(getModelo().getCorreoUsuario());
-			getVista().txtEmail2.setText(getModelo().getCorreoUsuario());
-			
-
-			if(getModelo().getEstatusUsuario() == 1 ){
-				getVista().rbtnActivo.setSelected(true);
-				
-			}else if(getModelo().getEstatusUsuario() == 2){
-				getVista().rbtnInactivo.setSelected(true);
-					
-			}
-			if(getModelo().getEstatusEnvio() == 1){
-				getVista().chbxNotificacion.setSelected(true);
-				
-			}else if(getModelo().getEstatusEnvio() ==2){
-				getVista().chbxNotificacion.setSelected(false);
-			}
-			
-			
-			getVista().btnRegistrar.setText("Editar");
-			getVista().btnLimpiar.setText("Limpiar Todo");
-			getVista().btnLimpiar.setBounds(160, 346, 89, 23);
-		}
+	private void limpiar() {
+		getVista().txtNombre.setText("");
+		getVista().txtPassword.setText("");
+		getVista().txtPassword2.setText("");
+		getVista().txtEmail.setText("");
+		getVista().txtEmail2.setText("");
+		getVista().chbxNotificacion.setSelected(false);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//------Limpiar editar----------
-		if (e.getSource() == getVista().btnLimpiar && getVista().btnLimpiar.getText() == "Limpiar Todo"){
-			getVista().txtNombre.setText("");
-			getVista().txtPassword.setText("");
-			getVista().txtPassword2.setText("");
-			getVista().txtEmail.setText("");
-			getVista().txtEmail2.setText("");
-			//getVista().rbtnActivo.isSelected();
-			
-		}else if (e.getSource() == getVista().btnLimpiar && getVista().btnLimpiar.getText() == "Limpiar"){
-				getVista().txtNombre.setText("");
-				getVista().txtPassword.setText("");
-				getVista().txtPassword2.setText("");
-				getVista().txtEmail.setText("");
-				getVista().txtEmail2.setText("");
-//				if (getVista().rbtnActivo.isSelected()) {
-//					getModelo().setEstatusUsuario(1);
-//			
-//				}else if (getVista().rbtnInactivo.isSelected()){
-//					getModelo().setEstatusUsuario(2);
-//				}
-//				
-//				if (getVista().chbxNotificacion.isSelected()){
-//					getModelo().setEstatusEnvio(1);
-//					
-//				}else if (!getVista().chbxNotificacion.isSelected()){
-//					getModelo().setEstatusEnvio(2);
-//				}
-				
-			}
+		//------Limpiar----------
+		if (e.getSource() == getVista().btnLimpiar){
+				limpiar();
+		}
 		//------Registrar--------
-		else if (e.getSource() == getVista().btnRegistrar && getVista().btnRegistrar.getText() == "Registrar" ) {
+		else if (e.getSource() == getVista().btnRegistrar) {
 			
 			if(getVista().txtNombre.getText().isEmpty()){
 				JOptionPane.showMessageDialog(null, "Ingrese el nombre de usuario","Registar Usuario",JOptionPane.WARNING_MESSAGE);
@@ -183,75 +134,13 @@ public class PrimerUsuarioController implements ActionListener{
 			} catch (SQLException t) {
 				JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 			}
-				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
-				return;
-				
-		//------Editar--------
-		}else if (e.getSource() == getVista().btnRegistrar && getVista().btnRegistrar.getText() == "Editar" ) {
-			
-			if(getVista().txtNombre.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese el nombre de usuario","Registar Usuario",JOptionPane.WARNING_MESSAGE);
-				return;
-			}else if(getVista().txtPassword.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese el password del usuario","Registar Usuario",JOptionPane.WARNING_MESSAGE);
-				return;
-				
-			}else if(getVista().txtPassword2.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese el password2 del usuario","Registar Usuario",JOptionPane.WARNING_MESSAGE);
-				return;	
-				
-			}else if(getVista().txtEmail.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese el correo del usuario","Registar Usuario",JOptionPane.WARNING_MESSAGE);
-				return;
-				
-			}else if(getVista().txtEmail2.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ingrese el correo2 del usuario","Registar Usuario",JOptionPane.WARNING_MESSAGE);
-				return;	
-				
-			}else if(getVista().rbtnActivo.isSelected() == false && getVista().rbtnInactivo.isSelected() == false){
-				JOptionPane.showMessageDialog(null, "Ingrese el Estatus del usuario","Registar Usuario",JOptionPane.WARNING_MESSAGE);
-				return;
-			}
-			
-			
-			getModelo().setNombreUsuario(getVista().txtNombre.getText());
-			getModelo().setPasswordUsuario(getVista().txtPassword.getText());
-			getModelo().setPasswordUsuario2(getVista().txtPassword2.getText());
-			getModelo().setCorreoUsuario(getVista().txtEmail.getText());
-			getModelo().setCorreoUsuario2(getVista().txtEmail2.getText());
-			
-			if (getVista().rbtnActivo.isSelected()) {
-				getModelo().setEstatusUsuario(1);
-		
-			}else if (getVista().rbtnInactivo.isSelected()){
-				getModelo().setEstatusUsuario(2);
-			}
-			
-			if (getVista().chbxNotificacion.isSelected()){
-				getModelo().setEstatusEnvio(1);
-				
-			}else if (!getVista().chbxNotificacion.isSelected()){
-				getModelo().setEstatusEnvio(2);
-			}
-			
-			String acceso=null;
-			
-			try {
-				acceso=getBo().editar(getModelo());
-			} catch (SQLException t) {
-				JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-			}
-			
-			if(acceso == "¡Ya Existe Un Usuario Con Éste Nombre!"){
-				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
-				return;
-			}else{
-				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
-				getGoverment().getConsultaUsuariosController().mostrarVistaConsultarUsuarios();
-				getVista().setVisible(false);
-				return;
-			}
+			JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+			limpiar();
+			getVista().setVisible(false);
+			getGoverment().mostrarLogin();
+		}else if(e.getSource()==getVista().btnSalir){
+			getVista().setVisible(false);
+			getGoverment().mostrarInicio();
 		}
 	}
-
 }
