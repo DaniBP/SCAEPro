@@ -428,7 +428,8 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		getConfigurarEmpleadosModel().setPeriodoNominal(null);
 		getConfigurarEmpleadosModel().setTelCasa(null);
 		getConfigurarEmpleadosModel().setTelCel(null);
-
+		getConfigurarEmpleadosModel().setTamanoHuella(0);
+		getConfigurarEmpleadosModel().setDatosHuella(null);
 	}
 
 	public void limpiarCombos() {
@@ -442,6 +443,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			}
 		}
 		getRegistrarEmpleadoView().getCmbPuesto().setSelectedItem("-----Seleccione puesto-----");
+		getRegistrarEmpleadoView().getCmbPuesto().setEnabled(true);
 		for (int x = 0; x < tempNomina; x++) {
 			getRegistrarEmpleadoView().getCmbPeriodoNominal().removeItemAt(0);
 			if (getRegistrarEmpleadoView().getCmbPeriodoNominal().getItemCount() == 1) {

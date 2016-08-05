@@ -120,7 +120,7 @@ public class CapturaHuellaController extends JFrame {
 //			JOptionPane.ERROR_MESSAGE);
 //		}
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 485, 488);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -1,7 +1,9 @@
 package com.greenpear.it.scaepro.bo.configurarempleados;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.greenpear.it.scaepro.controller.configurarempleados.ConfigurarEmpleadosController;
 import com.greenpear.it.scaepro.dao.configurarempleados.ConfigurarEmpleadoDao;
+import com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel;
 import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
@@ -131,6 +134,14 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 		}
 		try {
 			mensaje = getEmpleadoDao().registrarEmpleado(configurarEmpleadosModel);
+			
+			EstatusPagoModel estatusPago = new EstatusPagoModel();
+			estatusPago.setIdEmpleado(configurarEmpleadosModel.getIdEmpleado());
+			estatusPago.setIdEstatusPago(2);
+			estatusPago.setComentario("");
+			estatusPago.setFechaPago("No se ha pagado aún");
+		
+			getEmpleadoDao().registrarEstatusPago(estatusPago);
 		} catch (SQLException t) {
 			throw new SQLException(t.getMessage());
 		}

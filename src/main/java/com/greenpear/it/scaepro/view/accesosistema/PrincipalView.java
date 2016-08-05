@@ -42,6 +42,7 @@ public class PrincipalView extends JFrame {
 	private JMenuItem mntmAdministrarAvisos;
 	private JMenuItem mntmVerificarEstatus;
 	private JMenuItem mntmEstatusDePago;
+	private JMenuItem mntmRegresar;
 
 	/**
 	 * Launch the application.
@@ -75,6 +76,9 @@ public class PrincipalView extends JFrame {
 		
 		JMenu mnEstatusDeConexin = new JMenu("Archivo");
 		menuBar.add(mnEstatusDeConexin);
+		
+		mntmRegresar = new JMenuItem("Regresar al inicio");
+		mnEstatusDeConexin.add(mntmRegresar);
 		
 		mntmSalir = new JMenuItem("Salir");
 		mnEstatusDeConexin.add(mntmSalir);
@@ -227,6 +231,10 @@ public class PrincipalView extends JFrame {
 
 	public JMenuItem getMntmEstatusDePago() {
 		return mntmEstatusDePago;
+	}
+
+	public JMenuItem getMntmRegresar() {
+		return mntmRegresar;
 	}
 	
 	
