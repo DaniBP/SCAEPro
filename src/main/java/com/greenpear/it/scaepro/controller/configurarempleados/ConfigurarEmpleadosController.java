@@ -537,17 +537,10 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		}
 	}
 
-	private int conocerIdArea() {
-		turnoModelo.setArea(getRegistrarEmpleadoView().getCmbArea().getSelectedItem().toString());
-		turnoModelo = getEmpleadosBo().consultarIdArea(turnoModelo);
-		return configurarEmpleadosModel.getIdEmpleado();
-	}
-
-	private int conocerIdTurno() {
+	private void  conocerIdTurno() {
 		turnoModelo.setArea(getRegistrarEmpleadoView().getCmbArea().getSelectedItem().toString());
 		turnoModelo.setNombreTurno(getRegistrarEmpleadoView().getCmbTurno().getSelectedItem().toString());
 		turnoModelo = getEmpleadosBo().consultarIdTurno(turnoModelo);
-		return configurarEmpleadosModel.getIdEmpleado();
 	}
 
 	@Override

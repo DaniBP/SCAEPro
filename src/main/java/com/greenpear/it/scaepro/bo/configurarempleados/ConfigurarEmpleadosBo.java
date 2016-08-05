@@ -229,4 +229,14 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel>{
 		return empleadoModel;
 	}
 
+	public String eliminarDireccion(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		String resultado="";
+		try{
+			resultado=getEmpleadoDao().eliminarDireccion(configurarEmpleadosModel);
+		}catch(Exception e){
+			return e.getMessage();
+		}
+		return resultado;
+	}
+
 }

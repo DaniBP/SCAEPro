@@ -286,7 +286,8 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				String nombreArea;
 				String turno;
 				Object boton;
-				private String delete;
+				private String deleteEmpleado;
+				private String deleteDireccion;
 
 				public void mouseClicked(MouseEvent e) {
 					int fila = getConsultaEmpleadoView().getTable().rowAtPoint(e.getPoint());
@@ -330,15 +331,18 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							if (JOptionPane.showConfirmDialog(null, "Seguro de Eliminar el empleado :" + nombreEmpleado) == 0) {
 								configurarEmpleadosModel.setIdEmpleado(Integer.parseInt(idEmpleado));
 								try {
-									delete = getEmpleadosBo().eliminarEmpleado(getConfigurarEmpleadosModel());
+									configurarEmpleadosModel = getEmpleadosBo().consultaModificarEmpleado(idEmpleado);
+									JOptionPane.showMessageDialog(null, configurarEmpleadosModel.getIdDireccionEmpleado());
+									deleteEmpleado = getEmpleadosBo().eliminarEmpleado(getConfigurarEmpleadosModel());
+									deleteDireccion = getEmpleadosBo().eliminarDireccion(configurarEmpleadosModel);
 								} catch (SQLException e1) {
 									e1.printStackTrace();
 								}
-								if (delete.equals("El empleado fue eliminado correctamente!")) {
-									JOptionPane.showMessageDialog(null, delete, "Eliminar empleado",
+								if (deleteEmpleado.equals("El empleado fue eliminado correctamente!")) {
+									JOptionPane.showMessageDialog(null, deleteEmpleado, "Eliminar empleado",
 											JOptionPane.INFORMATION_MESSAGE);
 								} else {
-									JOptionPane.showMessageDialog(null, delete, "Eliminar empleado",
+									JOptionPane.showMessageDialog(null, deleteEmpleado, "Eliminar empleado",
 											JOptionPane.WARNING_MESSAGE);
 								}
 								consultaGeneral();

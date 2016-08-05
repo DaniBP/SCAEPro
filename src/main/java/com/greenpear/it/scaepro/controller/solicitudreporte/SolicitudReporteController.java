@@ -161,12 +161,6 @@ public class SolicitudReporteController implements ActionListener, ChangeListene
 
 	private void llenarAreas() {
 		List<SolicitudReporteModel> listaAreas = new ArrayList<SolicitudReporteModel>();
-		int c = getVista().cmbAreas.getItemCount();
-		for (int i = 0; i < c; i++) {
-			if(i!=c-1){				
-				getVista().cmbAreas.removeItemAt(1);
-			}
-		}
 		try {
 			listaAreas = getBo().llenarAreas();
 		} catch (SQLException e) {

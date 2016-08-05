@@ -500,4 +500,15 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return empleadoModel;
 	}
 
+	public String eliminarDireccion(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+		String sql = "DELETE FROM t_direccionempleado WHERE idDireccionEmpleado=?";
+		try {
+			getJdbcTemplate().update(sql, configurarEmpleadosModel.getIdDireccionEmpleado());
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminaci�n!");
+		}
+		return "La direccion del empleado fue eliminada correctamente!";
+	}
+
 }
