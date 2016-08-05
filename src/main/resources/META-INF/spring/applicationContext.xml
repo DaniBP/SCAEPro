@@ -120,7 +120,7 @@
 	<bean id="consultaUsuariosController" class="com.greenpear.it.scaepro.controller.gestionusuarios.ConsultaUsuariosController" />
 	<bean id="capturaHuellaController" class="com.greenpear.it.scaepro.controller.configurarempleados.CapturaHuellaController" />
 	<bean id="consultarEmpleadosController" class="com.greenpear.it.scaepro.controller.configurarempleados.ConsultarEmpleadosController" />
-	<bean id="primerUsuarioController" class="com.greenpear.it.scaepro.controller.accesosistema.PrimerUsuariosController" />
+	<bean id="primerUsuarioController" class="com.greenpear.it.scaepro.controller.accesosistema.PrimerUsuarioController" />
 
 <!-- 	Aquí comienza la declaración de modelos -->
 
