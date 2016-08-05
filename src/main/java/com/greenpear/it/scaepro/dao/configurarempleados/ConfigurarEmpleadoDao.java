@@ -426,8 +426,8 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 	public String modificarEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		String sql = "UPDATE t_empleado SET nombreEmpleado=?, apePatEmpleado=?,apeMatEmpleado=?,"
 				+ "fechaNacimiento=?,telCel=?,telCasa=?,idDireccionEmpleado=?,"
-				+ "puesto=?,idTurno=?,fotografia=?,periodoNominal=?,diaDePago=?,"
-				+ "usuarioEmpleado=?,passwordEmpleado=? WHERE idEmpleado=?";
+				+ "puesto=?,idTurno=?,fotografia=?,periodoNominal=?,diaDePago=? "
+				+ "WHERE idEmpleado=?";
 		try {
 			getJdbcTemplate().update(sql,
 		configurarEmpleadosModel.getNombreEmpleado(),
@@ -442,8 +442,6 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		configurarEmpleadosModel.getFotografia(),
 		configurarEmpleadosModel.getPeriodoNominal(),
 		configurarEmpleadosModel.getDiaDePago(),
-		configurarEmpleadosModel.getNombreUsuario(),
-		configurarEmpleadosModel.getPassword(),
 		configurarEmpleadosModel.getIdEmpleado());
 
 		} catch (Exception e) {
