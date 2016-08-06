@@ -426,17 +426,24 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 	public String modificarEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		String sql = "UPDATE t_empleado SET nombreEmpleado=?, apePatEmpleado=?,apeMatEmpleado=?,"
 				+ "fechaNacimiento=?,telCel=?,telCasa=?,idDireccionEmpleado=?,"
-				+ "puesto=?,idTurno=?,fotografia=?,periodoNominal=?,diaDePago=?,"
-				+ "usuarioEmpleado=?,passwordEmpleado=? WHERE idEmpleado=?";
+				+ "puesto=?,idTurno=?,fotografia=?,periodoNominal=?,diaDePago=? "
+				+ "WHERE idEmpleado=?";
 		try {
-			getJdbcTemplate().update(sql, configurarEmpleadosModel.getNombreEmpleado(),
-					configurarEmpleadosModel.getApePatEmpleado(), configurarEmpleadosModel.getApeMatEmpleado(),
-					configurarEmpleadosModel.getFechaNacimiento(), configurarEmpleadosModel.getTelCel(),
-					configurarEmpleadosModel.getTelCasa(), configurarEmpleadosModel.getIdDireccionEmpleado(),
-					configurarEmpleadosModel.getPuesto(), configurarEmpleadosModel.getIdTurno(),
-					configurarEmpleadosModel.getFotografia(), configurarEmpleadosModel.getPeriodoNominal(),
-					configurarEmpleadosModel.getDiaDePago(), configurarEmpleadosModel.getNombreUsuario(),
-					configurarEmpleadosModel.getPassword(), configurarEmpleadosModel.getIdEmpleado());
+
+			getJdbcTemplate().update(sql,
+		configurarEmpleadosModel.getNombreEmpleado(),
+		configurarEmpleadosModel.getApePatEmpleado(),
+		configurarEmpleadosModel.getApeMatEmpleado(),
+		configurarEmpleadosModel.getFechaNacimiento(),
+		configurarEmpleadosModel.getTelCel(),
+		configurarEmpleadosModel.getTelCasa(),
+		configurarEmpleadosModel.getIdDireccionEmpleado(),
+		configurarEmpleadosModel.getPuesto(),
+		configurarEmpleadosModel.getIdTurno(),
+		configurarEmpleadosModel.getFotografia(),
+		configurarEmpleadosModel.getPeriodoNominal(),
+		configurarEmpleadosModel.getDiaDePago(),
+		configurarEmpleadosModel.getIdEmpleado());
 
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
