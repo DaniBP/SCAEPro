@@ -305,6 +305,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -502,7 +503,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -772,6 +775,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -969,7 +973,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -1239,6 +1245,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -1436,7 +1443,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -1706,6 +1715,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -1903,7 +1913,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -2174,6 +2186,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -2642,6 +2655,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -2839,7 +2853,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -3110,6 +3126,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -3307,7 +3324,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -3436,13 +3455,15 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 				limpiarParametros();
-			}else if(!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+			} else if (!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
 					&& !getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 					&& !getConsultaEmpleadoView().getCmbTurno().getSelectedItem()
-							.equals("-----Seleccionar turno-----")){
+							.equals("-----Seleccionar turno-----")) {
 				configurarEmpleadosModel.setArea(getConsultaEmpleadoView().getCmbArea().getSelectedItem().toString());
-				configurarEmpleadosModel.setPuesto(getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().toString());
-				configurarEmpleadosModel.setNombreTurno(getConsultaEmpleadoView().getCmbTurno().getSelectedItem().toString());
+				configurarEmpleadosModel
+						.setPuesto(getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().toString());
+				configurarEmpleadosModel
+						.setNombreTurno(getConsultaEmpleadoView().getCmbTurno().getSelectedItem().toString());
 				List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 				try {
 					listaEmpleados = getEmpleadosBo().consultaAsignacion(configurarEmpleadosModel);
@@ -3580,6 +3601,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -3777,7 +3799,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -3906,10 +3930,10 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 				limpiarParametros();
-			}else if(!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+			} else if (!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
 					&& getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 					&& getConsultaEmpleadoView().getCmbTurno().getSelectedItem()
-							.equals("-----Seleccionar turno-----")){
+							.equals("-----Seleccionar turno-----")) {
 				configurarEmpleadosModel.setArea(getConsultaEmpleadoView().getCmbArea().getSelectedItem().toString());
 				List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 				try {
@@ -4048,6 +4072,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -4245,7 +4270,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -4374,12 +4401,13 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 				limpiarParametros();
-			}else if(!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+			} else if (!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
 					&& getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 					&& !getConsultaEmpleadoView().getCmbTurno().getSelectedItem()
-							.equals("-----Seleccionar turno-----")){
+							.equals("-----Seleccionar turno-----")) {
 				configurarEmpleadosModel.setArea(getConsultaEmpleadoView().getCmbArea().getSelectedItem().toString());
-				configurarEmpleadosModel.setNombreTurno(getConsultaEmpleadoView().getCmbTurno().getSelectedItem().toString());
+				configurarEmpleadosModel
+						.setNombreTurno(getConsultaEmpleadoView().getCmbTurno().getSelectedItem().toString());
 				List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 				try {
 					listaEmpleados = getEmpleadosBo().consultaAreaTurno(configurarEmpleadosModel);
@@ -4517,6 +4545,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -4714,7 +4743,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -4843,12 +4874,13 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 				limpiarParametros();
-			}else if(!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+			} else if (!getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
 					&& !getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 					&& getConsultaEmpleadoView().getCmbTurno().getSelectedItem()
-							.equals("-----Seleccionar turno-----")){
+							.equals("-----Seleccionar turno-----")) {
 				configurarEmpleadosModel.setArea(getConsultaEmpleadoView().getCmbArea().getSelectedItem().toString());
-				configurarEmpleadosModel.setPuesto(getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().toString());
+				configurarEmpleadosModel
+						.setPuesto(getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().toString());
 				List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 				try {
 					listaEmpleados = getEmpleadosBo().consultaAreaPuesto(configurarEmpleadosModel);
@@ -4986,6 +5018,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -5183,7 +5216,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -5312,11 +5347,12 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 				limpiarParametros();
-			}else if(getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+			} else if (getConsultaEmpleadoView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
 					&& !getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 					&& getConsultaEmpleadoView().getCmbTurno().getSelectedItem()
-							.equals("-----Seleccionar turno-----")){
-				configurarEmpleadosModel.setPuesto(getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().toString());
+							.equals("-----Seleccionar turno-----")) {
+				configurarEmpleadosModel
+						.setPuesto(getConsultaEmpleadoView().getCmbPuesto().getSelectedItem().toString());
 				List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 				try {
 					listaEmpleados = getEmpleadosBo().consultaPuesto(configurarEmpleadosModel);
@@ -5454,6 +5490,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 										e1.printStackTrace();
 									}
 									abrirVentanaMas(empleadoModel);
+									getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 									return;
 								}
 							}
@@ -5651,7 +5688,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
 									.getBtnCapturarFoto().setVisible(false);
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
-									.getBtnLeerHuella().setVisible(false);
+									.getBtnLeerHuella().setVisible(true);
+							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView()
+									.getBtnLeerHuella().setText("Recuperar user/pass");
 							getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 									.setVisible(false);
 						}
@@ -5781,10 +5820,10 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 				getConsultaEmpleadoView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 				limpiarParametros();
 			}
-		}else if(e.getSource().equals(getConsultaEmpleadoView().getBtnLimpiar())){
+		} else if (e.getSource().equals(getConsultaEmpleadoView().getBtnLimpiar())) {
 			limpiarParametros();
 			consultaGeneral();
-		}else if(e.getSource().equals(getConsultaEmpleadoView().getRdbtnPorArea())){
+		} else if (e.getSource().equals(getConsultaEmpleadoView().getRdbtnPorArea())) {
 			getConsultaEmpleadoView().getTxtApeMat().setEnabled(true);
 			getConsultaEmpleadoView().getTxtNombre().setEnabled(true);
 			getConsultaEmpleadoView().getTxtApePat().setEnabled(true);
@@ -5795,8 +5834,8 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 			getConsultaEmpleadoView().getCmbPuesto().setEnabled(false);
 			getConsultaEmpleadoView().getCmbArea().setSelectedIndex(0);
 			getConsultaEmpleadoView().getCmbPuesto().setSelectedIndex(0);
-			
-		}else if(e.getSource().equals(getConsultaEmpleadoView().getRdbtnPorAsignacion())){
+
+		} else if (e.getSource().equals(getConsultaEmpleadoView().getRdbtnPorAsignacion())) {
 			getConsultaEmpleadoView().getTxtApeMat().setEnabled(false);
 			getConsultaEmpleadoView().getTxtNombre().setEnabled(false);
 			getConsultaEmpleadoView().getTxtApePat().setEnabled(false);
@@ -6036,6 +6075,7 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 								e1.printStackTrace();
 							}
 							abrirVentanaMas(empleadoModel);
+							getGoverment().getRegistrarEmpleadoController().getConfigurarEmpleadosModel().setIdEmpleado(Integer.parseInt(idEmpleado));
 							return;
 						}
 					}
@@ -6233,7 +6273,9 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnCapturarFoto()
 							.setVisible(false);
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnLeerHuella()
-							.setVisible(false);
+							.setVisible(true);
+					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnLeerHuella()
+							.setText("Recuperar user/pass");
 					getGoverment().getRegistrarEmpleadoController().getRegistrarEmpleadoView().getBtnRegistrar()
 							.setVisible(false);
 				}
@@ -6358,7 +6400,8 @@ public class ConsultarEmpleadosController implements ActionListener, WindowListe
 		getConsultaEmpleadoView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
 		getConsultaEmpleadoView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 	}
-	public void limpiarParametros(){
+
+	public void limpiarParametros() {
 		getConsultaEmpleadoView().getTxtNombre().setText(null);
 		getConsultaEmpleadoView().getTxtApePat().setText(null);
 		getConsultaEmpleadoView().getTxtApeMat().setText(null);

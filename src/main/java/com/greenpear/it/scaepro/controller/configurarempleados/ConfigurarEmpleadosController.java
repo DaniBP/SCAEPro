@@ -251,8 +251,15 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			SwingUtilities.invokeLater(fotoController);
 			// consultarIdEmpleado();
 		} else if (e.getSource().equals(getRegistrarEmpleadoView().getBtnLeerHuella())) {
-			getHuellaController().setVisible(true);
-			getHuellaController().start();
+			if (getRegistrarEmpleadoView().getBtnLeerHuella().getText()=="Capturar Huella" 
+					|| getRegistrarEmpleadoView().getBtnLeerHuella().getText()=="Cambiar Huella") {
+				getHuellaController().setVisible(true);
+				getHuellaController().start();
+			} else {
+					 configurarEmpleadosModel= getEmpleadosBo().consultarUserAndPassword(getConfigurarEmpleadosModel());
+					 JOptionPane.showMessageDialog(null, "El nombre de usuario es "+configurarEmpleadosModel.getNombreUsuario()
+					 +" y la contraseña es "+configurarEmpleadosModel.getPassword());
+			}
 		}
 	}
 
@@ -263,9 +270,6 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 			empleadoModel = getEmpleadosBo().validarEmpleado(getRegistrarEmpleadoView().getTxtNombres().getText(),
 					getRegistrarEmpleadoView().getTxtApePat().getText(),
 					getRegistrarEmpleadoView().getTxtApeMat().getText());
-			// System.out.println(empleadoModel.getNombreEmpleado()+"
-			// "+empleadoModel.getApePatEmpleado()+"
-			// "+empleadoModel.getApeMatEmpleado());
 			if (empleadoModel == null) {
 				empleado = "vacio";
 			} else {
@@ -369,7 +373,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 
 	private String construirNombreUsuario() {
 		String idUsuario, nombreEmpleado, apellido, nomFinal;
-		idUsuario = Integer.toString(configurarEmpleadosModel.getIdEmpleado()+1);
+		idUsuario = Integer.toString(configurarEmpleadosModel.getIdEmpleado() + 1);
 		nombreEmpleado = (getRegistrarEmpleadoView().getTxtNombres().getText()).substring(0, 3);
 		apellido = (getRegistrarEmpleadoView().getTxtApePat().getText()).substring(0, 3);
 		nomFinal = idUsuario + nombreEmpleado + apellido;
@@ -538,7 +542,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		}
 	}
 
-	private void  conocerIdTurno() {
+	private void conocerIdTurno() {
 		turnoModelo.setArea(getRegistrarEmpleadoView().getCmbArea().getSelectedItem().toString());
 		turnoModelo.setNombreTurno(getRegistrarEmpleadoView().getCmbTurno().getSelectedItem().toString());
 		turnoModelo = getEmpleadosBo().consultarIdTurno(turnoModelo);

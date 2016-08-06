@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -306,7 +307,7 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel> {
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaAsignacion(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaAsignacion(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		try {
 			listaEmpleados = getEmpleadoDao().consultaAsignacion(configurarEmpleadosModel);
@@ -316,7 +317,7 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel> {
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaArea(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaArea(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		try {
 			listaEmpleados = getEmpleadoDao().consultaArea(configurarEmpleadosModel);
@@ -326,7 +327,7 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel> {
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaAreaTurno(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaAreaTurno(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		try {
 			listaEmpleados = getEmpleadoDao().consultaAreaTurno(configurarEmpleadosModel);
@@ -336,7 +337,7 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel> {
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaAreaPuesto(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaAreaPuesto(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		try {
 			listaEmpleados = getEmpleadoDao().consultaAreaPuesto(configurarEmpleadosModel);
@@ -346,7 +347,7 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel> {
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaPuesto(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaPuesto(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		try {
 			listaEmpleados = getEmpleadoDao().consultaPuesto(configurarEmpleadosModel);
@@ -354,6 +355,18 @@ public class ConfigurarEmpleadosBo implements SelectAllService<EmpleadoModel> {
 			throw new SQLException(t.getMessage());
 		}
 		return listaEmpleados;
+	}
+
+	public EmpleadoModel consultarUserAndPassword(EmpleadoModel configurarEmpleadosModel){
+		EmpleadoModel empleado = new EmpleadoModel();
+		try {
+			empleado = getEmpleadoDao().consultarUserAndPassowrd(configurarEmpleadosModel);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return empleado;
+
 	}
 
 }

@@ -163,14 +163,14 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 				+ getDireccionModelo().getUniColonia();
 	}
 
-	public EmpleadoModel consultarIdEmpleado()throws SQLException {
-		EmpleadoModel empleadoModel=new EmpleadoModel();
-		String sql="select idEmpleado from t_empleado ORDER BY IDEMPLEADO DESC LIMIT 1";
+	public EmpleadoModel consultarIdEmpleado() throws SQLException {
+		EmpleadoModel empleadoModel = new EmpleadoModel();
+		String sql = "select idEmpleado from t_empleado ORDER BY IDEMPLEADO DESC LIMIT 1";
 		try {
-			empleadoModel=getJdbcTemplate().query(sql,new ResultSetExtractor<EmpleadoModel>(){
-				public EmpleadoModel extractData(ResultSet rs)throws SQLException{
-					EmpleadoModel empleado=new EmpleadoModel();
-					if(rs.next()){
+			empleadoModel = getJdbcTemplate().query(sql, new ResultSetExtractor<EmpleadoModel>() {
+				public EmpleadoModel extractData(ResultSet rs) throws SQLException {
+					EmpleadoModel empleado = new EmpleadoModel();
+					if (rs.next()) {
 						empleado.setIdEmpleado(rs.getInt("idEmpleado"));
 					}
 					return empleado;
@@ -184,13 +184,13 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 	}
 
 	public TurnoModel consultarIdArea(TurnoModel turnoModelo2) throws SQLException {
-		TurnoModel turnomodel=new TurnoModel();
-		String sql="select idArea from c_area where nombreArea='"+turnoModelo2.getArea()+"'";
+		TurnoModel turnomodel = new TurnoModel();
+		String sql = "select idArea from c_area where nombreArea='" + turnoModelo2.getArea() + "'";
 		try {
-			turnomodel=getJdbcTemplate().query(sql,new ResultSetExtractor<TurnoModel>(){
-				public TurnoModel extractData(ResultSet rs)throws SQLException{
-					TurnoModel turno=new TurnoModel();
-					if(rs.next()){
+			turnomodel = getJdbcTemplate().query(sql, new ResultSetExtractor<TurnoModel>() {
+				public TurnoModel extractData(ResultSet rs) throws SQLException {
+					TurnoModel turno = new TurnoModel();
+					if (rs.next()) {
 						turno.setIdArea(rs.getInt("idArea"));
 					}
 					return turno;
@@ -204,14 +204,15 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 	}
 
 	public TurnoModel consultarIdTurno(TurnoModel turnoModelo3) throws SQLException {
-		TurnoModel turnomodel=new TurnoModel();
-		String sql="select idTurno from c_turno inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where nombreArea='"+turnoModelo3.getArea()+"' and nombreTurno='"+turnoModelo3.getNombreTurno()+"'";
+		TurnoModel turnomodel = new TurnoModel();
+		String sql = "select idTurno from c_turno inner join c_area on c_turno.idArea=c_area.idArea"
+				+ " where nombreArea='" + turnoModelo3.getArea() + "' and nombreTurno='" + turnoModelo3.getNombreTurno()
+				+ "'";
 		try {
-			turnomodel=getJdbcTemplate().query(sql,new ResultSetExtractor<TurnoModel>(){
-				public TurnoModel extractData(ResultSet rs)throws SQLException{
-					TurnoModel turno=new TurnoModel();
-					if(rs.next()){
+			turnomodel = getJdbcTemplate().query(sql, new ResultSetExtractor<TurnoModel>() {
+				public TurnoModel extractData(ResultSet rs) throws SQLException {
+					TurnoModel turno = new TurnoModel();
+					if (rs.next()) {
 						turno.setIdTurno(rs.getInt("idTurno"));
 					}
 					return turno;
@@ -253,18 +254,17 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la insercion!");
 		}
-		
+
 		registrarHuella(configurarEmpleadosModel);
 
-		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() +" "+configurarEmpleadosModel.getApePatEmpleado()+""
-				+ " "+configurarEmpleadosModel.getApeMatEmpleado()+ "\n" 
-				+ "Fue registrado exitosamente!\n\n"
-				+ "Su usuario para la app movil es: " + configurarEmpleadosModel.getNombreUsuario() +"\n"+ "Su contraseña " + "\n"
-				+ configurarEmpleadosModel.getPassword()+ "\n"+"\n"
-				+ "Recuerde cambiarla al iniciar sesion.";
+		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() + " "
+				+ configurarEmpleadosModel.getApePatEmpleado() + "" + " " + configurarEmpleadosModel.getApeMatEmpleado()
+				+ "\n" + "Fue registrado exitosamente!\n\n" + "Su usuario para la app movil es: "
+				+ configurarEmpleadosModel.getNombreUsuario() + "\n" + "Su contraseña " + "\n"
+				+ configurarEmpleadosModel.getPassword() + "\n" + "\n" + "Recuerde cambiarla al iniciar sesion.";
 	}
-	
-	public void registrarEstatusPago(EstatusPagoModel estatusPago) throws SQLException{
+
+	public void registrarEstatusPago(EstatusPagoModel estatusPago) throws SQLException {
 		try {
 			SimpleJdbcInsert insert = new SimpleJdbcInsert(getDataSource());
 
@@ -277,37 +277,36 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 			parameters.put("idEstatusPago", estatusPago.getIdEstatusPago());
 			parameters.put("comentario", estatusPago.getComentario());
 			parameters.put("fechaPago", estatusPago.getFechaPago());
-			
+
 			estatusPago.setIdStatusPago(insert.executeAndReturnKey(parameters).intValue());
 
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
-			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la insercion del estatus de pago!");
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la insercion del estatus de pago!");
 		}
 	}
 
 	public void registrarHuella(EmpleadoModel empleadoModel) {
 		try {
-			 Connection c=conectar();
-		     PreparedStatement guardarHuella = c.prepareStatement("UPDATE t_empleado SET "
-		     		+ "huellaEmpleado = ? "
-		     		+ "WHERE "
-		     		+ "idEmpleado = ?");
+			Connection c = conectar();
+			PreparedStatement guardarHuella = c
+					.prepareStatement("UPDATE t_empleado SET " + "huellaEmpleado = ? " + "WHERE " + "idEmpleado = ?");
 
-		     guardarHuella.setBinaryStream(1, empleadoModel.getDatosHuella(),empleadoModel.getTamanoHuella());
-		     guardarHuella.setInt(2, empleadoModel.getIdEmpleado());
-		     
-		     guardarHuella.execute();
-		     guardarHuella.close();
-		     desconectar();
+			guardarHuella.setBinaryStream(1, empleadoModel.getDatosHuella(), empleadoModel.getTamanoHuella());
+			guardarHuella.setInt(2, empleadoModel.getIdEmpleado());
+
+			guardarHuella.execute();
+			guardarHuella.close();
+			desconectar();
 		} catch (SQLException ex) {
-		     System.err.println("Error al guardar los datos de la huella.");
-		}finally{
-		     desconectar();
+			System.err.println("Error al guardar los datos de la huella.");
+		} finally {
+			desconectar();
 		}
 	}
 
-	public List<EmpleadoModel> consultaGeneralEmpleados()throws SQLException {
+	public List<EmpleadoModel> consultaGeneralEmpleados() throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
@@ -339,8 +338,8 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public EmpleadoModel consultaModificarEmpleado(String idEmpleado)throws SQLException {
-  		EmpleadoModel empleados = new EmpleadoModel();
+	public EmpleadoModel consultaModificarEmpleado(String idEmpleado) throws SQLException {
+		EmpleadoModel empleados = new EmpleadoModel();
 		String sql = "SELECT * FROM t_empleado WHERE idEmpleado=" + idEmpleado;
 		try {
 			empleados = getJdbcTemplate().query(sql, new ResultSetExtractor<EmpleadoModel>() {
@@ -375,9 +374,10 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return empleados;
 	}
 
-	public DireccionModelo consultarCpDireccionEmpleado(int idDireccionEmpleado)throws SQLException {
-		DireccionModelo direccionModelo=new DireccionModelo();
-		String sql = "SELECT codigoPostal,uniColonia,calle,numEx,numIn FROM t_direccionEmpleado WHERE idDireccionEmpleado=" + idDireccionEmpleado;
+	public DireccionModelo consultarCpDireccionEmpleado(int idDireccionEmpleado) throws SQLException {
+		DireccionModelo direccionModelo = new DireccionModelo();
+		String sql = "SELECT codigoPostal,uniColonia,calle,numEx,numIn FROM t_direccionEmpleado WHERE idDireccionEmpleado="
+				+ idDireccionEmpleado;
 		try {
 			direccionModelo = getJdbcTemplate().query(sql, new ResultSetExtractor<DireccionModelo>() {
 				public DireccionModelo extractData(ResultSet rs) throws SQLException {
@@ -400,8 +400,8 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return direccionModelo;
 	}
 
-	public TurnoModel consultarAreaEmpleado(int idTurno)throws SQLException {
-		TurnoModel turnoModel=new TurnoModel();
+	public TurnoModel consultarAreaEmpleado(int idTurno) throws SQLException {
+		TurnoModel turnoModel = new TurnoModel();
 		String sql = "SELECT c_area.nombreArea,c_turno.nombreTurno from c_area "
 				+ "inner join c_turno on c_area.idArea=c_turno.idArea where idTurno=" + idTurno;
 		try {
@@ -429,39 +429,31 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 				+ "puesto=?,idTurno=?,fotografia=?,periodoNominal=?,diaDePago=?,"
 				+ "usuarioEmpleado=?,passwordEmpleado=? WHERE idEmpleado=?";
 		try {
-			getJdbcTemplate().update(sql,
-		configurarEmpleadosModel.getNombreEmpleado(),
-		configurarEmpleadosModel.getApePatEmpleado(),
-		configurarEmpleadosModel.getApeMatEmpleado(),
-		configurarEmpleadosModel.getFechaNacimiento(),
-		configurarEmpleadosModel.getTelCel(),
-		configurarEmpleadosModel.getTelCasa(),
-		configurarEmpleadosModel.getIdDireccionEmpleado(),
-		configurarEmpleadosModel.getPuesto(),
-		configurarEmpleadosModel.getIdTurno(),
-		configurarEmpleadosModel.getFotografia(),
-		configurarEmpleadosModel.getPeriodoNominal(),
-		configurarEmpleadosModel.getDiaDePago(),
-		configurarEmpleadosModel.getNombreUsuario(),
-		configurarEmpleadosModel.getPassword(),
-		configurarEmpleadosModel.getIdEmpleado());
+			getJdbcTemplate().update(sql, configurarEmpleadosModel.getNombreEmpleado(),
+					configurarEmpleadosModel.getApePatEmpleado(), configurarEmpleadosModel.getApeMatEmpleado(),
+					configurarEmpleadosModel.getFechaNacimiento(), configurarEmpleadosModel.getTelCel(),
+					configurarEmpleadosModel.getTelCasa(), configurarEmpleadosModel.getIdDireccionEmpleado(),
+					configurarEmpleadosModel.getPuesto(), configurarEmpleadosModel.getIdTurno(),
+					configurarEmpleadosModel.getFotografia(), configurarEmpleadosModel.getPeriodoNominal(),
+					configurarEmpleadosModel.getDiaDePago(), configurarEmpleadosModel.getNombreUsuario(),
+					configurarEmpleadosModel.getPassword(), configurarEmpleadosModel.getIdEmpleado());
 
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserion!");
 		}
-		
-		if(configurarEmpleadosModel.getTamanoHuella()!=0){			
+
+		if (configurarEmpleadosModel.getTamanoHuella() != 0) {
 			registrarHuella(configurarEmpleadosModel);
 		}
 
-		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() +" "+configurarEmpleadosModel.getApePatEmpleado()+""
-				+ " "+configurarEmpleadosModel.getApeMatEmpleado()+ "\n" 
-				+ "Fue actualizado exitosamente!\n\n"
+		return "El empleado " + configurarEmpleadosModel.getNombreEmpleado() + " "
+				+ configurarEmpleadosModel.getApePatEmpleado() + "" + " " + configurarEmpleadosModel.getApeMatEmpleado()
+				+ "\n" + "Fue actualizado exitosamente!\n\n"
 				+ "Recuerde que puede cambiar su usuario y contraseña dentro la app movil";
 	}
 
-	public String eliminarEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public String eliminarEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		String sql = "DELETE FROM t_empleado WHERE idEmpleado=?";
 		try {
 			getJdbcTemplate().update(sql, configurarEmpleadosModel.getIdEmpleado());
@@ -472,13 +464,14 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return "El empleado fue eliminado correctamente!";
 	}
 
-	public EmpleadoModel validarEmpleado(String nombres, String apepat, String apemat)throws SQLException {
-		EmpleadoModel empleadoModel=new EmpleadoModel();
-		String sql ="select nombreEmpleado,apePatEmpleado,apeMatEmpleado from t_empleado where nombreEmpleado='"+nombres+"' and apePatEmpleado='"+apepat+"' and apeMatEmpleado='"+apemat+"'";
+	public EmpleadoModel validarEmpleado(String nombres, String apepat, String apemat) throws SQLException {
+		EmpleadoModel empleadoModel = new EmpleadoModel();
+		String sql = "select nombreEmpleado,apePatEmpleado,apeMatEmpleado from t_empleado where nombreEmpleado='"
+				+ nombres + "' and apePatEmpleado='" + apepat + "' and apeMatEmpleado='" + apemat + "'";
 		System.out.println(sql);
 		try {
 			empleadoModel = getJdbcTemplate().query(sql, new ResultSetExtractor<EmpleadoModel>() {
-			
+
 				public EmpleadoModel extractData(ResultSet rs) throws SQLException {
 					if (rs.next()) {
 						EmpleadoModel resultValue = new EmpleadoModel();
@@ -500,7 +493,7 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return empleadoModel;
 	}
 
-	public String eliminarDireccion(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public String eliminarDireccion(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		String sql = "DELETE FROM t_direccionempleado WHERE idDireccionEmpleado=?";
 		try {
 			getJdbcTemplate().update(sql, configurarEmpleadosModel.getIdDireccionEmpleado());
@@ -511,16 +504,16 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return "La direccion del empleado fue eliminada correctamente!";
 	}
 
-	public List<EmpleadoModel> consultaNombreCompletoEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException{
+	public List<EmpleadoModel> consultaNombreCompletoEmpleado(EmpleadoModel configurarEmpleadosModel)
+			throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where nombreEmpleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
-						+ "and apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
-								+ "and apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where nombreEmpleado='"
+				+ configurarEmpleadosModel.getNombreEmpleado() + "' " + "and apePatEmpleado='"
+				+ configurarEmpleadosModel.getApePatEmpleado() + "' " + "and apeMatEmpleado='"
+				+ configurarEmpleadosModel.getApeMatEmpleado() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -547,14 +540,13 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaNombreEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaNombreEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where nombreEmpleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where nombreEmpleado='"
+				+ configurarEmpleadosModel.getNombreEmpleado() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -581,14 +573,13 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaApePatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException{
+	public List<EmpleadoModel> consultaApePatEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where apePatEmpleado='"
+				+ configurarEmpleadosModel.getApePatEmpleado() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -615,14 +606,13 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaApeMatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaApeMatEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where apeMatEmpleado='"
+				+ configurarEmpleadosModel.getApeMatEmpleado() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -649,15 +639,14 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaNomApatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaNomApatEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
-						+ "and nombreempleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where apePatEmpleado='"
+				+ configurarEmpleadosModel.getApePatEmpleado() + "' " + "and nombreempleado='"
+				+ configurarEmpleadosModel.getNombreEmpleado() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -684,15 +673,14 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaNomAmatEmpleado(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaNomAmatEmpleado(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
-						+ "and nombreempleado='"+configurarEmpleadosModel.getNombreEmpleado()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where apeMatEmpleado='"
+				+ configurarEmpleadosModel.getApeMatEmpleado() + "' " + "and nombreempleado='"
+				+ configurarEmpleadosModel.getNombreEmpleado() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -719,15 +707,14 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaApellidos(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaApellidos(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where apePatEmpleado='"+configurarEmpleadosModel.getApePatEmpleado()+"' "
-						+ "and apeMatEmpleado='"+configurarEmpleadosModel.getApeMatEmpleado()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where apePatEmpleado='"
+				+ configurarEmpleadosModel.getApePatEmpleado() + "' " + "and apeMatEmpleado='"
+				+ configurarEmpleadosModel.getApeMatEmpleado() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -754,16 +741,15 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaAsignacion(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaAsignacion(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
-						+ "and c_turno.nombreTurno='"+configurarEmpleadosModel.getNombreTurno()+"' "
-								+ "and puesto='"+configurarEmpleadosModel.getPuesto()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where c_area.nombreArea='"
+				+ configurarEmpleadosModel.getArea() + "' " + "and c_turno.nombreTurno='"
+				+ configurarEmpleadosModel.getNombreTurno() + "' " + "and puesto='"
+				+ configurarEmpleadosModel.getPuesto() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -790,14 +776,13 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaArea(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaArea(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where c_area.nombreArea='"
+				+ configurarEmpleadosModel.getArea() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -824,15 +809,14 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaAreaTurno(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaAreaTurno(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
-						+ "and c_turno.nombreTurno='"+configurarEmpleadosModel.getNombreTurno()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where c_area.nombreArea='"
+				+ configurarEmpleadosModel.getArea() + "' " + "and c_turno.nombreTurno='"
+				+ configurarEmpleadosModel.getNombreTurno() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -859,15 +843,14 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaAreaPuesto(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaAreaPuesto(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where c_area.nombreArea='"+configurarEmpleadosModel.getArea()+"' "
-						+ "and puesto='"+configurarEmpleadosModel.getPuesto()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where c_area.nombreArea='"
+				+ configurarEmpleadosModel.getArea() + "' " + "and puesto='" + configurarEmpleadosModel.getPuesto()
+				+ "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -894,14 +877,13 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 		return listaEmpleados;
 	}
 
-	public List<EmpleadoModel> consultaPuesto(EmpleadoModel configurarEmpleadosModel)throws SQLException {
+	public List<EmpleadoModel> consultaPuesto(EmpleadoModel configurarEmpleadosModel) throws SQLException {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		String sql = "select idEmpleado,nombreempleado,apepatempleado,apematempleado,"
 				+ "c_turno.idArea,c_area.nombreArea,c_turno.idTurno, c_turno.nombreTurno from t_empleado "
 				+ "inner join c_turno on t_empleado.idTurno=c_turno.idTurno "
-				+ "inner join c_area on c_turno.idArea=c_area.idArea"
-				+ " where puesto='"+configurarEmpleadosModel.getPuesto()+"' "
-				+ "ORDER BY c_area.nombreArea";
+				+ "inner join c_area on c_turno.idArea=c_area.idArea" + " where puesto='"
+				+ configurarEmpleadosModel.getPuesto() + "' " + "ORDER BY c_area.nombreArea";
 
 		try {
 			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>() {
@@ -924,8 +906,29 @@ public class ConfigurarEmpleadoDao extends DataSourceService implements SelectAl
 			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
 		}
-
 		return listaEmpleados;
+	}
+
+	public EmpleadoModel consultarUserAndPassowrd(EmpleadoModel configurarEmpleadosModel)throws SQLException{
+		EmpleadoModel empleadoModel = new EmpleadoModel();
+		String sql = "select usuarioEmpleado,passwordEmpleado from t_empleado " + "where idEmpleado="
+				+ configurarEmpleadosModel.getIdEmpleado();
+		try {
+			empleadoModel = getJdbcTemplate().query(sql, new ResultSetExtractor<EmpleadoModel>() {
+				public EmpleadoModel extractData(ResultSet rs) throws SQLException {
+					EmpleadoModel empleado = new EmpleadoModel();
+					if (rs.next()) {
+						empleado.setNombreUsuario(rs.getString("usuarioEmpleado"));
+						empleado.setPassword(rs.getString("passwordEmpleado"));
+					}
+					return empleado;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserciï¿½n!");
+		}
+		return empleadoModel;
 	}
 
 }
