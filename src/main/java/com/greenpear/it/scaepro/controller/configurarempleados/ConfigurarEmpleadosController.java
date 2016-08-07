@@ -443,6 +443,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 	public void limpiarCombos() {
 		final int tempArea = getRegistrarEmpleadoView().getCmbArea().getItemCount();
 		final int tempNomina = getRegistrarEmpleadoView().getCmbPeriodoNominal().getItemCount();
+		getRegistrarEmpleadoView().getCmbPuesto().setEnabled(true);
 		getRegistrarEmpleadoView().getCmbArea().setEnabled(true);
 		getRegistrarEmpleadoView().getCmbPeriodoNominal().setEnabled(true);
 		for (int x = 0; x < tempArea; x++) {

@@ -90,8 +90,7 @@ public class TomarFotoController extends JFrame implements Runnable, WebcamListe
 		webcam = picker.getSelectedWebcam();
 
 		if (webcam == null) {
-			System.out.println("No se encontro ninguna camara");
-			System.exit(1);
+			JOptionPane.showMessageDialog(null, "No se encontro ninguna camara", "Atencion", JOptionPane.WARNING_MESSAGE);
 		}
 
 		webcam.setViewSize(WebcamResolution.VGA.getSize());
