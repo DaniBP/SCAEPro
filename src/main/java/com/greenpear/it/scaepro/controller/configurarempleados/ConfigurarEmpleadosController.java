@@ -724,7 +724,7 @@ public class ConfigurarEmpleadosController implements ActionListener, ItemListen
 		});
 	}
 
-	protected void llenarDireccion(String cp) {
+	public void llenarDireccion(String cp) {
 		limpiarDireccion();
 		getDireccionModelo().setCp(cp);
 		List<DireccionModelo> listaDireccion = new ArrayList<DireccionModelo>();

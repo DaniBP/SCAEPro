@@ -22,6 +22,7 @@ import com.greenpear.it.scaepro.controller.gestionareas.AltaAreasController;
 import com.greenpear.it.scaepro.controller.gestionareas.ConsultaAreasController;
 import com.greenpear.it.scaepro.controller.gestionusuarios.AltaUsuariosController;
 import com.greenpear.it.scaepro.controller.gestionusuarios.ConsultaUsuariosController;
+import com.greenpear.it.scaepro.controller.justificarincidencias.JustificarIncidenciasController;
 import com.greenpear.it.scaepro.controller.solicitudreporte.SolicitudReporteController;;
 
 
@@ -58,6 +59,7 @@ public class GovernmentService implements Government {
 	@Autowired private ConsultaUsuariosController consultaUsuariosController; 
 	@Autowired private ConsultarEmpleadosController consultarEmpleadosController;
 	@Autowired private PrimerUsuarioController primerUsuarioController;
+	@Autowired private JustificarIncidenciasController justificarIncidenciasController;
 
 
 	public InicioController getInicioController() {
@@ -136,10 +138,16 @@ public class GovernmentService implements Government {
 		return primerUsuarioController;
 	}
 	
+	public JustificarIncidenciasController getJustificarIncidenciasController() {
+		return justificarIncidenciasController;
+	}
+	
 	//*************FIN DE ESTANCIAS***************
 	
 	
 	//*************CONTROL DE VENTANAS**************
+
+
 
 
 
@@ -239,5 +247,10 @@ public class GovernmentService implements Government {
 	@Override
 	public void mostrarRegistroPrimerUsuario() {
 		getPrimerUsuarioController().mostrarVistaRegistrarUsuarios();
+	}
+
+	@Override
+	public void mostrarIncidencias() {
+		getJustificarIncidenciasController().abrirVentanaIncidencias();
 	}
 }

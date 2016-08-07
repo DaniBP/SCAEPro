@@ -118,6 +118,7 @@ public class Incidencias extends JFrame {
 		pnlArea.add(label_5);
 
 		cmbArea = new JComboBox();
+		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"------Seleccione area------"}));
 		cmbArea.setBounds(89, 36, 247, 27);
 		pnlArea.add(cmbArea);
 
