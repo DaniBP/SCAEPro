@@ -71,6 +71,10 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	private ControlAccesoBo accesoBoService;
 	
 	private List<ControlAccesoModel> listaControlAcceso;
+	
+	private int contadorMovil;
+	
+	private String estatusCheck;
 
 	public GovernmentService getGovernment() {
 		return government;
@@ -111,10 +115,12 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	public List<ControlAccesoModel> getListaControlAcceso() {
 		return listaControlAcceso;
 	}
-
+	
+	public void setEstatusCheck(String estatusCheck) {
+		this.estatusCheck = estatusCheck;
+	}
 	
 //**********************FIN DE ESTANCIAS***********************
-
 
 	/**
 	 * Método para iniciar la vista de control de acceso
@@ -127,18 +133,67 @@ public class ControlAccesoController implements ActionListener, Runnable{
 				}
 			});
 			
-			getControlAccesoView().btnChecar.addActionListener(this);
 			getControlAccesoView().btnSalir.addActionListener(this);
 			getLectorHuellasController().Iniciar();
 		}
 		
-		getControlAccesoView().h1 = new Thread(this);
-		getControlAccesoView().h1.start();
+		activarLecturaWiFi();
+		estatusCheck="libre";
+		
+		try {
+			contadorMovil=getAccesoBoService().consultarRegistroMovil().size();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 		
 		getLectorHuellasController().start();
 		getControlAccesoView().setVisible(true);
+		
+		getControlAccesoView().h1 = new Thread(this);
+		getControlAccesoView().h1.start();
+		
+		
 	}
 	
+	private void activarLecturaWiFi(){
+		ImageIcon identificando = new ImageIcon("src/main/resources/img/Identificando.gif");
+		Icon iconoIde = new ImageIcon(identificando.getImage().getScaledInstance(
+				getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
+		
+		getControlAccesoView().imgEstado.setIcon(iconoIde);
+	}
+	
+	private void verificarContadorMovil() {
+		Runnable r2 = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					int temp = contadorMovil;
+					List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+					try{
+						empleados = getAccesoBoService().consultarRegistroMovil();
+					}catch(SQLException e){
+						JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					contadorMovil=empleados.size();
+					
+					for (int i = temp; i < (contadorMovil); i++) {
+						estatusCheck="checando";
+						chequeo(empleados.get(i).getIdEmpleado(), "boton");
+						Thread.sleep (5200);
+						estatusCheck="libre";
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread h2 = new Thread(r2);
+		h2.start();
+		
+	}
+
 	/**
 	 * Método para regresar al inicio
 	 */
@@ -146,6 +201,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		getControlAccesoView().setVisible(false);
 		getGovernment().mostrarInicio();
 		getLectorHuellasController().stop();
+		getControlAccesoView().h1.stop();
 	}
 	
 	/**
@@ -182,7 +238,10 @@ public class ControlAccesoController implements ActionListener, Runnable{
 	@Override
 	public void run() {
 		Thread ct = Thread.currentThread();
-		while(ct == getControlAccesoView().h1) {   
+		while(ct == getControlAccesoView().h1) {  
+			if(estatusCheck.equals("libre")){				
+				verificarContadorMovil();
+			}
 			calculaFechaHora();
 	
 			getControlAccesoView().lblHora.setText("Hora:  "+
@@ -206,94 +265,12 @@ public class ControlAccesoController implements ActionListener, Runnable{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == getControlAccesoView().btnChecar){
-			getControlAccesoView().btnChecar.setEnabled(false);
-			
-			ImageIcon identificando = new ImageIcon("src/main/resources/img/Identificando.gif");
-			Icon iconoIde = new ImageIcon(identificando.getImage().getScaledInstance(
-					getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
-			
-			getControlAccesoView().imgEstado.setIcon(iconoIde);
-			
-			Runnable r2 = new Runnable() {
-				@Override
-				public void run() {
-					
-					int id = 1;
-					
-					try {
-						
-						empleadoModel = getAccesoBoService().consultaIndividual(id);
-						
-					} catch (SQLException ex) {
-						JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-					}
-			
-			
-					if(getEmpleadoModel().getIdEmpleado() == 0){
-						ImageIcon error = new ImageIcon("src/main/resources/img/Error.png");
-						Icon iconoError = new ImageIcon(error.getImage().getScaledInstance(
-								getControlAccesoView().imgEstado.getWidth(), getControlAccesoView().imgEstado.getHeight(), Image.SCALE_DEFAULT));
-						
-						getControlAccesoView().imgEstado.setIcon(iconoError);
-						
-						esperar();
-					}else{
-						
-						String horaActual;
-						if(getControlAccesoView().ampm.equals("PM")){
-							horaActual = (Integer.parseInt(controlAccesoView.hora)+12)+":"+controlAccesoView.minutos+":"+controlAccesoView.segundos;	
-						}else{
-							horaActual = controlAccesoView.hora+":"+controlAccesoView.minutos+":"+controlAccesoView.segundos;
-						}
-						String fechaActual = controlAccesoView.anio+"-"+controlAccesoView.mes+"-"+controlAccesoView.dia;
-						
-						listaControlAcceso = new ArrayList<ControlAccesoModel>();
-						
-						try {
-							listaControlAcceso = getAccesoBoService().consultarControlAcceso(getEmpleadoModel().getIdEmpleado(), fechaActual);
-						} catch (SQLException ex) {
-							JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-						}
-						
-						listaControlAcceso.add(getControlAccesoModel());
-						
-						listaControlAcceso.get(listaControlAcceso.size()-1).setIdEmpleado(getEmpleadoModel().getIdEmpleado());
-						listaControlAcceso.get(listaControlAcceso.size()-1).setFecha(fechaActual);
-						listaControlAcceso.get(listaControlAcceso.size()-1).setHoraRegistrada(horaActual);
-						
-						try {
-							String resultado=getAccesoBoService().insertar(listaControlAcceso.get(listaControlAcceso.size()-1));
-							
-							mostrarDatosEmpleado("boton");
-							
-							if(!resultado.equals("correcto")){
-								JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
-							}
-						} catch (SQLException ex) {
-							JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-						}
-						
-						esperar();
-						
-						getEmpleadoModel().limpiarModelo();
-						getListaControlAcceso().clear();
-						getControlAccesoModel().limpiarModelo();
-						getTurnoModel().limpiarModelo();
-						getIncidenciaModel().limpiarModelo();
-					}
-				}
-			};
-			
-			Thread h2 = new Thread(r2);
-			h2.start();
-		}else if(e.getSource()==getControlAccesoView().btnSalir){
+		if(e.getSource()==getControlAccesoView().btnSalir){
 			regresarInicio();
 		}
 	}
 	
 	public List<EmpleadoModel> verificarHuella()throws SQLException{
-		getControlAccesoView().btnChecar.setEnabled(false);
 		
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
 		
@@ -305,8 +282,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 		return empleados;
 	}
 	
-	public void chequeo(final int id){
-		
+	public void chequeo(final int id,final String tipoCheck){
 		Runnable r2 = new Runnable() {
 			@Override
 			public void run() {
@@ -355,10 +331,10 @@ public class ControlAccesoController implements ActionListener, Runnable{
 					try {
 						String resultado=getAccesoBoService().insertar(listaControlAcceso.get(listaControlAcceso.size()-1));
 						
-						mostrarDatosEmpleado("huella");
+						mostrarDatosEmpleado(tipoCheck);
 						
 						if(!resultado.equals("correcto")){
-							JOptionPane.showMessageDialog(null, resultado, "Atención", JOptionPane.WARNING_MESSAGE);
+							getControlAccesoView().lblAlerta.setText(resultado);
 						}
 					} catch (SQLException ex) {
 						JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -480,7 +456,9 @@ public class ControlAccesoController implements ActionListener, Runnable{
 					getLectorHuellasController().stop();
 					Thread.sleep (5000);
 					getControlAccesoView().limpiarVentana();
+					activarLecturaWiFi();
 					getLectorHuellasController().start();
+					setEstatusCheck("libre");
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

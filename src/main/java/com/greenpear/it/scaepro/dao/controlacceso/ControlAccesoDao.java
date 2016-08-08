@@ -219,4 +219,28 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 			throw new SQLException("Error al tratar de generar el INSERT");
 		}
 	}
+	
+	public List<EmpleadoModel> consultarRegistroMovil() throws SQLException{
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		
+		String sql="SELECT idEmpleado FROM t_registroMovil";
+		
+		try{
+			empleados=getJdbcTemplate().query(sql, new RowMapper<EmpleadoModel>(){
+				public EmpleadoModel mapRow(ResultSet rs, int columna) throws SQLException{
+					EmpleadoModel resultValue=new EmpleadoModel();
+					
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					
+					return resultValue;
+				}
+			});
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo realizar la consulta!");
+		}
+		
+		return empleados;
+	}
 }

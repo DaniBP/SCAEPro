@@ -19,7 +19,6 @@ import java.awt.Toolkit;
 public class ControlAccesoView extends JFrame {
 	
 	private JPanel contentPane;
-	public JButton btnChecar;
 	public JButton btnSalir;
 	
 	public String hora,minutos,segundos,ampm;
@@ -37,6 +36,7 @@ public class ControlAccesoView extends JFrame {
 	public JLabel imgEstado;
 	public JLabel imgFoto;
 	public JLabel lblHorasTrabajadas;
+	public JLabel lblAlerta;
 
 	/**
 	 * Launch the application.
@@ -143,10 +143,6 @@ public class ControlAccesoView extends JFrame {
 		btnSalir.setBounds(71, 300, 74, 23);
 		contentPane.add(btnSalir);
 		
-		btnChecar = new JButton("Checar");
-		btnChecar.setBounds(218, 300, 89, 23);
-		contentPane.add(btnChecar);
-		
 		imgFoto = new JLabel("");
 		imgFoto.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		imgFoto.setBounds(396, 42, 87, 96);
@@ -156,6 +152,13 @@ public class ControlAccesoView extends JFrame {
 		imgEstado.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		imgEstado.setBounds(396, 177, 87, 96);
 		contentPane.add(imgEstado);
+		
+		lblAlerta = new JLabel("");
+		lblAlerta.setForeground(Color.RED);
+		lblAlerta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblAlerta.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAlerta.setBounds(155, 300, 201, 23);
+		contentPane.add(lblAlerta);
 	}
 	
 	/**
@@ -178,6 +181,6 @@ public class ControlAccesoView extends JFrame {
 		lblHorasTrabajadas.setVisible(false);
 		imgEstado.setIcon(null);
 		imgFoto.setIcon(null);
-		btnChecar.setEnabled(true);
+		lblAlerta.setText(null);
 	}
 }

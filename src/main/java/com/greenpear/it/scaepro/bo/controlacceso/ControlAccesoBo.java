@@ -230,4 +230,13 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		
 	}
 	
+	public List<EmpleadoModel> consultarRegistroMovil()throws SQLException{
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+		try{
+			empleados = getAccesoDaoService().consultarRegistroMovil();
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+		return empleados;
+	}
 }
