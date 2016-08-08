@@ -55,7 +55,7 @@ public class Incidencias extends JFrame {
 	 */
 	public Incidencias() {
 		setTitle("Incidencias");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 965, 595);
 		JPanel contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
@@ -123,6 +123,7 @@ public class Incidencias extends JFrame {
 		pnlArea.add(cmbArea);
 
 		cmbTurno = new JComboBox();
+		cmbTurno.setEnabled(false);
 		cmbTurno.setModel(new DefaultComboBoxModel(new String[] {"-----Seleccionar turno-----"}));
 		cmbTurno.setBounds(89, 76, 247, 27);
 		pnlArea.add(cmbTurno);

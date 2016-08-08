@@ -137,6 +137,7 @@
     <bean id="solicitudReporteModel" class="com.greenpear.it.scaepro.model.solicitudreporte.SolicitudReporteModel" />
     <bean id="direccionModel" class="com.greenpear.it.scaepro.model.direccion.DireccionModelo" />
     <bean id="consultaUsuariosModel" class="com.greenpear.it.scaepro.model.gestionusuarios.ConsultaUsuariosModel" />
+    <bean id="justificanteIncidenciaModel" class="com.greenpear.it.scaepro.model.incidencia.JustificanteIncidenciaModel" />
 
 <!-- 	Aquí comienza la declaración de BO -->
 
@@ -153,6 +154,7 @@
 	<bean id="empleadosBoService" class="com.greenpear.it.scaepro.bo.configurarempleados.ConfigurarEmpleadosBo" />	
 	<bean id="altaUsuariosBo" class="com.greenpear.it.scaepro.bo.gestionusuarios.AltaUsuariosBo" />
 	<bean id="consultaUsuariosBo" class="com.greenpear.it.scaepro.bo.gestionusuarios.ConsultaUsuariosBo" />
+	<bean id="consultarIncidenciasBo" class="com.greenpear.it.scaepro.bo.justificarincidencias.JustificarIncidenciasBo" />
 	
 <!-- 	Aquí comienza la declaración de DAO -->
 
@@ -169,4 +171,5 @@
 	<bean id="empleadoDaoService" class="com.greenpear.it.scaepro.dao.configurarempleados.ConfigurarEmpleadoDao" />
 	<bean id="altaUsuariosDao" class="com.greenpear.it.scaepro.dao.gestionusuarios.AltaUsuariosDao" />
 	<bean id="consultaUsuariosDao" class="com.greenpear.it.scaepro.dao.gestionusuarios.ConsultaUsuariosDao" />
+    <bean id="justificarIncidenciasDao" class="com.greenpear.it.scaepro.dao.justificarIncidencias.JustificarIncidenciasDao" />
 </beans>

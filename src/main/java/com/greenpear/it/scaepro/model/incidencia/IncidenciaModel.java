@@ -8,8 +8,14 @@ package com.greenpear.it.scaepro.model.incidencia;
 public class IncidenciaModel {
 	private int idIncidencia;
 	private int idEmpleado;
+	private String nombreEmpleado;
+	private String apePatEmpleado;
+	private String apeMatEmpleado;
+	private String area;
+	private String tipo;
 	private int idTipoIncidencia;
 	private int idEstatusIncidencia;
+	private String EstatusIncidencia;
 	private String fechaIncidencia;
 	
 	/**
@@ -73,11 +79,54 @@ public class IncidenciaModel {
 		this.fechaIncidencia = fechaIncidencia;
 	}
 	
+	public String getNombreEmpleado() {
+		return nombreEmpleado;
+	}
+	public void setNombreEmpleado(String nombreEmpleado) {
+		this.nombreEmpleado = nombreEmpleado;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	public String getApePatEmpleado() {
+		return apePatEmpleado;
+	}
+	public void setApePatEmpleado(String apePatEmpleado) {
+		this.apePatEmpleado = apePatEmpleado;
+	}
+	public String getApeMatEmpleado() {
+		return apeMatEmpleado;
+	}
+	public void setApeMatEmpleado(String apeMatEmpleado) {
+		this.apeMatEmpleado = apeMatEmpleado;
+	}
+	
+	public String getEstatusIncidencia() {
+		return EstatusIncidencia;
+	}
+	public void setEstatusIncidencia(String estatusIncidencia) {
+		EstatusIncidencia = estatusIncidencia;
+	}
+	
 	public void limpiarModelo(){
 		idIncidencia=0;
 		idEmpleado=0;
 		idTipoIncidencia=0;
 		idEstatusIncidencia=0;
 		fechaIncidencia=null;
+		nombreEmpleado=null;
+		tipo=null;
+		area=null;
+		EstatusIncidencia=null;
 	}
 }

@@ -17,6 +17,7 @@ import com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel;
 import com.greenpear.it.scaepro.model.direccion.DireccionModelo;
 import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
+import com.greenpear.it.scaepro.model.incidencia.IncidenciaModel;
 import com.greenpear.it.scaepro.model.turno.TurnoModel;
 import com.greenpear.it.scaepro.services.SelectAllService;
 

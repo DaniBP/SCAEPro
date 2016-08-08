@@ -19,9 +19,13 @@ public class JustificarIncidencias extends JFrame {
 	private JTextField txtNombreEmpleado;
 	private JTextField txtArea;
 	private JTextField txtTipoIncidencia;
-	private JDateChooser dtFechaIncidencia;
 	private JTextArea tatComentario;
 	private JButton btnJustificar;
+	private JLabel lblFotografia;
+	private JTextField txtFecha;
+	private JLabel lblFechaJustificane;
+	private JTextField txtFechaJustificante;
+	private JLabel lblJustificante;
 	/**
 	 * Launch the application.
 	 */
@@ -42,8 +46,8 @@ public class JustificarIncidencias extends JFrame {
 	 * Create the frame.
 	 */
 	public JustificarIncidencias() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 499, 415);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setBounds(100, 100, 524, 415);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -54,7 +58,7 @@ public class JustificarIncidencias extends JFrame {
 		contentPane.add(lblNombreDelEmpleado);
 		
 		JLabel lblTipoDeIncidencia = new JLabel("Tipo de incidencia:");
-		lblTipoDeIncidencia.setBounds(21, 113, 93, 14);
+		lblTipoDeIncidencia.setBounds(277, 73, 93, 14);
 		contentPane.add(lblTipoDeIncidencia);
 		
 		JLabel lblArea = new JLabel("Area:");
@@ -62,43 +66,65 @@ public class JustificarIncidencias extends JFrame {
 		contentPane.add(lblArea);
 		
 		txtNombreEmpleado = new JTextField();
-		txtNombreEmpleado.setBounds(134, 30, 317, 26);
+		txtNombreEmpleado.setEditable(false);
+		txtNombreEmpleado.setBounds(140, 30, 345, 26);
 		contentPane.add(txtNombreEmpleado);
 		txtNombreEmpleado.setColumns(10);
 		
 		txtArea = new JTextField();
+		txtArea.setEditable(false);
 		txtArea.setColumns(10);
-		txtArea.setBounds(118, 67, 333, 26);
+		txtArea.setBounds(54, 67, 213, 26);
 		contentPane.add(txtArea);
 		
 		txtTipoIncidencia = new JTextField();
+		txtTipoIncidencia.setEditable(false);
 		txtTipoIncidencia.setColumns(10);
-		txtTipoIncidencia.setBounds(118, 107, 109, 26);
+		txtTipoIncidencia.setBounds(380, 67, 105, 26);
 		contentPane.add(txtTipoIncidencia);
 		
-		JLabel lblFechaDeIncidencia = new JLabel("Fecha:");
-		lblFechaDeIncidencia.setBounds(237, 113, 52, 14);
+		JLabel lblFechaDeIncidencia = new JLabel("Fecha incidencia:");
+		lblFechaDeIncidencia.setBounds(21, 113, 86, 14);
 		contentPane.add(lblFechaDeIncidencia);
 		
 		JLabel lblComentario = new JLabel("Comentario:");
 		lblComentario.setBounds(21, 193, 67, 14);
 		contentPane.add(lblComentario);
 		
-		dtFechaIncidencia = new JDateChooser();
-		dtFechaIncidencia.setBounds(279, 107, 172, 26);
-		contentPane.add(dtFechaIncidencia);
-		
-		tatComentario = new JTextArea();
-		tatComentario.setBounds(21, 218, 297, 136);
+		tatComentario = new JTextArea(289, 136);
+		tatComentario.setText("Sin comentario...");
+		tatComentario.setBounds(21, 218, 289, 136);
+		tatComentario.setLineWrap(true);
+		tatComentario.setWrapStyleWord(true); 
 		contentPane.add(tatComentario);
 		
-		JLabel lblJustificante = new JLabel("Justificante:");
+		lblJustificante = new JLabel("Justificante:");
 		lblJustificante.setBounds(21, 155, 67, 14);
 		contentPane.add(lblJustificante);
 		
 		btnJustificar = new JButton("Justificar");
-		btnJustificar.setBounds(342, 276, 109, 23);
+		btnJustificar.setBounds(360, 317, 109, 23);
 		contentPane.add(btnJustificar);
+		
+		lblFotografia = new JLabel("");
+		lblFotografia.setBounds(340, 144, 145, 162);
+		contentPane.add(lblFotografia);
+		
+		txtFecha = new JTextField();
+		txtFecha.setEditable(false);
+		txtFecha.setColumns(10);
+		txtFecha.setBounds(110, 107, 136, 26);
+		contentPane.add(txtFecha);
+		
+		lblFechaJustificane = new JLabel("Fecha justificante:");
+		lblFechaJustificane.setBounds(256, 113, 98, 14);
+		contentPane.add(lblFechaJustificane);
+		
+		txtFechaJustificante = new JTextField();
+		txtFechaJustificante.setEditable(false);
+		txtFechaJustificante.setColumns(10);
+		txtFechaJustificante.setBounds(349, 107, 136, 26);
+		contentPane.add(txtFechaJustificante);
 	}
 
 	public JTextField getTxtNombreEmpleado() {
@@ -125,12 +151,13 @@ public class JustificarIncidencias extends JFrame {
 		this.txtTipoIncidencia = txtTipoIncidencia;
 	}
 
-	public JDateChooser getDtFechaIncidencia() {
-		return dtFechaIncidencia;
+
+	public JTextField getTxtFecha() {
+		return txtFecha;
 	}
 
-	public void setDtFechaIncidencia(JDateChooser dtFechaIncidencia) {
-		this.dtFechaIncidencia = dtFechaIncidencia;
+	public void setTxtFecha(JTextField txtFecha) {
+		this.txtFecha = txtFecha;
 	}
 
 	public JTextArea getTatComentario() {
@@ -147,6 +174,38 @@ public class JustificarIncidencias extends JFrame {
 
 	public void setBtnJustificar(JButton btnJustificar) {
 		this.btnJustificar = btnJustificar;
+	}
+
+	public JLabel getLblFotografia() {
+		return lblFotografia;
+	}
+
+	public void setLblFotografia(JLabel lblFotografia) {
+		this.lblFotografia = lblFotografia;
+	}
+
+	public JTextField getTxtFechaJustificante() {
+		return txtFechaJustificante;
+	}
+
+	public void setTxtFechaJustificante(JTextField txtFechaJustificante) {
+		this.txtFechaJustificante = txtFechaJustificante;
+	}
+
+	public JLabel getLblFechaJustificane() {
+		return lblFechaJustificane;
+	}
+
+	public void setLblFechaJustificane(JLabel lblFechaJustificane) {
+		this.lblFechaJustificane = lblFechaJustificane;
+	}
+
+	public JLabel getLblJustificante() {
+		return lblJustificante;
+	}
+
+	public void setLblJustificante(JLabel lblJustificante) {
+		this.lblJustificante = lblJustificante;
 	}
 	
 }
