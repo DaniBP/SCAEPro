@@ -483,6 +483,12 @@ public class JustificarIncidenciasController implements ActionListener, ItemList
 			getJustificarView().getLblFechaJustificane().setVisible(true);
 			getJustificarView().getBtnSubirImagen().setText(justificante.getJustificante());
 			getJustificarView().getBtnAbrirImagen().setVisible(true);
+			getJustificanteIncidenciaModel().setComentario(justificante.getComentario());
+			getJustificanteIncidenciaModel().setFechaJustificacion(justificante.getFechaJustificacion());
+			getJustificanteIncidenciaModel().setIdIncidencia(Integer.parseInt(idIncidencia));
+			getJustificanteIncidenciaModel().setJustificante(justificante.getJustificante());
+			
+			
 			
 		}
 
