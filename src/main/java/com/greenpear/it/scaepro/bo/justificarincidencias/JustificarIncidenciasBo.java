@@ -67,6 +67,26 @@ public class JustificarIncidenciasBo {
 		return justificante;
 	}
 
+	public String justificarIncidencia(JustificanteIncidenciaModel justificante)throws SQLException {
+		String mensaje="";
+		try{
+			mensaje=getJustificarIncidenciasDao().justificarIncidencia(justificante);
+		}catch(SQLException ex){
+			JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return mensaje;
+	}
+
+	public String justificarIncidencia2(JustificanteIncidenciaModel justificante)throws SQLException {
+		String mensaje="";
+		try{
+			mensaje=getJustificarIncidenciasDao().justificarIncidencia2(justificante);
+		}catch(SQLException ex){
+			JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		return mensaje;
+	}
+
 
 	
 }

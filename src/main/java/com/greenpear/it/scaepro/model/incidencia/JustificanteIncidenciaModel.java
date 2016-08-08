@@ -3,6 +3,7 @@ package com.greenpear.it.scaepro.model.incidencia;
 public class JustificanteIncidenciaModel {
 	private int idJustificante;
 	private int idIncidencia;
+	private int idEmpleado;
 	private String justificante;
 	private String comentario;
 	private String fechaJustificacion;
@@ -36,6 +37,12 @@ public class JustificanteIncidenciaModel {
 	}
 	public void setFechaJustificacion(String fechaJustificacion) {
 		this.fechaJustificacion = fechaJustificacion;
+	}
+	public int getIdEmpleado() {
+		return idEmpleado;
+	}
+	public void setIdEmpleado(int idEmpleado) {
+		this.idEmpleado = idEmpleado;
 	}
 	
 	
