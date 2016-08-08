@@ -40,7 +40,6 @@ public class PrincipalView extends JFrame {
 	private JMenuItem mntmGenerarReporte;
 	private JMenuItem mntmAdministrarNotcias;
 	private JMenuItem mntmAdministrarAvisos;
-	private JMenuItem mntmVerificarEstatus;
 	private JMenuItem mntmEstatusDePago;
 
 	/**
@@ -136,12 +135,6 @@ public class PrincipalView extends JFrame {
 		
 		mntmEstatusDePago = new JMenuItem("Estatus de pago");
 		mnAdministracinMvil.add(mntmEstatusDePago);
-		
-		JMenu mnEstatusDeConexion = new JMenu("Estatus de conexi\u00F3n");
-		menuBar.add(mnEstatusDeConexion);
-		
-		mntmVerificarEstatus = new JMenuItem("Verificar estatus");
-		mnEstatusDeConexion.add(mntmVerificarEstatus);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(null);
@@ -219,10 +212,6 @@ public class PrincipalView extends JFrame {
 
 	public JMenuItem getMntmAdministrarAvisos() {
 		return mntmAdministrarAvisos;
-	}
-
-	public JMenuItem getMntmVerificarEstatus() {
-		return mntmVerificarEstatus;
 	}
 
 	public JMenuItem getMntmEstatusDePago() {

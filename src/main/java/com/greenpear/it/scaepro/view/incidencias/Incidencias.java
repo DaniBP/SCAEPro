@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
@@ -21,8 +22,9 @@ import java.awt.Component;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
-public class Incidencias extends JFrame {
+public class Incidencias extends JInternalFrame {
 
 	private JTextField txtNombre;
 	private JTextField txtApePat;
@@ -54,6 +56,9 @@ public class Incidencias extends JFrame {
 	 * Create the frame.
 	 */
 	public Incidencias() {
+		setFrameIcon(new ImageIcon(Incidencias.class.getResource("/img/Logo1.png")));
+		setClosable(true);
+		setIconifiable(true);
 		setTitle("Incidencias");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 965, 595);

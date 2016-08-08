@@ -61,6 +61,7 @@ public class PrincipalController implements ActionListener{
 			getVistaPrincipal().getMntmAdministrarAvisos().addActionListener(this);
 			getVistaPrincipal().getMntmAdministrarNotcias().addActionListener(this);
 			getVistaPrincipal().getMntmEstatusDePago().addActionListener(this);
+			getVistaPrincipal().getMntmJustificarIncidencias().addActionListener(this);
 			
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getAltaUsuariosController().getVista());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getConsultaUsuariosController().getVista());
@@ -75,6 +76,8 @@ public class PrincipalController implements ActionListener{
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getNoticiasExistentesController().getVista());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getGenerarAvisoController().getVista());
 			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getEstatusPagoController().getVista());
+			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getJustificarIncidenciasController().getIncidenciasView());
+			getVistaPrincipal().getPanelEscritorio().add(getGovernment().getJustificarIncidenciasController().getJustificarView());
 		}
 		limpiarVentanaPrincipal();
 		getVistaPrincipal().setVisible(true);
@@ -118,6 +121,8 @@ public class PrincipalController implements ActionListener{
 			getGovernment().mostrarVistaGenerarAviso();
 		}else if(e.getSource() == getVistaPrincipal().getMntmEstatusDePago()){
 			getGovernment().mostrarVistaEstatusPago();
+		}else if(e.getSource() == getVistaPrincipal().getMntmJustificarIncidencias()){
+			getGovernment().mostrarIncidencias();
 		}
 	}
 }
