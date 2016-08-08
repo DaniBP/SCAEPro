@@ -333,7 +333,7 @@ public class ControlAccesoController implements ActionListener, Runnable{
 						
 						mostrarDatosEmpleado(tipoCheck);
 						
-						if(!resultado.equals("correcto")){
+						if(!resultado.equals("correcto") && !resultado.equals("No comida")){
 							getControlAccesoView().lblAlerta.setText(resultado);
 						}
 					} catch (SQLException ex) {

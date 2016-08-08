@@ -126,8 +126,11 @@ public class ConfigurarScaeProController implements ActionListener,ItemListener,
 	}
 	
 	private void llenarComboAreas() {
-		for (int i = 0; i < (getConfigurarScaeProView().getCmbArea().getItemCount()-1); i++) {
-			getConfigurarScaeProView().getCmbArea().removeItemAt(1);
+		int c=getConfigurarScaeProView().getCmbArea().getItemCount();
+		for (int i = 0; i < c; i++) {
+			if(i!=c-1){				
+				getConfigurarScaeProView().getCmbArea().removeItemAt(1);
+			}
 		}
 		
 		try {

@@ -191,7 +191,6 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		String horarioRegistrado = t.getHoraRegistrada();
 		String horarioValido = getAccesoController().getTurnoModel().getHoraEntrada();
 		int horaRegistrada = Integer.parseInt(horarioRegistrado.substring(0, 2));
-		System.out.println(horarioValido);
 		int horaValida = Integer.parseInt(horarioValido.substring(0, 2));
 		int minutosRegistrados = Integer.parseInt(horarioRegistrado.substring(3, 5));
 		int minutosValidos = Integer.parseInt(horarioValido.substring(3, 5));
@@ -203,7 +202,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		getAccesoController().getIncidenciaModel().setFechaIncidencia(t.getFecha()+" "+t.getHoraRegistrada());
 		
 		if((horaRegistrada - horaValida)>0){
-			JOptionPane.showMessageDialog(null, "Ha excedido la tolerancia por falta\nSe ha generado una incidencia", "INCIDENCIA", JOptionPane.WARNING_MESSAGE);
+			getAccesoController().getControlAccesoView().lblAlerta.setText("Se ha generado una incidencia");
 			getAccesoController().getIncidenciaModel().setIdTipoIncidencia(2);
 			try {
 				getAccesoDaoService().generarIncidencia(getAccesoController().getIncidenciaModel());
@@ -211,7 +210,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 				System.out.println(e.getMessage());
 			}
 		}else if((horaRegistrada == horaValida)&&(minutosRegistrados-minutosValidos)>toleranciaFalta){
-			JOptionPane.showMessageDialog(null, "Ha excedido la tolerancia por falta\nSe ha generado una incidencia", "INCIDENCIA", JOptionPane.WARNING_MESSAGE);
+			getAccesoController().getControlAccesoView().lblAlerta.setText("Se ha generado una incidencia");
 			getAccesoController().getIncidenciaModel().setIdTipoIncidencia(2);
 			try {
 				getAccesoDaoService().generarIncidencia(getAccesoController().getIncidenciaModel());
@@ -219,7 +218,7 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 				System.out.println(e.getMessage());
 			}
 		}else if((horaRegistrada == horaValida)&&(minutosRegistrados-minutosValidos)>toleranciaRetardo){
-			JOptionPane.showMessageDialog(null, "Ha excedido la tolerancia por retardo\nSe ha generado una incidencia", "INCIDENCIA", JOptionPane.WARNING_MESSAGE);
+			getAccesoController().getControlAccesoView().lblAlerta.setText("Se ha generado una incidencia");
 			getAccesoController().getIncidenciaModel().setIdTipoIncidencia(1);
 			try {
 				getAccesoDaoService().generarIncidencia(getAccesoController().getIncidenciaModel());
