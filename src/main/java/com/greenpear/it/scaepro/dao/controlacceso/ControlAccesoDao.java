@@ -243,4 +243,16 @@ public class ControlAccesoDao extends DataSourceService implements SelectOneServ
 		
 		return empleados;
 	}
+	
+	public void truncarRegistroMovil() throws SQLException{
+		String sql="TRUNCATE t_registroMovil ";
+		
+		try{
+			getJdbcTemplate().update(sql);
+		}catch(Exception e){
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ",e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n"
+					+ "No se pudo truncar el registro movil!");
+		}
+	}
 }

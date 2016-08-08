@@ -61,7 +61,7 @@ public class ControlAccesoView extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ControlAccesoView.class.getResource("/img/Logo1.png")));
 		setTitle("Registro de Control de Acceso");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 521, 370);
+		setBounds(100, 100, 1280, 720);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
@@ -70,94 +70,106 @@ public class ControlAccesoView extends JFrame {
 		contentPane.setLayout(null);
 		setResizable(false);
 		
-		lblFecha = new JLabel("Fecha Actual:  ");
+		lblFecha = new JLabel("Fecha Actual:");
+		lblFecha.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 25));
 		lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFecha.setBounds(362, 11, 133, 14);
+		lblFecha.setBounds(999, 24, 260, 23);
 		contentPane.add(lblFecha);
 		
 		JPanel panel = new JPanel();
 		
 		panel.setBackground(SystemColor.activeCaption);
 		panel.setBorder(new TitledBorder(null, "Datos del Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(25, 42, 331, 90);
+		panel.setBounds(25, 70, 974, 96);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		lblEmpleado = new JLabel("Empleado:");
-		lblEmpleado.setBounds(10, 28, 311, 14);
+		lblEmpleado.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		lblEmpleado.setBounds(10, 23, 954, 20);
 		panel.add(lblEmpleado);
 		
 		lblArea = new JLabel("\u00C1rea:");
-		lblArea.setBounds(10, 53, 311, 14);
+		lblArea.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		lblArea.setBounds(10, 62, 954, 20);
 		panel.add(lblArea);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		panel_1.setBackground(SystemColor.activeCaption);
 		panel_1.setBorder(new TitledBorder(null, "Control de Acceso", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(25, 143, 331, 146);
+		panel_1.setBounds(25, 168, 974, 445);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
 		lblEntrada = new JLabel("Hora de Entrada:");
+		lblEntrada.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblEntrada.setVisible(false);
-		lblEntrada.setBounds(10, 22, 311, 14);
+		lblEntrada.setBounds(10, 75, 954, 20);
 		panel_1.add(lblEntrada);
 		
 		lblSalidaComer = new JLabel("Hora de Salida a Comer:");
+		lblSalidaComer.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblSalidaComer.setVisible(false);
-		lblSalidaComer.setBounds(10, 48, 311, 14);
+		lblSalidaComer.setBounds(10, 141, 954, 20);
 		panel_1.add(lblSalidaComer);
 		
 		lblEntradaComer = new JLabel("Hora de Entrada de Comer:");
+		lblEntradaComer.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblEntradaComer.setVisible(false);
-		lblEntradaComer.setBounds(10, 73, 311, 14);
+		lblEntradaComer.setBounds(10, 217, 954, 20);
 		panel_1.add(lblEntradaComer);
 		
 		lblSalida = new JLabel("Hora de Salida:");
+		lblSalida.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
 		lblSalida.setVisible(false);
-		lblSalida.setBounds(10, 97, 311, 14);
+		lblSalida.setBounds(10, 296, 954, 20);
 		panel_1.add(lblSalida);
 		
 		lblHorasTrabajadas = new JLabel("Horas trabajadas: ");
 		lblHorasTrabajadas.setVisible(false);
-		lblHorasTrabajadas.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblHorasTrabajadas.setBounds(10, 121, 311, 14);
+		lblHorasTrabajadas.setFont(new Font("Segoe UI Semibold", Font.BOLD, 20));
+		lblHorasTrabajadas.setBounds(10, 382, 954, 20);
 		panel_1.add(lblHorasTrabajadas);
 		
 		JLabel lblFotografia = new JLabel("Fotografia");
+		lblFotografia.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		lblFotografia.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFotografia.setBounds(396, 138, 87, 14);
+		lblFotografia.setBounds(1069, 331, 133, 26);
 		contentPane.add(lblFotografia);
 		
 		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
 		lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEstado.setBounds(396, 275, 87, 14);
+		lblEstado.setBounds(1095, 598, 87, 23);
 		contentPane.add(lblEstado);
 		
 		lblHora = new JLabel("Hora:");
+		lblHora.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 25));
 		lblHora.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblHora.setBounds(362, 304, 133, 14);
+		lblHora.setBounds(1028, 652, 231, 23);
 		contentPane.add(lblHora);
 		
 		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(71, 300, 74, 23);
+		btnSalir.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 18));
+		btnSalir.setBounds(25, 624, 210, 42);
 		contentPane.add(btnSalir);
 		
 		imgFoto = new JLabel("");
 		imgFoto.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		imgFoto.setBounds(396, 42, 87, 96);
+		imgFoto.setBounds(1009, 70, 250, 250);
 		contentPane.add(imgFoto);
 		
 		imgEstado = new JLabel("");
 		imgEstado.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		imgEstado.setBounds(396, 177, 87, 96);
+		imgEstado.setBounds(1038, 387, 200, 200);
 		contentPane.add(imgEstado);
 		
 		lblAlerta = new JLabel("");
 		lblAlerta.setForeground(Color.RED);
-		lblAlerta.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblAlerta.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAlerta.setBounds(155, 300, 201, 23);
+		lblAlerta.setFont(new Font("Segoe UI Semibold", Font.BOLD, 20));
+		lblAlerta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlerta.setBounds(321, 624, 592, 42);
 		contentPane.add(lblAlerta);
 	}
 	

@@ -238,4 +238,12 @@ public class ControlAccesoBo implements SelectOneService<EmpleadoModel>, InsertS
 		}
 		return empleados;
 	}
+	
+	public void truncarRegistroMovil() throws SQLException{
+		try{
+			getAccesoDaoService().truncarRegistroMovil();
+		}catch(SQLException e){
+			throw new SQLException(e.getMessage());
+		}
+	}
 }
