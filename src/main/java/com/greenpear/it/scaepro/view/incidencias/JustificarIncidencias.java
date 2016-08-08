@@ -12,6 +12,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class JustificarIncidencias extends JFrame {
 
@@ -26,6 +27,8 @@ public class JustificarIncidencias extends JFrame {
 	private JLabel lblFechaJustificane;
 	private JTextField txtFechaJustificante;
 	private JLabel lblJustificante;
+	private JButton btnSubirImagen;
+	private JButton btnAbrirImagen;
 	/**
 	 * Launch the application.
 	 */
@@ -125,6 +128,16 @@ public class JustificarIncidencias extends JFrame {
 		txtFechaJustificante.setColumns(10);
 		txtFechaJustificante.setBounds(349, 107, 136, 26);
 		contentPane.add(txtFechaJustificante);
+		
+		btnSubirImagen = new JButton("Seleccionar imagen...");
+		btnSubirImagen.setHorizontalAlignment(SwingConstants.LEFT);
+		btnSubirImagen.setBounds(93, 146, 135, 32);
+		contentPane.add(btnSubirImagen);
+		
+		btnAbrirImagen = new JButton("Abrir");
+		btnAbrirImagen.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAbrirImagen.setBounds(245, 146, 55, 32);
+		contentPane.add(btnAbrirImagen);
 	}
 
 	public JTextField getTxtNombreEmpleado() {
@@ -206,6 +219,22 @@ public class JustificarIncidencias extends JFrame {
 
 	public void setLblJustificante(JLabel lblJustificante) {
 		this.lblJustificante = lblJustificante;
+	}
+
+	public JButton getBtnSubirImagen() {
+		return btnSubirImagen;
+	}
+
+	public void setBtnSubirImagen(JButton btnSubirImagen) {
+		this.btnSubirImagen = btnSubirImagen;
+	}
+
+	public JButton getBtnAbrirImagen() {
+		return btnAbrirImagen;
+	}
+
+	public void setBtnAbrirImagen(JButton btnAbrirImagen) {
+		this.btnAbrirImagen = btnAbrirImagen;
 	}
 	
 }

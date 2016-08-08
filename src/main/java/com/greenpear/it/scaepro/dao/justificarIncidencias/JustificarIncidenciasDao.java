@@ -96,7 +96,7 @@ public class JustificarIncidenciasDao {
 
 	public JustificanteIncidenciaModel consultarComentarioArchivo(String idEmpleado)throws SQLException {
 		JustificanteIncidenciaModel justificante=new JustificanteIncidenciaModel();
-		String sql="select imagen,comentario,fecha from t_justificarincidencia "
+		String sql="select idJustificante,idIncidencia,imagen,comentario,fecha from t_justificarincidencia "
 				+ "inner join t_incidencia on t_justificarincidencia.idIncidencia=t_incidencia.idIncidencia "
 				+ "inner join t_empleado on t_incidencia.idEmpleado=t_empleado.idEmpleado "
 				+ "where t_empleado.idEmpleado="+idEmpleado;
@@ -105,6 +105,8 @@ public class JustificarIncidenciasDao {
 				public JustificanteIncidenciaModel extractData(ResultSet rs) throws SQLException {
 					JustificanteIncidenciaModel justificante = new JustificanteIncidenciaModel();
 					if (rs.next()) {
+						justificante.setIdJustificante(rs.getInt("idJustificante"));
+						justificante.setIdIncidencia(rs.getInt("idIncidencia"));
 						justificante.setJustificante(rs.getString("imagen"));
 						justificante.setComentario(rs.getString("comentario"));
 						justificante.setFechaJustificacion(rs.getString("fecha"));
