@@ -99,6 +99,8 @@ public class AltaAreasController implements ActionListener{
 				JOptionPane.showMessageDialog(null, t.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 			}
 				JOptionPane.showMessageDialog(null, acceso,"Acceso",JOptionPane.INFORMATION_MESSAGE);
+				getVista().txtArea.setText("");
+				getVista().txtDescArea.setText("");
 				return;
 		//------Editar--------
 		}else if (e.getSource() == getVista().btnRegistrar && getVista().btnRegistrar.getText() == "Editar" ) {

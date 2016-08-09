@@ -91,8 +91,7 @@ public class AltaAreasDao extends DataSourceService implements InsertService<Con
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserción!");
 		}
 
-		return "El área " + t.getArea() + "\n" + "Fue registrado exitosamente!\n\n" + "Su número de ID es: "
-				+ t.getIdArea();
+		return "El área '" + t.getArea() + "'\n" + "Fue registrado exitosamente!";
 	}
 
 	public String editar(ConsultaAreasModel modelo) throws SQLException {

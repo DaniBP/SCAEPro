@@ -163,7 +163,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 				JOptionPane.showMessageDialog(null, t.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if (registro == "!Registro De Noticia Exitoso!") {
+			if (registro.equals("!Registro De Noticia Exitoso!")) {
 				JOptionPane.showMessageDialog(null, registro, "Acceso", JOptionPane.INFORMATION_MESSAGE);
 				// copy file using Java 7 Files class
 				File source = new File(archive);
@@ -174,9 +174,14 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 					try {
 						copyFileUsingJava7Files(source, dest);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+//						JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//						return;
 					}
 				end = System.nanoTime();
+				getVista().txtTitulo.setText("");
+				getVista().txtDescNoticia.setText("");
+				getVista().btnSubirFoto.setText("Seleccionar imagen...");
+				getVista().lblImg.setIcon(null);
 			} else {
 				JOptionPane.showMessageDialog(null, registro, "Acceso", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -202,7 +207,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 				getVista().btnSubirFoto.setText(nombreArchivo);
 			}
 			// ------Editar--------
-		} else if (e.getSource() == getVista().btnRegistrar && getVista().btnRegistrar.getText() == "Editar") {
+		} else if (e.getSource() == getVista().btnRegistrar && getVista().btnRegistrar.getText().equals("Editar")) {
 			if (getVista().txtTitulo.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Ingrese un título de noticia", "Editar Noticia",
 						JOptionPane.WARNING_MESSAGE);
@@ -226,7 +231,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 				e1.printStackTrace();
 			}
 
-			if (edicion == "¡Imágen Actualizada Correctamente!") {
+			if (edicion.equals("¡Imágen Actualizada Correctamente!")) {
 				// copy file using Java 7 Files class
 				File source = new File(archive);
 				File dest = new File(
@@ -272,7 +277,7 @@ public class NuevaNoticiaController implements ActionListener, KeyListener {
 					e1.printStackTrace();
 				}
 
-				if (delete == "¡Noticia Eliminada Correctamente!") {
+				if (delete.equals("¡Noticia Eliminada Correctamente!")) {
 					JOptionPane.showMessageDialog(null, delete, "Error", JOptionPane.INFORMATION_MESSAGE);
 					getVista().setVisible(false);
 					getGovernment().getNoticiasExistentesController().mostrarNoticiasExistentes();

@@ -180,6 +180,7 @@ public class GenerarAvisoController implements ActionListener, ItemListener {
 					}
 				}
 			}
+			getVista().txtAviso.setText("");
 			JOptionPane.showMessageDialog(null, registroAviso, "Registro", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
