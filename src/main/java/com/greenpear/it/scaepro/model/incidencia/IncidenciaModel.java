@@ -13,6 +13,8 @@ public class IncidenciaModel {
 	private String apeMatEmpleado;
 	private String area;
 	private String tipo;
+	private String puesto;
+	private String turno;
 	private int idTipoIncidencia;
 	private int idEstatusIncidencia;
 	private String EstatusIncidencia;
@@ -118,8 +120,21 @@ public class IncidenciaModel {
 		EstatusIncidencia = estatusIncidencia;
 	}
 	
+	public String getPuesto() {
+		return puesto;
+	}
+	public void setPuesto(String puesto) {
+		this.puesto = puesto;
+	}
+	
+	public String getTurno() {
+		return turno;
+	}
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
 	public void limpiarModelo(){
-		idIncidencia=0;
+		idIncidencia=0; 
 		idEmpleado=0;
 		idTipoIncidencia=0;
 		idEstatusIncidencia=0;
@@ -128,5 +143,8 @@ public class IncidenciaModel {
 		tipo=null;
 		area=null;
 		EstatusIncidencia=null;
+		puesto=null;
+		turno=null;
+		
 	}
 }

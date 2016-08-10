@@ -170,6 +170,9 @@ public class JustificarIncidenciasController implements ActionListener, ItemList
 			getJustificarView().getBtnJustificar().addActionListener(this);
 			getJustificarView().getBtnSubirImagen().addActionListener(this);
 			getIncidenciasView().getCmbArea().addItemListener(this);
+			getIncidenciasView().getRdbtnPorAsignacion().addActionListener(this);
+			getIncidenciasView().getRdbtnPorArea().addActionListener(this);
+
 		}
 		getIncidenciasView().setVisible(true);
 		getIncidenciasView().toFront();
@@ -197,7 +200,6 @@ public class JustificarIncidenciasController implements ActionListener, ItemList
 					&& getIncidenciasView().getTxtApeMat().getText().isEmpty()
 					&& getIncidenciasView().getTxtApePat().getText().isEmpty()
 					&& getIncidenciasView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
-					&& getIncidenciasView().getCmbPuesto().getSelectedItem().equals("-----Seleccione puesto-----")
 					&& getIncidenciasView().getCmbTurno().getSelectedItem().equals("-----Seleccionar turno-----")) {
 				JOptionPane.showMessageDialog(null, "Tienes que seleccionar un parametro de busqueda de empleado");
 			} else if (!getIncidenciasView().getTxtNombre().getText().isEmpty()
@@ -213,8 +215,8 @@ public class JustificarIncidenciasController implements ActionListener, ItemList
 					System.out.println(ex.getMessage());
 				}
 				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
-				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo", "Fecha y Hora",
-						"Justificacion", "Revisar" };
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
 
 				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
 						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
@@ -235,8 +237,8 @@ public class JustificarIncidenciasController implements ActionListener, ItemList
 
 				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
 					@Override
-					public Component getTableCellRendererComponent(JTable jtable, Object objeto, boolean estaSeleccionado,
-							boolean tieneElFoco, int fila, int columna) {
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
 						return (Component) objeto;
 					}
 				});
@@ -256,52 +258,60 @@ public class JustificarIncidenciasController implements ActionListener, ItemList
 							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
 							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
 
-							if (getIncidenciasView().getTable().getModel().getColumnClass(columna).equals(JButton.class)) {
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
 								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
 								StringBuilder sb = new StringBuilder();
 								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
-									if (!getIncidenciasView().getTable().getModel().getColumnClass(i).equals(JButton.class)) {
-										sb.append("\n").append(getIncidenciasView().getTable().getModel().getColumnName(i))
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
 												.append(": ")
 												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
-										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "idIncidencia") {
-											idIncidencia = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
-													.toString();
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
 										}
-										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "idEmpleado") {
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
 											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
 													.toString();
 										}
 										if (getIncidenciasView().getTable().getModel()
 												.getColumnName(i) == "Nombre del empleado") {
-											nombreEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
-													.toString();
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
 										}
 										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
 											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
 													.toString();
 										}
 										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
-											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i).toString();
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
 										}
-										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Fecha y Hora") {
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
 											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
 													.toString();
 										}
-										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Justificacion") {
-											justificacion = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
-													.toString();
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
 										}
 									}
 								}
 
 								if (boton.toString().contains("Revisar") == true) {
 									JOptionPane.showMessageDialog(null,
-											"Entro a modificar del empleado " + nombreEmpleado + " con el id " + idIncidencia
-													+ " " + idEmpleado + " " + nombreArea + " " + tipo + " " + justificacion
-													+ " " + fechaHora);
-									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado, nombreArea, tipo,
-											justificacion, fechaHora);
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
 									return;
 								}
 							}
@@ -338,13 +348,1339 @@ public class JustificarIncidenciasController implements ActionListener, ItemList
 				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
 				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
 				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
-				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);	
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (getIncidenciasView().getTxtNombre().getText().isEmpty()
+					&& !getIncidenciasView().getTxtApePat().getText().isEmpty()
+					&& getIncidenciasView().getTxtApeMat().getText().isEmpty()) {
+				incidenciaModel.setApePatEmpleado(getIncidenciasView().getTxtApePat().getText());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByApepat(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (getIncidenciasView().getTxtNombre().getText().isEmpty()
+					&& getIncidenciasView().getTxtApePat().getText().isEmpty()
+					&& !getIncidenciasView().getTxtApeMat().getText().isEmpty()) {
+				incidenciaModel.setApeMatEmpleado(getIncidenciasView().getTxtApeMat().getText());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByApemat(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (!getIncidenciasView().getTxtNombre().getText().isEmpty()
+					&& getIncidenciasView().getTxtApePat().getText().isEmpty()
+					&& getIncidenciasView().getTxtApeMat().getText().isEmpty()) {
+				incidenciaModel.setNombreEmpleado(getIncidenciasView().getTxtNombre().getText());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByName(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (!getIncidenciasView().getTxtNombre().getText().isEmpty()
+					&& !getIncidenciasView().getTxtApePat().getText().isEmpty()
+					&& getIncidenciasView().getTxtApeMat().getText().isEmpty()) {
+				incidenciaModel.setNombreEmpleado(getIncidenciasView().getTxtNombre().getText());
+				incidenciaModel.setApePatEmpleado(getIncidenciasView().getTxtApePat().getText());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByNameApePat(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (!getIncidenciasView().getTxtNombre().getText().isEmpty()
+					&& getIncidenciasView().getTxtApePat().getText().isEmpty()
+					&& !getIncidenciasView().getTxtApeMat().getText().isEmpty()) {
+				incidenciaModel.setNombreEmpleado(getIncidenciasView().getTxtNombre().getText());
+				incidenciaModel.setApeMatEmpleado(getIncidenciasView().getTxtApeMat().getText());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByNameApeMat(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (getIncidenciasView().getTxtNombre().getText().isEmpty()
+					&& !getIncidenciasView().getTxtApePat().getText().isEmpty()
+					&& !getIncidenciasView().getTxtApeMat().getText().isEmpty()) {
+				incidenciaModel.setApePatEmpleado(getIncidenciasView().getTxtApePat().getText());
+				incidenciaModel.setApeMatEmpleado(getIncidenciasView().getTxtApeMat().getText());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByApePatApeMat(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (!getIncidenciasView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+					&& !getIncidenciasView().getCmbTurno().getSelectedItem().equals("-----Seleccionar turno-----")) {
+				incidenciaModel.setArea(getIncidenciasView().getCmbArea().getSelectedItem().toString());
+				incidenciaModel.setTurno(getIncidenciasView().getCmbTurno().getSelectedItem().toString());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByAreaTurno(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (!getIncidenciasView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+					&& !getIncidenciasView().getCmbTurno().getSelectedItem().equals("-----Seleccionar turno-----")) {
+				incidenciaModel.setArea(getIncidenciasView().getCmbArea().getSelectedItem().toString());
+				incidenciaModel.setTurno(getIncidenciasView().getCmbTurno().getSelectedItem().toString());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByAreaTurno(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
+			} else if (!getIncidenciasView().getCmbArea().getSelectedItem().equals("------Seleccione area------")
+					&& getIncidenciasView().getCmbTurno().getSelectedItem().equals("-----Seleccionar turno-----")) {
+				incidenciaModel.setArea(getIncidenciasView().getCmbArea().getSelectedItem().toString());
+				List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+				try {
+					listaEmpleados = getJustificarIncidenciasBo().consultaByArea(incidenciaModel);
+				} catch (SQLException ex) {
+					System.out.println(ex.getMessage());
+				}
+				final Iterator<IncidenciaModel> empleados = listaEmpleados.iterator();
+				String[] columnNames = { "idIncidencia", "idEmpleado", "Nombre del empleado", "Area", "Tipo",
+						"Fecha y Hora", "Justificacion", "Revisar" };
+
+				final Class[] tiposColumnas = new Class[] { java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+						java.lang.String.class, JButton.class };
+
+				getIncidenciasView().getTable().setModel(new javax.swing.table.DefaultTableModel() {
+					Class[] tipos = tiposColumnas;
+
+					@SuppressWarnings("unchecked")
+					public Class getColumnClass(int columnIndex) {
+						return tipos[columnIndex];
+					}
+
+					public boolean isCellEditable(int row, int column) {
+						return false;
+					}
+				});
+
+				getIncidenciasView().getTable().setDefaultRenderer(JButton.class, new TableCellRenderer() {
+					@Override
+					public Component getTableCellRendererComponent(JTable jtable, Object objeto,
+							boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+						return (Component) objeto;
+					}
+				});
+
+				if (getIncidenciasView().getTable().getMouseListeners().length == 2) {
+					getIncidenciasView().getTable().addMouseListener(new MouseAdapter() {
+						String idIncidencia;
+						String idEmpleado;
+						String nombreEmpleado;
+						String nombreArea;
+						String tipo;
+						String fechaHora;
+						String justificacion;
+						Object boton;
+
+						public void mouseClicked(MouseEvent e) {
+							int fila = getIncidenciasView().getTable().rowAtPoint(e.getPoint());
+							int columna = getIncidenciasView().getTable().columnAtPoint(e.getPoint());
+
+							if (getIncidenciasView().getTable().getModel().getColumnClass(columna)
+									.equals(JButton.class)) {
+								boton = getIncidenciasView().getTable().getModel().getValueAt(fila, columna);
+								StringBuilder sb = new StringBuilder();
+								for (int i = 0; i < getIncidenciasView().getTable().getModel().getColumnCount(); i++) {
+									if (!getIncidenciasView().getTable().getModel().getColumnClass(i)
+											.equals(JButton.class)) {
+										sb.append("\n")
+												.append(getIncidenciasView().getTable().getModel().getColumnName(i))
+												.append(": ")
+												.append(getIncidenciasView().getTable().getModel().getValueAt(fila, i));
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idIncidencia") {
+											idIncidencia = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "idEmpleado") {
+											idEmpleado = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Nombre del empleado") {
+											nombreEmpleado = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Area") {
+											nombreArea = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel().getColumnName(i) == "Tipo") {
+											tipo = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Fecha y Hora") {
+											fechaHora = getIncidenciasView().getTable().getModel().getValueAt(fila, i)
+													.toString();
+										}
+										if (getIncidenciasView().getTable().getModel()
+												.getColumnName(i) == "Justificacion") {
+											justificacion = getIncidenciasView().getTable().getModel()
+													.getValueAt(fila, i).toString();
+										}
+									}
+								}
+
+								if (boton.toString().contains("Revisar") == true) {
+									JOptionPane.showMessageDialog(null,
+											"Entro a modificar del empleado " + nombreEmpleado + " con el id "
+													+ idIncidencia + " " + idEmpleado + " " + nombreArea + " " + tipo
+													+ " " + justificacion + " " + fechaHora);
+									abrirVentanaJustificarIncidencia(idIncidencia, idEmpleado, nombreEmpleado,
+											nombreArea, tipo, justificacion, fechaHora);
+									return;
+								}
+							}
+						}
+
+					});
+				}
+
+				DefaultTableModel modelo = (DefaultTableModel) getIncidenciasView().getTable().getModel();
+				modelo.setColumnIdentifiers(columnNames);
+				Object[] fila = new Object[modelo.getColumnCount()];
+				while (empleados.hasNext()) {
+					IncidenciaModel empleado = empleados.next();
+					JButton btn2 = new JButton("Revisar");
+					fila[0] = empleado.getIdIncidencia();
+					fila[1] = empleado.getIdEmpleado();
+					fila[2] = empleado.getNombreEmpleado() + " " + empleado.getApePatEmpleado() + " "
+							+ empleado.getApeMatEmpleado();
+					fila[3] = empleado.getArea();
+					fila[4] = empleado.getTipo();
+					fila[5] = empleado.getFechaIncidencia();
+					fila[6] = empleado.getEstatusIncidencia();
+					fila[7] = btn2;
+					modelo.addRow(fila);
+				}
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMinWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(1).setMaxWidth(0);
+				getIncidenciasView().getTable().getColumnModel().getColumn(2).setPreferredWidth(150);
+				getIncidenciasView().getTable().getColumnModel().getColumn(3).setPreferredWidth(50);
+				getIncidenciasView().getTable().getColumnModel().getColumn(4).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(5).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(6).setPreferredWidth(100);
+				getIncidenciasView().getTable().getColumnModel().getColumn(7).setPreferredWidth(100);
 			}
 
 			// Aqui termina consulta
 		} else if (e.getSource().equals(getIncidenciasView().getBtnLimpiar())) {
 			getIncidenciasView().getBtnLimpiar().setText("Recargar");
 			consultaGeneral();
+		} else if (e.getSource().equals(getIncidenciasView().getRdbtnPorArea())) {
+			getIncidenciasView().getTxtApeMat().setEnabled(true);
+			getIncidenciasView().getTxtNombre().setEnabled(true);
+			getIncidenciasView().getTxtApePat().setEnabled(true);
+			getIncidenciasView().getTxtApeMat().setText(null);
+			getIncidenciasView().getTxtNombre().setText(null);
+			getIncidenciasView().getTxtApePat().setText(null);
+			getIncidenciasView().getCmbArea().setEnabled(false);
+			getIncidenciasView().getCmbArea().setSelectedIndex(0);
+
+		} else if (e.getSource().equals(getIncidenciasView().getRdbtnPorAsignacion())) {
+			getIncidenciasView().getTxtApeMat().setEnabled(false);
+			getIncidenciasView().getTxtNombre().setEnabled(false);
+			getIncidenciasView().getTxtApePat().setEnabled(false);
+			getIncidenciasView().getTxtApeMat().setText(null);
+			getIncidenciasView().getTxtNombre().setText(null);
+			getIncidenciasView().getTxtApePat().setText(null);
+			getIncidenciasView().getCmbArea().setEnabled(true);
+			getIncidenciasView().getCmbArea().setSelectedIndex(0);
 		} else if (e.getSource().equals(getJustificarView().getBtnJustificar())) {
 			if (getJustificarView().getBtnJustificar().getText().equals("Modificar")) {
 				System.out.println("El id del justificante a actualizar es "

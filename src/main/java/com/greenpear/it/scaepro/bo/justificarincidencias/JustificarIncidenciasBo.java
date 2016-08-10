@@ -120,6 +120,86 @@ public class JustificarIncidenciasBo {
 			return listaEmpleados;
 	}
 
+	public List<IncidenciaModel> consultaByApepat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByApepat(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByApemat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByApeMat(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByName(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByName(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByNameApePat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByNameApePat(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByNameApeMat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByNameApeMat(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByApePatApeMat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByApePatApeMat(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByAreaTurno(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByAreaTurno(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByArea(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		try {
+			listaEmpleados = getJustificarIncidenciasDao().consultaByArea(incidenciaModel2);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return listaEmpleados;
+	}
+
 
 	
 }

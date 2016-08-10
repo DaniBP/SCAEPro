@@ -250,4 +250,325 @@ public class JustificarIncidenciasDao {
 		return listaEmpleados;
 	}
 
+	public List<IncidenciaModel> consultaByApepat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where apePatEmpleado='"
+				+ incidenciaModel2.getApePatEmpleado() + "' " +" ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByApeMat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where apeMatEmpleado='"
+				+ incidenciaModel2.getApeMatEmpleado() + "' " +" ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByName(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where nombreEmpleado='"
+				+ incidenciaModel2.getNombreEmpleado() + "' " +" ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByNameApePat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where nombreEmpleado='"
+				+ incidenciaModel2.getNombreEmpleado() + "' " +"and apePatEmpleado='"
+				+ incidenciaModel2.getApePatEmpleado() + "' "
+				+ "ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByNameApeMat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where nombreEmpleado='"
+				+ incidenciaModel2.getNombreEmpleado() + "' " +"and apeMatEmpleado='"
+				+ incidenciaModel2.getApeMatEmpleado() + "' "
+				+ "ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByApePatApeMat(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where apePatEmpleado='"
+				+ incidenciaModel2.getApePatEmpleado() + "' " +"and apeMatEmpleado='"
+				+ incidenciaModel2.getApeMatEmpleado() + "' "
+				+ "ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados;
+	}
+
+	public List<IncidenciaModel> consultaByAreaTurno(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where nombreTurno='"
+				+ incidenciaModel2.getTurno() + "' " +"and nombreArea='"
+				+ incidenciaModel2.getArea() + "' "
+				+ "ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados; 
+	}
+
+	public List<IncidenciaModel> consultaByArea(IncidenciaModel incidenciaModel2)throws SQLException {
+		List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+		
+		String sql = "select t_incidencia.idIncidencia,t_empleado.idEmpleado,nombreEmpleado, apepatEmpleado,apematEmpleado,nombrearea,tipoincidencia,"
+				+ "fechaIncidencia,estatus from c_area inner join c_turno on c_area.idArea=c_turno.idArea "
+				+ "inner join t_empleado on c_turno.idTurno=t_empleado.idTurno "
+				+ "inner join t_incidencia on t_empleado.idEmpleado=t_incidencia.idEmpleado "
+				+ "inner join c_tipo_incidencia on c_tipo_incidencia.idtipoincidencia=t_incidencia.idtipoincidencia "
+				+ "inner join t_estatusincidencia on t_incidencia.idestatusincidencia=t_estatusincidencia.idestatusincidencia "
+				+ "where nombreArea='"
+				+ incidenciaModel2.getArea() + "' "
+				+ "ORDER BY c_area.nombreArea";
+		System.out.println(sql);
+
+		try {
+			listaEmpleados = getJdbcTemplate().query(sql, new RowMapper<IncidenciaModel>() {
+
+				public IncidenciaModel mapRow(ResultSet rs, int columna) throws SQLException {
+					IncidenciaModel resultValue = new IncidenciaModel();
+					resultValue.setIdIncidencia(rs.getInt("idincidencia"));
+					resultValue.setIdEmpleado(rs.getInt("idEmpleado"));
+					resultValue.setNombreEmpleado(rs.getString("nombreempleado"));
+					resultValue.setApePatEmpleado(rs.getString("apepatempleado"));
+					resultValue.setApeMatEmpleado(rs.getString("apematempleado"));
+					resultValue.setArea(rs.getString("nombrearea"));
+					resultValue.setTipo(rs.getString("tipoincidencia"));
+					resultValue.setFechaIncidencia(rs.getString("fechaIncidencia"));
+					resultValue.setEstatusIncidencia(rs.getString("estatus"));
+					return resultValue;
+				}
+
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+
+		return listaEmpleados; 
+	}
+
 }
