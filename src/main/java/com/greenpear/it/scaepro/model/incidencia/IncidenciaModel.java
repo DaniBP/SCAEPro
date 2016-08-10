@@ -17,7 +17,7 @@ public class IncidenciaModel {
 	private int idEstatusIncidencia;
 	private String EstatusIncidencia;
 	private String fechaIncidencia;
-	
+
 	/**
 	 * @return the idIncidencia
 	 */

@@ -14,6 +14,8 @@ import com.greenpear.it.scaepro.model.empleado.EmpleadoModel;
 import com.greenpear.it.scaepro.model.incidencia.IncidenciaModel;
 import com.greenpear.it.scaepro.model.incidencia.JustificanteIncidenciaModel;
 
+import jdk.nashorn.internal.ir.ReturnNode;
+
 public class JustificarIncidenciasBo {
 	// Modelos
 	@Autowired
@@ -85,6 +87,37 @@ public class JustificarIncidenciasBo {
 			JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return mensaje;
+	}
+
+	public String modificarEmpleado(JustificanteIncidenciaModel justificanteIncidenciaModelo)throws SQLException {
+		String mensaje="";
+		
+		try{
+			mensaje=getJustificarIncidenciasDao().modificarjustificanteempleado(justificanteIncidenciaModelo);
+		}catch(SQLException ex){
+			throw new SQLException(ex.getMessage());
+		}
+		return mensaje;
+	}
+
+	public String consultaridIncidencia()throws SQLException {
+		String nombreArchivo="";
+		try{
+			nombreArchivo=getJustificarIncidenciasDao().consultaridIncidencia();
+		}catch(SQLException ex){
+			throw new SQLException(ex.getMessage());
+		}
+		return nombreArchivo ;
+	}
+
+	public List<IncidenciaModel> consultaNombreCompletoEmpleado(IncidenciaModel incidenciaModel2)throws SQLException {
+			List<IncidenciaModel> listaEmpleados = new ArrayList<IncidenciaModel>();
+			try {
+				listaEmpleados = getJustificarIncidenciasDao().consultaNombreCompletoEmpleado(incidenciaModel2);
+			} catch (SQLException t) {
+				throw new SQLException(t.getMessage());
+			}
+			return listaEmpleados;
 	}
 
 
