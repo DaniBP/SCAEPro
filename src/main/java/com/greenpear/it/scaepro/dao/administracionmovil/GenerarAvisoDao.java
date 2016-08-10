@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
+import com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel;
 import com.greenpear.it.scaepro.model.administracionmovil.GenerarAvisoModel;
 import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 
@@ -123,6 +124,7 @@ public class GenerarAvisoDao {
 			parameters.put("idEmpleado", modelo.getIdEmpleado());
 			parameters.put("tipoAviso", modelo.getTipoAviso());
 			parameters.put("aviso", modelo.getAviso());
+			parameters.put("fechaAviso",modelo.getFechaAviso());
 			
 			insert.executeAndReturnKey(parameters).intValue();
 
@@ -151,6 +153,38 @@ public class GenerarAvisoDao {
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
 		}
 		return modelo;
+	}
+
+	public List<GenerarAvisoModel> consultaFechas() throws SQLException {
+		List<GenerarAvisoModel> listaAreas = new ArrayList<GenerarAvisoModel>();
+		String sql = " SELECT fechaAviso,idAviso from c_aviso";
+		try {
+			listaAreas = getJdbcTemplate().query(sql, new RowMapper<GenerarAvisoModel>() {
+
+				public GenerarAvisoModel mapRow(ResultSet rs, int columna) throws SQLException {
+					GenerarAvisoModel resultValue = new GenerarAvisoModel();
+					resultValue.setFechaAviso(rs.getString("fechaAviso"));
+					resultValue.setIdAviso(rs.getInt("idAviso"));
+					return resultValue;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return listaAreas;
+	}
+
+	public String eliminar(GenerarAvisoModel fechasAvisosModel)throws SQLException {
+		String sql = "DELETE FROM c_aviso WHERE idAviso=?";
+
+		try {
+			getJdbcTemplate().update(sql, fechasAvisosModel.getIdAviso());
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminación!");
+		}
+		return "¡Aviso Eliminado!";
 	}
 
 }

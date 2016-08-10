@@ -5,7 +5,9 @@ package com.greenpear.it.scaepro.dao.administracionmovil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.management.modelmbean.ModelMBeanOperationInfo;
@@ -17,8 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
+import com.greenpear.it.scaepro.model.administracionmovil.GenerarAvisoModel;
 import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.model.gestionareas.ConsultaAreasModel;
 
@@ -102,7 +106,7 @@ public class NuevaNoticiaDao {
 
 			parameters.put("titulo", modelo.getTituloNoticia());
 			parameters.put("noticia", modelo.getDescNoticia());
-			parameters.put("imagen", modelo.getImagenNoticia());
+			parameters.put("fechaNoticia", modelo.getFechaNoticia());
 
 			modelo.setIdNoticia(insert.executeAndReturnKey(parameters).intValue());
 
@@ -110,6 +114,15 @@ public class NuevaNoticiaDao {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la inserción!");
 		}
+		String sqlEdicion = "UPDATE c_noticia SET imagen=? WHERE idNoticias=?";
+		try {
+			getJdbcTemplate().update(sqlEdicion, "imagen"+modelo.getIdNoticia()+".jpg", modelo.getIdNoticia());
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
+			throw new SQLException(
+					"Existe un problema con la base de datos\n" + "No se pudo realizar la actualización!");
+		}
+		
 		return "!Registro De Noticia Exitoso!";
 	}
 
@@ -146,10 +159,10 @@ public class NuevaNoticiaDao {
 			}
 		}
 
-		String sqlEdicion = "UPDATE c_noticia SET titulo=?, noticia=?, imagen=? WHERE idNoticias=?";
+		String sqlEdicion = "UPDATE c_noticia SET titulo=?, noticia=?, imagen=?, fechaNoticia=? WHERE idNoticias=?";
 		try {
 			getJdbcTemplate().update(sqlEdicion, modelo.getTituloNoticia(), modelo.getDescNoticia(),
-					modelo.getImagenNoticia(), modelo.getIdNoticia());
+					modelo.getImagenNoticia(), modelo.getFechaNoticia() , modelo.getIdNoticia());
 		} catch (Exception e) {
 			log.error("\nSQL: Error al cargar los datos.\nMotivo: {} ", e.getMessage());
 			throw new SQLException(
@@ -172,6 +185,38 @@ public class NuevaNoticiaDao {
 			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminación!");
 		}
 		return "¡Noticia Eliminada Correctamente!";
+	}
+
+	public List<NoticiasModel> consultaFechas() throws SQLException {
+		List<NoticiasModel> listaAreas = new ArrayList<NoticiasModel>();
+		String sql = " SELECT fechaNoticia,idNoticias from c_noticia";
+		try {
+			listaAreas = getJdbcTemplate().query(sql, new RowMapper<NoticiasModel>() {
+
+				public NoticiasModel mapRow(ResultSet rs, int columna) throws SQLException {
+					NoticiasModel resultValue = new NoticiasModel();
+					resultValue.setFechaNoticia(rs.getString("fechaNoticia"));
+					resultValue.setIdNoticia(rs.getInt("idNoticias"));
+					return resultValue;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return listaAreas;
+	}
+
+	public String eliminar(NoticiasModel fechasAvisosModel)throws SQLException {
+		String sql = "DELETE FROM c_noticia WHERE idNoticias=?";
+
+		try {
+			getJdbcTemplate().update(sql, fechasAvisosModel.getIdNoticia());
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminación!");
+		}
+		return "¡Aviso Eliminado!";
 	}
 
 }

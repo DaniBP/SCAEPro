@@ -29,6 +29,7 @@ public class NuevaNoticiaView extends JInternalFrame {
 	public JTextPane txtDescNoticia;
 	public JLabel lblImg;
 	public JButton btnEliminar;
+	public JLabel lblFecha;
 
 	/**
 	 * Launch the application.
@@ -105,5 +106,13 @@ public class NuevaNoticiaView extends JInternalFrame {
 		btnEliminar.setVisible(false);
 		btnEliminar.setBounds(204, 388, 139, 32);
 		contentPane.add(btnEliminar);
+		
+		JLabel lblFechaActual = new JLabel("Fecha Actual:");
+		lblFechaActual.setBounds(174, 11, 75, 14);
+		contentPane.add(lblFechaActual);
+		
+		lblFecha = new JLabel("");
+		lblFecha.setBounds(254, 11, 89, 14);
+		contentPane.add(lblFecha);
 	}
 }

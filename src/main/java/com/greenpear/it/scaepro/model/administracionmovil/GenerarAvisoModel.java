@@ -12,8 +12,10 @@ public class GenerarAvisoModel {
 	private String nombreArea;
 	private String nombreEmpleado;
 	private String aviso;
+	private String fechaAviso;
 	private int idArea;
 	private int idEmpleado;
+	private int idAviso;
 	
 	
 	/**
@@ -87,5 +89,29 @@ public class GenerarAvisoModel {
 	 */
 	public void setIdEmpleado(int idEmpleado) {
 		this.idEmpleado = idEmpleado;
+	}
+	/**
+	 * @return the fechaAviso
+	 */
+	public String getFechaAviso() {
+		return fechaAviso;
+	}
+	/**
+	 * @param fechaAviso the fechaAviso to set
+	 */
+	public void setFechaAviso(String fechaAviso) {
+		this.fechaAviso = fechaAviso;
+	}
+	/**
+	 * @return the idAviso
+	 */
+	public int getIdAviso() {
+		return idAviso;
+	}
+	/**
+	 * @param idAviso the idAviso to set
+	 */
+	public void setIdAviso(int idAviso) {
+		this.idAviso = idAviso;
 	}
 }

@@ -44,4 +44,25 @@ public class NoticiasExistentesBo {
 		}
 		return modelo;
 	}
+	
+	public List<NoticiasModel> consultaFechas()throws SQLException {
+		List<NoticiasModel> consulta = new ArrayList<NoticiasModel>();
+		try {
+			consulta = getDao().consultaFechas();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return consulta;
+	}
+
+	public String eliminar(NoticiasModel fechasAvisosModel)throws SQLException {
+		String delete=null;
+		try {
+			delete = getDao().eliminar(fechasAvisosModel);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return delete;
+	}
 }

@@ -111,7 +111,7 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 				ex.printStackTrace();
 			}
 			String fechaPago = new SimpleDateFormat("dd/MM/yyyy").format(fechaDate);
-			System.out.println("fechaPago:" + fechaPago);
+//			System.out.println("fechaPago:" + fechaPago);
 			// Dar formato a la fecha actual
 			String formato2 = "yyyy/MM/dd";
 			SimpleDateFormat formatoFecha2 = new SimpleDateFormat(formato2);
@@ -123,17 +123,17 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 				ex.printStackTrace();
 			}
 			String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(fechaDate2);
-			System.out.println("fechaActual:" + fechaActual);
+//			System.out.println("fechaActual:" + fechaActual);
 
 			String periodoNominal = fechasPagosModel.getPeriodoNominal();
 
-			System.out.println(restar_fecha(fechaPago, periodoNominal));
-			System.out.println(fechasPagosModel.getIdEstatusPago());
+//			System.out.println(restar_fecha(fechaPago, periodoNominal));
+//			System.out.println(fechasPagosModel.getIdEstatusPago());
 			
 			if(restar_fecha(fechaPago, periodoNominal).equals("Si")){
 				String edicion = null;
 				try {
-					System.out.println(edicion = getBo().editar(fechasPagosModel));
+					edicion = getBo().editar(fechasPagosModel);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -160,7 +160,7 @@ public class EstatusPagoController implements ActionListener, ItemListener {
 		java.sql.Date fecha = new java.sql.Date(calendar.getTimeInMillis());
 
 		long diferencia = ( hoy.getTime() - fecha.getTime() )/MILLSECS_PER_DAY; 
-		System.out.println("D�as transcurridos: "+diferencia); 
+//		System.out.println("D�as transcurridos: "+diferencia); 
 		
 		dias = (int) (diferencia);
 

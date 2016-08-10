@@ -140,7 +140,7 @@ public class PrincipalView extends JFrame {
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		ImageIcon fot = new ImageIcon(PrincipalView.class.getResource("/img/SCAEPro Logo.png"));
+		ImageIcon fot = new ImageIcon(PrincipalView.class.getResource("/img/ESCRITORIO.png"));
 		
 		panelEscritorio = new JDesktopPane();
 		panelEscritorio.setBackground(SystemColor.activeCaption);
@@ -148,7 +148,7 @@ public class PrincipalView extends JFrame {
 		contentPane.add(panelEscritorio);
 	
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(230, 180, 800, 277);
+		lblNewLabel.setBounds(0, 0, getWidth()-6, getHeight()-50);
 		panelEscritorio.add(lblNewLabel);
 		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(), Image.SCALE_DEFAULT));
 		lblNewLabel.setIcon(icono);

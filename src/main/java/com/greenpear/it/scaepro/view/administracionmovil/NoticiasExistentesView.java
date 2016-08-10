@@ -13,12 +13,15 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class NoticiasExistentesView extends JInternalFrame {
 
 	public JPanel contentPane;
 	public JTable tablaNoticias;
 	public JScrollPane scrollPane;
+	public JLabel lblFechaActual;
+	public JLabel lblFecha;
 
 	/**
 	 * Launch the application.
@@ -55,7 +58,7 @@ public class NoticiasExistentesView extends JInternalFrame {
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBackground(SystemColor.activeCaption);
-		scrollPane.setBounds(10, 11, 429, 383);
+		scrollPane.setBounds(10, 30, 429, 364);
 		contentPane.add(scrollPane);
 		
 		tablaNoticias = new JTable();
@@ -68,5 +71,13 @@ public class NoticiasExistentesView extends JInternalFrame {
 			new String[] {
 			}
 		));
+		
+		lblFechaActual = new JLabel("Fecha Actual:");
+		lblFechaActual.setBounds(259, 5, 71, 14);
+		contentPane.add(lblFechaActual);
+		
+		lblFecha = new JLabel("");
+		lblFecha.setBounds(340, 5, 99, 14);
+		contentPane.add(lblFecha);
 	}
 }

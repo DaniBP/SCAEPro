@@ -9,7 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,6 +30,7 @@ import org.springframework.jmx.support.RegistrationPolicy;
 
 import com.greenpear.it.scaepro.bo.administracionmovil.GenerarAvisoBo;
 import com.greenpear.it.scaepro.controller.government.GovernmentService;
+import com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel;
 import com.greenpear.it.scaepro.model.administracionmovil.GenerarAvisoModel;
 import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 import com.greenpear.it.scaepro.view.administracionmovil.GenerarAvisoView;
@@ -69,8 +75,83 @@ public class GenerarAvisoController implements ActionListener, ItemListener {
 			getVista().btnEnviar.addActionListener(this);
 			getVista().cmbTipoAviso.addItemListener(this);
 		}
+		obtenerFechaActual();
+		actualizarAvisos();
 		getVista().setVisible(true);
 		getVista().toFront();
+	}
+	
+	private void obtenerFechaActual() {
+		Calendar calendar = new GregorianCalendar();
+		String dia = Integer.toString(calendar.get(Calendar.DATE));
+		String mes = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+		String annio = Integer.toString(calendar.get(Calendar.YEAR));
+		getVista().lblFecha.setText(annio + "/" + mes + "/" + dia);
+	}
+	
+	private void actualizarAvisos() {
+		List<GenerarAvisoModel> fechasPagos = new ArrayList<GenerarAvisoModel>();
+		try {
+			fechasPagos = getBo().consultaFechas();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		Iterator<GenerarAvisoModel> itrFechasPagos = fechasPagos.iterator();
+		while (itrFechasPagos.hasNext()) {
+			GenerarAvisoModel fechasAvisosModel = itrFechasPagos.next();
+			// Dar formato a la fecha pagada consultada
+			String formato = "yyyy-MM-dd";
+			SimpleDateFormat formatoFecha = new SimpleDateFormat(formato);
+			String strFecha = fechasAvisosModel.getFechaAviso();
+			Date fechaDate = null;
+			try {
+				fechaDate = formatoFecha.parse(strFecha);
+			} catch (ParseException ex) {
+				ex.printStackTrace();
+			}
+			String fechaPago = new SimpleDateFormat("dd/MM/yyyy").format(fechaDate);
+//			System.out.println("fechaPago:" + fechaPago);
+			
+			if(restar_fecha(fechaPago).equals("Si")){
+				String eliminarAviso = null;
+				try {
+					eliminarAviso = getBo().eliminar(fechasAvisosModel);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public String restar_fecha(String fechaPago) {
+		String fechaInicio = fechaPago;
+		String actualiza = null;
+		String[] aFechaIng = fechaInicio.split("/");
+		
+		Integer diaPago = Integer.parseInt(aFechaIng[0]);
+		Integer mesPago = Integer.parseInt(aFechaIng[1]);
+		Integer anioPago = Integer.parseInt(aFechaIng[2]);
+
+		int dias = 0;
+		
+		final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al d�a 
+		java.util.Date hoy = new Date(); //Fecha de hoy 
+		
+		int anio = anioPago; int mes = mesPago; int dia = diaPago; //Fecha anterior 
+		Calendar calendar = new GregorianCalendar(anio, mes-1, dia); 
+		java.sql.Date fecha = new java.sql.Date(calendar.getTimeInMillis());
+
+		long diferencia = ( hoy.getTime() - fecha.getTime() )/MILLSECS_PER_DAY; 
+//		System.out.println("D�as transcurridos: "+diferencia); 
+		
+		dias = (int) (diferencia);
+
+			if (dias >= 15) {
+				actualiza = "Si";
+			}else{
+				actualiza = "No";
+			}
+		return actualiza;
 	}
 
 	@Override
@@ -110,7 +191,19 @@ public class GenerarAvisoController implements ActionListener, ItemListener {
 					JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		
+		// Dar formato a la fecha actual
+		String formato2 = "yyyy/MM/dd";
+		SimpleDateFormat formatoFecha2 = new SimpleDateFormat(formato2);
+		String strFechaActual = getVista().lblFecha.getText();
+		Date fechaDate2 = null;
+		try {
+			fechaDate2 = formatoFecha2.parse(strFechaActual);
+		} catch (ParseException ex) {
+			ex.printStackTrace();
+		}
+		String fechaActual = new SimpleDateFormat("yyyy-MM-dd").format(fechaDate2);
+//		System.out.println("fechaActual:" + fechaActual);
+		String fechaAviso = fechaActual;
 		String typeAviso = getVista().cmbTipoAviso.getSelectedItem().toString();
 		String aviso = getVista().txtAviso.getText();
 
@@ -126,6 +219,7 @@ public class GenerarAvisoController implements ActionListener, ItemListener {
 				modeloConsulta.setIdEmpleado(0);
 				modeloConsulta.setTipoAviso(typeAviso);
 				modeloConsulta.setAviso(aviso);
+				modeloConsulta.setFechaAviso(fechaAviso);
 				try {
 					registroAviso = getBo().insertarAvisoArea(modeloConsulta);
 				} catch (SQLException t) {
@@ -148,6 +242,7 @@ public class GenerarAvisoController implements ActionListener, ItemListener {
 					modeloConsulta.setIdArea(0);
 					modeloConsulta.setTipoAviso(typeAviso);
 					modeloConsulta.setAviso(aviso);
+					modeloConsulta.setFechaAviso(fechaAviso);
 					try {
 						registroAviso = getBo().insertarAvisoArea(modeloConsulta);
 					} catch (SQLException t) {
@@ -172,6 +267,7 @@ public class GenerarAvisoController implements ActionListener, ItemListener {
 					modeloConsulta.setIdEmpleado(0);
 					modeloConsulta.setTipoAviso(typeAviso);
 					modeloConsulta.setAviso(aviso);
+					modeloConsulta.setFechaAviso(fechaAviso);
 					try {
 						registroAviso = getBo().insertarAvisoArea(modeloConsulta);
 					} catch (SQLException t) {

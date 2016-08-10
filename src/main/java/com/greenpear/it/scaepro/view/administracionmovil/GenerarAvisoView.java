@@ -29,6 +29,7 @@ public class GenerarAvisoView extends JInternalFrame {
 	public JTextPane txtAviso;
 	public JScrollPane scrollPane;
 	public JLabel lblBusqueda;
+	public JLabel lblFecha;
 
 	/**
 	 * Launch the application.
@@ -106,5 +107,13 @@ public class GenerarAvisoView extends JInternalFrame {
 		btnEnviar.setEnabled(false);
 		btnEnviar.setBounds(445, 487, 89, 23);
 		contentPane.add(btnEnviar);
+		
+		lblFecha = new JLabel("");
+		lblFecha.setBounds(412, 36, 109, 14);
+		contentPane.add(lblFecha);
+		
+		JLabel lblFechaActual = new JLabel("Fecha Actual:");
+		lblFechaActual.setBounds(323, 36, 79, 14);
+		contentPane.add(lblFechaActual);
 	}
 }

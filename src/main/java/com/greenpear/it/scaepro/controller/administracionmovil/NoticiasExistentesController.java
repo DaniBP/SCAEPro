@@ -8,7 +8,12 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,8 +67,84 @@ public class NoticiasExistentesController {
 	// ***********FIN DE ESTANCIAS****************
 	public void mostrarNoticiasExistentes() {
 		getVista().setVisible(true);
+		obtenerFechaActual();
+		actualizarAvisos();
 		getVista().toFront();
 		cargarNoticias();
+	}
+	
+	private void obtenerFechaActual() {
+		Calendar calendar = new GregorianCalendar();
+		String dia = Integer.toString(calendar.get(Calendar.DATE));
+		String mes = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+		String annio = Integer.toString(calendar.get(Calendar.YEAR));
+		getVista().lblFecha.setText(annio + "/" + mes + "/" + dia);
+	}
+	
+	private void actualizarAvisos() {
+		List<NoticiasModel> fechasPagos = new ArrayList<NoticiasModel>();
+		try {
+			fechasPagos = getBo().consultaFechas();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		Iterator<NoticiasModel> itrFechasPagos = fechasPagos.iterator();
+		while (itrFechasPagos.hasNext()) {
+			NoticiasModel fechasAvisosModel = itrFechasPagos.next();
+			// Dar formato a la fecha pagada consultada
+			String formato = "yyyy-MM-dd";
+			SimpleDateFormat formatoFecha = new SimpleDateFormat(formato);
+			String strFecha = fechasAvisosModel.getFechaNoticia();
+			Date fechaDate = null;
+			try {
+				fechaDate = formatoFecha.parse(strFecha);
+			} catch (ParseException ex) {
+				ex.printStackTrace();
+			}
+			String fechaPago = new SimpleDateFormat("dd/MM/yyyy").format(fechaDate);
+//			System.out.println("fechaPago:" + fechaPago);
+//			System.out.println(restar_fecha(fechaPago));
+			
+			if(restar_fecha(fechaPago).equals("Si")){
+				String eliminarAviso = null;
+				try {
+					eliminarAviso = getBo().eliminar(fechasAvisosModel);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public String restar_fecha(String fechaPago) {
+		String fechaInicio = fechaPago;
+		String actualiza = null;
+		String[] aFechaIng = fechaInicio.split("/");
+		
+		Integer diaPago = Integer.parseInt(aFechaIng[0]);
+		Integer mesPago = Integer.parseInt(aFechaIng[1]);
+		Integer anioPago = Integer.parseInt(aFechaIng[2]);
+
+		int dias = 0;
+		
+		final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al d�a 
+		java.util.Date hoy = new Date(); //Fecha de hoy 
+		
+		int anio = anioPago; int mes = mesPago; int dia = diaPago; //Fecha anterior 
+		Calendar calendar = new GregorianCalendar(anio, mes-1, dia); 
+		java.sql.Date fecha = new java.sql.Date(calendar.getTimeInMillis());
+
+		long diferencia = ( hoy.getTime() - fecha.getTime() )/MILLSECS_PER_DAY; 
+//		System.out.println("D�as transcurridos: "+diferencia); 
+		
+		dias = (int) (diferencia);
+
+			if (dias >= 15) {
+				actualiza = "Si";
+			}else{
+				actualiza = "No";
+			}
+		return actualiza;
 	}
 
 	private void cargarNoticias() {

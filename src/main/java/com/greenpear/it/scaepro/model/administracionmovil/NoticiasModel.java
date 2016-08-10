@@ -11,6 +11,7 @@ public class NoticiasModel {
 	private String tituloNoticia;
 	private String descNoticia;
 	private String imagenNoticia;
+	private String fechaNoticia;
 	private int idNoticia;
 	private String nombreVentana;
 	
@@ -73,5 +74,17 @@ public class NoticiasModel {
 	 */
 	public void setNombreVentana(String nombreVentana) {
 		this.nombreVentana = nombreVentana;
+	}
+	/**
+	 * @return the fechaNoticia
+	 */
+	public String getFechaNoticia() {
+		return fechaNoticia;
+	}
+	/**
+	 * @param fechaNoticia the fechaNoticia to set
+	 */
+	public void setFechaNoticia(String fechaNoticia) {
+		this.fechaNoticia = fechaNoticia;
 	}
 }

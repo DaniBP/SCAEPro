@@ -93,5 +93,37 @@ public class NoticiasExistentesDao {
 		}
 		return modelo;
 	}
+	
+	public List<NoticiasModel> consultaFechas() throws SQLException {
+		List<NoticiasModel> listaAreas = new ArrayList<NoticiasModel>();
+		String sql = " SELECT fechaNoticia,idNoticias from c_noticia";
+		try {
+			listaAreas = getJdbcTemplate().query(sql, new RowMapper<NoticiasModel>() {
+
+				public NoticiasModel mapRow(ResultSet rs, int columna) throws SQLException {
+					NoticiasModel resultValue = new NoticiasModel();
+					resultValue.setFechaNoticia(rs.getString("fechaNoticia"));
+					resultValue.setIdNoticia(rs.getInt("idNoticias"));
+					return resultValue;
+				}
+			});
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la consulta!");
+		}
+		return listaAreas;
+	}
+
+	public String eliminar(NoticiasModel fechasAvisosModel)throws SQLException {
+		String sql = "DELETE FROM c_noticia WHERE idNoticias=?";
+
+		try {
+			getJdbcTemplate().update(sql, fechasAvisosModel.getIdNoticia());
+		} catch (Exception e) {
+			log.error("\nSQL: Error al cargar los datos.\nMotivo {} ", e.getMessage());
+			throw new SQLException("Existe un problema con la base de datos\n" + "No se pudo realizar la eliminación!");
+		}
+		return "¡Aviso Eliminado!";
+	}
 
 }

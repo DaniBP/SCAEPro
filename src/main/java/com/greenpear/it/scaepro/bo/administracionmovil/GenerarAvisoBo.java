@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.greenpear.it.scaepro.dao.administracionmovil.GenerarAvisoDao;
+import com.greenpear.it.scaepro.model.administracionmovil.EstatusPagoModel;
 import com.greenpear.it.scaepro.model.administracionmovil.GenerarAvisoModel;
 import com.greenpear.it.scaepro.model.administracionmovil.NoticiasModel;
 
@@ -71,6 +72,27 @@ public class GenerarAvisoBo {
 			e.printStackTrace();
 		}
 		return modelo;
+	}
+
+	public List<GenerarAvisoModel> consultaFechas()throws SQLException {
+		List<GenerarAvisoModel> consulta = new ArrayList<GenerarAvisoModel>();
+		try {
+			consulta = getDao().consultaFechas();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return consulta;
+	}
+
+	public String eliminar(GenerarAvisoModel fechasAvisosModel)throws SQLException {
+		String delete=null;
+		try {
+			delete = getDao().eliminar(fechasAvisosModel);
+		} catch (SQLException t) {
+			throw new SQLException(t.getMessage());
+		}
+		return delete;
 	}
 
 }
